@@ -46,10 +46,10 @@
                         <p>Seguinos en:</p>
                     </li>
                     <li class="nav-item icono-footer">
-                        <a href="#" class="nav-link px-3" target="_blank"><i class="bi bi-instagram"></i></a>
+                        <a href="https://www.instagram.com/torresgamarraenrique/" class="nav-link px-3" target="_blank"><i class="bi bi-instagram"></i></a>
                     </li>
                     <li class="nav-item icono-footer">
-                        <a href="#" class="nav-link px-3" target="_blank"><i class="bi bi-facebook"></i></a>
+                        <a href="https://www.facebook.com/enriqueramon.torresgamarra" class="nav-link px-3" target="_blank"><i class="bi bi-facebook"></i></a>
                     </li>
                 </ul>
             </section>
