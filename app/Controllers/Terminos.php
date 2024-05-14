@@ -24,6 +24,6 @@ class Terminos extends BaseController {
             'titulo' => 'Terminos',
         ];
 
-        return view('/plantilla/header', $data) . view('/partials/navbar') . view('/paginas/terminos', $data) . view('/plantilla/footer');
+        return view('/plantilla/header', $data). view('/paginas/terminos', $data) . view('/plantilla/footer');
     }
 }

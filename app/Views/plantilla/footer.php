@@ -6,13 +6,13 @@
         <section id="contenedor-lista-enlaces" class="row py-2">
 
             <ul class="nav col justify-content-center nav-pills nav-fill p-3 gap-3">
-                <li class="nav-item btn btn-dark btn-nav-personalizado">
+                <li class="nav-item">
                     <a href="<?= base_url('/garantia') ?>" class="nav-link text-uppercase">Garantía</a>
                 </li>
-                <li class="nav-item btn btn-dark btn-nav-personalizado">
+                <li class="nav-item">
                     <a href="<?= base_url('/comercializacion/metodos') ?>" class="nav-link text-uppercase">Formas de Pago</a>
                 </li>
-                <li class="nav-item btn btn-dark btn-nav-personalizado">
+                <li class="nav-item">
                     <a href="<?= base_url('/contacto/ubicacion') ?>" class="nav-link text-uppercase">Ubicación</a>
                 </li>
             </ul>
@@ -30,11 +30,11 @@
             <section class="col col-lg-6 col-12 order-lg-0 order-1">
                 <ul class="nav justify-content-lg-start justify-content-center align-items-baseline">
                     <li>
-                        <p class="text-center">Tatto Supply Store &middot; &copy; <?php echo date('Y') ?> 
-                            <br>  
+                        <p class="text-center">Tatto Supply Store &middot; &copy; <?php echo date('Y') ?>
+                            <br>
                             <span class="span-link-github">
                                 by <a id="link-github" href="https://github.com/EnriqueRTG" target="_blank">EnriqueRTG</a>
-                            </span> 
+                            </span>
                         </p>
                     </li>
                 </ul>
@@ -57,7 +57,7 @@
         </section>
 
     </div>
-</section>
+    </section>
 
 </footer>
 

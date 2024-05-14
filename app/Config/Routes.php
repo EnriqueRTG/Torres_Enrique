@@ -1,11 +1,21 @@
 <?php
 
+use App\Controllers\Catalogo;
 use CodeIgniter\Router\RouteCollection;
 
 /**
  * @var RouteCollection $routes
  */
 $routes->setAutoRoute(true);
+
+$routes->group('dashboard', ['namespace'
+    => '\App\Controllers\Dashboard'], function ($routes) {
+            $routes->presenter('categoria');
+            $routes->presenter('subcategoria');
+            $routes->presenter('marca');
+            $routes->presenter('usuario');
+            $routes->presenter('producto');
+        });
 
 //principal
 $routes->get('/', 'Principal::index');
@@ -27,3 +37,8 @@ $routes->get('/terminos', 'Terminos::index');
 // Garantia
 $routes->add('/garantia', 'Garantia::index');
 
+// Catalogo
+$routes->get('/catalogo', 'Catalogo::index');
+
+// Registro
+$routes->get('/registro', 'Registro::index');

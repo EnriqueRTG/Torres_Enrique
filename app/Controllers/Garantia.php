@@ -24,6 +24,6 @@ class Garantia extends BaseController {
             'titulo' => 'Garantia',
         ];
 
-        return view('/plantilla/header', $data) . view('/partials/navbar') . view('paginas/' . $page) . view('/plantilla/footer');
+        return view('/plantilla/header', $data). view('paginas/' . $page) . view('/plantilla/footer');
     }
 }

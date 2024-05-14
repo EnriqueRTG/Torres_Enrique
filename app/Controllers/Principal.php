@@ -17,7 +17,7 @@ class Principal extends BaseController {
 
         $mensaje = session('mensaje');
 
-        return view('/plantilla/header', $data) . view('/partials/navbar') . view('paginas/' . $page, ["mensaje" => $mensaje]) . view('/plantilla/footer');
+        return view('/plantilla/header', $data). view('paginas/' . $page, ["mensaje" => $mensaje]) . view('/plantilla/footer');
     }
 
     public function fallo() {

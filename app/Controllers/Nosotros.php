@@ -26,6 +26,6 @@ class Nosotros extends BaseController {
 
         $data['title'] = ucfirst($page); //Capitaliza la primera letra
 
-        return view('/plantilla/header', $data) . view('/partials/navbar') . view('paginas/' . $page) . view('/plantilla/footer');
+        return view('/plantilla/header', $data). view('paginas/' . $page) . view('/plantilla/footer');
     }
 }

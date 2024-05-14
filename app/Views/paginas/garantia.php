@@ -1,6 +1,6 @@
-<section class="container mt-5 pt-5">
+<section class="container">
 
-    <div class="card container user-select-none">
+    <div class="card container user-select-none mt-2">
         <p class="card-header mt-3 shadow-lg titulo-seccion banner-seccion">Garantía</p>
 
         <div class="card-body">

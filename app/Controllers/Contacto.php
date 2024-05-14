@@ -24,7 +24,7 @@ class Contacto extends BaseController {
             'titulo' => 'Contacto',
         ];
 
-        return view('/plantilla/header', $data) . view('/partials/navbar') . view('paginas/' . $page) . view('/plantilla/footer');
+        return view('/plantilla/header', $data). view('paginas/' . $page) . view('/plantilla/footer');
     }
 
     public function obtenerUbicacion() {
