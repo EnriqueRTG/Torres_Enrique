@@ -6,12 +6,19 @@
  */
 
 namespace App\Models;
+
 use CodeIgniter\Model;
+
 /**
  * Description of RolModel
  *
  * @author Torres Gamarra Enrique Ramon
  */
-class RolModel {
-    //put your code here
+class RolModel
+{
+    protected $table = 'roles';
+    protected $primaryKey = 'id';
+    protected $allowedFields = ['nombre'];
+    protected $returnType = 'object';
+
 }

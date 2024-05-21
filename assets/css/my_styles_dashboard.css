@@ -1,0 +1,21 @@
+.nav-item-per {
+    font-size: 1.25rem;
+}
+
+.nav-item-per .dropdown-item {
+    font-size: 1.25rem;
+}
+
+.nav-item-per :hover {
+    color: rgb(236, 217, 104);
+}
+
+.card-dashboard:hover {
+    background-color: rgb(236, 217, 104);
+    transition: background-color 0.5s;
+    font-weight: 600;
+}
+
+a {
+    text-decoration: none;
+}

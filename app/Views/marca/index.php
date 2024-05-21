@@ -1,50 +1,62 @@
-<?= view("plantilla/header", ['titulo' => $titulo]) ?>
+<?= view("plantilla/header-admin", ['titulo' => $titulo]) ?>
 
 <section class="alert-info">
     <?= view('partials/_session') ?>
 </section>
 
 <section class="container py-5">
-    <h1 class="title"><?= $titulo ?></h1>
-</section>
 
-<section class="container">
-    <a class="btn btn-success" href="/dashboard/marca/new">Crear</a>
-</section>
+    <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb" class="fs-4">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="<?php echo base_url('admin/panel'); ?>">Panel</a></li>
+            <li class="breadcrumb-item active" aria-current="page"><?= $titulo ?></li>
+        </ol>
+    </nav>
 
-<section class="container text-center py-3">
+    <div class="my-4">
+        <a class="btn btn-success" href="/dashboard/producto/new">Crear</a>
+    </div>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th scope="col">Nombre</th>
-                <th scope="col">Opciones</th>
-            </tr>
-        </thead>
-        <tbody class="table-group-divider">
-            <?php foreach ($marcas as $key => $marca) : ?>
-                <tr>
-                    <?php if ($marca->baja != 1) : ?>
+    <div class="my-4">
 
-                        <td class="col-8">
-                            <?= $marca->nombre ?>  
-                        </td>
+        <table class="table table-secondary table-striped table-hover">
 
-                        <td class="col-4">
-                            <div class="row row-cols-3">
-                                <a class="btn btn-primary col" href="/dashboard/marca/<?= $marca->id ?>">Ver</a>
-                                <form class="col row" action="/dashboard/marca/delete/<?= $marca->id ?>" method="POST">
-                                    <button class="btn btn-danger col" type="submit">Eliminar</button>
-                                </form>
-                                <a class="btn btn-warning col" href="/dashboard/marca/edit/<?= $marca->id ?>">Editar</a>
-                            </div>
-                        </td>
-
-                    <?php endif ?>
+            <thead>
+                <tr class="text-capitalize text-center">
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Opciones</th>
                 </tr>
-            <?php endforeach ?>
-        </tbody>
-    </table>
+            </thead>
+
+            <tbody class="table-group-divider">
+                <?php foreach ($marcas as $key => $marca) : ?>
+                    <tr>
+                        <?php if ($marca->baja != 1) : ?>
+
+                            <td class="col-8">
+                                <?= $marca->nombre ?>
+                            </td>
+
+                            <td class="col-4">
+                                <div class="row row-cols-3">
+                                    <form class="col row" action="/dashboard/marca/delete/<?= $marca->id ?>" method="POST">
+                                        <button class="btn btn-danger col" type="submit">
+                                            <i class="bi bi-trash" alt="Eliminar"></i>
+                                        </button>
+                                    </form>
+                                    <a class="btn btn-warning col" href="/dashboard/marca/edit/<?= $marca->id ?>">
+                                        <i class="bi bi-pencil-square" alt="Editar"></i>
+                                    </a>
+                                </div>
+                            </td>
+
+                        <?php endif ?>
+                    </tr>
+                <?php endforeach ?>
+            </tbody>
+
+        </table>
+    </div>
 </section>
 
-<?= view("plantilla/footer") ?>
+<?= view("plantilla/footer-admin") ?>

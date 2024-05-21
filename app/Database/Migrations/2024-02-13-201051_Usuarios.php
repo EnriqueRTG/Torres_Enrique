@@ -33,7 +33,7 @@ class Usuarios extends Migration
             ],
             'password' => [
                 'type'           => 'VARCHAR',
-                'constraint'     => '20',
+                'constraint'     => '255',
                 'null'           => false
             ],
             'direccion' => [

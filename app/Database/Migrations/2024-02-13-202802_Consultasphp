@@ -46,7 +46,7 @@ class Consultas extends Migration
 
     public function down()
     {
-        $this->forge->dropForeignKey('mensajes_internos', 'fk_consultas_usuarios');
+        $this->forge->dropForeignKey('consultas', 'fk_consultas_usuarios');
         $this->forge->dropTable('consultas', true, true);
     }
 }

@@ -72,6 +72,9 @@
 <!-- Option 1: Bootstrap Bundle with Popper -->
 <script src="<?= base_url('assets/bootstrap/js/bootstrap.bundle.min.js'); ?>"></script>
 
+<!-- Option 2: mi scripts -->
+<!-- <script src="<?= base_url('assets/js/my_script.js'); ?>"></script> -->
+
 </body>
 
 </html>

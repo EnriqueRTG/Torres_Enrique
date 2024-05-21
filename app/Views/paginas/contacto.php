@@ -67,7 +67,7 @@
                                         <textarea class="form-control" name="cont_Mensaje" id="cont_Mensaje" rows="10"></textarea>
                                     </div>
                                     <div class=" text-center">
-                                        <button type="submit" class="btn btn-outline-warning btn-lg mt-4">
+                                        <button type="submit" class="btn btn-info btn-lg mt-4 fw-bold">
                                             <i class="bi bi-send"></i>
                                             Enviar
                                         </button>

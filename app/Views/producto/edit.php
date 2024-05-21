@@ -1,4 +1,4 @@
-<?= view("plantilla/header", ['titulo' => $titulo]) ?>
+<?= view("plantilla/header-admin", ['titulo' => $titulo]) ?>
 
 <?= view("partials/_form-error") ?>
 
@@ -61,4 +61,4 @@
     <button class="btn btn-warning" type="submit"><?= $nombreBoton ?></button>
 </form>
 
-<?= view("plantilla/footer") ?>
+<?= view("plantilla/footer-admin") ?> 

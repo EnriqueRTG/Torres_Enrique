@@ -21,8 +21,15 @@ class UsuarioModel extends Model {
     protected $allowedFields = ['nombre', 'apellido', 'email', 'password', 'direccion', 'telefono', 'fecha_alta', 'fecha_actualizacion', 'baja'];
     protected $returnType = 'object';
 
-    function password_hash($passwordPlana) {
-        return $this->password_hash($passwordPlana, PASSWORD_DEFAULT);
+
+    // // Dates
+    // protected $useTimestamps = false;
+    // protected $dateFormat    = 'datetime';
+    // protected $createdField  = 'fecha_alta';
+    // protected $updatedField  = 'fecha_actualizacion';
+
+    function passwordHash($passwordPlana) {
+        return password_hash($passwordPlana, PASSWORD_DEFAULT);
     }
 
     function passwordVerificar($passwordPlana, $passwordHash) {

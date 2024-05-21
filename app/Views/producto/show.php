@@ -1,4 +1,4 @@
-<?= view("plantilla/header", ['titulo' => $categoria->nombre]) ?>
+<?= view("plantilla/header-admin", ['titulo' => $titulo]) ?>
 
 <section class="container py-5">
 
@@ -29,4 +29,4 @@
 
 </section>
 
-<?= view("plantilla/footer") ?>
+<?= view("plantilla/footer-admin") ?> 

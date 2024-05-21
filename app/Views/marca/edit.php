@@ -1,4 +1,4 @@
-<?= view("plantilla/header", ['titulo' => $titulo]) ?>
+<?= view("plantilla/header-admin", ['titulo' => $titulo]) ?>
 
 <section class="alert-info text-center">
     <?= view("partials/_form-error") ?>
@@ -22,4 +22,4 @@
 
 </section>
 
-<?= view("plantilla/footer") ?>
+<?= view("plantilla/footer-admin") ?> 
