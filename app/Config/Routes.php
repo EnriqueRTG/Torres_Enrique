@@ -33,6 +33,8 @@ $routes->group('', function ($routes) {
     $routes->add('/garantia', 'Garantia::index');
     // Catalogo
     $routes->get('/catalogo', 'Catalogo::index');
+    // Producto
+    $routes->get('catalogo/producto/(:num)', 'Catalogo::show/$1', ['as' => 'catalogo.producto']);
     // Registro
     $routes->get('registro', 'Web\Usuario::register', ['as' => 'usuario.registrar']);
     $routes->post('registro', 'Web\Usuario::register_post', ['as' => 'usuario.registrar.post']);
