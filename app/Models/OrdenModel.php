@@ -6,12 +6,21 @@
  */
 
 namespace App\Models;
+
 use CodeIgniter\Model;
+
 /**
  * Description of OrdenModel
  *
  * @author Torres Gamarra Enrique Ramon
  */
-class OrdenModel {
-    //put your code here
+class OrdenModel extends Model
+{
+    protected $table = 'ordenes';
+    protected $primaryKey = 'id';
+    protected $allowedFields = ['usuario_id', 'estado', 'baja'];
+    protected $returnType = 'object';
+    protected $useTimestamps = true; // Habilita timestamps (created_at, updated_at)
+    protected $createdField = 'created_at';
+    protected $updatedField = 'updated_at';
 }

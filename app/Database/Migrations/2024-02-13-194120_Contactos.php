@@ -15,10 +15,6 @@ class Contactos extends Migration
                 'unsigned'       => true,
                 'auto_increment' => true,
             ],
-            'fecha' => [
-                'type'           => 'DATETIME',
-                'null'           => false
-            ],
             'nombre' => [
                 'type'           => 'VARCHAR',
                 'constraint'     => '255',
@@ -38,13 +34,26 @@ class Contactos extends Migration
                 'type'           => 'TEXT',
                 'null'           => false
             ],
+            'created_at' => [
+                'type'           => 'DATETIME',
+                'null'           => true,
+            ],
+            'updated_at' => [
+                'type'           => 'DATETIME',
+                'null'           => true,
+            ],
             'leido' => [
                 'type'           => 'BOOLEAN',
                 'default'        => false
             ],
+            'baja' => [
+                'type'           => 'BOOLEAN',
+                'default'        => false,
+            ]
         ]);
         
         $this->forge->addKey('id', true);
+        $this->forge->createTable('contactos');
     }
 
     public function down()

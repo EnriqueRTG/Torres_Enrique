@@ -20,21 +20,25 @@ class Ordenes extends Migration
                 'constraint'     => 6,
                 'unsigned'       => true,
             ],
-            'fecha' => [
-                'type'           => 'DATETIME',
-                'null'           => false
-            ],
             'estado' => [
                 'type'           => 'ENUM',
                 'constraint'     => ['CONFIRMADA', 'PENDIENTE', 'CANCELADA'],
                 'default'        => 'PENDIENTE',
+            ],
+            'created_at' => [
+                'type'           => 'DATETIME',
+                'null'           => true,
+            ],
+            'updated_at' => [
+                'type'           => 'DATETIME',
+                'null'           => true,
             ],
             'baja' => [
                 'type'           => 'BOOLEAN',
                 'default'        => false
             ],
         ]);
-        
+
         $this->forge->addKey('id', true);
         $this->forge->addForeignKey('usuario_id', 'usuarios', 'id', 'CASCADE', 'CASCADE', 'fk_ordenes_usuarios');
         $this->forge->createTable('ordenes');

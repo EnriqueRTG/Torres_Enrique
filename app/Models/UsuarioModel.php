@@ -14,25 +14,39 @@ use CodeIgniter\Model;
  *
  * @author Torres Gamarra Enrique Ramon
  */
-class UsuarioModel extends Model {
+class UsuarioModel extends Model
+{
 
     protected $table = 'usuarios';
     protected $primaryKey = 'id';
-    protected $allowedFields = ['nombre', 'apellido', 'email', 'password', 'direccion', 'telefono', 'fecha_alta', 'fecha_actualizacion', 'baja'];
+    protected $allowedFields = ['nombre', 'apellido', 'email', 'password', 'direccion', 'telefono', 'baja'];
     protected $returnType = 'object';
+    protected $useTimestamps = true; // Habilita timestamps (created_at, updated_at)
+    protected $createdField = 'created_at';
+    protected $updatedField = 'updated_at';
 
-
-    // // Dates
-    // protected $useTimestamps = false;
-    // protected $dateFormat    = 'datetime';
-    // protected $createdField  = 'fecha_alta';
-    // protected $updatedField  = 'fecha_actualizacion';
-
-    function passwordHash($passwordPlana) {
+    public function passwordHash($passwordPlana)
+    {
         return password_hash($passwordPlana, PASSWORD_DEFAULT);
     }
 
-    function passwordVerificar($passwordPlana, $passwordHash) {
+    public function passwordVerificar($passwordPlana, $passwordHash)
+    {
         return password_verify($passwordPlana, $passwordHash);
+    }
+
+    public function clientes()
+    {
+        return $this->select('usuarios.id, usuarios.nombre, usuarios.apellido, usuarios.email, usuarios.direccion, usuarios.telefono, usuarios.baja, usuarios.created_at, usuarios.updated_at')
+            ->where('usuarios.rol_id', 2)
+            ->find();
+    }
+
+    public function getOrdenesById($id)
+    {
+        return $this->select('o.*')
+            ->join('ordenes as o', 'o.usuario_id = usuarios.id')
+            ->where('usuarios.id', $id)
+            ->find();
     }
 }

@@ -6,6 +6,7 @@
  */
 
 namespace App\Models;
+
 use CodeIgniter\Model;
 
 /**
@@ -13,9 +14,14 @@ use CodeIgniter\Model;
  *
  * @author Torres Gamarra Enrique Ramon
  */
-class MarcaModel extends Model{
+class MarcaModel extends Model
+{
     protected $table      = 'marcas';
     protected $primaryKey = 'id';
     protected $allowedFields = ['nombre', 'baja'];
     protected $returnType = 'object';
+
+    protected $useTimestamps = true; // Habilita timestamps (created_at, updated_at)
+    protected $createdField = 'created_at';
+    protected $updatedField = 'updated_at';
 }

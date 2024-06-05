@@ -10,66 +10,62 @@ class Productos extends Migration
     {
         $this->forge->addField([
             'id' => [
-              'type'             => 'INT',
-              'constraint'       => 6,
-              'unsigned'         => true,
-              'auto_increment'   => true,
+                'type'             => 'INT',
+                'constraint'       => 6,
+                'unsigned'         => true,
+                'auto_increment'   => true,
             ],
             'nombre' => [
-                'type'           => 'VARCHAR',
-                'constraint'     => '255',
-                'null'           => false
+                'type'             => 'VARCHAR',
+                'constraint'       => '255',
+                'null'             => false
             ],
             'descripcion' => [
-                'type'           => 'TEXT',
+                'type'             => 'TEXT',
             ],
             'precio' => [
-                'type'           => 'DECIMAL',
-                'null'           => false,
-                'unsigned'       => true
+                'type'             => 'DECIMAL(12,2)',
+                'null'             => false,
+                'unsigned'         => true
             ],
             'stock' => [
-              'type'             => 'INT',
-              'constraint'       => 6,
-              'null'             => false,
-              'unsigned'         => true,
+                'type'             => 'INT',
+                'constraint'       => 6,
+                'null'             => false,
+                'unsigned'         => true,
             ],
             'marca_id' => [
-              'type'             => 'INT',
-              'constraint'       => 6,
-              'unsigned'         => true,
+                'type'             => 'INT',
+                'constraint'       => 6,
+                'unsigned'         => true,
             ],
             'subcategoria_id' => [
-              'type'             => 'INT',
-              'constraint'       => 6,
-              'unsigned'         => true,
+                'type'             => 'INT',
+                'constraint'       => 6,
+                'unsigned'         => true,
             ],
             'presentacion' => [
-                'type'           => 'VARCHAR',
-                'constraint'     => '50',
+                'type'             => 'VARCHAR',
+                'constraint'       => '50',
             ],
-            'fecha_alta' => [
-                'type'           => 'DATETIME',
-                'null'           => false
+            'created_at' => [
+                'type'             => 'DATETIME',
+                'null'             => true,
             ],
-            'fecha_actualizacion' => [
-                'type'           => 'DATETIME',
-            ],
-            'imagen' => [
-              'type'             => 'VARCHAR',
-              'constraint'       => '255',
+            'updated_at' => [
+                'type'             => 'DATETIME',
+                'null'             => true,
             ],
             'baja' => [
-                'type'           => 'BOOLEAN',
-                'default'        => false
+                'type'             => 'BOOLEAN',
+                'default'          => false
             ],
         ]);
-            
+
         $this->forge->addKey('id', true);
         $this->forge->addForeignKey('marca_id', 'marcas', 'id', 'CASCADE', 'CASCADE', 'fk_productos_marcas');
         $this->forge->addForeignKey('subcategoria_id', 'subcategorias', 'id', 'CASCADE', 'CASCADE', 'fk_productos_subcategorias');
         $this->forge->createTable('productos');
-        
     }
 
     public function down()

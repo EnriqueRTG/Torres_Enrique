@@ -5,37 +5,39 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/PHPClass.php to edit this template
  */
 
- namespace App\Controllers\Admin;
+namespace App\Controllers\Admin;
 
 use App\Controllers\BaseController;
-use App\Models\ClienteModel;
+use App\Models\UsuarioModel;
 
 /**
  * Description of Usuario
  *
  * @author Torres Gamarra Enrique Ramon
  */
-class Cliente extends BaseController {
-    
-    public function index() {
-        $clienteModel = new ClienteModel();
+class Cliente extends BaseController
+{
+
+    public function index()
+    {
+        $usuarioModel = new UsuarioModel();
 
         $data = [
             'titulo'   => 'Clientes',
-            'clientes' => $clienteModel->find(),
+            'clientes' => $usuarioModel->clientes(),
         ];
-        
-        echo view('cliente/index', $data);
+
+        echo view('admin/cliente/index', $data);
     }
-    
-    public function show($id) {
-        $clienteModel = new ClienteModel();
-        
+
+    public function show($id)
+    {
+        $clienteModel = new UsuarioModel();
+
         $data = [
             'cliente' => $clienteModel->find($id),
         ];
-        
-        echo view("cliente/show", $data);   
+
+        echo view("cliente/show", $data);
     }
-    
 }

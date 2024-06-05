@@ -6,6 +6,7 @@
  */
 
 namespace App\Models;
+
 use CodeIgniter\Model;
 
 /**
@@ -13,9 +14,14 @@ use CodeIgniter\Model;
  *
  * @author Torres Gamarra Enrique Ramon
  */
-class SubcategoriaModel extends Model{
+class SubcategoriaModel extends Model
+{
     protected $table      = 'subcategorias';
     protected $primaryKey = 'id';
     protected $allowedFields = ['nombre', 'categoria_id', 'baja'];
     protected $returnType = 'object';
+
+    protected $useTimestamps = true; // Habilita timestamps (created_at, updated_at)
+    protected $createdField = 'created_at';
+    protected $updatedField = 'updated_at';
 }

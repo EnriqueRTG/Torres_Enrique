@@ -31,9 +31,13 @@ class Facturas extends Migration
                 'constraint'       => '10',
                 'null'             => false,
             ],
-            'fecha' => [
+            'created_at' => [
                 'type'           => 'DATETIME',
-                'null'           => false
+                'null'           => true,
+            ],
+            'updated_at' => [
+                'type'           => 'DATETIME',
+                'null'           => true,
             ],
             'total' => [
                 'type'           => 'DECIMAL',

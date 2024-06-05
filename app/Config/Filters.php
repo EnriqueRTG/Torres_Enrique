@@ -13,7 +13,7 @@ use CodeIgniter\Filters\PageCache;
 use CodeIgniter\Filters\PerformanceMetrics;
 use CodeIgniter\Filters\SecureHeaders;
 
-use App\Filters\DashboardFilter;
+use App\Filters\AuthFilter;
 
 class Filters extends BaseFilters
 {
@@ -36,7 +36,7 @@ class Filters extends BaseFilters
         'forcehttps'    => ForceHTTPS::class,
         'pagecache'     => PageCache::class,
         'performance'   => PerformanceMetrics::class,
-        'DashboardFilter' => DashboardFilter::class,
+        'auth'          => AuthFilter::class,
     ];
 
     /**
@@ -107,10 +107,10 @@ class Filters extends BaseFilters
      * @var array<string, array<string, list<string>>>
      */
     public array $filters = [
-        'DashboardFilter' => [
+        'auth' => [
             'before' => [
-                'dashboard',
-                'dashboard/*',
+                'admin',
+                'admin/*',
             ]
         ],
     ];

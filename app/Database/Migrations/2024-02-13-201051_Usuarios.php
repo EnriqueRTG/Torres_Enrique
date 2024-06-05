@@ -8,7 +8,7 @@ class Usuarios extends Migration
 {
     public function up()
     {
-         $this->forge->addField([
+        $this->forge->addField([
             'id' => [
                 'type'           => 'INT',
                 'constraint'     => 6,
@@ -44,26 +44,26 @@ class Usuarios extends Migration
                 'type'           => 'VARCHAR',
                 'constraint'     => '20',
             ],
-            'fecha_alta' => [
+            'created_at' => [
                 'type'           => 'DATETIME',
-                'null'           => false,
-                
+                'null'           => true,
             ],
-            'fecha_actualizacion' => [
+            'updated_at' => [
                 'type'           => 'DATETIME',
+                'null'           => true,
             ],
             'rol_id' => [
                 'type'           => 'TINYINT',
                 'constraint'     => 2,
                 'unsigned'       => true,
                 'default'        => 2
-            ], 
+            ],
             'baja' => [
                 'type'           => 'BOOLEAN',
                 'default'        => false
             ],
         ]);
-        
+
         $this->forge->addKey('id', true);
         $this->forge->addForeignKey('rol_id', 'roles', 'id', 'CASCADE', 'CASCADE', 'fk_usuarios_roles');
         $this->forge->createTable('usuarios');

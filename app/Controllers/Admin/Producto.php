@@ -8,47 +8,54 @@
 namespace App\Controllers\Admin;
 
 use App\Controllers\BaseController;
+
 use App\Models\ProductoModel;
 use App\Models\MarcaModel;
 use App\Models\SubcategoriaModel;
 use App\Models\CategoriaModel;
+use App\Models\ImagenModel;
 
 /**
  * Description of Producto
  *
  * @author Torres Gamarra Enrique Ramon
  */
-class Producto extends BaseController {
+class Producto extends BaseController
+{
 
-    public function index() {
+    public function index()
+    {
         $productoModel = new ProductoModel();
         $subcategoriaModel = new SubcategoriaModel();
         $marcaModel = new MarcaModel();
 
+        $this->generar_imagen();
+
         $data = [
             'titulo'        => 'Productos',
-            'productos'     => $productoModel->find(),
-            'subcategorias' => $subcategoriaModel->find(),
-            'marcas'        => $marcaModel->find(),
+            'productos'     => $productoModel->productosDetallados(),
         ];
 
-        echo view('producto/index', $data);
+        echo view('admin/producto/index', $data);
     }
 
-    public function show($id) {
+    public function show($id)
+    {
         $productoModel = new ProductoModel();
 
         $data = [
-            'producto' => $productoModel->traerDetalleProductoCompleto($id),
+            'producto' => $productoModel->productoDetallado($id),
+            'imagenes' => $productoModel->getImangenById($id),
         ];
 
         echo view("producto/show", $data);
     }
 
-    public function new() {
+    public function new()
+    {
         $productoModel = new ProductoModel();
         $subcategoriaModel = new SubcategoriaModel();
-        $categoriaModel = new CategoriaModel();   
+        $categoriaModel = new CategoriaModel();
         $marcaModel = new MarcaModel();
 
         $data = [
@@ -63,7 +70,8 @@ class Producto extends BaseController {
         echo view("producto/new", $data);
     }
 
-    public function create() {
+    public function create()
+    {
         $productoModel = new ProductoModel();
 
         if ($this->validate('productos_create')) {
@@ -85,17 +93,18 @@ class Producto extends BaseController {
             return redirect()->back()->withInput();
         }
 
-        return redirect()->to('/dashboard/producto')->with('mensaje', 'Registro exitoso!');
+        return redirect()->to('/dashboard/producto')->with('mensaje', 'Alta de producto exitosa!');
     }
 
-    public function edit($id) {
+    public function edit($id)
+    {
         $productoModel = new ProductoModel();
         $subcategoriaModel = new SubcategoriaModel();
         $marcaModel = new MarcaModel();
 
         $data = [
             'titulo'        => "Editar Subcategoria",
-            'producto'      => $productoModel->asObject()->find($id),
+            'producto'      => $productoModel->productoDetallado($id),
             'subcategorias' => $subcategoriaModel->find(),
             'marcas'        => $marcaModel->find(),
             'nombreBoton'   => "Editar"
@@ -104,7 +113,8 @@ class Producto extends BaseController {
         echo view('producto/edit', $data);
     }
 
-    public function update($id) {
+    public function update($id)
+    {
         $productoModel = new ProductoModel();
 
         if ($this->validate('productos_update')) {
@@ -127,16 +137,27 @@ class Producto extends BaseController {
             return redirect()->back()->withInput();
         }
 
-        return redirect()->to('/dashboard/producto')->with('mensaje', 'Modificacion exitosa!');
+        return redirect()->to('/dashboard/producto')->with('mensaje', 'Modificacion de producto exitosa!');
     }
 
-    public function delete($id) {
+    public function delete($id)
+    {
         $productoModel = new ProductoModel();
 
         $productoModel->update($id, [
             'baja' => 1
         ]);
 
-        return redirect()->to('/dashboard/producto')->with('mensaje', 'Eliminacion exitosa!');
+        return redirect()->to('/dashboard/producto')->with('mensaje', 'Baja de producto exitosa!');
+    }
+
+    private function generar_imagen()
+    {
+        $imagenModel = new ImagenModel();
+        $imagenModel->insert([
+            'imagen'    => date('Y-m-d H:m:s'),
+            'extension' => 'Pendiente',
+            'data'      => 'Pendiente',
+        ]);
     }
 }

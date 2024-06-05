@@ -18,12 +18,19 @@ class Subcategorias extends Migration
             'nombre' => [
                 'type'           => 'VARCHAR',
                 'constraint'     => '255',
-                'unique'         => true
             ],
             'categoria_id' => [
                 'type'           => 'INT',
                 'constraint'     => 6,
                 'unsigned'       => true,
+            ],
+            'created_at' => [
+                'type'           => 'DATETIME',
+                'null'           => true,
+            ],
+            'updated_at' => [
+                'type'           => 'DATETIME',
+                'null'           => true,
             ],
             'baja' => [
                 'type'           => 'BOOLEAN',

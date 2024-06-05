@@ -36,10 +36,13 @@ class Detalles extends Migration
                 'null'           => false,
                 'unsigned'       => true,
             ],
-             'precio_cantidad' => [
-                'type'           => 'DECIMAL',
-                'null'           => false,
-                'unsigned'       => true,
+            'created_at' => [
+                'type'           => 'DATETIME',
+                'null'           => true,
+            ],
+            'updated_at' => [
+                'type'           => 'DATETIME',
+                'null'           => true,
             ],
         ]);
         

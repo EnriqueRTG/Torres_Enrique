@@ -14,7 +14,7 @@ use CodeIgniter\Model;
  *
  * @author Torres Gamarra Enrique Ramon
  */
-class RolModel
+class RolModel extends Model
 {
     protected $table = 'roles';
     protected $primaryKey = 'id';

@@ -20,6 +20,14 @@ class Marcas extends Migration
                 'constraint'     => '125',
                 'unique'         => true
             ],
+            'created_at' => [
+                'type'           => 'DATETIME',
+                'null'           => true,
+            ],
+            'updated_at' => [
+                'type'           => 'DATETIME',
+                'null'           => true,
+            ],
              'baja' => [
                 'type'           => 'BOOLEAN',
                 'default'        => false,

@@ -49,6 +49,9 @@ ServerSignature Off
 # Disable server signature end
 
 # En caso de que el framework no funcione correctamente
+# Options +FollowSymLinks
+# Options -Indexes
+# DirectoryIndex. index
 # RewriteEngine on
 # RewriteCond $1 !^(index\.php|resousers|robots\.txt)
 # RewriteCond %{REQUEST_FILENAME} !-f
