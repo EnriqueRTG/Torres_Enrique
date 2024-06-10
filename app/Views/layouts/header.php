@@ -68,6 +68,15 @@
                                     Salir
                                 </a>
                             </li>
+
+
+                            <li class="nav-item">
+                                <a class="btn btn-nav-personalizado" href="<?= base_url() ?><?= route_to('carrito'); ?>">
+                                    <i class="bi bi-cart3"></i>
+                                </a>
+                            </li>
+
+
                         </ul>
                     </div>
                 </div>

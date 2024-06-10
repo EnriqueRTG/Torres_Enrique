@@ -6,12 +6,21 @@
  */
 
 namespace App\Models;
+
 use CodeIgniter\Model;
+
 /**
  * Description of DetalleModel
  *
  * @author Torres Gamarra Enrique Ramon
  */
-class DetalleModel {
-    //put your code here
+class DetalleModel extends Model
+{
+    protected $table = 'detalles';
+    protected $primaryKey = 'id';
+    protected $allowedFields = ['orden_id', 'producto_id', 'cantidad', 'precio_unitario'];
+    protected $returnType = 'object';
+    protected $useTimestamps = true; // Habilita timestamps (created_at, updated_at)
+    protected $createdField = 'created_at';
+    protected $updatedField = 'updated_at';
 }

@@ -26,52 +26,74 @@
                         <div class="row mx-2">
                             <!-- Campo de ingreso de correo electrónico -->
                             <form method="POST" action="<?php echo base_url('contacto') ?>">
+                                <?= csrf_field() ?>
                                 <fieldset>
-                                    <div class="form-group">
-                                        <label for="cont_Email" class="form-label">
-                                            <i class="bi bi-envelope-at"></i>
-                                            Correo Electrónico:
-                                        </label>
-                                        <input type="email" name="cont_Email" class="form-control" id="cont_Email" aria-describedby="emailHelp" placeholder="Ingrese su Correo electrónico">
-                                    </div>
                                     <!-- Nombre -->
                                     <div class="form-group">
-                                        <label for="cont_Nombre" class="form-label mt-4 beige">
+                                        <label for="nombre" class="form-label mt-4 beige">
                                             <i class="bi bi-person-vcard"></i>
                                             Nombre:
                                         </label>
-                                        <input type="text" name="cont_Nombre" class="form-control" id="cont_Nombre" placeholder="Ingrese su Nombre">
+                                        <input type="text" class="form-control <?= session('errors.nombre') ? 'is-invalid' : '' ?>" id="nombre" name="nombre" value="<?= old('nombre') ?>" placeholder="Ingrese su Nombre">
+                                        <?php if (session('errors.nombre')) : ?>
+                                            <div class="invalid-feedback">
+                                                <span class="text-sm">
+                                                    <?= session('errors.nombre') ?>
+                                                </span>
+                                            </div>
+                                        <?php endif; ?>
                                     </div>
-                                    <!-- Apellido -->
+                                    <!-- Email -->
                                     <div class="form-group">
-                                        <label for="cont_Apellido" class="form-label mt-4 beige">
-                                            <i class="bi bi-person-vcard-fill"></i>
-                                            Apellido:
+                                        <label for="email" class="form-label mt-4 beige">
+                                            <i class="bi bi-envelope-at"></i>
+                                            Correo Electrónico:
                                         </label>
-                                        <input type="text" name="cont_Apellido" class="form-control" id="cont_Apellido" placeholder="Ingrese su Apellido">
+                                        <input type="email" class="form-control <?= session('errors.email') ? 'is-invalid' : '' ?>" id="email" name="email" value="<?= old('email') ?>" placeholder="example@random.com">
+                                        <?php if (session('errors.email')) : ?>
+                                            <div class="invalid-feedback">
+                                                <span class="text-sm">
+                                                    <?= session('errors.email') ?>
+                                                </span>
+                                            </div>
+                                        <?php endif; ?>
                                     </div>
+
                                     <!-- Asunto -->
                                     <div class="form-group">
-                                        <label for="cont_Asunto" class="form-label mt-4 beige">
+                                        <label for="asunto" class="form-label mt-4 beige">
                                             <i class="bi bi-card-checklist"></i>
                                             Asunto:
                                         </label>
-                                        <input type="text" name="cont_Asunto" class="form-control" id="cont_Asunto" placeholder="Ingresar Asunto">
+                                        <input type="text" class="form-control <?= session('errors.asunto') ? 'is-invalid' : '' ?>" id="asunto" name="asunto" value="<?= old('asunto') ?>" placeholder="Ingrese el Asunto">
+                                        <?php if (session('errors.asunto')) : ?>
+                                            <div class="invalid-feedback">
+                                                <span class="text-sm">
+                                                    <?= session('errors.asunto') ?>
+                                                </span>
+                                            </div>
+                                        <?php endif; ?>
                                     </div>
                                     <!-- Area de texto para los comentarios -->
                                     <div class="form-group">
-                                        <label for="cont_Mensaje" class="form-label mt-4 beige">
+                                        <label for="mensaje" class="form-label mt-4 beige">
                                             <i class="bi bi-file-text"></i>
                                             Mensaje:
                                         </label>
-                                        <textarea class="form-control" name="cont_Mensaje" id="cont_Mensaje" rows="10"></textarea>
-                                    </div>
-                                    <div class=" text-center">
-                                        <button type="submit" class="btn btn-info btn-lg mt-4 fw-bold">
-                                            <i class="bi bi-send"></i>
-                                            Enviar
-                                        </button>
-                                    </div>
+                                        <textarea type="text" rows="12" class="form-control <?= session('errors.mensaje') ? 'is-invalid' : '' ?>" id="mensaje" name="mensaje" placeholder="Escribe tu mensaje aquí..."><?= old('mensaje') ?></textarea>
+                                        <?php if (session('errors.mensaje')) : ?>
+                                            <div class="invalid-feedback">
+                                                <span class="text-sm">
+                                                    <?= session('errors.mensaje') ?>
+                                                </span>
+                                            </div>
+                                        <?php endif; ?>
+                                        <div class=" text-center">
+                                            <button type="submit" class="btn btn-info btn-lg mt-4 fw-bold">
+                                                <i class="bi bi-send"></i>
+                                                Enviar
+                                            </button>
+                                        </div>
 
                                 </fieldset>
                             </form>

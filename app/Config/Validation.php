@@ -216,4 +216,44 @@ class Validation extends BaseConfig
             ],
         ],
     ];
+
+    public array $contactos = [
+        'email' =>  [
+            'label' => 'Correo electrónico',
+            'rules' => 'required|valid_email',
+            'errors' => [
+                'required'        => 'Por favor, ingresa un correo electrónico.',
+                'valid_email'     => 'El correo electrónico ingresado debe ser válido',
+            ],
+        ],
+        'nombre' => [
+            'label' => 'Nombre',
+            'rules' => 'required|min_length[2]|max_length[125]|alpha_space',
+            'errors' => [
+                'required'        => 'Por favor, ingrese Nombre.',
+                'min_length[2]'   => 'El Nombre debe tener al menos 2 caracteres.',
+                'max_length[125]' => 'El Nombre no debe superar los 125 caracteres.',
+                'alpha_space'     => 'El Nombre no debe contener otros caracteres que no sean los del alfabeto y/o espacios.',
+            ],
+        ],
+        'asunto' => [
+            'label' => 'Asunto',
+            'rules' => 'required|min_length[10]|max_length[70]|alpha_space',
+            'errors' => [
+                'required'        => 'Por favor, ingrese el asunto.',
+                'min_length[2]'   => 'El asunto debe tener al menos 10 caracteres.',
+                'max_length[125]' => 'El asunto no debe superar los 70 caracteres.',
+                'alpha_space'     => 'El asunto no debe contener otros caracteres que no sean los del alfabeto y/o espacios.',
+            ],
+        ],
+        'mensaje' => [
+            'label' => 'Mensaje',
+            'rules' => 'required|min_length[25]|max_length[1000]',
+            'errors' => [
+                'required'        => 'Por favor, ingrese el mensaje.',
+                'min_length[2]'   => 'El mensaje debe tener al menos 25 caracteres.',
+                'max_length[125]' => 'El mensaje no debe superar los 1000 caracteres.'
+            ],
+        ],
+    ];
 }
