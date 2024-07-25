@@ -1,0 +1,454 @@
+@font-face {
+    font-family: 'Roboto';
+    src: url(../fonts/Roboto/Roboto-Black.ttf);
+    src: url(../fonts/Roboto/Roboto-BlackItalic.ttf);
+    src: url(../fonts/Roboto/Roboto-Bold.ttf);
+    src: url(../fonts/Roboto/Roboto-BoldItalic.ttf);
+    src: url(../fonts/Roboto/Roboto-Italic.ttf);
+    src: url(../fonts/Roboto/Roboto-Light.ttf);
+    src: url(../fonts/Roboto/Roboto-LightItalic.ttf);
+    src: url(../fonts/Roboto/Roboto-Mediun.ttf);
+    src: url(../fonts/Roboto/Roboto-MediunItalic.ttf);
+    src: url(../fonts/Roboto/Roboto-Regular.ttf);
+    src: url(../fonts/Roboto/Roboto-Thin.ttf);
+    src: url(../fonts/Roboto/Roboto-ThinItalic.ttf);
+}
+
+@font-face {
+    font-family: 'Merriweather';
+    src: url(../fonts/Merriweather/Merriweather-Black.ttf);
+    src: url(../fonts/Merriweather/Merriweather-Regular.ttf);
+}
+
+@font-face {
+    font-family: 'Tourney';
+    src: url(../fonts/Tourney/static/Tourney_SemiExpanded-Regular.ttf);
+
+}
+
+* {
+    font-family: 'Merriweather', sans-serif;
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    background: #202536;
+}
+
+#contenido {
+    background-image: url(../images/fondo/fondo-b_n.jpg);
+    background-repeat: repeat;
+}
+
+#navbar-personalizacion {
+    background: #232328 !important;
+}
+
+#logo-nav {
+    width: 5.5rem;
+}
+
+.nav-item-per :hover {
+    color: #ffa500;
+    text-decoration: underline;
+    text-decoration-skip: ink;
+    text-underline-offset: 1rem;
+}
+
+.btn-nav-personalizado {
+    background: black;
+    color: white;
+    padding: .75rem;
+}
+
+.btn-nav-personalizado:hover {
+    color: #ffa500;
+    border-color: #ffa500;
+}
+
+.nav-item {
+    font-size: 1.25rem;
+}
+
+#modalContenidoIngresar {
+    background: #232328;
+    color: #EDE7DD;
+}
+
+#labelCorreo,
+#labelContrasenia {
+    color: #757575;
+}
+
+.banner-seccion {
+    background: #202536;
+}
+
+.card {
+    background: #EDE7DD;
+}
+
+.card-principal-per {
+    background: #232328;
+    padding: 0.25rem;
+    color: #EDE7DD;
+}
+
+.card-principal-subtitulo {
+    text-align: center;
+    font-family: 'Merriweather', sans-serif;
+    font-style: normal;
+    font-size: 2rem;
+    font-weight: bolder;
+    color: #232328;
+    background: #F0E7D5;
+}
+
+.card-texto {
+    font-family: 'Merriweather', sans-serif;
+    font-style: normal;
+    text-align: justify;
+    font-size: 1.5rem;
+    color: #232328;
+}
+
+#btn-catalogo-per {
+    font-size: 1.75rem;
+    background: #202536;
+    color: #EDE7DD;
+}
+
+#btn-catalogo-per:hover {
+    color: #ffa500;
+    border-color: #ffa500;
+}
+
+.titulo-seccion {
+    font-size: 3.5rem;
+    line-height: 5rem;
+    /*   text-shadow: 0 0 5px #f562ff, 0 0 15px #f562ff, 0 0 25px #f562ff,
+        0 0 20px #f562ff, 0 0 30px #890092, 0 0 80px #890092, 0 0 80px #890092;
+      color: #fccaff; */
+    text-shadow: 0 0 5px #ffa500, 0 0 15px #ffa500, 0 0 20px #ffa500, 0 0 40px #ffa500, 0 0 60px #ff0000, 0 0 10px #ff8d00, 0 0 98px #ff0000;
+    color: #fff6a9;
+    font-family: "Tourney", sans-serif;
+    text-align: center;
+    text-transform: uppercase;
+    animation: blink 12s infinite;
+    -webkit-animation: blink 12s infinite;
+}
+
+@-webkit-keyframes blink {
+
+    20%,
+    24%,
+    55% {
+        color: #111;
+        text-shadow: none;
+    }
+
+    0%,
+    19%,
+    21%,
+    23%,
+    25%,
+    54%,
+    56%,
+    100% {
+        /*     color: #fccaff;
+            text-shadow: 0 0 5px #f562ff, 0 0 15px #f562ff, 0 0 25px #f562ff,
+              0 0 20px #f562ff, 0 0 30px #890092, 0 0 80px #890092, 0 0 80px #890092; */
+        text-shadow: 0 0 5px #ffa500, 0 0 15px #ffa500, 0 0 20px #ffa500, 0 0 40px #ffa500, 0 0 60px #ff0000, 0 0 10px #ff8d00, 0 0 98px #ff0000;
+        color: #fff6a9;
+    }
+}
+
+@keyframes blink {
+
+    20%,
+    24%,
+    55% {
+        color: #111;
+        text-shadow: none;
+    }
+
+    0%,
+    19%,
+    21%,
+    23%,
+    25%,
+    54%,
+    56%,
+    100% {
+        /*     color: #fccaff;
+            text-shadow: 0 0 5px #f562ff, 0 0 15px #f562ff, 0 0 25px #f562ff,
+              0 0 20px #f562ff, 0 0 30px #890092, 0 0 80px #890092, 0 0 80px #890092; */
+        text-shadow: 0 0 5px #ffa500, 0 0 15px #ffa500, 0 0 20px #ffa500, 0 0 40px #ffa500, 0 0 60px #ff0000, 0 0 10px #ff8d00, 0 0 98px #ff0000;
+        color: #fff6a9;
+    }
+}
+
+#footer-cliente {
+    background-color: #f0e7d5;
+}
+
+#footer-cliente #contenedor-lista-enlaces li a {
+    color: white;
+    background: #111;
+    padding: 0.5rem;
+    font-size: 1rem;
+}
+
+#footer-cliente #contenedor-lista-enlaces li a:hover {
+    color: #ffa500;
+}
+
+#logo-footer {
+    width: 35rem;
+}
+
+#footer-cliente p {
+    color: #202536;
+    font-size: 1.25rem;
+}
+
+#footer-cliente i {
+    color: black;
+    font-size: 2rem;
+}
+
+.span-link-github {
+    color: #0028bd;
+    background: #8e8a8a;
+    padding: 0 10px;
+    font-family: "Roboto", sans-serif;
+    font-weight: 700;
+    font-style: normal;
+}
+
+#link-github {
+    text-decoration: none;
+    font-family: "Roboto", sans-serif;
+    font-weight: 700;
+    font-style: italic;
+    color: blue !important;
+}
+
+.boton-per {
+    padding: 1rem 1.5rem;
+    background: white;
+    color: #EDE7DD;
+    background: #202536;
+    border-radius: 5px;
+    outline: 0;
+    border: 0;
+    text-decoration: none;
+    text-transform: uppercase;
+    box-shadow: 4px 4px 0 #00A8E8;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.boton-per:active {
+    transform: translate(4px, 4px);
+    box-shadow: none;
+}
+
+.tbody-per td {
+    background: #202536;
+    color: #F0E7D5;
+}
+
+.img-logo-comer {
+    width: 20rem;
+}
+
+.link-comercializacion {
+    text-decoration: none;
+}
+
+.img-formas-pagos {
+    width: 70rem;
+}
+
+#img-contacto-horarios {
+    width: 500px;
+}
+
+#cardRegistroPersonalizado {
+    background: #232328 !important;
+    width: 50%;
+}
+
+#cabeceraFormRegistro {
+    color: #EDE7DD;
+}
+
+#leyendaFormRegistro {
+    color: #EDE7DD;
+}
+
+/* RESPONSIVE
+   ========================================================================= */
+/* escritorios normales
+   ------------------------------------------------------------------------- */
+/* @media (min-width: 981px) and (max-width: 1025px) {
+    .nav-item {
+        font-size: 1rem;
+    }
+
+    #card-principal{
+        top: 7rem;
+        margin-bottom: 8rem;
+    }
+
+    .card-principal-subtitulo{
+        font-size: 2rem;
+    }
+
+    .card-texto{
+        font-size: 1.3rem;
+    }
+
+    .titulo-seccion{
+        font-size: 5rem;
+    }
+
+    #footer-cliente li a{
+        font-size: 1rem;
+    }
+
+    #footer-cliente p{
+        font-size: 1rem;
+    }
+
+    #footer-cliente i {
+        font-size: 1rem;
+    }
+} */
+
+
+/* Tablets en horizonal
+   ------------------------------------------------------------------------- */
+/* @media (min-width: 768px) and (max-width: 980px) {
+    .nav-item {
+        font-size: 2rem;
+    }
+
+    #card-principal{
+        top: 3rem;
+        margin-bottom: 4rem;
+    }
+
+    .card-principal-subtitulo{
+        font-size: 2rem;
+    }
+
+    .card-texto{
+        font-size: 1.3rem;
+    }
+
+    .titulo-seccion{
+        font-size: 5rem;
+    }
+
+    #footer-cliente li a{
+        font-size: 1rem;
+    }
+
+    #footer-cliente p{
+        font-size: 1rem;
+    }
+
+    #footer-cliente i {
+        font-size: 1rem;
+    }
+}
+ */
+/* Móviles en horizontal o tablets en vertical
+   ------------------------------------------------------------------------- */
+/* @media (max-width: 767px) {
+    .titulo-seccion{
+        font-size: 3rem;
+        line-height: 1.2;
+    }
+
+    .card-principal-subtitulo{
+        font-size: 1.75rem;
+    }
+
+    .card-texto{
+        font-size: 1.2rem;
+    }
+
+    #footer-cliente li a{
+        font-size: 1rem;
+    }
+
+    #footer-cliente p{
+        font-size: 1.2rem;
+    }
+
+    #footer-cliente i {
+        font-size: 1.2rem;
+    }
+
+    .boton-per{
+        margin: 0.5rem;
+        padding: 0.5rem;
+        font-size: 1.5rem;
+    }
+
+    .img-logo-comer{
+        width: 10rem;
+    }
+
+    .img-formas-pagos{
+        width: 70rem;
+    }
+}
+ */
+/* Móviles en vertical
+   ------------------------------------------------------------------------- */
+/* @media (max-width: 480px) {
+    .titulo-seccion{
+        font-size: 3rem;
+        line-height: 1.2;
+    }
+
+    .card-principal-subtitulo{
+        font-size: 1.75rem;
+    }
+
+    .card-texto{
+        font-size: 1.2rem;
+    }
+
+    #footer-cliente li a{
+        font-size: 1rem;
+    }
+
+    #footer-cliente p{
+        font-size: 1.2rem;
+    }
+
+    #footer-cliente i {
+        font-size: 1.2rem;
+    }
+
+    .boton-per{
+        margin: 0.5rem;
+        padding: 0.5rem;
+        font-size: 1.5rem;
+    }
+
+    .img-logo-comer{
+        width: 10rem;
+    }
+
+    .img-formas-pagos{
+        width: 70rem;
+    }
+
+} */

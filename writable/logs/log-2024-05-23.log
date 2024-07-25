@@ -1,0 +1,332 @@
+ERROR - 2024-05-23 00:16:04 --> mysqli_sql_exception: Duplicate entry 'Round Liner' for key 'nombre' in C:\xampp\htdocs\Torres_Enrique\system\Database\MySQLi\Connection.php:308
+Stack trace:
+#0 C:\xampp\htdocs\Torres_Enrique\system\Database\MySQLi\Connection.php(308): mysqli->query('INSERT INTO `su...', 0)
+#1 C:\xampp\htdocs\Torres_Enrique\system\Database\BaseConnection.php(722): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `su...')
+#2 C:\xampp\htdocs\Torres_Enrique\system\Database\BaseConnection.php(636): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `su...')
+#3 C:\xampp\htdocs\Torres_Enrique\system\Database\BaseBuilder.php(2325): CodeIgniter\Database\BaseConnection->query('INSERT INTO `su...', Array, false)
+#4 C:\xampp\htdocs\Torres_Enrique\system\Model.php(383): CodeIgniter\Database\BaseBuilder->insert()
+#5 C:\xampp\htdocs\Torres_Enrique\system\BaseModel.php(840): CodeIgniter\Model->doInsert(Array)
+#6 C:\xampp\htdocs\Torres_Enrique\system\Model.php(791): CodeIgniter\BaseModel->insert(Array, true)
+#7 C:\xampp\htdocs\Torres_Enrique\app\Database\Seeds\SubcategoriaSeeder.php(24): CodeIgniter\Model->insert(Array)
+#8 C:\xampp\htdocs\Torres_Enrique\system\Database\Seeder.php(147): App\Database\Seeds\SubcategoriaSeeder->run()
+#9 C:\xampp\htdocs\Torres_Enrique\system\Commands\Database\Seed.php(79): CodeIgniter\Database\Seeder->call('App\\Database\\Se...')
+#10 C:\xampp\htdocs\Torres_Enrique\system\CLI\Commands.php(70): CodeIgniter\Commands\Database\Seed->run(Array)
+#11 C:\xampp\htdocs\Torres_Enrique\system\CLI\Console.php(48): CodeIgniter\CLI\Commands->run('db:seed', Array)
+#12 C:\xampp\htdocs\Torres_Enrique\system\Boot.php(338): CodeIgniter\CLI\Console->run()
+#13 C:\xampp\htdocs\Torres_Enrique\system\Boot.php(104): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+#14 C:\xampp\htdocs\Torres_Enrique\spark(84): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
+#15 {main}
+ERROR - 2024-05-23 00:17:47 --> mysqli_sql_exception: Duplicate entry 'Round Liner' for key 'nombre' in C:\xampp\htdocs\Torres_Enrique\system\Database\MySQLi\Connection.php:308
+Stack trace:
+#0 C:\xampp\htdocs\Torres_Enrique\system\Database\MySQLi\Connection.php(308): mysqli->query('INSERT INTO `su...', 0)
+#1 C:\xampp\htdocs\Torres_Enrique\system\Database\BaseConnection.php(722): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `su...')
+#2 C:\xampp\htdocs\Torres_Enrique\system\Database\BaseConnection.php(636): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `su...')
+#3 C:\xampp\htdocs\Torres_Enrique\system\Database\BaseBuilder.php(2325): CodeIgniter\Database\BaseConnection->query('INSERT INTO `su...', Array, false)
+#4 C:\xampp\htdocs\Torres_Enrique\system\Model.php(383): CodeIgniter\Database\BaseBuilder->insert()
+#5 C:\xampp\htdocs\Torres_Enrique\system\BaseModel.php(840): CodeIgniter\Model->doInsert(Array)
+#6 C:\xampp\htdocs\Torres_Enrique\system\Model.php(791): CodeIgniter\BaseModel->insert(Array, true)
+#7 C:\xampp\htdocs\Torres_Enrique\app\Database\Seeds\SubcategoriaSeeder.php(24): CodeIgniter\Model->insert(Array)
+#8 C:\xampp\htdocs\Torres_Enrique\system\Database\Seeder.php(147): App\Database\Seeds\SubcategoriaSeeder->run()
+#9 C:\xampp\htdocs\Torres_Enrique\system\Commands\Database\Seed.php(79): CodeIgniter\Database\Seeder->call('App\\Database\\Se...')
+#10 C:\xampp\htdocs\Torres_Enrique\system\CLI\Commands.php(70): CodeIgniter\Commands\Database\Seed->run(Array)
+#11 C:\xampp\htdocs\Torres_Enrique\system\CLI\Console.php(48): CodeIgniter\CLI\Commands->run('db:seed', Array)
+#12 C:\xampp\htdocs\Torres_Enrique\system\Boot.php(338): CodeIgniter\CLI\Console->run()
+#13 C:\xampp\htdocs\Torres_Enrique\system\Boot.php(104): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+#14 C:\xampp\htdocs\Torres_Enrique\spark(84): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
+#15 {main}
+ERROR - 2024-05-23 00:21:17 --> mysqli_sql_exception: Duplicate entry 'Elite' for key 'nombre' in C:\xampp\htdocs\Torres_Enrique\system\Database\MySQLi\Connection.php:308
+Stack trace:
+#0 C:\xampp\htdocs\Torres_Enrique\system\Database\MySQLi\Connection.php(308): mysqli->query('INSERT INTO `ma...', 0)
+#1 C:\xampp\htdocs\Torres_Enrique\system\Database\BaseConnection.php(722): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `ma...')
+#2 C:\xampp\htdocs\Torres_Enrique\system\Database\BaseConnection.php(636): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `ma...')
+#3 C:\xampp\htdocs\Torres_Enrique\system\Database\BaseBuilder.php(2325): CodeIgniter\Database\BaseConnection->query('INSERT INTO `ma...', Array, false)
+#4 C:\xampp\htdocs\Torres_Enrique\system\Model.php(383): CodeIgniter\Database\BaseBuilder->insert()
+#5 C:\xampp\htdocs\Torres_Enrique\system\BaseModel.php(840): CodeIgniter\Model->doInsert(Array)
+#6 C:\xampp\htdocs\Torres_Enrique\system\Model.php(791): CodeIgniter\BaseModel->insert(Array, true)
+#7 C:\xampp\htdocs\Torres_Enrique\app\Database\Seeds\MarcaSeeder.php(75): CodeIgniter\Model->insert(Array)
+#8 C:\xampp\htdocs\Torres_Enrique\system\Database\Seeder.php(147): App\Database\Seeds\MarcaSeeder->run()
+#9 C:\xampp\htdocs\Torres_Enrique\system\Commands\Database\Seed.php(79): CodeIgniter\Database\Seeder->call('App\\Database\\Se...')
+#10 C:\xampp\htdocs\Torres_Enrique\system\CLI\Commands.php(70): CodeIgniter\Commands\Database\Seed->run(Array)
+#11 C:\xampp\htdocs\Torres_Enrique\system\CLI\Console.php(48): CodeIgniter\CLI\Commands->run('db:seed', Array)
+#12 C:\xampp\htdocs\Torres_Enrique\system\Boot.php(338): CodeIgniter\CLI\Console->run()
+#13 C:\xampp\htdocs\Torres_Enrique\system\Boot.php(104): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+#14 C:\xampp\htdocs\Torres_Enrique\spark(84): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
+#15 {main}
+ERROR - 2024-05-23 00:26:19 --> mysqli_sql_exception: Table 'torresgamarra_enriqueramon_bd.categorias' doesn't exist in C:\xampp\htdocs\Torres_Enrique\system\Database\MySQLi\Connection.php:308
+Stack trace:
+#0 C:\xampp\htdocs\Torres_Enrique\system\Database\MySQLi\Connection.php(308): mysqli->query('INSERT INTO `ca...', 0)
+#1 C:\xampp\htdocs\Torres_Enrique\system\Database\BaseConnection.php(722): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `ca...')
+#2 C:\xampp\htdocs\Torres_Enrique\system\Database\BaseConnection.php(636): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `ca...')
+#3 C:\xampp\htdocs\Torres_Enrique\system\Database\BaseBuilder.php(2325): CodeIgniter\Database\BaseConnection->query('INSERT INTO `ca...', Array, false)
+#4 C:\xampp\htdocs\Torres_Enrique\system\Model.php(383): CodeIgniter\Database\BaseBuilder->insert()
+#5 C:\xampp\htdocs\Torres_Enrique\system\BaseModel.php(840): CodeIgniter\Model->doInsert(Array)
+#6 C:\xampp\htdocs\Torres_Enrique\system\Model.php(791): CodeIgniter\BaseModel->insert(Array, true)
+#7 C:\xampp\htdocs\Torres_Enrique\app\Database\Seeds\CategoriaSeeder.php(15): CodeIgniter\Model->insert(Array)
+#8 C:\xampp\htdocs\Torres_Enrique\system\Database\Seeder.php(147): App\Database\Seeds\CategoriaSeeder->run()
+#9 C:\xampp\htdocs\Torres_Enrique\app\Database\Seeds\TodosSeeder.php(11): CodeIgniter\Database\Seeder->call('App\\Database\\Se...')
+#10 C:\xampp\htdocs\Torres_Enrique\system\Database\Seeder.php(147): App\Database\Seeds\TodosSeeder->run()
+#11 C:\xampp\htdocs\Torres_Enrique\system\Commands\Database\Seed.php(79): CodeIgniter\Database\Seeder->call('App\\Database\\Se...')
+#12 C:\xampp\htdocs\Torres_Enrique\system\CLI\Commands.php(70): CodeIgniter\Commands\Database\Seed->run(Array)
+#13 C:\xampp\htdocs\Torres_Enrique\system\CLI\Console.php(48): CodeIgniter\CLI\Commands->run('db:seed', Array)
+#14 C:\xampp\htdocs\Torres_Enrique\system\Boot.php(338): CodeIgniter\CLI\Console->run()
+#15 C:\xampp\htdocs\Torres_Enrique\system\Boot.php(104): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+#16 C:\xampp\htdocs\Torres_Enrique\spark(84): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
+#17 {main}
+INFO - 2024-05-23 00:37:07 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-05-23 00:37:09 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-05-23 00:37:10 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-05-23 00:39:58 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-05-23 00:39:58 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-05-23 00:40:20 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-05-23 00:40:20 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-05-23 00:47:07 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-05-23 00:47:11 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-05-23 00:47:11 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-05-23 01:08:52 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-05-23 01:09:55 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-05-23 01:10:13 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-05-23 01:10:14 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-05-23 01:12:58 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-05-23 01:13:37 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-05-23 01:13:38 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-05-23 01:13:47 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-05-23 01:13:49 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-05-23 01:13:51 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-05-23 01:22:59 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-05-23 01:23:03 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2024-05-23 05:02:03 --> CodeIgniter\Database\Exceptions\DataException: Allowed fields must be specified for model: "App\Models\ProductoImagenModel"
+[Method: GET, Route: catalogo]
+in SYSTEMPATH\Model.php on line 813.
+ 1 SYSTEMPATH\Model.php(813): CodeIgniter\Database\Exceptions\DataException::forInvalidAllowedFields('App\\Models\\ProductoImagenModel')
+ 2 SYSTEMPATH\BaseModel.php(821): CodeIgniter\Model->doProtectFieldsForInsert([...])
+ 3 SYSTEMPATH\Model.php(791): CodeIgniter\BaseModel->insert([...], true)
+ 4 APPPATH\Controllers\Catalogo.php(57): CodeIgniter\Model->insert([...])
+ 5 APPPATH\Controllers\Catalogo.php(30): App\Controllers\Catalogo->generar_imagen()
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Catalogo->index()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Catalogo))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2024-05-23 05:04:45 --> CodeIgniter\Database\Exceptions\DataException: Allowed fields must be specified for model: "App\Models\ProductoImagenModel"
+[Method: GET, Route: catalogo]
+in SYSTEMPATH\Model.php on line 813.
+ 1 SYSTEMPATH\Model.php(813): CodeIgniter\Database\Exceptions\DataException::forInvalidAllowedFields('App\\Models\\ProductoImagenModel')
+ 2 SYSTEMPATH\BaseModel.php(821): CodeIgniter\Model->doProtectFieldsForInsert([...])
+ 3 SYSTEMPATH\Model.php(791): CodeIgniter\BaseModel->insert([...], true)
+ 4 APPPATH\Controllers\Catalogo.php(57): CodeIgniter\Model->insert([...])
+ 5 APPPATH\Controllers\Catalogo.php(30): App\Controllers\Catalogo->generar_imagen()
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Catalogo->index()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Catalogo))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2024-05-23 05:07:45 --> CodeIgniter\Database\Exceptions\DataException: Allowed fields must be specified for model: "App\Models\ProductoImagenModel"
+[Method: GET, Route: catalogo]
+in SYSTEMPATH\Model.php on line 813.
+ 1 SYSTEMPATH\Model.php(813): CodeIgniter\Database\Exceptions\DataException::forInvalidAllowedFields('App\\Models\\ProductoImagenModel')
+ 2 SYSTEMPATH\BaseModel.php(821): CodeIgniter\Model->doProtectFieldsForInsert([...])
+ 3 SYSTEMPATH\Model.php(791): CodeIgniter\BaseModel->insert([...], true)
+ 4 APPPATH\Controllers\Catalogo.php(68): CodeIgniter\Model->insert([...])
+ 5 APPPATH\Controllers\Catalogo.php(31): App\Controllers\Catalogo->asignar_imagen()
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Catalogo->index()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Catalogo))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2024-05-23 05:09:08 --> CodeIgniter\Database\Exceptions\DataException: Allowed fields must be specified for model: "App\Models\ProductoImagenModel"
+[Method: GET, Route: catalogo]
+in SYSTEMPATH\Model.php on line 813.
+ 1 SYSTEMPATH\Model.php(813): CodeIgniter\Database\Exceptions\DataException::forInvalidAllowedFields('App\\Models\\ProductoImagenModel')
+ 2 SYSTEMPATH\BaseModel.php(821): CodeIgniter\Model->doProtectFieldsForInsert([...])
+ 3 SYSTEMPATH\Model.php(791): CodeIgniter\BaseModel->insert([...], true)
+ 4 APPPATH\Controllers\Catalogo.php(68): CodeIgniter\Model->insert([...])
+ 5 APPPATH\Controllers\Catalogo.php(31): App\Controllers\Catalogo->asignar_imagen()
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Catalogo->index()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Catalogo))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2024-05-23 05:11:10 --> CodeIgniter\Database\Exceptions\DataException: Allowed fields must be specified for model: "App\Models\ProductoImagenModel"
+[Method: GET, Route: catalogo]
+in SYSTEMPATH\Model.php on line 813.
+ 1 SYSTEMPATH\Model.php(813): CodeIgniter\Database\Exceptions\DataException::forInvalidAllowedFields('App\\Models\\ProductoImagenModel')
+ 2 SYSTEMPATH\BaseModel.php(821): CodeIgniter\Model->doProtectFieldsForInsert([...])
+ 3 SYSTEMPATH\Model.php(791): CodeIgniter\BaseModel->insert([...], true)
+ 4 APPPATH\Controllers\Catalogo.php(68): CodeIgniter\Model->insert([...])
+ 5 APPPATH\Controllers\Catalogo.php(31): App\Controllers\Catalogo->asignar_imagen()
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Catalogo->index()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Catalogo))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2024-05-23 05:11:50 --> CodeIgniter\Database\Exceptions\DataException: Allowed fields must be specified for model: "App\Models\ProductoImagenModel"
+[Method: GET, Route: catalogo]
+in SYSTEMPATH\Model.php on line 813.
+ 1 SYSTEMPATH\Model.php(813): CodeIgniter\Database\Exceptions\DataException::forInvalidAllowedFields('App\\Models\\ProductoImagenModel')
+ 2 SYSTEMPATH\BaseModel.php(821): CodeIgniter\Model->doProtectFieldsForInsert([...])
+ 3 SYSTEMPATH\Model.php(791): CodeIgniter\BaseModel->insert([...], true)
+ 4 APPPATH\Controllers\Catalogo.php(68): CodeIgniter\Model->insert([...])
+ 5 APPPATH\Controllers\Catalogo.php(31): App\Controllers\Catalogo->asignar_imagen()
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Catalogo->index()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Catalogo))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+INFO - 2024-05-23 05:14:30 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-05-23 05:14:31 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2024-05-23 05:14:38 --> CodeIgniter\Database\Exceptions\DataException: Allowed fields must be specified for model: "App\Models\ProductoImagenModel"
+[Method: GET, Route: catalogo]
+in SYSTEMPATH\Model.php on line 813.
+ 1 SYSTEMPATH\Model.php(813): CodeIgniter\Database\Exceptions\DataException::forInvalidAllowedFields('App\\Models\\ProductoImagenModel')
+ 2 SYSTEMPATH\BaseModel.php(821): CodeIgniter\Model->doProtectFieldsForInsert([...])
+ 3 SYSTEMPATH\Model.php(791): CodeIgniter\BaseModel->insert([...], true)
+ 4 APPPATH\Controllers\Catalogo.php(68): CodeIgniter\Model->insert([...])
+ 5 APPPATH\Controllers\Catalogo.php(31): App\Controllers\Catalogo->asignar_imagen()
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Catalogo->index()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Catalogo))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2024-05-23 05:22:54 --> CodeIgniter\Database\Exceptions\DataException: Allowed fields must be specified for model: "App\Models\ProductoImagenModel"
+[Method: GET, Route: catalogo]
+in SYSTEMPATH\Model.php on line 813.
+ 1 SYSTEMPATH\Model.php(813): CodeIgniter\Database\Exceptions\DataException::forInvalidAllowedFields('App\\Models\\ProductoImagenModel')
+ 2 SYSTEMPATH\BaseModel.php(821): CodeIgniter\Model->doProtectFieldsForInsert([...])
+ 3 SYSTEMPATH\Model.php(791): CodeIgniter\BaseModel->insert([...], true)
+ 4 APPPATH\Controllers\Catalogo.php(68): CodeIgniter\Model->insert([...])
+ 5 APPPATH\Controllers\Catalogo.php(31): App\Controllers\Catalogo->asignar_imagen()
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Catalogo->index()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Catalogo))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2024-05-23 05:43:15 --> mysqli_sql_exception: Unknown column 'producto.id' in 'where clause' in C:\xampp\htdocs\Torres_Enrique\system\Database\MySQLi\Connection.php:308
+Stack trace:
+#0 C:\xampp\htdocs\Torres_Enrique\system\Database\MySQLi\Connection.php(308): mysqli->query('SELECT `i`.*\nFR...', 0)
+#1 C:\xampp\htdocs\Torres_Enrique\system\Database\BaseConnection.php(722): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `i`.*\nFR...')
+#2 C:\xampp\htdocs\Torres_Enrique\system\Database\BaseConnection.php(636): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `i`.*\nFR...')
+#3 C:\xampp\htdocs\Torres_Enrique\system\Database\BaseBuilder.php(1629): CodeIgniter\Database\BaseConnection->query('SELECT `i`.*\nFR...', Array, false)
+#4 C:\xampp\htdocs\Torres_Enrique\system\Model.php(210): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\Torres_Enrique\system\BaseModel.php(610): CodeIgniter\Model->doFind(false, NULL)
+#6 C:\xampp\htdocs\Torres_Enrique\app\Models\ProductoModel.php(41): CodeIgniter\BaseModel->find()
+#7 C:\xampp\htdocs\Torres_Enrique\app\Controllers\Catalogo.php(44): App\Models\ProductoModel->getImangenById('2')
+#8 C:\xampp\htdocs\Torres_Enrique\system\CodeIgniter.php(933): App\Controllers\Catalogo->show('2')
+#9 C:\xampp\htdocs\Torres_Enrique\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Catalogo))
+#10 C:\xampp\htdocs\Torres_Enrique\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\xampp\htdocs\Torres_Enrique\system\Boot.php(312): CodeIgniter\CodeIgniter->run()
+#12 C:\xampp\htdocs\Torres_Enrique\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\xampp\htdocs\Torres_Enrique\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+CRITICAL - 2024-05-23 05:43:15 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'producto.id' in 'where clause'
+[Method: GET, Route: catalogo/producto/2]
+in SYSTEMPATH\Database\BaseConnection.php on line 676.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1629): CodeIgniter\Database\BaseConnection->query('SELECT `i`.*
+FROM `productos`
+JOIN `producto_imagen` as `pi` ON `pi`.`producto_id` = `producto_id`
+JOIN `imagenes` as `i` ON `i`.`id` = `pi`.`imagen_id`
+WHERE `producto`.`id` = :producto.id:', [...], false)
+ 2 SYSTEMPATH\Model.php(210): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\BaseModel.php(610): CodeIgniter\Model->doFind(false, null)
+ 4 APPPATH\Models\ProductoModel.php(41): CodeIgniter\BaseModel->find()
+ 5 APPPATH\Controllers\Catalogo.php(44): App\Models\ProductoModel->getImangenById('2')
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Catalogo->show('2')
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Catalogo))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2024-05-23 05:43:15 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'producto.id' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 313.
+ 1 SYSTEMPATH\Database\BaseConnection.php(722): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `i`.*
+FROM `productos`
+JOIN `producto_imagen` as `pi` ON `pi`.`producto_id` = `producto_id`
+JOIN `imagenes` as `i` ON `i`.`id` = `pi`.`imagen_id`
+WHERE `producto`.`id` = \'2\'')
+ 2 SYSTEMPATH\Database\BaseConnection.php(636): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `i`.*
+FROM `productos`
+JOIN `producto_imagen` as `pi` ON `pi`.`producto_id` = `producto_id`
+JOIN `imagenes` as `i` ON `i`.`id` = `pi`.`imagen_id`
+WHERE `producto`.`id` = \'2\'')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1629): CodeIgniter\Database\BaseConnection->query('SELECT `i`.*
+FROM `productos`
+JOIN `producto_imagen` as `pi` ON `pi`.`producto_id` = `producto_id`
+JOIN `imagenes` as `i` ON `i`.`id` = `pi`.`imagen_id`
+WHERE `producto`.`id` = :producto.id:', [...], false)
+ 4 SYSTEMPATH\Model.php(210): CodeIgniter\Database\BaseBuilder->get()
+ 5 SYSTEMPATH\BaseModel.php(610): CodeIgniter\Model->doFind(false, null)
+ 6 APPPATH\Models\ProductoModel.php(41): CodeIgniter\BaseModel->find()
+ 7 APPPATH\Controllers\Catalogo.php(44): App\Models\ProductoModel->getImangenById('2')
+ 8 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Catalogo->show('2')
+ 9 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Catalogo))
+10 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2024-05-23 05:43:15 --> [Caused by] mysqli_sql_exception: Unknown column 'producto.id' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 308.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(308): mysqli->query('SELECT `i`.*
+FROM `productos`
+JOIN `producto_imagen` as `pi` ON `pi`.`producto_id` = `producto_id`
+JOIN `imagenes` as `i` ON `i`.`id` = `pi`.`imagen_id`
+WHERE `producto`.`id` = \'2\'', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(722): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `i`.*
+FROM `productos`
+JOIN `producto_imagen` as `pi` ON `pi`.`producto_id` = `producto_id`
+JOIN `imagenes` as `i` ON `i`.`id` = `pi`.`imagen_id`
+WHERE `producto`.`id` = \'2\'')
+ 3 SYSTEMPATH\Database\BaseConnection.php(636): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `i`.*
+FROM `productos`
+JOIN `producto_imagen` as `pi` ON `pi`.`producto_id` = `producto_id`
+JOIN `imagenes` as `i` ON `i`.`id` = `pi`.`imagen_id`
+WHERE `producto`.`id` = \'2\'')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1629): CodeIgniter\Database\BaseConnection->query('SELECT `i`.*
+FROM `productos`
+JOIN `producto_imagen` as `pi` ON `pi`.`producto_id` = `producto_id`
+JOIN `imagenes` as `i` ON `i`.`id` = `pi`.`imagen_id`
+WHERE `producto`.`id` = :producto.id:', [...], false)
+ 5 SYSTEMPATH\Model.php(210): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH\BaseModel.php(610): CodeIgniter\Model->doFind(false, null)
+ 7 APPPATH\Models\ProductoModel.php(41): CodeIgniter\BaseModel->find()
+ 8 APPPATH\Controllers\Catalogo.php(44): App\Models\ProductoModel->getImangenById('2')
+ 9 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Catalogo->show('2')
+10 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Catalogo))
+11 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+12 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+13 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+14 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2024-05-23 05:44:22 --> ErrorException: Undefined property: stdClass::$nombre
+[Method: GET, Route: catalogo/producto/1]
+in APPPATH\Views\paginas\producto.php on line 18.
+ 1 APPPATH\Views\paginas\producto.php(18): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined property: stdClass::$nombre', 'C:\\xampp\\htdocs\\Torres_Enrique\\app\\Views\\paginas\\producto.php', 18)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\xampp\\htdocs\\Torres_Enrique\\app\\Views\\paginas\\producto.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('paginas/producto', [], true)
+ 5 APPPATH\Controllers\Catalogo.php(48): view('paginas/producto')
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Catalogo->show('1')
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Catalogo))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2024-05-23 05:44:45 --> ErrorException: Undefined property: stdClass::$nombre
+[Method: GET, Route: catalogo/producto/1]
+in APPPATH\Views\paginas\producto.php on line 18.
+ 1 APPPATH\Views\paginas\producto.php(18): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined property: stdClass::$nombre', 'C:\\xampp\\htdocs\\Torres_Enrique\\app\\Views\\paginas\\producto.php', 18)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\xampp\\htdocs\\Torres_Enrique\\app\\Views\\paginas\\producto.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('paginas/producto', [], true)
+ 5 APPPATH\Controllers\Catalogo.php(48): view('paginas/producto')
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Catalogo->show('1')
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Catalogo))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
