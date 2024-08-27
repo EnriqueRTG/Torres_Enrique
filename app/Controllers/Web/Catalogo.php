@@ -11,8 +11,6 @@ use App\Controllers\BaseController;
 
 use App\Models\ProductoModel;
 use App\Models\CategoriaModel;
-use App\Models\SubcategoriaModel;
-use App\Models\MarcaModel;
 
 /**
  * Description of Comercializacion
@@ -21,60 +19,98 @@ use App\Models\MarcaModel;
  */
 class Catalogo extends BaseController
 {
+    
+    public function __construct()
+    {
+        helper(['form', 'url', 'cart']);
+        $session = session();
+        $cart = \Config\Services::cart();
+        $cart->contents();
+    }
 
     public function index()
     {
+
         $productoModel = new ProductoModel();
         $categoriaModel = new CategoriaModel();
-        $subcategoriaModel = new SubcategoriaModel();
-        $marcasModel = new MarcaModel();
 
         $filtro = $this->request->getGet();
+        $session = session();
 
-        $builder = $productoModel->select('productos.*, marcas.nombre AS nombre_marca, categorias.nombre AS nombre_categoria, subcategorias.nombre AS nombre_subcategoria, imagenes.ruta AS imagen_ruta')
-            ->join('marcas', 'marcas.id = productos.marca_id', 'left')
-            ->join('subcategorias', 'subcategorias.id = productos.subcategoria_id', 'left')
-            ->join('categorias', 'categorias.id = subcategorias.categoria_id', 'left')
-            ->join('producto_imagen', 'producto_imagen.producto_id = productos.id', 'left')
-            ->join('imagenes', 'imagenes.id = producto_imagen.imagen_id', 'left')
-            ->groupBy('productos.id');
+        if ($this->request->getGet('limpiar_filtros')) {
+            // Limpiar la sesión de filtros
+            $session = session();
+            $session->remove('filtro_categoria');
+            $session->remove('filtro_precio_min');
+            $session->remove('filtro_precio_max');
+            $session->remove('filtro_orden');
 
-        // Aplicar filtros
+            // Redirigir sin filtros (usando route_to para generar la URL correcta)
+            return redirect()->to(route_to('web.catalogo'));
+        }
+
+        // Construir la consulta utilizando el Query Builder
+        $builder = $productoModel->builder(); // Usar el builder del modelo para aprovechar las relaciones
+
+        // Aplicar filtros (leer de la sesión si existen)
         if (!empty($filtro['categoria'])) {
-            $builder->where('categorias.id', $filtro['categoria']);
+            $builder->whereIn('productos_categorias.categoria_id', $filtro['categoria']);
+            $session->set('filtro_categoria', $filtro['categoria']);
+        } elseif ($session->has('filtro_categoria')) {
+            $filtro['categoria'] = $session->get('filtro_categoria');
+            $builder->whereIn('productos_categorias.categoria_id', $filtro['categoria']);
         }
 
-        if (!empty($filtro['subcategoria'])) {
-            $builder->where('subcategorias.id', $filtro['subcategoria']);
+        if (!empty($filtro['precio_min'])) {
+            $builder->where('productos.precio >=', $filtro['precio_min']);
+            $session->set('filtro_precio_min', $filtro['precio_min']);
+        } elseif ($session->has('filtro_precio_min')) {
+            $builder->where('productos.precio >=', $session->get('filtro_precio_min'));
         }
 
-        if (!empty($filtro['marca'])) {
-            $builder->where('marcas.id', $filtro['marca']);
+        if (!empty($filtro['precio_max'])) {
+            $builder->where('productos.precio <=', $filtro['precio_max']);
+            $session->set('filtro_precio_max', $filtro['precio_max']);
+        } elseif ($session->has('filtro_precio_max')) {
+            $builder->where('productos.precio <=', $session->get('filtro_precio_max'));
         }
 
+        // Ordenar por
         if (!empty($filtro['orden'])) {
-            if ($filtro['orden'] == 'precio_asc') {
-                $builder->orderBy('productos.precio', 'ASC');
-            } elseif ($filtro['orden'] == 'precio_desc') {
-                $builder->orderBy('productos.precio', 'DESC');
-            } elseif ($filtro['orden'] == 'novedades') {
-                $builder->orderBy('productos.created_at', 'DESC'); // Asegúrate de que el nombre del campo sea correcto
-            }
+            $session->set('filtro_orden', $filtro['orden']); // Guardar el orden en la sesión
         } else {
-            // Ordenar por defecto por fecha de creación descendente
-            $builder->orderBy('productos.created_at', 'DESC'); 
+            // Si no hay filtro de orden en la petición, verificar si existe en la sesión
+            if ($session->has('filtro_orden')) {
+                $filtro['orden'] = $session->get('filtro_orden'); // Leer el orden de la sesión
+            } else {
+                // Si no hay filtro en la petición ni en la sesión, ordenar por defecto por 'fecha_creacion' DESC
+                $filtro['orden'] = 'fecha_creacion';
+            }
+        }
+
+        // Aplicar ordenamiento basado en el valor de $filtro['orden']
+        switch ($filtro['orden']) {
+            case 'precio_asc':
+                $builder->orderBy('productos.precio', 'ASC');
+                break;
+            case 'precio_desc':
+                $builder->orderBy('productos.precio', 'DESC');
+                break;
+            case 'novedades': // Asegúrate de usar 'novedades' si es el valor correcto en tu vista
+            default: // Ordenar por 'fecha_creacion' DESC por defecto si el valor no es válido
+                $builder->orderBy('productos.fecha_creacion', 'DESC');
+                break;
         }
 
         // Obtener los productos después de aplicar los filtros
-        $productos = $builder->get()->getResult();
+        $productos = $productoModel->obtenerProductosActivos($builder);
 
         $data = [
-            'titulo' => 'Catalogo',
-            'productos' => $productos,
+            'titulo'     => 'Catalogo',
+            'productos'  => $productos,
             'categorias' => $categoriaModel->find(),
-            'subcategorias' => $subcategoriaModel->find(),
-            'marcas' => $marcasModel->find(),
-            'filtro' => $filtro,
+            'filtro'     => $filtro,
+            'cart'       => $cart = \Config\Services::cart(),
         ];
 
         return view('layouts/header', $data)
@@ -87,9 +123,11 @@ class Catalogo extends BaseController
         $productoModel = new ProductoModel();
 
         $data = [
-            'producto' => $productoModel->productoDetallado($id),
-            'imagenes' => $productoModel->getImagenById($id),
-            'titulo' => $productoModel->find($id)->nombre,
+            'producto'   => $productoModel->obtenerProductoPorId($id),
+            'imagenes'   => $productoModel->obtenerImagenesProducto($id),
+            'categorias' => $productoModel->obtenerCategorias($id),
+            'titulo'     => $productoModel->find($id)->nombre,
+            'cart'       => $cart = \Config\Services::cart(),
         ];
 
         return view('layouts/header', $data) . view('web/producto', $data) . view('layouts/footer');

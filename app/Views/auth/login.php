@@ -43,7 +43,7 @@
 
             <div class="form-line">
                 <p class="text-white my-5">
-                    No tienes una cuenta? <a href="<?= site_url('registro'); ?>">Registrarse</a>
+                    ¿No tienes una cuenta? Registrarse<a href="<?= site_url('registro'); ?>"> aquí</a>
                 </p>
             </div>
 

@@ -8,9 +8,9 @@
     <title><?= $titulo ?></title>
 
     <!-- Bootstrap CSS -->
-    <link href="<?= base_url('assets/bootstrap/css/bootstrap.min.css'); ?>" rel="stylesheet">
+    <link href="<?= base_url('assets/css/bootstrap.min.css'); ?>" rel="stylesheet">
 
-    <link href="<?= base_url('assets/bootstrap/icons/font/bootstrap-icons.css'); ?>" rel="stylesheet">
+    <link href="<?= base_url('assets/icons/bootstrap-icons.css'); ?>" rel="stylesheet">
 
     <!-- CSS -->
     <link href="<?= base_url('assets/css/my_styles_dashboard.css'); ?>" rel="stylesheet" type="text/css" />
@@ -35,6 +35,10 @@
                     <ul class="navbar-nav mb-2 mb-lg-0 gap-3">
                         <li class="nav-item nav-item-per">
                             <a class="nav-link" aria-current="page" href="<?php echo base_url('admin/dashboard'); ?>">Dashboard</a>
+                        </li>
+
+                        <li class="nav-item nav-item-per">
+                            <a class="nav-link" aria-current="page" href="<?php echo base_url(); ?>">Tienda</a>
                         </li>
 
                         <li class="nav-item dropdown nav-item-per">

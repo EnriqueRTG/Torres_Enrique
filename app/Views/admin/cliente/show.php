@@ -8,7 +8,6 @@
     <p>Nombre: <?= $cliente->nombre ?></p>
     <p>Apellido: <?= $cliente->apellido ?></p>
     <p>Email: <?= $cliente->email ?></p>
-    <p>Direccion: <?= $cliente->direccion ?></p>
     <p>Telefono: <?= $cliente->telefono ?></p>
 
     <h3>Informacion de la Cuenta</h3>

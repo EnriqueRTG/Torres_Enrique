@@ -28,6 +28,7 @@ class Contacto extends BaseController
     {
         $data = [
             'titulo' => 'Contacto',
+            'cart'       => $cart = \Config\Services::cart(),
         ];
 
         return view('layouts/header', $data) . view('web/contacto') . view('layouts/footer');

@@ -8,54 +8,46 @@ class Facturas extends Migration
 {
     public function up()
     {
-    
         $this->forge->addField([
             'id' => [
                 'type'           => 'INT',
-                'constraint'     => 6,
+                'constraint'     => 11,
                 'unsigned'       => true,
                 'auto_increment' => true,
             ],
-            'orden_id' => [
-                'type'           => 'INT',
-                'constraint'     => 6,
-                'unsigned'       => true,
+            'orden_id'
+            => [
+                'type' => 'INT',
+                'constraint' => 11,
+                'unsigned' => true,
+                'null' => false,
             ],
-            'metodo_pago_id' => [
-                'type'           => 'TINYINT',
-                'constraint'     => 2,
-                'unsigned'       => true,
+            'fecha_emision' => [
+                'type' => 'DATETIME',
+                'default' => 'CURRENT_TIMESTAMP',
             ],
-            'nro_documento' => [
-                'type'             => 'VARCHAR',
-                'constraint'       => '10',
-                'null'             => false,
-            ],
-            'created_at' => [
-                'type'           => 'DATETIME',
-                'null'           => true,
-            ],
-            'updated_at' => [
-                'type'           => 'DATETIME',
-                'null'           => true,
+            'numero_factura' => [
+                'type' => 'VARCHAR',
+                'constraint' => 255,
+                'unique' => true,
             ],
             'total' => [
-                'type'           => 'DECIMAL',
-                'null'           => false,
-                'unsigned'       => true,
+                'type' => 'DECIMAL',
+                'constraint' => '10,2',
+                'unsigned' => true,
+                'null' => false,
             ],
         ]);
-        
+
         $this->forge->addKey('id', true);
-        $this->forge->addForeignKey('orden_id', 'ordenes', 'id', 'CASCADE', 'CASCADE', 'fk_facturas_ordenes');
-        $this->forge->addForeignKey('metodo_pago_id', 'metodos_pago', 'id', 'CASCADE', 'CASCADE', 'fk_facturas_metodosPago');
+
+        $this->forge->addForeignKey('orden_id', 'ordenes', 'id', 'CASCADE', 'CASCADE');
+        
         $this->forge->createTable('facturas');
     }
 
     public function down()
     {
-        $this->forge->dropForeignKey('facturas', 'fk_facturas_ordenes');
-        $this->forge->dropForeignKey('facturas', 'fk_facturas_metodosPago');
-        $this->forge->dropTable('facturas', true, true);
+        $this->forge->dropTable('facturas');
     }
 }

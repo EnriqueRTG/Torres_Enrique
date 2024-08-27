@@ -21,6 +21,7 @@ class Comercializacion extends BaseController
     {
         $data = [
             'titulo' => 'Comercializacion',
+            'cart'       => $cart = \Config\Services::cart(),
         ];
 
         return view('layouts/header', $data) . view('web/comercializacion') . view('layouts/footer');

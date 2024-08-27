@@ -4,7 +4,7 @@
     <?= view('partials/_session') ?>
 </section>
 
-<section class="container py-5">
+<section class="container py-5 mx-auto">
 
     <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb" class="fs-4">
         <ol class="breadcrumb">
@@ -24,7 +24,7 @@
     </div>
 
     <div class="my-4">
-        <table class="table table-dark table-striped table-hover">
+        <table class="table table-dark table-striped table-hover table-responsive">
 
             <thead>
                 <tr class="text-capitalize text-center ">
@@ -33,9 +33,12 @@
                     <th scope="col">Precio</th>
                     <th scope="col">Stock</th>
                     <th scope="col">Marca</th>
+                    <th scope="col">Modelo</th>
+                    <th scope="col">Peso</th>
+                    <th scope="col">Dimensiones</th>
+                    <th scope="col">Material</th>
+                    <th scope="col">Color</th>
                     <th scope="col">Categoria</th>
-                    <th scope="col">Subcategoria</th>
-                    <th scope="col">Presentación</th>
                     <th scope="col">Alta</th>
                     <th scope="col">Modificación</th>
                     <th scope="col">Opciones</th>
@@ -51,7 +54,9 @@
                                 <?= $producto->nombre ?>
                             </td>
                             <td>
-                                <?= $producto->descripcion ?>
+                                <span class="text-truncate d-inline-block" style="max-width: 200px;">
+                                    <?= $producto->descripcion ?>
+                                </span>
                             </td>
                             <td>
                                 $ <?= $producto->precio ?>
@@ -60,22 +65,32 @@
                                 <?= $producto->stock ?>
                             </td>
                             <td>
-                                <?= $producto->marca ?>
+                                <?= $producto->nombre_marca ?>
+                            </td>
+                            <td>
+                                <?= $producto->modelo ?>
+                            </td>
+                            <td>
+                                <?= $producto->peso ?>
+                            </td>
+                            <td>
+                                <?= $producto->dimensiones ?>
+                            </td>
+                            <td>
+                                <?= $producto->material ?>
+                            </td>
+                            <td>
+                                <?= $producto->color ?>
                             </td>
                             <td>
                                 <?= $producto->categoria ?>
                             </td>
+
                             <td>
-                                <?= $producto->subcategoria ?>
+                                <?= $producto->fecha_creacion ?>
                             </td>
                             <td>
-                                <?= $producto->presentacion ?>
-                            </td>
-                            <td>
-                                <?= $producto->created_at ?>
-                            </td>
-                            <td>
-                                <?= $producto->updated_at  ?>
+                                <?= $producto->fecha_actualizacion  ?>
                             </td>
 
                             <td class="text-center g-2">

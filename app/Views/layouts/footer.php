@@ -66,11 +66,8 @@
 <!-- Load jquery 3.7.1 here for faster page loads. -->
 <script src="<?= base_url('assets/js/jquery/jquery-3.7.1.min.js'); ?>"></script>
 
-<!-- Optional JavaScript; choose one of the two! -->
-
-
 <!-- Option 1: Bootstrap Bundle with Popper -->
-<script src="<?= base_url('assets/bootstrap/js/bootstrap.bundle.min.js'); ?>"></script>
+<script src="<?= base_url('assets/js/bootstrap.bundle.min.js'); ?>"></script>
 
 <!-- Option 2: mi scripts -->
 <!-- <script src="<?= base_url('assets/js/my_script.js'); ?>"></script> -->

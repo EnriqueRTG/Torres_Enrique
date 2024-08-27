@@ -55,17 +55,6 @@
             </a>
         </div>
 
-        <div class="col">
-            <a href="<?php echo base_url('admin/subcategoria'); ?>">
-                <div class="card rounded-5 text-center shadow-lg card-dashboard">
-                    <img src="<?php echo base_url("assets/images/panel/subcategorias.png") ?>" class="card-img-top rounded-top-5" alt="...">
-                    <div class="card-body">
-                        <p class="card-title fs-3">Subcategorías</p>
-                        <p class="card-text">Visualizacion, Altas, Bajas y Modificaciones</p>
-                    </div>
-                </div>
-            </a>
-        </div>
 
         <div class="col">
             <a href="<?php echo base_url('admin/marca'); ?>">

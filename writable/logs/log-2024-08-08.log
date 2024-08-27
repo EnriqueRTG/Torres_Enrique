@@ -1,0 +1,2074 @@
+ERROR - 2024-08-08 00:00:41 --> mysqli_sql_exception: Column count doesn't match value count at row 1 in C:\xampp\htdocs\Torres_Enrique\system\Database\MySQLi\Connection.php:308
+Stack trace:
+#0 C:\xampp\htdocs\Torres_Enrique\system\Database\MySQLi\Connection.php(308): mysqli->query('INSERT INTO `pr...', 0)
+#1 C:\xampp\htdocs\Torres_Enrique\system\Database\BaseConnection.php(722): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `pr...')
+#2 C:\xampp\htdocs\Torres_Enrique\system\Database\BaseConnection.php(636): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `pr...')
+#3 C:\xampp\htdocs\Torres_Enrique\system\Database\BaseBuilder.php(1821): CodeIgniter\Database\BaseConnection->query('INSERT INTO `pr...', NULL, false)
+#4 C:\xampp\htdocs\Torres_Enrique\system\Database\BaseBuilder.php(2210): CodeIgniter\Database\BaseBuilder->batchExecute('_insertBatch', 100)
+#5 C:\xampp\htdocs\Torres_Enrique\app\Database\Seeds\ProductoSeeder.php(202): CodeIgniter\Database\BaseBuilder->insertBatch(Array)
+#6 C:\xampp\htdocs\Torres_Enrique\system\Database\Seeder.php(147): App\Database\Seeds\ProductoSeeder->run()
+#7 C:\xampp\htdocs\Torres_Enrique\system\Commands\Database\Seed.php(79): CodeIgniter\Database\Seeder->call('App\\Database\\Se...')
+#8 C:\xampp\htdocs\Torres_Enrique\system\CLI\Commands.php(70): CodeIgniter\Commands\Database\Seed->run(Array)
+#9 C:\xampp\htdocs\Torres_Enrique\system\CLI\Console.php(48): CodeIgniter\CLI\Commands->run('db:seed', Array)
+#10 C:\xampp\htdocs\Torres_Enrique\system\Boot.php(338): CodeIgniter\CLI\Console->run()
+#11 C:\xampp\htdocs\Torres_Enrique\system\Boot.php(104): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+#12 C:\xampp\htdocs\Torres_Enrique\spark(84): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
+#13 {main}
+ERROR - 2024-08-08 00:10:44 --> mysqli_sql_exception: Table 'torres_enrique_bd.detalles' doesn't exist in C:\xampp\htdocs\Torres_Enrique\system\Database\MySQLi\Connection.php:308
+Stack trace:
+#0 C:\xampp\htdocs\Torres_Enrique\system\Database\MySQLi\Connection.php(308): mysqli->query('ALTER TABLE `de...', 0)
+#1 C:\xampp\htdocs\Torres_Enrique\system\Database\BaseConnection.php(722): CodeIgniter\Database\MySQLi\Connection->execute('ALTER TABLE `de...')
+#2 C:\xampp\htdocs\Torres_Enrique\system\Database\BaseConnection.php(636): CodeIgniter\Database\BaseConnection->simpleQuery('ALTER TABLE `de...')
+#3 C:\xampp\htdocs\Torres_Enrique\system\Database\Forge.php(539): CodeIgniter\Database\BaseConnection->query('ALTER TABLE `de...')
+#4 C:\xampp\htdocs\Torres_Enrique\app\Database\Migrations\2024-02-13-211753_DetallesOrden.php(86): CodeIgniter\Database\Forge->dropForeignKey('detalles', 'fk_detalles_ord...')
+#5 C:\xampp\htdocs\Torres_Enrique\system\Database\MigrationRunner.php(867): App\Database\Migrations\Detalles->down()
+#6 C:\xampp\htdocs\Torres_Enrique\system\Database\MigrationRunner.php(290): CodeIgniter\Database\MigrationRunner->migrate('down', Object(stdClass))
+#7 C:\xampp\htdocs\Torres_Enrique\system\Commands\Database\MigrateRollback.php(87): CodeIgniter\Database\MigrationRunner->regress(0)
+#8 C:\xampp\htdocs\Torres_Enrique\system\CLI\Commands.php(70): CodeIgniter\Commands\Database\MigrateRollback->run(Array)
+#9 C:\xampp\htdocs\Torres_Enrique\system\CLI\Console.php(48): CodeIgniter\CLI\Commands->run('migrate:rollbac...', Array)
+#10 C:\xampp\htdocs\Torres_Enrique\system\Boot.php(338): CodeIgniter\CLI\Console->run()
+#11 C:\xampp\htdocs\Torres_Enrique\system\Boot.php(104): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+#12 C:\xampp\htdocs\Torres_Enrique\spark(84): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
+#13 {main}
+ERROR - 2024-08-08 00:14:43 --> mysqli_sql_exception: Column count doesn't match value count at row 1 in C:\xampp\htdocs\Torres_Enrique\system\Database\MySQLi\Connection.php:308
+Stack trace:
+#0 C:\xampp\htdocs\Torres_Enrique\system\Database\MySQLi\Connection.php(308): mysqli->query('INSERT INTO `pr...', 0)
+#1 C:\xampp\htdocs\Torres_Enrique\system\Database\BaseConnection.php(722): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `pr...')
+#2 C:\xampp\htdocs\Torres_Enrique\system\Database\BaseConnection.php(636): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `pr...')
+#3 C:\xampp\htdocs\Torres_Enrique\system\Database\BaseBuilder.php(1821): CodeIgniter\Database\BaseConnection->query('INSERT INTO `pr...', NULL, false)
+#4 C:\xampp\htdocs\Torres_Enrique\system\Database\BaseBuilder.php(2210): CodeIgniter\Database\BaseBuilder->batchExecute('_insertBatch', 100)
+#5 C:\xampp\htdocs\Torres_Enrique\app\Database\Seeds\ProductoSeeder.php(187): CodeIgniter\Database\BaseBuilder->insertBatch(Array)
+#6 C:\xampp\htdocs\Torres_Enrique\system\Database\Seeder.php(147): App\Database\Seeds\ProductoSeeder->run()
+#7 C:\xampp\htdocs\Torres_Enrique\app\Database\Seeds\DataBaseSeeder.php(22): CodeIgniter\Database\Seeder->call('App\\Database\\Se...')
+#8 C:\xampp\htdocs\Torres_Enrique\system\Database\Seeder.php(147): App\Database\Seeds\DataBaseSeeder->run()
+#9 C:\xampp\htdocs\Torres_Enrique\system\Commands\Database\Seed.php(79): CodeIgniter\Database\Seeder->call('App\\Database\\Se...')
+#10 C:\xampp\htdocs\Torres_Enrique\system\CLI\Commands.php(70): CodeIgniter\Commands\Database\Seed->run(Array)
+#11 C:\xampp\htdocs\Torres_Enrique\system\CLI\Console.php(48): CodeIgniter\CLI\Commands->run('db:seed', Array)
+#12 C:\xampp\htdocs\Torres_Enrique\system\Boot.php(338): CodeIgniter\CLI\Console->run()
+#13 C:\xampp\htdocs\Torres_Enrique\system\Boot.php(104): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+#14 C:\xampp\htdocs\Torres_Enrique\spark(84): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
+#15 {main}
+ERROR - 2024-08-08 00:17:23 --> mysqli_sql_exception: Column count doesn't match value count at row 1 in C:\xampp\htdocs\Torres_Enrique\system\Database\MySQLi\Connection.php:308
+Stack trace:
+#0 C:\xampp\htdocs\Torres_Enrique\system\Database\MySQLi\Connection.php(308): mysqli->query('INSERT INTO `pr...', 0)
+#1 C:\xampp\htdocs\Torres_Enrique\system\Database\BaseConnection.php(722): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `pr...')
+#2 C:\xampp\htdocs\Torres_Enrique\system\Database\BaseConnection.php(636): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `pr...')
+#3 C:\xampp\htdocs\Torres_Enrique\system\Database\BaseBuilder.php(1821): CodeIgniter\Database\BaseConnection->query('INSERT INTO `pr...', NULL, false)
+#4 C:\xampp\htdocs\Torres_Enrique\system\Database\BaseBuilder.php(2210): CodeIgniter\Database\BaseBuilder->batchExecute('_insertBatch', 100)
+#5 C:\xampp\htdocs\Torres_Enrique\app\Database\Seeds\ProductoSeeder.php(189): CodeIgniter\Database\BaseBuilder->insertBatch(Array)
+#6 C:\xampp\htdocs\Torres_Enrique\system\Database\Seeder.php(147): App\Database\Seeds\ProductoSeeder->run()
+#7 C:\xampp\htdocs\Torres_Enrique\system\Commands\Database\Seed.php(79): CodeIgniter\Database\Seeder->call('App\\Database\\Se...')
+#8 C:\xampp\htdocs\Torres_Enrique\system\CLI\Commands.php(70): CodeIgniter\Commands\Database\Seed->run(Array)
+#9 C:\xampp\htdocs\Torres_Enrique\system\CLI\Console.php(48): CodeIgniter\CLI\Commands->run('db:seed', Array)
+#10 C:\xampp\htdocs\Torres_Enrique\system\Boot.php(338): CodeIgniter\CLI\Console->run()
+#11 C:\xampp\htdocs\Torres_Enrique\system\Boot.php(104): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+#12 C:\xampp\htdocs\Torres_Enrique\spark(84): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
+#13 {main}
+ERROR - 2024-08-08 00:19:00 --> mysqli_sql_exception: Column count doesn't match value count at row 1 in C:\xampp\htdocs\Torres_Enrique\system\Database\MySQLi\Connection.php:308
+Stack trace:
+#0 C:\xampp\htdocs\Torres_Enrique\system\Database\MySQLi\Connection.php(308): mysqli->query('INSERT INTO `pr...', 0)
+#1 C:\xampp\htdocs\Torres_Enrique\system\Database\BaseConnection.php(722): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `pr...')
+#2 C:\xampp\htdocs\Torres_Enrique\system\Database\BaseConnection.php(636): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `pr...')
+#3 C:\xampp\htdocs\Torres_Enrique\system\Database\BaseBuilder.php(1821): CodeIgniter\Database\BaseConnection->query('INSERT INTO `pr...', NULL, false)
+#4 C:\xampp\htdocs\Torres_Enrique\system\Database\BaseBuilder.php(2210): CodeIgniter\Database\BaseBuilder->batchExecute('_insertBatch', 100)
+#5 C:\xampp\htdocs\Torres_Enrique\app\Database\Seeds\ProductoSeeder.php(193): CodeIgniter\Database\BaseBuilder->insertBatch(Array)
+#6 C:\xampp\htdocs\Torres_Enrique\system\Database\Seeder.php(147): App\Database\Seeds\ProductoSeeder->run()
+#7 C:\xampp\htdocs\Torres_Enrique\system\Commands\Database\Seed.php(79): CodeIgniter\Database\Seeder->call('App\\Database\\Se...')
+#8 C:\xampp\htdocs\Torres_Enrique\system\CLI\Commands.php(70): CodeIgniter\Commands\Database\Seed->run(Array)
+#9 C:\xampp\htdocs\Torres_Enrique\system\CLI\Console.php(48): CodeIgniter\CLI\Commands->run('db:seed', Array)
+#10 C:\xampp\htdocs\Torres_Enrique\system\Boot.php(338): CodeIgniter\CLI\Console->run()
+#11 C:\xampp\htdocs\Torres_Enrique\system\Boot.php(104): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+#12 C:\xampp\htdocs\Torres_Enrique\spark(84): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
+#13 {main}
+INFO - 2024-08-08 00:22:54 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-08 00:24:18 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2024-08-08 00:24:18 --> ErrorException: Undefined property: stdClass::$presentacion
+[Method: GET, Route: catalogo]
+in APPPATH\Views\web\catalogo.php on line 116.
+ 1 APPPATH\Views\web\catalogo.php(116): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined property: stdClass::$presentacion', 'C:\\xampp\\htdocs\\Torres_Enrique\\app\\Views\\web\\catalogo.php', 116)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\xampp\\htdocs\\Torres_Enrique\\app\\Views\\web\\catalogo.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('web/catalogo', [], true)
+ 5 APPPATH\Controllers\Web\Catalogo.php(118): view('web/catalogo', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Web\Catalogo->index()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Catalogo))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+INFO - 2024-08-08 00:25:52 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-08 00:26:12 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-08 00:26:17 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-08 00:26:23 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-08 00:26:26 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-08 00:26:35 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-08 00:26:35 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2024-08-08 00:30:12 --> BadMethodCallException: Call to undefined method App\Models\ProductoModel::productoDetallado
+[Method: GET, Route: producto/1]
+in SYSTEMPATH\Model.php on line 921.
+ 1 APPPATH\Controllers\Web\Catalogo.php(127): CodeIgniter\Model->__call('productoDetallado', [...])
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Web\Catalogo->show('1')
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Catalogo))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+INFO - 2024-08-08 00:30:15 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-08 17:07:45 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-08 17:08:44 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-08 17:08:45 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-08 17:08:46 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-08 17:08:46 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2024-08-08 17:08:49 --> BadMethodCallException: Call to undefined method App\Models\ProductoModel::productoDetallado
+[Method: GET, Route: producto/1]
+in SYSTEMPATH\Model.php on line 921.
+ 1 APPPATH\Controllers\Web\Catalogo.php(127): CodeIgniter\Model->__call('productoDetallado', [...])
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Web\Catalogo->show('1')
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Catalogo))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+INFO - 2024-08-08 17:09:27 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-08 17:09:47 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-08 17:09:50 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-08 17:09:59 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-08 17:10:21 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-08 17:13:43 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-08 17:14:45 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-08 17:14:48 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2024-08-08 17:15:08 --> BadMethodCallException: Call to undefined method App\Models\ProductoModel::productoDetallado
+[Method: GET, Route: producto/1]
+in SYSTEMPATH\Model.php on line 921.
+ 1 APPPATH\Controllers\Web\Catalogo.php(127): CodeIgniter\Model->__call('productoDetallado', [...])
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Web\Catalogo->show('1')
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Catalogo))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+INFO - 2024-08-08 17:15:08 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2024-08-08 17:15:10 --> BadMethodCallException: Call to undefined method App\Models\ProductoModel::productoDetallado
+[Method: GET, Route: producto/1]
+in SYSTEMPATH\Model.php on line 921.
+ 1 APPPATH\Controllers\Web\Catalogo.php(127): CodeIgniter\Model->__call('productoDetallado', [...])
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Web\Catalogo->show('1')
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Catalogo))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+INFO - 2024-08-08 17:15:11 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-08 17:15:19 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-08 17:20:48 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-08 17:21:16 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-08 17:22:03 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-08 17:22:13 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-08 17:22:55 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-08 17:29:40 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-08 17:30:19 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-08 17:31:56 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-08 17:32:42 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-08 17:41:55 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2024-08-08 17:41:55 --> ParseError: syntax error, unexpected token ";", expecting identifier or variable or "{" or "$"
+[Method: GET, Route: catalogo]
+in APPPATH\Views\web\catalogo.php on line 102.
+ 1 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 2 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('web/catalogo', [], true)
+ 3 APPPATH\Controllers\Web\Catalogo.php(118): view('web/catalogo', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Web\Catalogo->index()
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Catalogo))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+INFO - 2024-08-08 17:42:47 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2024-08-08 17:42:47 --> Error: Call to a member function obtenerProductosConPrimeraImagen() on array
+[Method: GET, Route: catalogo]
+in APPPATH\Controllers\Web\Catalogo.php on line 111.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Web\Catalogo->index()
+ 2 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Catalogo))
+ 3 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+INFO - 2024-08-08 17:42:59 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2024-08-08 17:42:59 --> Error: Call to a member function obtenerTodosLosProductosConPrimeraImagen() on array
+[Method: GET, Route: catalogo]
+in APPPATH\Controllers\Web\Catalogo.php on line 111.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Web\Catalogo->index()
+ 2 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Catalogo))
+ 3 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+INFO - 2024-08-08 17:45:26 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2024-08-08 17:45:26 --> ParseError: syntax error, unexpected token ";", expecting identifier or variable or "{" or "$"
+[Method: GET, Route: catalogo]
+in APPPATH\Views\web\catalogo.php on line 102.
+ 1 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 2 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('web/catalogo', [], true)
+ 3 APPPATH\Controllers\Web\Catalogo.php(121): view('web/catalogo', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Web\Catalogo->index()
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Catalogo))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+INFO - 2024-08-08 17:49:58 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+ERROR - 2024-08-08 17:49:58 --> mysqli_sql_exception: Unknown column 'imagenes.producto_id' in 'where clause' in C:\xampp\htdocs\Torres_Enrique\system\Database\MySQLi\Connection.php:308
+Stack trace:
+#0 C:\xampp\htdocs\Torres_Enrique\system\Database\MySQLi\Connection.php(308): mysqli->query('SELECT `product...', 0)
+#1 C:\xampp\htdocs\Torres_Enrique\system\Database\BaseConnection.php(722): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `product...')
+#2 C:\xampp\htdocs\Torres_Enrique\system\Database\BaseConnection.php(636): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `product...')
+#3 C:\xampp\htdocs\Torres_Enrique\system\Database\BaseBuilder.php(1629): CodeIgniter\Database\BaseConnection->query('SELECT `product...', Array, false)
+#4 C:\xampp\htdocs\Torres_Enrique\system\Model.php(919): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\Torres_Enrique\app\Controllers\Web\Catalogo.php(56): CodeIgniter\Model->__call('get', Array)
+#6 C:\xampp\htdocs\Torres_Enrique\system\CodeIgniter.php(933): App\Controllers\Web\Catalogo->index()
+#7 C:\xampp\htdocs\Torres_Enrique\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Catalogo))
+#8 C:\xampp\htdocs\Torres_Enrique\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\xampp\htdocs\Torres_Enrique\system\Boot.php(312): CodeIgniter\CodeIgniter->run()
+#10 C:\xampp\htdocs\Torres_Enrique\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 C:\xampp\htdocs\Torres_Enrique\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+CRITICAL - 2024-08-08 17:49:58 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'imagenes.producto_id' in 'where clause'
+[Method: GET, Route: catalogo]
+in SYSTEMPATH\Database\BaseConnection.php on line 676.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1629): CodeIgniter\Database\BaseConnection->query('SELECT `productos`.*, `marcas`.`nombre` AS `nombre_marca`, GROUP_CONCAT(categorias.nombre SEPARATOR ", ") AS categorias, (SELECT imagenes.url FROM imagenes WHERE imagenes.producto_id = productos.id LIMIT 1) AS imagen_url
+FROM `productos`
+LEFT JOIN `marcas` ON `marcas`.`id` = `productos`.`marca_id`
+JOIN `productos_categorias` ON `productos_categorias`.`producto_id` = `productos`.`id`
+JOIN `categorias` ON `categorias`.`id` = `productos_categorias`.`categoria_id`
+GROUP BY `productos`.`id`
+ORDER BY `productos`.`id`', [], false)
+ 2 SYSTEMPATH\Model.php(919): CodeIgniter\Database\BaseBuilder->get()
+ 3 APPPATH\Controllers\Web\Catalogo.php(56): CodeIgniter\Model->__call('get', [])
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Web\Catalogo->index()
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Catalogo))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2024-08-08 17:49:58 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'imagenes.producto_id' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 313.
+ 1 SYSTEMPATH\Database\BaseConnection.php(722): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `productos`.*, `marcas`.`nombre` AS `nombre_marca`, GROUP_CONCAT(categorias.nombre SEPARATOR ", ") AS categorias, (SELECT imagenes.url FROM imagenes WHERE imagenes.producto_id = productos.id LIMIT 1) AS imagen_url
+FROM `productos`
+LEFT JOIN `marcas` ON `marcas`.`id` = `productos`.`marca_id`
+JOIN `productos_categorias` ON `productos_categorias`.`producto_id` = `productos`.`id`
+JOIN `categorias` ON `categorias`.`id` = `productos_categorias`.`categoria_id`
+GROUP BY `productos`.`id`
+ORDER BY `productos`.`id`')
+ 2 SYSTEMPATH\Database\BaseConnection.php(636): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `productos`.*, `marcas`.`nombre` AS `nombre_marca`, GROUP_CONCAT(categorias.nombre SEPARATOR ", ") AS categorias, (SELECT imagenes.url FROM imagenes WHERE imagenes.producto_id = productos.id LIMIT 1) AS imagen_url
+FROM `productos`
+LEFT JOIN `marcas` ON `marcas`.`id` = `productos`.`marca_id`
+JOIN `productos_categorias` ON `productos_categorias`.`producto_id` = `productos`.`id`
+JOIN `categorias` ON `categorias`.`id` = `productos_categorias`.`categoria_id`
+GROUP BY `productos`.`id`
+ORDER BY `productos`.`id`')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1629): CodeIgniter\Database\BaseConnection->query('SELECT `productos`.*, `marcas`.`nombre` AS `nombre_marca`, GROUP_CONCAT(categorias.nombre SEPARATOR ", ") AS categorias, (SELECT imagenes.url FROM imagenes WHERE imagenes.producto_id = productos.id LIMIT 1) AS imagen_url
+FROM `productos`
+LEFT JOIN `marcas` ON `marcas`.`id` = `productos`.`marca_id`
+JOIN `productos_categorias` ON `productos_categorias`.`producto_id` = `productos`.`id`
+JOIN `categorias` ON `categorias`.`id` = `productos_categorias`.`categoria_id`
+GROUP BY `productos`.`id`
+ORDER BY `productos`.`id`', [], false)
+ 4 SYSTEMPATH\Model.php(919): CodeIgniter\Database\BaseBuilder->get()
+ 5 APPPATH\Controllers\Web\Catalogo.php(56): CodeIgniter\Model->__call('get', [])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Web\Catalogo->index()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Catalogo))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2024-08-08 17:49:58 --> [Caused by] mysqli_sql_exception: Unknown column 'imagenes.producto_id' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 308.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(308): mysqli->query('SELECT `productos`.*, `marcas`.`nombre` AS `nombre_marca`, GROUP_CONCAT(categorias.nombre SEPARATOR ", ") AS categorias, (SELECT imagenes.url FROM imagenes WHERE imagenes.producto_id = productos.id LIMIT 1) AS imagen_url
+FROM `productos`
+LEFT JOIN `marcas` ON `marcas`.`id` = `productos`.`marca_id`
+JOIN `productos_categorias` ON `productos_categorias`.`producto_id` = `productos`.`id`
+JOIN `categorias` ON `categorias`.`id` = `productos_categorias`.`categoria_id`
+GROUP BY `productos`.`id`
+ORDER BY `productos`.`id`', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(722): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `productos`.*, `marcas`.`nombre` AS `nombre_marca`, GROUP_CONCAT(categorias.nombre SEPARATOR ", ") AS categorias, (SELECT imagenes.url FROM imagenes WHERE imagenes.producto_id = productos.id LIMIT 1) AS imagen_url
+FROM `productos`
+LEFT JOIN `marcas` ON `marcas`.`id` = `productos`.`marca_id`
+JOIN `productos_categorias` ON `productos_categorias`.`producto_id` = `productos`.`id`
+JOIN `categorias` ON `categorias`.`id` = `productos_categorias`.`categoria_id`
+GROUP BY `productos`.`id`
+ORDER BY `productos`.`id`')
+ 3 SYSTEMPATH\Database\BaseConnection.php(636): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `productos`.*, `marcas`.`nombre` AS `nombre_marca`, GROUP_CONCAT(categorias.nombre SEPARATOR ", ") AS categorias, (SELECT imagenes.url FROM imagenes WHERE imagenes.producto_id = productos.id LIMIT 1) AS imagen_url
+FROM `productos`
+LEFT JOIN `marcas` ON `marcas`.`id` = `productos`.`marca_id`
+JOIN `productos_categorias` ON `productos_categorias`.`producto_id` = `productos`.`id`
+JOIN `categorias` ON `categorias`.`id` = `productos_categorias`.`categoria_id`
+GROUP BY `productos`.`id`
+ORDER BY `productos`.`id`')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1629): CodeIgniter\Database\BaseConnection->query('SELECT `productos`.*, `marcas`.`nombre` AS `nombre_marca`, GROUP_CONCAT(categorias.nombre SEPARATOR ", ") AS categorias, (SELECT imagenes.url FROM imagenes WHERE imagenes.producto_id = productos.id LIMIT 1) AS imagen_url
+FROM `productos`
+LEFT JOIN `marcas` ON `marcas`.`id` = `productos`.`marca_id`
+JOIN `productos_categorias` ON `productos_categorias`.`producto_id` = `productos`.`id`
+JOIN `categorias` ON `categorias`.`id` = `productos_categorias`.`categoria_id`
+GROUP BY `productos`.`id`
+ORDER BY `productos`.`id`', [], false)
+ 5 SYSTEMPATH\Model.php(919): CodeIgniter\Database\BaseBuilder->get()
+ 6 APPPATH\Controllers\Web\Catalogo.php(56): CodeIgniter\Model->__call('get', [])
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Web\Catalogo->index()
+ 8 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Catalogo))
+ 9 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+INFO - 2024-08-08 17:49:58 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+ERROR - 2024-08-08 17:49:58 --> mysqli_sql_exception: Unknown column 'imagenes.producto_id' in 'where clause' in C:\xampp\htdocs\Torres_Enrique\system\Database\MySQLi\Connection.php:308
+Stack trace:
+#0 C:\xampp\htdocs\Torres_Enrique\system\Database\MySQLi\Connection.php(308): mysqli->query('SELECT `product...', 0)
+#1 C:\xampp\htdocs\Torres_Enrique\system\Database\BaseConnection.php(722): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `product...')
+#2 C:\xampp\htdocs\Torres_Enrique\system\Database\BaseConnection.php(636): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `product...')
+#3 C:\xampp\htdocs\Torres_Enrique\system\Database\BaseBuilder.php(1629): CodeIgniter\Database\BaseConnection->query('SELECT `product...', Array, false)
+#4 C:\xampp\htdocs\Torres_Enrique\system\Model.php(919): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\Torres_Enrique\app\Controllers\Web\Catalogo.php(56): CodeIgniter\Model->__call('get', Array)
+#6 C:\xampp\htdocs\Torres_Enrique\system\CodeIgniter.php(933): App\Controllers\Web\Catalogo->index()
+#7 C:\xampp\htdocs\Torres_Enrique\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Catalogo))
+#8 C:\xampp\htdocs\Torres_Enrique\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\xampp\htdocs\Torres_Enrique\system\Boot.php(312): CodeIgniter\CodeIgniter->run()
+#10 C:\xampp\htdocs\Torres_Enrique\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 C:\xampp\htdocs\Torres_Enrique\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+CRITICAL - 2024-08-08 17:49:58 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'imagenes.producto_id' in 'where clause'
+[Method: GET, Route: catalogo]
+in SYSTEMPATH\Database\BaseConnection.php on line 676.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1629): CodeIgniter\Database\BaseConnection->query('SELECT `productos`.*, `marcas`.`nombre` AS `nombre_marca`, GROUP_CONCAT(categorias.nombre SEPARATOR ", ") AS categorias, (SELECT imagenes.url FROM imagenes WHERE imagenes.producto_id = productos.id LIMIT 1) AS imagen_url
+FROM `productos`
+LEFT JOIN `marcas` ON `marcas`.`id` = `productos`.`marca_id`
+JOIN `productos_categorias` ON `productos_categorias`.`producto_id` = `productos`.`id`
+JOIN `categorias` ON `categorias`.`id` = `productos_categorias`.`categoria_id`
+GROUP BY `productos`.`id`
+ORDER BY `productos`.`id`', [], false)
+ 2 SYSTEMPATH\Model.php(919): CodeIgniter\Database\BaseBuilder->get()
+ 3 APPPATH\Controllers\Web\Catalogo.php(56): CodeIgniter\Model->__call('get', [])
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Web\Catalogo->index()
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Catalogo))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2024-08-08 17:49:58 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'imagenes.producto_id' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 313.
+ 1 SYSTEMPATH\Database\BaseConnection.php(722): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `productos`.*, `marcas`.`nombre` AS `nombre_marca`, GROUP_CONCAT(categorias.nombre SEPARATOR ", ") AS categorias, (SELECT imagenes.url FROM imagenes WHERE imagenes.producto_id = productos.id LIMIT 1) AS imagen_url
+FROM `productos`
+LEFT JOIN `marcas` ON `marcas`.`id` = `productos`.`marca_id`
+JOIN `productos_categorias` ON `productos_categorias`.`producto_id` = `productos`.`id`
+JOIN `categorias` ON `categorias`.`id` = `productos_categorias`.`categoria_id`
+GROUP BY `productos`.`id`
+ORDER BY `productos`.`id`')
+ 2 SYSTEMPATH\Database\BaseConnection.php(636): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `productos`.*, `marcas`.`nombre` AS `nombre_marca`, GROUP_CONCAT(categorias.nombre SEPARATOR ", ") AS categorias, (SELECT imagenes.url FROM imagenes WHERE imagenes.producto_id = productos.id LIMIT 1) AS imagen_url
+FROM `productos`
+LEFT JOIN `marcas` ON `marcas`.`id` = `productos`.`marca_id`
+JOIN `productos_categorias` ON `productos_categorias`.`producto_id` = `productos`.`id`
+JOIN `categorias` ON `categorias`.`id` = `productos_categorias`.`categoria_id`
+GROUP BY `productos`.`id`
+ORDER BY `productos`.`id`')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1629): CodeIgniter\Database\BaseConnection->query('SELECT `productos`.*, `marcas`.`nombre` AS `nombre_marca`, GROUP_CONCAT(categorias.nombre SEPARATOR ", ") AS categorias, (SELECT imagenes.url FROM imagenes WHERE imagenes.producto_id = productos.id LIMIT 1) AS imagen_url
+FROM `productos`
+LEFT JOIN `marcas` ON `marcas`.`id` = `productos`.`marca_id`
+JOIN `productos_categorias` ON `productos_categorias`.`producto_id` = `productos`.`id`
+JOIN `categorias` ON `categorias`.`id` = `productos_categorias`.`categoria_id`
+GROUP BY `productos`.`id`
+ORDER BY `productos`.`id`', [], false)
+ 4 SYSTEMPATH\Model.php(919): CodeIgniter\Database\BaseBuilder->get()
+ 5 APPPATH\Controllers\Web\Catalogo.php(56): CodeIgniter\Model->__call('get', [])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Web\Catalogo->index()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Catalogo))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2024-08-08 17:49:58 --> [Caused by] mysqli_sql_exception: Unknown column 'imagenes.producto_id' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 308.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(308): mysqli->query('SELECT `productos`.*, `marcas`.`nombre` AS `nombre_marca`, GROUP_CONCAT(categorias.nombre SEPARATOR ", ") AS categorias, (SELECT imagenes.url FROM imagenes WHERE imagenes.producto_id = productos.id LIMIT 1) AS imagen_url
+FROM `productos`
+LEFT JOIN `marcas` ON `marcas`.`id` = `productos`.`marca_id`
+JOIN `productos_categorias` ON `productos_categorias`.`producto_id` = `productos`.`id`
+JOIN `categorias` ON `categorias`.`id` = `productos_categorias`.`categoria_id`
+GROUP BY `productos`.`id`
+ORDER BY `productos`.`id`', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(722): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `productos`.*, `marcas`.`nombre` AS `nombre_marca`, GROUP_CONCAT(categorias.nombre SEPARATOR ", ") AS categorias, (SELECT imagenes.url FROM imagenes WHERE imagenes.producto_id = productos.id LIMIT 1) AS imagen_url
+FROM `productos`
+LEFT JOIN `marcas` ON `marcas`.`id` = `productos`.`marca_id`
+JOIN `productos_categorias` ON `productos_categorias`.`producto_id` = `productos`.`id`
+JOIN `categorias` ON `categorias`.`id` = `productos_categorias`.`categoria_id`
+GROUP BY `productos`.`id`
+ORDER BY `productos`.`id`')
+ 3 SYSTEMPATH\Database\BaseConnection.php(636): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `productos`.*, `marcas`.`nombre` AS `nombre_marca`, GROUP_CONCAT(categorias.nombre SEPARATOR ", ") AS categorias, (SELECT imagenes.url FROM imagenes WHERE imagenes.producto_id = productos.id LIMIT 1) AS imagen_url
+FROM `productos`
+LEFT JOIN `marcas` ON `marcas`.`id` = `productos`.`marca_id`
+JOIN `productos_categorias` ON `productos_categorias`.`producto_id` = `productos`.`id`
+JOIN `categorias` ON `categorias`.`id` = `productos_categorias`.`categoria_id`
+GROUP BY `productos`.`id`
+ORDER BY `productos`.`id`')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1629): CodeIgniter\Database\BaseConnection->query('SELECT `productos`.*, `marcas`.`nombre` AS `nombre_marca`, GROUP_CONCAT(categorias.nombre SEPARATOR ", ") AS categorias, (SELECT imagenes.url FROM imagenes WHERE imagenes.producto_id = productos.id LIMIT 1) AS imagen_url
+FROM `productos`
+LEFT JOIN `marcas` ON `marcas`.`id` = `productos`.`marca_id`
+JOIN `productos_categorias` ON `productos_categorias`.`producto_id` = `productos`.`id`
+JOIN `categorias` ON `categorias`.`id` = `productos_categorias`.`categoria_id`
+GROUP BY `productos`.`id`
+ORDER BY `productos`.`id`', [], false)
+ 5 SYSTEMPATH\Model.php(919): CodeIgniter\Database\BaseBuilder->get()
+ 6 APPPATH\Controllers\Web\Catalogo.php(56): CodeIgniter\Model->__call('get', [])
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Web\Catalogo->index()
+ 8 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Catalogo))
+ 9 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+INFO - 2024-08-08 17:50:09 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-08 17:50:11 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+ERROR - 2024-08-08 17:50:11 --> mysqli_sql_exception: Unknown column 'imagenes.producto_id' in 'where clause' in C:\xampp\htdocs\Torres_Enrique\system\Database\MySQLi\Connection.php:308
+Stack trace:
+#0 C:\xampp\htdocs\Torres_Enrique\system\Database\MySQLi\Connection.php(308): mysqli->query('SELECT `product...', 0)
+#1 C:\xampp\htdocs\Torres_Enrique\system\Database\BaseConnection.php(722): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `product...')
+#2 C:\xampp\htdocs\Torres_Enrique\system\Database\BaseConnection.php(636): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `product...')
+#3 C:\xampp\htdocs\Torres_Enrique\system\Database\BaseBuilder.php(1629): CodeIgniter\Database\BaseConnection->query('SELECT `product...', Array, false)
+#4 C:\xampp\htdocs\Torres_Enrique\system\Model.php(919): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\Torres_Enrique\app\Controllers\Web\Catalogo.php(56): CodeIgniter\Model->__call('get', Array)
+#6 C:\xampp\htdocs\Torres_Enrique\system\CodeIgniter.php(933): App\Controllers\Web\Catalogo->index()
+#7 C:\xampp\htdocs\Torres_Enrique\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Catalogo))
+#8 C:\xampp\htdocs\Torres_Enrique\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\xampp\htdocs\Torres_Enrique\system\Boot.php(312): CodeIgniter\CodeIgniter->run()
+#10 C:\xampp\htdocs\Torres_Enrique\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 C:\xampp\htdocs\Torres_Enrique\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+CRITICAL - 2024-08-08 17:50:11 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'imagenes.producto_id' in 'where clause'
+[Method: GET, Route: catalogo]
+in SYSTEMPATH\Database\BaseConnection.php on line 676.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1629): CodeIgniter\Database\BaseConnection->query('SELECT `productos`.*, `marcas`.`nombre` AS `nombre_marca`, GROUP_CONCAT(categorias.nombre SEPARATOR ", ") AS categorias, (SELECT imagenes.url FROM imagenes WHERE imagenes.producto_id = productos.id LIMIT 1) AS imagen_url
+FROM `productos`
+LEFT JOIN `marcas` ON `marcas`.`id` = `productos`.`marca_id`
+JOIN `productos_categorias` ON `productos_categorias`.`producto_id` = `productos`.`id`
+JOIN `categorias` ON `categorias`.`id` = `productos_categorias`.`categoria_id`
+GROUP BY `productos`.`id`
+ORDER BY `productos`.`id`', [], false)
+ 2 SYSTEMPATH\Model.php(919): CodeIgniter\Database\BaseBuilder->get()
+ 3 APPPATH\Controllers\Web\Catalogo.php(56): CodeIgniter\Model->__call('get', [])
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Web\Catalogo->index()
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Catalogo))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2024-08-08 17:50:11 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'imagenes.producto_id' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 313.
+ 1 SYSTEMPATH\Database\BaseConnection.php(722): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `productos`.*, `marcas`.`nombre` AS `nombre_marca`, GROUP_CONCAT(categorias.nombre SEPARATOR ", ") AS categorias, (SELECT imagenes.url FROM imagenes WHERE imagenes.producto_id = productos.id LIMIT 1) AS imagen_url
+FROM `productos`
+LEFT JOIN `marcas` ON `marcas`.`id` = `productos`.`marca_id`
+JOIN `productos_categorias` ON `productos_categorias`.`producto_id` = `productos`.`id`
+JOIN `categorias` ON `categorias`.`id` = `productos_categorias`.`categoria_id`
+GROUP BY `productos`.`id`
+ORDER BY `productos`.`id`')
+ 2 SYSTEMPATH\Database\BaseConnection.php(636): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `productos`.*, `marcas`.`nombre` AS `nombre_marca`, GROUP_CONCAT(categorias.nombre SEPARATOR ", ") AS categorias, (SELECT imagenes.url FROM imagenes WHERE imagenes.producto_id = productos.id LIMIT 1) AS imagen_url
+FROM `productos`
+LEFT JOIN `marcas` ON `marcas`.`id` = `productos`.`marca_id`
+JOIN `productos_categorias` ON `productos_categorias`.`producto_id` = `productos`.`id`
+JOIN `categorias` ON `categorias`.`id` = `productos_categorias`.`categoria_id`
+GROUP BY `productos`.`id`
+ORDER BY `productos`.`id`')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1629): CodeIgniter\Database\BaseConnection->query('SELECT `productos`.*, `marcas`.`nombre` AS `nombre_marca`, GROUP_CONCAT(categorias.nombre SEPARATOR ", ") AS categorias, (SELECT imagenes.url FROM imagenes WHERE imagenes.producto_id = productos.id LIMIT 1) AS imagen_url
+FROM `productos`
+LEFT JOIN `marcas` ON `marcas`.`id` = `productos`.`marca_id`
+JOIN `productos_categorias` ON `productos_categorias`.`producto_id` = `productos`.`id`
+JOIN `categorias` ON `categorias`.`id` = `productos_categorias`.`categoria_id`
+GROUP BY `productos`.`id`
+ORDER BY `productos`.`id`', [], false)
+ 4 SYSTEMPATH\Model.php(919): CodeIgniter\Database\BaseBuilder->get()
+ 5 APPPATH\Controllers\Web\Catalogo.php(56): CodeIgniter\Model->__call('get', [])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Web\Catalogo->index()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Catalogo))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2024-08-08 17:50:11 --> [Caused by] mysqli_sql_exception: Unknown column 'imagenes.producto_id' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 308.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(308): mysqli->query('SELECT `productos`.*, `marcas`.`nombre` AS `nombre_marca`, GROUP_CONCAT(categorias.nombre SEPARATOR ", ") AS categorias, (SELECT imagenes.url FROM imagenes WHERE imagenes.producto_id = productos.id LIMIT 1) AS imagen_url
+FROM `productos`
+LEFT JOIN `marcas` ON `marcas`.`id` = `productos`.`marca_id`
+JOIN `productos_categorias` ON `productos_categorias`.`producto_id` = `productos`.`id`
+JOIN `categorias` ON `categorias`.`id` = `productos_categorias`.`categoria_id`
+GROUP BY `productos`.`id`
+ORDER BY `productos`.`id`', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(722): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `productos`.*, `marcas`.`nombre` AS `nombre_marca`, GROUP_CONCAT(categorias.nombre SEPARATOR ", ") AS categorias, (SELECT imagenes.url FROM imagenes WHERE imagenes.producto_id = productos.id LIMIT 1) AS imagen_url
+FROM `productos`
+LEFT JOIN `marcas` ON `marcas`.`id` = `productos`.`marca_id`
+JOIN `productos_categorias` ON `productos_categorias`.`producto_id` = `productos`.`id`
+JOIN `categorias` ON `categorias`.`id` = `productos_categorias`.`categoria_id`
+GROUP BY `productos`.`id`
+ORDER BY `productos`.`id`')
+ 3 SYSTEMPATH\Database\BaseConnection.php(636): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `productos`.*, `marcas`.`nombre` AS `nombre_marca`, GROUP_CONCAT(categorias.nombre SEPARATOR ", ") AS categorias, (SELECT imagenes.url FROM imagenes WHERE imagenes.producto_id = productos.id LIMIT 1) AS imagen_url
+FROM `productos`
+LEFT JOIN `marcas` ON `marcas`.`id` = `productos`.`marca_id`
+JOIN `productos_categorias` ON `productos_categorias`.`producto_id` = `productos`.`id`
+JOIN `categorias` ON `categorias`.`id` = `productos_categorias`.`categoria_id`
+GROUP BY `productos`.`id`
+ORDER BY `productos`.`id`')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1629): CodeIgniter\Database\BaseConnection->query('SELECT `productos`.*, `marcas`.`nombre` AS `nombre_marca`, GROUP_CONCAT(categorias.nombre SEPARATOR ", ") AS categorias, (SELECT imagenes.url FROM imagenes WHERE imagenes.producto_id = productos.id LIMIT 1) AS imagen_url
+FROM `productos`
+LEFT JOIN `marcas` ON `marcas`.`id` = `productos`.`marca_id`
+JOIN `productos_categorias` ON `productos_categorias`.`producto_id` = `productos`.`id`
+JOIN `categorias` ON `categorias`.`id` = `productos_categorias`.`categoria_id`
+GROUP BY `productos`.`id`
+ORDER BY `productos`.`id`', [], false)
+ 5 SYSTEMPATH\Model.php(919): CodeIgniter\Database\BaseBuilder->get()
+ 6 APPPATH\Controllers\Web\Catalogo.php(56): CodeIgniter\Model->__call('get', [])
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Web\Catalogo->index()
+ 8 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Catalogo))
+ 9 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+INFO - 2024-08-08 17:50:12 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-08 17:50:13 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+ERROR - 2024-08-08 17:50:13 --> mysqli_sql_exception: Unknown column 'imagenes.producto_id' in 'where clause' in C:\xampp\htdocs\Torres_Enrique\system\Database\MySQLi\Connection.php:308
+Stack trace:
+#0 C:\xampp\htdocs\Torres_Enrique\system\Database\MySQLi\Connection.php(308): mysqli->query('SELECT `product...', 0)
+#1 C:\xampp\htdocs\Torres_Enrique\system\Database\BaseConnection.php(722): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `product...')
+#2 C:\xampp\htdocs\Torres_Enrique\system\Database\BaseConnection.php(636): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `product...')
+#3 C:\xampp\htdocs\Torres_Enrique\system\Database\BaseBuilder.php(1629): CodeIgniter\Database\BaseConnection->query('SELECT `product...', Array, false)
+#4 C:\xampp\htdocs\Torres_Enrique\system\Model.php(919): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\Torres_Enrique\app\Controllers\Web\Catalogo.php(56): CodeIgniter\Model->__call('get', Array)
+#6 C:\xampp\htdocs\Torres_Enrique\system\CodeIgniter.php(933): App\Controllers\Web\Catalogo->index()
+#7 C:\xampp\htdocs\Torres_Enrique\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Catalogo))
+#8 C:\xampp\htdocs\Torres_Enrique\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\xampp\htdocs\Torres_Enrique\system\Boot.php(312): CodeIgniter\CodeIgniter->run()
+#10 C:\xampp\htdocs\Torres_Enrique\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 C:\xampp\htdocs\Torres_Enrique\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+CRITICAL - 2024-08-08 17:50:13 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'imagenes.producto_id' in 'where clause'
+[Method: GET, Route: catalogo]
+in SYSTEMPATH\Database\BaseConnection.php on line 676.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1629): CodeIgniter\Database\BaseConnection->query('SELECT `productos`.*, `marcas`.`nombre` AS `nombre_marca`, GROUP_CONCAT(categorias.nombre SEPARATOR ", ") AS categorias, (SELECT imagenes.url FROM imagenes WHERE imagenes.producto_id = productos.id LIMIT 1) AS imagen_url
+FROM `productos`
+LEFT JOIN `marcas` ON `marcas`.`id` = `productos`.`marca_id`
+JOIN `productos_categorias` ON `productos_categorias`.`producto_id` = `productos`.`id`
+JOIN `categorias` ON `categorias`.`id` = `productos_categorias`.`categoria_id`
+GROUP BY `productos`.`id`
+ORDER BY `productos`.`id`', [], false)
+ 2 SYSTEMPATH\Model.php(919): CodeIgniter\Database\BaseBuilder->get()
+ 3 APPPATH\Controllers\Web\Catalogo.php(56): CodeIgniter\Model->__call('get', [])
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Web\Catalogo->index()
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Catalogo))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2024-08-08 17:50:13 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'imagenes.producto_id' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 313.
+ 1 SYSTEMPATH\Database\BaseConnection.php(722): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `productos`.*, `marcas`.`nombre` AS `nombre_marca`, GROUP_CONCAT(categorias.nombre SEPARATOR ", ") AS categorias, (SELECT imagenes.url FROM imagenes WHERE imagenes.producto_id = productos.id LIMIT 1) AS imagen_url
+FROM `productos`
+LEFT JOIN `marcas` ON `marcas`.`id` = `productos`.`marca_id`
+JOIN `productos_categorias` ON `productos_categorias`.`producto_id` = `productos`.`id`
+JOIN `categorias` ON `categorias`.`id` = `productos_categorias`.`categoria_id`
+GROUP BY `productos`.`id`
+ORDER BY `productos`.`id`')
+ 2 SYSTEMPATH\Database\BaseConnection.php(636): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `productos`.*, `marcas`.`nombre` AS `nombre_marca`, GROUP_CONCAT(categorias.nombre SEPARATOR ", ") AS categorias, (SELECT imagenes.url FROM imagenes WHERE imagenes.producto_id = productos.id LIMIT 1) AS imagen_url
+FROM `productos`
+LEFT JOIN `marcas` ON `marcas`.`id` = `productos`.`marca_id`
+JOIN `productos_categorias` ON `productos_categorias`.`producto_id` = `productos`.`id`
+JOIN `categorias` ON `categorias`.`id` = `productos_categorias`.`categoria_id`
+GROUP BY `productos`.`id`
+ORDER BY `productos`.`id`')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1629): CodeIgniter\Database\BaseConnection->query('SELECT `productos`.*, `marcas`.`nombre` AS `nombre_marca`, GROUP_CONCAT(categorias.nombre SEPARATOR ", ") AS categorias, (SELECT imagenes.url FROM imagenes WHERE imagenes.producto_id = productos.id LIMIT 1) AS imagen_url
+FROM `productos`
+LEFT JOIN `marcas` ON `marcas`.`id` = `productos`.`marca_id`
+JOIN `productos_categorias` ON `productos_categorias`.`producto_id` = `productos`.`id`
+JOIN `categorias` ON `categorias`.`id` = `productos_categorias`.`categoria_id`
+GROUP BY `productos`.`id`
+ORDER BY `productos`.`id`', [], false)
+ 4 SYSTEMPATH\Model.php(919): CodeIgniter\Database\BaseBuilder->get()
+ 5 APPPATH\Controllers\Web\Catalogo.php(56): CodeIgniter\Model->__call('get', [])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Web\Catalogo->index()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Catalogo))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2024-08-08 17:50:13 --> [Caused by] mysqli_sql_exception: Unknown column 'imagenes.producto_id' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 308.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(308): mysqli->query('SELECT `productos`.*, `marcas`.`nombre` AS `nombre_marca`, GROUP_CONCAT(categorias.nombre SEPARATOR ", ") AS categorias, (SELECT imagenes.url FROM imagenes WHERE imagenes.producto_id = productos.id LIMIT 1) AS imagen_url
+FROM `productos`
+LEFT JOIN `marcas` ON `marcas`.`id` = `productos`.`marca_id`
+JOIN `productos_categorias` ON `productos_categorias`.`producto_id` = `productos`.`id`
+JOIN `categorias` ON `categorias`.`id` = `productos_categorias`.`categoria_id`
+GROUP BY `productos`.`id`
+ORDER BY `productos`.`id`', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(722): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `productos`.*, `marcas`.`nombre` AS `nombre_marca`, GROUP_CONCAT(categorias.nombre SEPARATOR ", ") AS categorias, (SELECT imagenes.url FROM imagenes WHERE imagenes.producto_id = productos.id LIMIT 1) AS imagen_url
+FROM `productos`
+LEFT JOIN `marcas` ON `marcas`.`id` = `productos`.`marca_id`
+JOIN `productos_categorias` ON `productos_categorias`.`producto_id` = `productos`.`id`
+JOIN `categorias` ON `categorias`.`id` = `productos_categorias`.`categoria_id`
+GROUP BY `productos`.`id`
+ORDER BY `productos`.`id`')
+ 3 SYSTEMPATH\Database\BaseConnection.php(636): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `productos`.*, `marcas`.`nombre` AS `nombre_marca`, GROUP_CONCAT(categorias.nombre SEPARATOR ", ") AS categorias, (SELECT imagenes.url FROM imagenes WHERE imagenes.producto_id = productos.id LIMIT 1) AS imagen_url
+FROM `productos`
+LEFT JOIN `marcas` ON `marcas`.`id` = `productos`.`marca_id`
+JOIN `productos_categorias` ON `productos_categorias`.`producto_id` = `productos`.`id`
+JOIN `categorias` ON `categorias`.`id` = `productos_categorias`.`categoria_id`
+GROUP BY `productos`.`id`
+ORDER BY `productos`.`id`')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1629): CodeIgniter\Database\BaseConnection->query('SELECT `productos`.*, `marcas`.`nombre` AS `nombre_marca`, GROUP_CONCAT(categorias.nombre SEPARATOR ", ") AS categorias, (SELECT imagenes.url FROM imagenes WHERE imagenes.producto_id = productos.id LIMIT 1) AS imagen_url
+FROM `productos`
+LEFT JOIN `marcas` ON `marcas`.`id` = `productos`.`marca_id`
+JOIN `productos_categorias` ON `productos_categorias`.`producto_id` = `productos`.`id`
+JOIN `categorias` ON `categorias`.`id` = `productos_categorias`.`categoria_id`
+GROUP BY `productos`.`id`
+ORDER BY `productos`.`id`', [], false)
+ 5 SYSTEMPATH\Model.php(919): CodeIgniter\Database\BaseBuilder->get()
+ 6 APPPATH\Controllers\Web\Catalogo.php(56): CodeIgniter\Model->__call('get', [])
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Web\Catalogo->index()
+ 8 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Catalogo))
+ 9 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+INFO - 2024-08-08 17:54:28 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2024-08-08 17:54:28 --> ParseError: syntax error, unexpected token ";", expecting identifier or variable or "{" or "$"
+[Method: GET, Route: catalogo]
+in APPPATH\Views\web\catalogo.php on line 102.
+ 1 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 2 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('web/catalogo', [], true)
+ 3 APPPATH\Controllers\Web\Catalogo.php(121): view('web/catalogo', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Web\Catalogo->index()
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Catalogo))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+INFO - 2024-08-08 17:56:25 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2024-08-08 17:56:25 --> ErrorException: Undefined property: stdClass::$imagenes
+[Method: GET, Route: catalogo]
+in APPPATH\Views\web\catalogo.php on line 102.
+ 1 APPPATH\Views\web\catalogo.php(102): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined property: stdClass::$imagenes', 'C:\\xampp\\htdocs\\Torres_Enrique\\app\\Views\\web\\catalogo.php', 102)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\xampp\\htdocs\\Torres_Enrique\\app\\Views\\web\\catalogo.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('web/catalogo', [], true)
+ 5 APPPATH\Controllers\Web\Catalogo.php(121): view('web/catalogo', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Web\Catalogo->index()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Catalogo))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+INFO - 2024-08-08 18:08:50 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2024-08-08 18:08:50 --> ErrorException: Undefined property: stdClass::$imagenes
+[Method: GET, Route: catalogo]
+in APPPATH\Views\web\catalogo.php on line 102.
+ 1 APPPATH\Views\web\catalogo.php(102): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined property: stdClass::$imagenes', 'C:\\xampp\\htdocs\\Torres_Enrique\\app\\Views\\web\\catalogo.php', 102)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\xampp\\htdocs\\Torres_Enrique\\app\\Views\\web\\catalogo.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('web/catalogo', [], true)
+ 5 APPPATH\Controllers\Web\Catalogo.php(121): view('web/catalogo', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Web\Catalogo->index()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Catalogo))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+INFO - 2024-08-08 18:09:14 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-08 18:11:42 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2024-08-08 18:11:42 --> ErrorException: Attempt to read property "url" on string
+[Method: GET, Route: catalogo]
+in APPPATH\Views\web\catalogo.php on line 102.
+ 1 APPPATH\Views\web\catalogo.php(102): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Attempt to read property "url" on string', 'C:\\xampp\\htdocs\\Torres_Enrique\\app\\Views\\web\\catalogo.php', 102)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\xampp\\htdocs\\Torres_Enrique\\app\\Views\\web\\catalogo.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('web/catalogo', [], true)
+ 5 APPPATH\Controllers\Web\Catalogo.php(121): view('web/catalogo', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Web\Catalogo->index()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Catalogo))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+INFO - 2024-08-08 18:13:11 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2024-08-08 18:13:11 --> ErrorException: Attempt to read property "url" on string
+[Method: GET, Route: catalogo]
+in APPPATH\Views\web\catalogo.php on line 102.
+ 1 APPPATH\Views\web\catalogo.php(102): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Attempt to read property "url" on string', 'C:\\xampp\\htdocs\\Torres_Enrique\\app\\Views\\web\\catalogo.php', 102)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\xampp\\htdocs\\Torres_Enrique\\app\\Views\\web\\catalogo.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('web/catalogo', [], true)
+ 5 APPPATH\Controllers\Web\Catalogo.php(121): view('web/catalogo', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Web\Catalogo->index()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Catalogo))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+INFO - 2024-08-08 18:13:34 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-08 18:47:21 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2024-08-08 18:47:21 --> BadMethodCallException: Call to undefined method App\Models\ProductoModel::with
+[Method: GET, Route: catalogo]
+in SYSTEMPATH\Model.php on line 921.
+ 1 APPPATH\Controllers\Web\Catalogo.php(52): CodeIgniter\Model->__call('with', [...])
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Web\Catalogo->index()
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Catalogo))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+INFO - 2024-08-08 18:49:24 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2024-08-08 18:49:24 --> BadMethodCallException: Call to undefined method App\Models\ProductoModel::with
+[Method: GET, Route: catalogo]
+in SYSTEMPATH\Model.php on line 921.
+ 1 APPPATH\Controllers\Web\Catalogo.php(52): CodeIgniter\Model->__call('with', [...])
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Web\Catalogo->index()
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Catalogo))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+INFO - 2024-08-08 18:49:27 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2024-08-08 18:49:27 --> BadMethodCallException: Call to undefined method App\Models\ProductoModel::with
+[Method: GET, Route: catalogo]
+in SYSTEMPATH\Model.php on line 921.
+ 1 APPPATH\Controllers\Web\Catalogo.php(52): CodeIgniter\Model->__call('with', [...])
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Web\Catalogo->index()
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Catalogo))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+INFO - 2024-08-08 18:50:19 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2024-08-08 18:50:19 --> BadMethodCallException: Call to undefined method App\Models\ProductoModel::with
+[Method: GET, Route: catalogo]
+in SYSTEMPATH\Model.php on line 921.
+ 1 APPPATH\Controllers\Web\Catalogo.php(52): CodeIgniter\Model->__call('with', [...])
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Web\Catalogo->index()
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Catalogo))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+INFO - 2024-08-08 18:50:20 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-08 18:50:21 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2024-08-08 18:50:21 --> BadMethodCallException: Call to undefined method App\Models\ProductoModel::with
+[Method: GET, Route: catalogo]
+in SYSTEMPATH\Model.php on line 921.
+ 1 APPPATH\Controllers\Web\Catalogo.php(52): CodeIgniter\Model->__call('with', [...])
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Web\Catalogo->index()
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Catalogo))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+INFO - 2024-08-08 18:51:14 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2024-08-08 18:51:14 --> BadMethodCallException: Call to undefined method App\Models\ProductoModel::with
+[Method: GET, Route: catalogo]
+in SYSTEMPATH\Model.php on line 921.
+ 1 APPPATH\Controllers\Web\Catalogo.php(56): CodeIgniter\Model->__call('with', [...])
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Web\Catalogo->index()
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Catalogo))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+INFO - 2024-08-08 18:55:52 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2024-08-08 18:55:52 --> BadMethodCallException: Call to undefined method App\Models\ProductoModel::with
+[Method: GET, Route: catalogo]
+in SYSTEMPATH\Model.php on line 921.
+ 1 APPPATH\Controllers\Web\Catalogo.php(56): CodeIgniter\Model->__call('with', [...])
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Web\Catalogo->index()
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Catalogo))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+INFO - 2024-08-08 18:55:53 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-08 18:55:55 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2024-08-08 18:55:55 --> BadMethodCallException: Call to undefined method App\Models\ProductoModel::with
+[Method: GET, Route: catalogo]
+in SYSTEMPATH\Model.php on line 921.
+ 1 APPPATH\Controllers\Web\Catalogo.php(56): CodeIgniter\Model->__call('with', [...])
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Web\Catalogo->index()
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Catalogo))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+INFO - 2024-08-08 18:56:35 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2024-08-08 18:56:35 --> BadMethodCallException: Call to undefined method App\Models\ProductoModel::with
+[Method: GET, Route: catalogo]
+in SYSTEMPATH\Model.php on line 921.
+ 1 APPPATH\Controllers\Web\Catalogo.php(57): CodeIgniter\Model->__call('with', [...])
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Web\Catalogo->index()
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Catalogo))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+INFO - 2024-08-08 18:58:16 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2024-08-08 18:58:16 --> BadMethodCallException: Call to undefined method App\Models\ProductoModel::with
+[Method: GET, Route: catalogo]
+in SYSTEMPATH\Model.php on line 921.
+ 1 APPPATH\Controllers\Web\Catalogo.php(57): CodeIgniter\Model->__call('with', [...])
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Web\Catalogo->index()
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Catalogo))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+INFO - 2024-08-08 18:58:17 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2024-08-08 18:58:17 --> BadMethodCallException: Call to undefined method App\Models\ProductoModel::with
+[Method: GET, Route: catalogo]
+in SYSTEMPATH\Model.php on line 921.
+ 1 APPPATH\Controllers\Web\Catalogo.php(57): CodeIgniter\Model->__call('with', [...])
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Web\Catalogo->index()
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Catalogo))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+INFO - 2024-08-08 18:58:46 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2024-08-08 18:58:46 --> BadMethodCallException: Call to undefined method App\Models\ProductoModel::with
+[Method: GET, Route: catalogo]
+in SYSTEMPATH\Model.php on line 921.
+ 1 APPPATH\Controllers\Web\Catalogo.php(57): CodeIgniter\Model->__call('with', [...])
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Web\Catalogo->index()
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Catalogo))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+INFO - 2024-08-08 18:59:34 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2024-08-08 18:59:34 --> BadMethodCallException: Call to undefined method App\Models\ProductoModel::with
+[Method: GET, Route: catalogo]
+in SYSTEMPATH\Model.php on line 921.
+ 1 APPPATH\Controllers\Web\Catalogo.php(111): CodeIgniter\Model->__call('with', [...])
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Web\Catalogo->index()
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Catalogo))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+INFO - 2024-08-08 19:00:36 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2024-08-08 19:00:36 --> BadMethodCallException: Call to undefined method App\Models\ProductoModel::with
+[Method: GET, Route: catalogo]
+in SYSTEMPATH\Model.php on line 921.
+ 1 APPPATH\Controllers\Web\Catalogo.php(111): CodeIgniter\Model->__call('with', [...])
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Web\Catalogo->index()
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Catalogo))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+INFO - 2024-08-08 19:02:43 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2024-08-08 19:02:43 --> BadMethodCallException: Call to undefined method App\Models\ProductoModel::with
+[Method: GET, Route: catalogo]
+in SYSTEMPATH\Model.php on line 921.
+ 1 APPPATH\Controllers\Web\Catalogo.php(111): CodeIgniter\Model->__call('with', [...])
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Web\Catalogo->index()
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Catalogo))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+INFO - 2024-08-08 19:02:46 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2024-08-08 19:02:46 --> BadMethodCallException: Call to undefined method App\Models\ProductoModel::with
+[Method: GET, Route: catalogo]
+in SYSTEMPATH\Model.php on line 921.
+ 1 APPPATH\Controllers\Web\Catalogo.php(111): CodeIgniter\Model->__call('with', [...])
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Web\Catalogo->index()
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Catalogo))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+INFO - 2024-08-08 19:04:54 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2024-08-08 19:04:54 --> Error: Call to undefined method CodeIgniter\Database\MySQLi\Builder::with()
+[Method: GET, Route: catalogo]
+in APPPATH\Controllers\Web\Catalogo.php on line 52.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Web\Catalogo->index()
+ 2 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Catalogo))
+ 3 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+INFO - 2024-08-08 19:05:20 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2024-08-08 19:05:20 --> Error: Call to undefined method CodeIgniter\Database\MySQLi\Builder::with()
+[Method: GET, Route: catalogo]
+in APPPATH\Controllers\Web\Catalogo.php on line 108.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Web\Catalogo->index()
+ 2 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Catalogo))
+ 3 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+INFO - 2024-08-08 19:05:36 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2024-08-08 19:05:36 --> ErrorException: Undefined variable $producto
+[Method: GET, Route: catalogo]
+in APPPATH\Views\web\catalogo.php on line 102.
+ 1 APPPATH\Views\web\catalogo.php(102): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $producto', 'C:\\xampp\\htdocs\\Torres_Enrique\\app\\Views\\web\\catalogo.php', 102)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\xampp\\htdocs\\Torres_Enrique\\app\\Views\\web\\catalogo.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('web/catalogo', [], true)
+ 5 APPPATH\Controllers\Web\Catalogo.php(117): view('web/catalogo', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Web\Catalogo->index()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Catalogo))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+INFO - 2024-08-08 19:06:38 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2024-08-08 19:06:38 --> ErrorException: Undefined variable $producto
+[Method: GET, Route: catalogo]
+in APPPATH\Views\web\catalogo.php on line 102.
+ 1 APPPATH\Views\web\catalogo.php(102): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $producto', 'C:\\xampp\\htdocs\\Torres_Enrique\\app\\Views\\web\\catalogo.php', 102)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\xampp\\htdocs\\Torres_Enrique\\app\\Views\\web\\catalogo.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('web/catalogo', [], true)
+ 5 APPPATH\Controllers\Web\Catalogo.php(117): view('web/catalogo', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Web\Catalogo->index()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Catalogo))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+INFO - 2024-08-08 19:06:50 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2024-08-08 19:06:50 --> ErrorException: Undefined variable $producto
+[Method: GET, Route: catalogo]
+in APPPATH\Views\web\catalogo.php on line 102.
+ 1 APPPATH\Views\web\catalogo.php(102): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $producto', 'C:\\xampp\\htdocs\\Torres_Enrique\\app\\Views\\web\\catalogo.php', 102)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\xampp\\htdocs\\Torres_Enrique\\app\\Views\\web\\catalogo.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('web/catalogo', [], true)
+ 5 APPPATH\Controllers\Web\Catalogo.php(117): view('web/catalogo', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Web\Catalogo->index()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Catalogo))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+INFO - 2024-08-08 19:07:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2024-08-08 19:07:04 --> ErrorException: Undefined property: stdClass::$primeraImagen
+[Method: GET, Route: catalogo]
+in APPPATH\Views\web\catalogo.php on line 102.
+ 1 APPPATH\Views\web\catalogo.php(102): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined property: stdClass::$primeraImagen', 'C:\\xampp\\htdocs\\Torres_Enrique\\app\\Views\\web\\catalogo.php', 102)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\xampp\\htdocs\\Torres_Enrique\\app\\Views\\web\\catalogo.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('web/catalogo', [], true)
+ 5 APPPATH\Controllers\Web\Catalogo.php(117): view('web/catalogo', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Web\Catalogo->index()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Catalogo))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+INFO - 2024-08-08 19:07:22 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2024-08-08 19:07:22 --> ErrorException: Undefined property: stdClass::$imagen
+[Method: GET, Route: catalogo]
+in APPPATH\Views\web\catalogo.php on line 102.
+ 1 APPPATH\Views\web\catalogo.php(102): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined property: stdClass::$imagen', 'C:\\xampp\\htdocs\\Torres_Enrique\\app\\Views\\web\\catalogo.php', 102)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\xampp\\htdocs\\Torres_Enrique\\app\\Views\\web\\catalogo.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('web/catalogo', [], true)
+ 5 APPPATH\Controllers\Web\Catalogo.php(117): view('web/catalogo', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Web\Catalogo->index()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Catalogo))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+INFO - 2024-08-08 19:07:37 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2024-08-08 19:07:37 --> Error: Object of class stdClass could not be converted to string
+[Method: GET, Route: catalogo]
+in APPPATH\Views\web\catalogo.php on line 102.
+ 1 SYSTEMPATH\View\View.php(234): include()
+ 2 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 3 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('web/catalogo', [], true)
+ 4 APPPATH\Controllers\Web\Catalogo.php(117): view('web/catalogo', [...])
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Web\Catalogo->index()
+ 6 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Catalogo))
+ 7 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+INFO - 2024-08-08 19:08:02 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2024-08-08 19:08:02 --> ErrorException: Undefined property: stdClass::$nombre_marca
+[Method: GET, Route: catalogo]
+in APPPATH\Views\web\catalogo.php on line 114.
+ 1 APPPATH\Views\web\catalogo.php(114): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined property: stdClass::$nombre_marca', 'C:\\xampp\\htdocs\\Torres_Enrique\\app\\Views\\web\\catalogo.php', 114)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\xampp\\htdocs\\Torres_Enrique\\app\\Views\\web\\catalogo.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('web/catalogo', [], true)
+ 5 APPPATH\Controllers\Web\Catalogo.php(117): view('web/catalogo', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Web\Catalogo->index()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Catalogo))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+INFO - 2024-08-08 19:08:29 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2024-08-08 19:08:29 --> ErrorException: Undefined property: stdClass::$marcas
+[Method: GET, Route: catalogo]
+in APPPATH\Views\web\catalogo.php on line 114.
+ 1 APPPATH\Views\web\catalogo.php(114): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined property: stdClass::$marcas', 'C:\\xampp\\htdocs\\Torres_Enrique\\app\\Views\\web\\catalogo.php', 114)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\xampp\\htdocs\\Torres_Enrique\\app\\Views\\web\\catalogo.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('web/catalogo', [], true)
+ 5 APPPATH\Controllers\Web\Catalogo.php(117): view('web/catalogo', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Web\Catalogo->index()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Catalogo))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+INFO - 2024-08-08 19:08:34 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2024-08-08 19:08:34 --> ErrorException: Undefined property: stdClass::$marca
+[Method: GET, Route: catalogo]
+in APPPATH\Views\web\catalogo.php on line 114.
+ 1 APPPATH\Views\web\catalogo.php(114): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined property: stdClass::$marca', 'C:\\xampp\\htdocs\\Torres_Enrique\\app\\Views\\web\\catalogo.php', 114)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\xampp\\htdocs\\Torres_Enrique\\app\\Views\\web\\catalogo.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('web/catalogo', [], true)
+ 5 APPPATH\Controllers\Web\Catalogo.php(117): view('web/catalogo', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Web\Catalogo->index()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Catalogo))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+INFO - 2024-08-08 19:09:45 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2024-08-08 19:09:45 --> BadMethodCallException: Call to undefined method App\Models\ProductoModel::obtenerProductoActivo
+[Method: GET, Route: catalogo]
+in SYSTEMPATH\Model.php on line 921.
+ 1 APPPATH\Controllers\Web\Catalogo.php(110): CodeIgniter\Model->__call('obtenerProductoActivo', [])
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Web\Catalogo->index()
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Catalogo))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+INFO - 2024-08-08 19:10:00 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2024-08-08 19:10:00 --> BadMethodCallException: Call to undefined method App\Models\ProductoModel::with
+[Method: GET, Route: catalogo]
+in SYSTEMPATH\Model.php on line 921.
+ 1 APPPATH\Models\ProductoModel.php(90): CodeIgniter\Model->__call('with', [...])
+ 2 APPPATH\Controllers\Web\Catalogo.php(110): App\Models\ProductoModel->obtenerProductosActivos()
+ 3 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Web\Catalogo->index()
+ 4 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Catalogo))
+ 5 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+INFO - 2024-08-08 19:11:12 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2024-08-08 19:11:12 --> BadMethodCallException: Call to undefined method App\Models\ProductoModel::with
+[Method: GET, Route: catalogo]
+in SYSTEMPATH\Model.php on line 921.
+ 1 APPPATH\Models\ProductoModel.php(91): CodeIgniter\Model->__call('with', [...])
+ 2 APPPATH\Controllers\Web\Catalogo.php(110): App\Models\ProductoModel->obtenerProductosActivos()
+ 3 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Web\Catalogo->index()
+ 4 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Catalogo))
+ 5 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+INFO - 2024-08-08 19:11:33 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2024-08-08 19:11:33 --> BadMethodCallException: Call to undefined method App\Models\ProductoModel::with
+[Method: GET, Route: catalogo]
+in SYSTEMPATH\Model.php on line 921.
+ 1 APPPATH\Models\ProductoModel.php(91): CodeIgniter\Model->__call('with', [...])
+ 2 APPPATH\Controllers\Web\Catalogo.php(110): App\Models\ProductoModel->obtenerProductosActivos()
+ 3 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Web\Catalogo->index()
+ 4 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Catalogo))
+ 5 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+INFO - 2024-08-08 19:12:59 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2024-08-08 19:12:59 --> BadMethodCallException: Call to undefined method App\Models\ProductoModel::with
+[Method: GET, Route: catalogo]
+in SYSTEMPATH\Model.php on line 921.
+ 1 APPPATH\Models\ProductoModel.php(91): CodeIgniter\Model->__call('with', [...])
+ 2 APPPATH\Controllers\Web\Catalogo.php(110): App\Models\ProductoModel->obtenerProductosActivos()
+ 3 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Web\Catalogo->index()
+ 4 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Catalogo))
+ 5 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+INFO - 2024-08-08 19:13:34 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2024-08-08 19:13:34 --> BadMethodCallException: Call to undefined method App\Models\ProductoModel::with
+[Method: GET, Route: catalogo]
+in SYSTEMPATH\Model.php on line 921.
+ 1 APPPATH\Models\ProductoModel.php(91): CodeIgniter\Model->__call('with', [...])
+ 2 APPPATH\Controllers\Web\Catalogo.php(110): App\Models\ProductoModel->obtenerProductosActivos()
+ 3 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Web\Catalogo->index()
+ 4 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Catalogo))
+ 5 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+INFO - 2024-08-08 19:13:45 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2024-08-08 19:13:45 --> BadMethodCallException: Call to undefined method App\Models\ProductoModel::with
+[Method: GET, Route: catalogo]
+in SYSTEMPATH\Model.php on line 921.
+ 1 APPPATH\Models\ProductoModel.php(91): CodeIgniter\Model->__call('with', [...])
+ 2 APPPATH\Controllers\Web\Catalogo.php(110): App\Models\ProductoModel->obtenerProductosActivos()
+ 3 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Web\Catalogo->index()
+ 4 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Catalogo))
+ 5 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+INFO - 2024-08-08 19:14:10 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2024-08-08 19:14:10 --> BadMethodCallException: Call to undefined method App\Models\ProductoModel::with
+[Method: GET, Route: catalogo]
+in SYSTEMPATH\Model.php on line 921.
+ 1 APPPATH\Models\ProductoModel.php(75): CodeIgniter\Model->__call('with', [...])
+ 2 APPPATH\Controllers\Web\Catalogo.php(110): App\Models\ProductoModel->obtenerProductosActivos()
+ 3 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Web\Catalogo->index()
+ 4 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Catalogo))
+ 5 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+INFO - 2024-08-08 19:14:41 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+ERROR - 2024-08-08 19:14:41 --> Error al obtener productos activos: Call to undefined method App\Models\ProductoModel::with
+INFO - 2024-08-08 19:15:01 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2024-08-08 19:15:01 --> BadMethodCallException: Call to undefined method App\Models\ProductoModel::with
+[Method: GET, Route: catalogo]
+in SYSTEMPATH\Model.php on line 921.
+ 1 APPPATH\Models\ProductoModel.php(75): CodeIgniter\Model->__call('with', [...])
+ 2 APPPATH\Controllers\Web\Catalogo.php(110): App\Models\ProductoModel->obtenerProductosActivos()
+ 3 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Web\Catalogo->index()
+ 4 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Catalogo))
+ 5 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+INFO - 2024-08-08 19:26:23 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2024-08-08 19:26:23 --> BadMethodCallException: Call to undefined method App\Models\ProductoModel::obtenerProductosActivos
+[Method: GET, Route: catalogo]
+in SYSTEMPATH\Model.php on line 921.
+ 1 APPPATH\Controllers\Web\Catalogo.php(110): CodeIgniter\Model->__call('obtenerProductosActivos', [])
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Web\Catalogo->index()
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Catalogo))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+INFO - 2024-08-08 19:26:35 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2024-08-08 19:26:35 --> ErrorException: Undefined property: stdClass::$marca
+[Method: GET, Route: catalogo]
+in APPPATH\Views\web\catalogo.php on line 114.
+ 1 APPPATH\Views\web\catalogo.php(114): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined property: stdClass::$marca', 'C:\\xampp\\htdocs\\Torres_Enrique\\app\\Views\\web\\catalogo.php', 114)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\xampp\\htdocs\\Torres_Enrique\\app\\Views\\web\\catalogo.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('web/catalogo', [], true)
+ 5 APPPATH\Controllers\Web\Catalogo.php(117): view('web/catalogo', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Web\Catalogo->index()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Catalogo))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+INFO - 2024-08-08 19:26:56 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-08 19:27:48 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2024-08-08 19:27:48 --> ErrorException: Undefined property: stdClass::$imagenes
+[Method: GET, Route: catalogo]
+in APPPATH\Views\web\catalogo.php on line 102.
+ 1 APPPATH\Views\web\catalogo.php(102): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined property: stdClass::$imagenes', 'C:\\xampp\\htdocs\\Torres_Enrique\\app\\Views\\web\\catalogo.php', 102)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\xampp\\htdocs\\Torres_Enrique\\app\\Views\\web\\catalogo.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('web/catalogo', [], true)
+ 5 APPPATH\Controllers\Web\Catalogo.php(117): view('web/catalogo', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Web\Catalogo->index()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Catalogo))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+INFO - 2024-08-08 19:27:53 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2024-08-08 19:27:53 --> ErrorException: Undefined property: stdClass::$imagenes
+[Method: GET, Route: catalogo]
+in APPPATH\Views\web\catalogo.php on line 102.
+ 1 APPPATH\Views\web\catalogo.php(102): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined property: stdClass::$imagenes', 'C:\\xampp\\htdocs\\Torres_Enrique\\app\\Views\\web\\catalogo.php', 102)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\xampp\\htdocs\\Torres_Enrique\\app\\Views\\web\\catalogo.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('web/catalogo', [], true)
+ 5 APPPATH\Controllers\Web\Catalogo.php(117): view('web/catalogo', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Web\Catalogo->index()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Catalogo))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+INFO - 2024-08-08 19:28:09 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-08 19:29:53 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-08 19:31:11 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-08 19:32:03 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-08 19:32:17 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-08 19:32:51 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2024-08-08 19:32:51 --> ErrorException: Undefined variable $producto
+[Method: GET, Route: catalogo]
+in APPPATH\Views\web\catalogo.php on line 102.
+ 1 APPPATH\Views\web\catalogo.php(102): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $producto', 'C:\\xampp\\htdocs\\Torres_Enrique\\app\\Views\\web\\catalogo.php', 102)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\xampp\\htdocs\\Torres_Enrique\\app\\Views\\web\\catalogo.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('web/catalogo', [], true)
+ 5 APPPATH\Controllers\Web\Catalogo.php(117): view('web/catalogo', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Web\Catalogo->index()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Catalogo))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+INFO - 2024-08-08 19:33:12 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-08 19:33:46 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-08 19:34:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-08 19:34:21 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-08 19:38:25 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-08 19:50:02 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-08 19:50:17 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-08 19:50:19 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-08 19:50:30 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-08 19:53:02 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-08 19:53:15 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2024-08-08 19:53:15 --> Error: Call to a member function where() on array
+[Method: GET, Route: catalogo]
+in APPPATH\Models\ProductoModel.php on line 71.
+ 1 APPPATH\Controllers\Web\Catalogo.php(110): App\Models\ProductoModel->obtenerProductosActivos()
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Web\Catalogo->index()
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Catalogo))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+INFO - 2024-08-08 19:55:05 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-08 19:55:40 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-08 20:01:19 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2024-08-08 20:01:21 --> BadMethodCallException: Call to undefined method App\Models\ProductoModel::productoDetallado
+[Method: GET, Route: producto/1]
+in SYSTEMPATH\Model.php on line 921.
+ 1 APPPATH\Controllers\Web\Catalogo.php(125): CodeIgniter\Model->__call('productoDetallado', [...])
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Web\Catalogo->show('1')
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Catalogo))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+INFO - 2024-08-08 20:01:23 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-08 20:01:25 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-08 20:02:51 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-08 20:02:52 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2024-08-08 20:02:52 --> ErrorException: Attempt to read property "nombre" on array
+[Method: GET, Route: producto/1]
+in APPPATH\Views\web\producto.php on line 4.
+ 1 APPPATH\Views\web\producto.php(4): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Attempt to read property "nombre" on array', 'C:\\xampp\\htdocs\\Torres_Enrique\\app\\Views\\web\\producto.php', 4)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\xampp\\htdocs\\Torres_Enrique\\app\\Views\\web\\producto.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('web/producto', [], true)
+ 5 APPPATH\Controllers\Web\Catalogo.php(129): view('web/producto', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Web\Catalogo->show('1')
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Catalogo))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+INFO - 2024-08-08 20:04:00 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2024-08-08 20:04:00 --> ErrorException: Attempt to read property "nombre" on array
+[Method: GET, Route: producto/1]
+in APPPATH\Views\web\producto.php on line 4.
+ 1 APPPATH\Views\web\producto.php(4): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Attempt to read property "nombre" on array', 'C:\\xampp\\htdocs\\Torres_Enrique\\app\\Views\\web\\producto.php', 4)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\xampp\\htdocs\\Torres_Enrique\\app\\Views\\web\\producto.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('web/producto', [], true)
+ 5 APPPATH\Controllers\Web\Catalogo.php(129): view('web/producto', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Web\Catalogo->show('1')
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Catalogo))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+INFO - 2024-08-08 20:04:38 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2024-08-08 20:04:38 --> ErrorException: Attempt to read property "id" on array
+[Method: GET, Route: producto/1]
+in APPPATH\Views\web\producto.php on line 4.
+ 1 APPPATH\Views\web\producto.php(4): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Attempt to read property "id" on array', 'C:\\xampp\\htdocs\\Torres_Enrique\\app\\Views\\web\\producto.php', 4)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\xampp\\htdocs\\Torres_Enrique\\app\\Views\\web\\producto.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('web/producto', [], true)
+ 5 APPPATH\Controllers\Web\Catalogo.php(129): view('web/producto', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Web\Catalogo->show('1')
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Catalogo))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+INFO - 2024-08-08 20:07:54 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2024-08-08 20:07:54 --> ErrorException: Attempt to read property "imagenes" on array
+[Method: GET, Route: producto/1]
+in APPPATH\Views\web\producto.php on line 8.
+ 1 APPPATH\Views\web\producto.php(8): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Attempt to read property "imagenes" on array', 'C:\\xampp\\htdocs\\Torres_Enrique\\app\\Views\\web\\producto.php', 8)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\xampp\\htdocs\\Torres_Enrique\\app\\Views\\web\\producto.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('web/producto', [], true)
+ 5 APPPATH\Controllers\Web\Catalogo.php(129): view('web/producto', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Web\Catalogo->show('1')
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Catalogo))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+INFO - 2024-08-08 20:08:33 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2024-08-08 20:08:33 --> ErrorException: Attempt to read property "imagenes" on array
+[Method: GET, Route: producto/1]
+in APPPATH\Views\web\producto.php on line 8.
+ 1 APPPATH\Views\web\producto.php(8): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Attempt to read property "imagenes" on array', 'C:\\xampp\\htdocs\\Torres_Enrique\\app\\Views\\web\\producto.php', 8)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\xampp\\htdocs\\Torres_Enrique\\app\\Views\\web\\producto.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('web/producto', [], true)
+ 5 APPPATH\Controllers\Web\Catalogo.php(129): view('web/producto', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Web\Catalogo->show('1')
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Catalogo))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+INFO - 2024-08-08 20:14:01 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2024-08-08 20:14:01 --> ErrorException: Undefined property: stdClass::$imagenes
+[Method: GET, Route: producto/1]
+in APPPATH\Views\web\producto.php on line 8.
+ 1 APPPATH\Views\web\producto.php(8): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined property: stdClass::$imagenes', 'C:\\xampp\\htdocs\\Torres_Enrique\\app\\Views\\web\\producto.php', 8)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\xampp\\htdocs\\Torres_Enrique\\app\\Views\\web\\producto.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('web/producto', [], true)
+ 5 APPPATH\Controllers\Web\Catalogo.php(129): view('web/producto', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Web\Catalogo->show('1')
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Catalogo))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+INFO - 2024-08-08 20:14:34 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2024-08-08 20:14:34 --> ErrorException: foreach() argument must be of type array|object, string given
+[Method: GET, Route: producto/1]
+in APPPATH\Views\web\producto.php on line 8.
+ 1 APPPATH\Views\web\producto.php(8): CodeIgniter\Debug\Exceptions->errorHandler(2, 'foreach() argument must be of type array|object, string given', 'C:\\xampp\\htdocs\\Torres_Enrique\\app\\Views\\web\\producto.php', 8)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\xampp\\htdocs\\Torres_Enrique\\app\\Views\\web\\producto.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('web/producto', [], true)
+ 5 APPPATH\Controllers\Web\Catalogo.php(129): view('web/producto', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Web\Catalogo->show('1')
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Catalogo))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2024-08-08 20:19:03 --> BadMethodCallException: Call to undefined method App\Models\ProductoModel::with
+[Method: GET, Route: producto/1]
+in SYSTEMPATH\Model.php on line 921.
+ 1 APPPATH\Models\ProductoModel.php(109): CodeIgniter\Model->__call('with', [...])
+ 2 APPPATH\Controllers\Web\Catalogo.php(125): App\Models\ProductoModel->obtenerProductoPorId('1')
+ 3 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Web\Catalogo->show('1')
+ 4 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Catalogo))
+ 5 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+INFO - 2024-08-08 20:21:07 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2024-08-08 20:21:07 --> ErrorException: Attempt to read property "nombre" on array
+[Method: GET, Route: producto/1]
+in APPPATH\Views\web\producto.php on line 4.
+ 1 APPPATH\Views\web\producto.php(4): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Attempt to read property "nombre" on array', 'C:\\xampp\\htdocs\\Torres_Enrique\\app\\Views\\web\\producto.php', 4)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\xampp\\htdocs\\Torres_Enrique\\app\\Views\\web\\producto.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('web/producto', [], true)
+ 5 APPPATH\Controllers\Web\Catalogo.php(129): view('web/producto', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Web\Catalogo->show('1')
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Catalogo))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+INFO - 2024-08-08 20:23:07 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2024-08-08 20:23:07 --> ErrorException: Attempt to read property "nombre" on array
+[Method: GET, Route: producto/1]
+in APPPATH\Views\web\producto.php on line 4.
+ 1 APPPATH\Views\web\producto.php(4): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Attempt to read property "nombre" on array', 'C:\\xampp\\htdocs\\Torres_Enrique\\app\\Views\\web\\producto.php', 4)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\xampp\\htdocs\\Torres_Enrique\\app\\Views\\web\\producto.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('web/producto', [], true)
+ 5 APPPATH\Controllers\Web\Catalogo.php(129): view('web/producto', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Web\Catalogo->show('1')
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Catalogo))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+INFO - 2024-08-08 20:23:26 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2024-08-08 20:23:26 --> ErrorException: Attempt to read property "nombre_marca" on array
+[Method: GET, Route: producto/1]
+in APPPATH\Views\web\producto.php on line 4.
+ 1 APPPATH\Views\web\producto.php(4): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Attempt to read property "nombre_marca" on array', 'C:\\xampp\\htdocs\\Torres_Enrique\\app\\Views\\web\\producto.php', 4)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\xampp\\htdocs\\Torres_Enrique\\app\\Views\\web\\producto.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('web/producto', [], true)
+ 5 APPPATH\Controllers\Web\Catalogo.php(129): view('web/producto', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Web\Catalogo->show('1')
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Catalogo))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+INFO - 2024-08-08 20:24:46 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2024-08-08 20:24:46 --> ErrorException: Attempt to read property "nombre_marca" on array
+[Method: GET, Route: producto/1]
+in APPPATH\Views\web\producto.php on line 4.
+ 1 APPPATH\Views\web\producto.php(4): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Attempt to read property "nombre_marca" on array', 'C:\\xampp\\htdocs\\Torres_Enrique\\app\\Views\\web\\producto.php', 4)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\xampp\\htdocs\\Torres_Enrique\\app\\Views\\web\\producto.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('web/producto', [], true)
+ 5 APPPATH\Controllers\Web\Catalogo.php(129): view('web/producto', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Web\Catalogo->show('1')
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Catalogo))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+INFO - 2024-08-08 20:25:55 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-08 20:25:57 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2024-08-08 20:25:57 --> ErrorException: Attempt to read property "nombre_marca" on array
+[Method: GET, Route: producto/1]
+in APPPATH\Views\web\producto.php on line 4.
+ 1 APPPATH\Views\web\producto.php(4): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Attempt to read property "nombre_marca" on array', 'C:\\xampp\\htdocs\\Torres_Enrique\\app\\Views\\web\\producto.php', 4)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\xampp\\htdocs\\Torres_Enrique\\app\\Views\\web\\producto.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('web/producto', [], true)
+ 5 APPPATH\Controllers\Web\Catalogo.php(129): view('web/producto', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Web\Catalogo->show('1')
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Catalogo))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2024-08-08 20:27:12 --> ErrorException: Attempt to read property "nombre" on array
+[Method: GET, Route: producto/1]
+in APPPATH\Controllers\Web\Catalogo.php on line 126.
+ 1 APPPATH\Controllers\Web\Catalogo.php(126): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Attempt to read property "nombre" on array', 'C:\\xampp\\htdocs\\Torres_Enrique\\app\\Controllers\\Web\\Catalogo.php', 126)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Web\Catalogo->show('1')
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Catalogo))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2024-08-08 20:27:52 --> ErrorException: Undefined array key "nombre"
+[Method: GET, Route: producto/1]
+in APPPATH\Controllers\Web\Catalogo.php on line 126.
+ 1 APPPATH\Controllers\Web\Catalogo.php(126): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "nombre"', 'C:\\xampp\\htdocs\\Torres_Enrique\\app\\Controllers\\Web\\Catalogo.php', 126)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Web\Catalogo->show('1')
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Catalogo))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2024-08-08 20:27:54 --> ErrorException: Undefined array key "nombre"
+[Method: GET, Route: producto/1]
+in APPPATH\Controllers\Web\Catalogo.php on line 126.
+ 1 APPPATH\Controllers\Web\Catalogo.php(126): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "nombre"', 'C:\\xampp\\htdocs\\Torres_Enrique\\app\\Controllers\\Web\\Catalogo.php', 126)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Web\Catalogo->show('1')
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Catalogo))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+INFO - 2024-08-08 20:28:54 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2024-08-08 20:28:54 --> ErrorException: Attempt to read property "nombre_marca" on array
+[Method: GET, Route: producto/1]
+in APPPATH\Views\web\producto.php on line 4.
+ 1 APPPATH\Views\web\producto.php(4): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Attempt to read property "nombre_marca" on array', 'C:\\xampp\\htdocs\\Torres_Enrique\\app\\Views\\web\\producto.php', 4)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\xampp\\htdocs\\Torres_Enrique\\app\\Views\\web\\producto.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('web/producto', [], true)
+ 5 APPPATH\Controllers\Web\Catalogo.php(129): view('web/producto', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Web\Catalogo->show('1')
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Catalogo))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+INFO - 2024-08-08 20:29:07 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2024-08-08 20:29:07 --> ErrorException: Array to string conversion
+[Method: GET, Route: producto/1]
+in APPPATH\Views\web\producto.php on line 4.
+ 1 APPPATH\Views\web\producto.php(4): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Array to string conversion', 'C:\\xampp\\htdocs\\Torres_Enrique\\app\\Views\\web\\producto.php', 4)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\xampp\\htdocs\\Torres_Enrique\\app\\Views\\web\\producto.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('web/producto', [], true)
+ 5 APPPATH\Controllers\Web\Catalogo.php(129): view('web/producto', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Web\Catalogo->show('1')
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Catalogo))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+INFO - 2024-08-08 20:29:31 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2024-08-08 20:29:31 --> ErrorException: Undefined array key 1
+[Method: GET, Route: producto/1]
+in APPPATH\Views\web\producto.php on line 4.
+ 1 APPPATH\Views\web\producto.php(4): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key 1', 'C:\\xampp\\htdocs\\Torres_Enrique\\app\\Views\\web\\producto.php', 4)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\xampp\\htdocs\\Torres_Enrique\\app\\Views\\web\\producto.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('web/producto', [], true)
+ 5 APPPATH\Controllers\Web\Catalogo.php(129): view('web/producto', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Web\Catalogo->show('1')
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Catalogo))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+INFO - 2024-08-08 20:29:42 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2024-08-08 20:29:42 --> ErrorException: Attempt to read property "imagen_url" on array
+[Method: GET, Route: producto/1]
+in APPPATH\Views\web\producto.php on line 8.
+ 1 APPPATH\Views\web\producto.php(8): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Attempt to read property "imagen_url" on array', 'C:\\xampp\\htdocs\\Torres_Enrique\\app\\Views\\web\\producto.php', 8)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\xampp\\htdocs\\Torres_Enrique\\app\\Views\\web\\producto.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('web/producto', [], true)
+ 5 APPPATH\Controllers\Web\Catalogo.php(129): view('web/producto', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Web\Catalogo->show('1')
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Catalogo))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+INFO - 2024-08-08 20:30:15 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2024-08-08 20:30:15 --> ErrorException: Undefined property: stdClass::$imagen
+[Method: GET, Route: producto/1]
+in APPPATH\Views\web\producto.php on line 10.
+ 1 APPPATH\Views\web\producto.php(10): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined property: stdClass::$imagen', 'C:\\xampp\\htdocs\\Torres_Enrique\\app\\Views\\web\\producto.php', 10)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\xampp\\htdocs\\Torres_Enrique\\app\\Views\\web\\producto.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('web/producto', [], true)
+ 5 APPPATH\Controllers\Web\Catalogo.php(129): view('web/producto', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Web\Catalogo->show('1')
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Catalogo))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+INFO - 2024-08-08 20:31:14 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2024-08-08 20:31:14 --> ErrorException: Undefined property: stdClass::$imagen
+[Method: GET, Route: producto/1]
+in APPPATH\Views\web\producto.php on line 10.
+ 1 APPPATH\Views\web\producto.php(10): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined property: stdClass::$imagen', 'C:\\xampp\\htdocs\\Torres_Enrique\\app\\Views\\web\\producto.php', 10)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\xampp\\htdocs\\Torres_Enrique\\app\\Views\\web\\producto.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('web/producto', [], true)
+ 5 APPPATH\Controllers\Web\Catalogo.php(129): view('web/producto', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Web\Catalogo->show('1')
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Catalogo))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+INFO - 2024-08-08 20:31:26 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2024-08-08 20:31:26 --> Error: Cannot use object of type stdClass as array
+[Method: GET, Route: producto/1]
+in APPPATH\Views\web\producto.php on line 25.
+ 1 SYSTEMPATH\View\View.php(234): include()
+ 2 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 3 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('web/producto', [], true)
+ 4 APPPATH\Controllers\Web\Catalogo.php(129): view('web/producto', [...])
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Web\Catalogo->show('1')
+ 6 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Catalogo))
+ 7 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+INFO - 2024-08-08 20:31:44 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2024-08-08 20:31:44 --> ErrorException: Undefined property: stdClass::$imagenes
+[Method: GET, Route: producto/1]
+in APPPATH\Views\web\producto.php on line 25.
+ 1 APPPATH\Views\web\producto.php(25): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined property: stdClass::$imagenes', 'C:\\xampp\\htdocs\\Torres_Enrique\\app\\Views\\web\\producto.php', 25)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\xampp\\htdocs\\Torres_Enrique\\app\\Views\\web\\producto.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('web/producto', [], true)
+ 5 APPPATH\Controllers\Web\Catalogo.php(129): view('web/producto', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Web\Catalogo->show('1')
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Catalogo))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+INFO - 2024-08-08 20:34:14 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2024-08-08 20:34:14 --> ErrorException: Undefined property: stdClass::$imagenes
+[Method: GET, Route: producto/1]
+in APPPATH\Views\web\producto.php on line 27.
+ 1 APPPATH\Views\web\producto.php(27): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined property: stdClass::$imagenes', 'C:\\xampp\\htdocs\\Torres_Enrique\\app\\Views\\web\\producto.php', 27)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\xampp\\htdocs\\Torres_Enrique\\app\\Views\\web\\producto.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('web/producto', [], true)
+ 5 APPPATH\Controllers\Web\Catalogo.php(129): view('web/producto', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Web\Catalogo->show('1')
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Catalogo))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+INFO - 2024-08-08 20:34:37 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2024-08-08 20:34:37 --> ErrorException: foreach() argument must be of type array|object, string given
+[Method: GET, Route: producto/1]
+in APPPATH\Views\web\producto.php on line 27.
+ 1 APPPATH\Views\web\producto.php(27): CodeIgniter\Debug\Exceptions->errorHandler(2, 'foreach() argument must be of type array|object, string given', 'C:\\xampp\\htdocs\\Torres_Enrique\\app\\Views\\web\\producto.php', 27)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\xampp\\htdocs\\Torres_Enrique\\app\\Views\\web\\producto.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('web/producto', [], true)
+ 5 APPPATH\Controllers\Web\Catalogo.php(129): view('web/producto', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Web\Catalogo->show('1')
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Catalogo))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+INFO - 2024-08-08 20:35:01 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2024-08-08 20:35:01 --> ErrorException: Undefined property: stdClass::$imagenes
+[Method: GET, Route: producto/1]
+in APPPATH\Views\web\producto.php on line 27.
+ 1 APPPATH\Views\web\producto.php(27): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined property: stdClass::$imagenes', 'C:\\xampp\\htdocs\\Torres_Enrique\\app\\Views\\web\\producto.php', 27)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\xampp\\htdocs\\Torres_Enrique\\app\\Views\\web\\producto.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('web/producto', [], true)
+ 5 APPPATH\Controllers\Web\Catalogo.php(129): view('web/producto', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Web\Catalogo->show('1')
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Catalogo))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+INFO - 2024-08-08 20:35:27 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2024-08-08 20:35:27 --> ErrorException: Attempt to read property "nombre" on array
+[Method: GET, Route: producto/1]
+in APPPATH\Views\web\producto.php on line 4.
+ 1 APPPATH\Views\web\producto.php(4): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Attempt to read property "nombre" on array', 'C:\\xampp\\htdocs\\Torres_Enrique\\app\\Views\\web\\producto.php', 4)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\xampp\\htdocs\\Torres_Enrique\\app\\Views\\web\\producto.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('web/producto', [], true)
+ 5 APPPATH\Controllers\Web\Catalogo.php(129): view('web/producto', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Web\Catalogo->show('1')
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Catalogo))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+INFO - 2024-08-08 20:37:03 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2024-08-08 20:37:03 --> Error: Cannot use object of type stdClass as array
+[Method: GET, Route: producto/1]
+in APPPATH\Views\web\producto.php on line 27.
+ 1 SYSTEMPATH\View\View.php(234): include()
+ 2 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 3 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('web/producto', [], true)
+ 4 APPPATH\Controllers\Web\Catalogo.php(129): view('web/producto', [...])
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Web\Catalogo->show('1')
+ 6 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Catalogo))
+ 7 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+INFO - 2024-08-08 20:37:24 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2024-08-08 20:37:24 --> ErrorException: Undefined property: stdClass::$imagenes
+[Method: GET, Route: producto/1]
+in APPPATH\Views\web\producto.php on line 9.
+ 1 APPPATH\Views\web\producto.php(9): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined property: stdClass::$imagenes', 'C:\\xampp\\htdocs\\Torres_Enrique\\app\\Views\\web\\producto.php', 9)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\xampp\\htdocs\\Torres_Enrique\\app\\Views\\web\\producto.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('web/producto', [], true)
+ 5 APPPATH\Controllers\Web\Catalogo.php(129): view('web/producto', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Web\Catalogo->show('1')
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Catalogo))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+INFO - 2024-08-08 20:44:37 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2024-08-08 20:44:37 --> TypeError: Cannot access offset of type string on string
+[Method: GET, Route: producto/1]
+in APPPATH\Views\web\producto.php on line 10.
+ 1 SYSTEMPATH\View\View.php(234): include()
+ 2 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 3 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('web/producto', [], true)
+ 4 APPPATH\Controllers\Web\Catalogo.php(130): view('web/producto', [...])
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Web\Catalogo->show('1')
+ 6 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Catalogo))
+ 7 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+INFO - 2024-08-08 20:45:02 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2024-08-08 20:45:02 --> TypeError: Cannot access offset of type string on string
+[Method: GET, Route: producto/1]
+in APPPATH\Views\web\producto.php on line 10.
+ 1 SYSTEMPATH\View\View.php(234): include()
+ 2 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 3 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('web/producto', [], true)
+ 4 APPPATH\Controllers\Web\Catalogo.php(130): view('web/producto', [...])
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Web\Catalogo->show('1')
+ 6 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Catalogo))
+ 7 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+INFO - 2024-08-08 20:45:18 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2024-08-08 20:45:18 --> ErrorException: Attempt to read property "imagen_url" on string
+[Method: GET, Route: producto/1]
+in APPPATH\Views\web\producto.php on line 10.
+ 1 APPPATH\Views\web\producto.php(10): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Attempt to read property "imagen_url" on string', 'C:\\xampp\\htdocs\\Torres_Enrique\\app\\Views\\web\\producto.php', 10)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\xampp\\htdocs\\Torres_Enrique\\app\\Views\\web\\producto.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('web/producto', [], true)
+ 5 APPPATH\Controllers\Web\Catalogo.php(130): view('web/producto', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Web\Catalogo->show('1')
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Catalogo))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+INFO - 2024-08-08 20:45:30 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2024-08-08 20:45:30 --> ErrorException: Attempt to read property "url" on string
+[Method: GET, Route: producto/1]
+in APPPATH\Views\web\producto.php on line 10.
+ 1 APPPATH\Views\web\producto.php(10): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Attempt to read property "url" on string', 'C:\\xampp\\htdocs\\Torres_Enrique\\app\\Views\\web\\producto.php', 10)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\xampp\\htdocs\\Torres_Enrique\\app\\Views\\web\\producto.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('web/producto', [], true)
+ 5 APPPATH\Controllers\Web\Catalogo.php(130): view('web/producto', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Web\Catalogo->show('1')
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Catalogo))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+INFO - 2024-08-08 20:45:45 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2024-08-08 20:45:45 --> ErrorException: Attempt to read property "url" on string
+[Method: GET, Route: producto/1]
+in APPPATH\Views\web\producto.php on line 10.
+ 1 APPPATH\Views\web\producto.php(10): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Attempt to read property "url" on string', 'C:\\xampp\\htdocs\\Torres_Enrique\\app\\Views\\web\\producto.php', 10)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\xampp\\htdocs\\Torres_Enrique\\app\\Views\\web\\producto.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('web/producto', [], true)
+ 5 APPPATH\Controllers\Web\Catalogo.php(130): view('web/producto', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Web\Catalogo->show('1')
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Catalogo))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+INFO - 2024-08-08 20:46:15 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2024-08-08 20:46:15 --> TypeError: Cannot access offset of type string on string
+[Method: GET, Route: producto/1]
+in APPPATH\Views\web\producto.php on line 10.
+ 1 SYSTEMPATH\View\View.php(234): include()
+ 2 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 3 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('web/producto', [], true)
+ 4 APPPATH\Controllers\Web\Catalogo.php(130): view('web/producto', [...])
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Web\Catalogo->show('1')
+ 6 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Catalogo))
+ 7 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+INFO - 2024-08-08 20:46:50 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2024-08-08 20:46:50 --> ErrorException: Attempt to read property "imagen_url" on string
+[Method: GET, Route: producto/1]
+in APPPATH\Views\web\producto.php on line 10.
+ 1 APPPATH\Views\web\producto.php(10): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Attempt to read property "imagen_url" on string', 'C:\\xampp\\htdocs\\Torres_Enrique\\app\\Views\\web\\producto.php', 10)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\xampp\\htdocs\\Torres_Enrique\\app\\Views\\web\\producto.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('web/producto', [], true)
+ 5 APPPATH\Controllers\Web\Catalogo.php(130): view('web/producto', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Web\Catalogo->show('1')
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Catalogo))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+INFO - 2024-08-08 20:47:11 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2024-08-08 20:47:11 --> TypeError: Cannot access offset of type string on string
+[Method: GET, Route: producto/1]
+in APPPATH\Views\web\producto.php on line 10.
+ 1 SYSTEMPATH\View\View.php(234): include()
+ 2 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 3 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('web/producto', [], true)
+ 4 APPPATH\Controllers\Web\Catalogo.php(130): view('web/producto', [...])
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Web\Catalogo->show('1')
+ 6 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Catalogo))
+ 7 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+INFO - 2024-08-08 20:49:22 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2024-08-08 20:49:22 --> ErrorException: Undefined property: stdClass::$nombre_subcategoria
+[Method: GET, Route: producto/1]
+in APPPATH\Views\web\producto.php on line 28.
+ 1 APPPATH\Views\web\producto.php(28): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined property: stdClass::$nombre_subcategoria', 'C:\\xampp\\htdocs\\Torres_Enrique\\app\\Views\\web\\producto.php', 28)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\xampp\\htdocs\\Torres_Enrique\\app\\Views\\web\\producto.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('web/producto', [], true)
+ 5 APPPATH\Controllers\Web\Catalogo.php(130): view('web/producto', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Web\Catalogo->show('1')
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Catalogo))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+INFO - 2024-08-08 20:49:36 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2024-08-08 20:49:36 --> ErrorException: Undefined property: stdClass::$nombre_categoria
+[Method: GET, Route: producto/1]
+in APPPATH\Views\web\producto.php on line 28.
+ 1 APPPATH\Views\web\producto.php(28): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined property: stdClass::$nombre_categoria', 'C:\\xampp\\htdocs\\Torres_Enrique\\app\\Views\\web\\producto.php', 28)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\xampp\\htdocs\\Torres_Enrique\\app\\Views\\web\\producto.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('web/producto', [], true)
+ 5 APPPATH\Controllers\Web\Catalogo.php(130): view('web/producto', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Web\Catalogo->show('1')
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Catalogo))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+INFO - 2024-08-08 20:49:48 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2024-08-08 20:49:48 --> ErrorException: Undefined property: stdClass::$categorias
+[Method: GET, Route: producto/1]
+in APPPATH\Views\web\producto.php on line 28.
+ 1 APPPATH\Views\web\producto.php(28): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined property: stdClass::$categorias', 'C:\\xampp\\htdocs\\Torres_Enrique\\app\\Views\\web\\producto.php', 28)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\xampp\\htdocs\\Torres_Enrique\\app\\Views\\web\\producto.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('web/producto', [], true)
+ 5 APPPATH\Controllers\Web\Catalogo.php(130): view('web/producto', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Web\Catalogo->show('1')
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Catalogo))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+INFO - 2024-08-08 20:51:02 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-08 20:51:17 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-08 20:51:21 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-08 20:52:14 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-08 20:52:22 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-08 20:54:31 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-08 20:55:42 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2024-08-08 20:55:42 --> ErrorException: Array to string conversion
+[Method: GET, Route: producto/14]
+in APPPATH\Views\web\producto.php on line 46.
+ 1 APPPATH\Views\web\producto.php(46): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Array to string conversion', 'C:\\xampp\\htdocs\\Torres_Enrique\\app\\Views\\web\\producto.php', 46)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\xampp\\htdocs\\Torres_Enrique\\app\\Views\\web\\producto.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('web/producto', [], true)
+ 5 APPPATH\Controllers\Web\Catalogo.php(130): view('web/producto', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Web\Catalogo->show('14')
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Catalogo))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+INFO - 2024-08-08 20:56:50 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2024-08-08 20:56:50 --> ErrorException: Array to string conversion
+[Method: GET, Route: producto/14]
+in APPPATH\Views\web\producto.php on line 48.
+ 1 APPPATH\Views\web\producto.php(48): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Array to string conversion', 'C:\\xampp\\htdocs\\Torres_Enrique\\app\\Views\\web\\producto.php', 48)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\xampp\\htdocs\\Torres_Enrique\\app\\Views\\web\\producto.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('web/producto', [], true)
+ 5 APPPATH\Controllers\Web\Catalogo.php(130): view('web/producto', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Web\Catalogo->show('14')
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Catalogo))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+INFO - 2024-08-08 20:57:28 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2024-08-08 20:57:28 --> ParseError: syntax error, unexpected end of file
+[Method: GET, Route: producto/14]
+in APPPATH\Views\web\producto.php on line 53.
+ 1 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 2 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('web/producto', [], true)
+ 3 APPPATH\Controllers\Web\Catalogo.php(130): view('web/producto', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Web\Catalogo->show('14')
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Catalogo))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+INFO - 2024-08-08 20:58:10 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2024-08-08 20:58:10 --> ErrorException: Array to string conversion
+[Method: GET, Route: producto/14]
+in APPPATH\Views\web\producto.php on line 48.
+ 1 APPPATH\Views\web\producto.php(48): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Array to string conversion', 'C:\\xampp\\htdocs\\Torres_Enrique\\app\\Views\\web\\producto.php', 48)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\xampp\\htdocs\\Torres_Enrique\\app\\Views\\web\\producto.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('web/producto', [], true)
+ 5 APPPATH\Controllers\Web\Catalogo.php(130): view('web/producto', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Web\Catalogo->show('14')
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Catalogo))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+INFO - 2024-08-08 20:58:21 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2024-08-08 20:58:21 --> ErrorException: Attempt to read property "nombre" on string
+[Method: GET, Route: producto/14]
+in APPPATH\Views\web\producto.php on line 48.
+ 1 APPPATH\Views\web\producto.php(48): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Attempt to read property "nombre" on string', 'C:\\xampp\\htdocs\\Torres_Enrique\\app\\Views\\web\\producto.php', 48)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\xampp\\htdocs\\Torres_Enrique\\app\\Views\\web\\producto.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('web/producto', [], true)
+ 5 APPPATH\Controllers\Web\Catalogo.php(130): view('web/producto', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Web\Catalogo->show('14')
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Catalogo))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+INFO - 2024-08-08 20:58:55 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2024-08-08 20:58:55 --> ErrorException: Array to string conversion
+[Method: GET, Route: producto/14]
+in APPPATH\Views\web\producto.php on line 48.
+ 1 APPPATH\Views\web\producto.php(48): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Array to string conversion', 'C:\\xampp\\htdocs\\Torres_Enrique\\app\\Views\\web\\producto.php', 48)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\xampp\\htdocs\\Torres_Enrique\\app\\Views\\web\\producto.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('web/producto', [], true)
+ 5 APPPATH\Controllers\Web\Catalogo.php(130): view('web/producto', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Web\Catalogo->show('14')
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Catalogo))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+INFO - 2024-08-08 20:59:06 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-08 20:59:25 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-08 20:59:37 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2024-08-08 20:59:37 --> ErrorException: Array to string conversion
+[Method: GET, Route: producto/14]
+in APPPATH\Views\web\producto.php on line 48.
+ 1 APPPATH\Views\web\producto.php(48): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Array to string conversion', 'C:\\xampp\\htdocs\\Torres_Enrique\\app\\Views\\web\\producto.php', 48)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\xampp\\htdocs\\Torres_Enrique\\app\\Views\\web\\producto.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('web/producto', [], true)
+ 5 APPPATH\Controllers\Web\Catalogo.php(130): view('web/producto', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Web\Catalogo->show('14')
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Catalogo))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+INFO - 2024-08-08 21:00:35 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2024-08-08 21:00:35 --> ErrorException: Undefined variable $categorias
+[Method: GET, Route: producto/14]
+in APPPATH\Views\web\producto.php on line 48.
+ 1 APPPATH\Views\web\producto.php(48): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $categorias', 'C:\\xampp\\htdocs\\Torres_Enrique\\app\\Views\\web\\producto.php', 48)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\xampp\\htdocs\\Torres_Enrique\\app\\Views\\web\\producto.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('web/producto', [], true)
+ 5 APPPATH\Controllers\Web\Catalogo.php(130): view('web/producto', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Web\Catalogo->show('14')
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Catalogo))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+INFO - 2024-08-08 21:00:46 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2024-08-08 21:00:46 --> TypeError: implode(): Argument #2 ($array) must be of type ?array, string given
+[Method: GET, Route: producto/14]
+in APPPATH\Views\web\producto.php on line 48.
+ 1 APPPATH\Views\web\producto.php(48): implode(', ', 'puntera')
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\xampp\\htdocs\\Torres_Enrique\\app\\Views\\web\\producto.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('web/producto', [], true)
+ 5 APPPATH\Controllers\Web\Catalogo.php(130): view('web/producto', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Web\Catalogo->show('14')
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Catalogo))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+INFO - 2024-08-08 21:01:19 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2024-08-08 21:01:19 --> ErrorException: Array to string conversion
+[Method: GET, Route: producto/14]
+in APPPATH\Views\web\producto.php on line 48.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'Array to string conversion', 'C:\\xampp\\htdocs\\Torres_Enrique\\app\\Views\\web\\producto.php', 48)
+ 2 APPPATH\Views\web\producto.php(48): implode(', ', [...])
+ 3 SYSTEMPATH\View\View.php(234): include('C:\\xampp\\htdocs\\Torres_Enrique\\app\\Views\\web\\producto.php')
+ 4 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 5 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('web/producto', [], true)
+ 6 APPPATH\Controllers\Web\Catalogo.php(130): view('web/producto', [...])
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Web\Catalogo->show('14')
+ 8 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Catalogo))
+ 9 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+INFO - 2024-08-08 21:03:28 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-08 21:04:06 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2024-08-08 21:04:06 --> ErrorException: Undefined variable $categorias_string
+[Method: GET, Route: producto/14]
+in APPPATH\Views\web\producto.php on line 49.
+ 1 APPPATH\Views\web\producto.php(49): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $categorias_string', 'C:\\xampp\\htdocs\\Torres_Enrique\\app\\Views\\web\\producto.php', 49)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\xampp\\htdocs\\Torres_Enrique\\app\\Views\\web\\producto.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('web/producto', [], true)
+ 5 APPPATH\Controllers\Web\Catalogo.php(130): view('web/producto', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Web\Catalogo->show('14')
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Catalogo))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+INFO - 2024-08-08 21:04:25 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-08 21:05:28 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2024-08-08 21:05:28 --> ErrorException: Undefined property: stdClass::$imagenes
+[Method: GET, Route: producto/14]
+in APPPATH\Views\web\producto.php on line 9.
+ 1 APPPATH\Views\web\producto.php(9): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined property: stdClass::$imagenes', 'C:\\xampp\\htdocs\\Torres_Enrique\\app\\Views\\web\\producto.php', 9)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\xampp\\htdocs\\Torres_Enrique\\app\\Views\\web\\producto.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('web/producto', [], true)
+ 5 APPPATH\Controllers\Web\Catalogo.php(130): view('web/producto', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Web\Catalogo->show('14')
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Catalogo))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+INFO - 2024-08-08 21:19:00 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2024-08-08 21:19:00 --> ErrorException: Undefined property: stdClass::$imagenes
+[Method: GET, Route: producto/14]
+in APPPATH\Views\web\producto.php on line 49.
+ 1 APPPATH\Views\web\producto.php(49): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined property: stdClass::$imagenes', 'C:\\xampp\\htdocs\\Torres_Enrique\\app\\Views\\web\\producto.php', 49)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\xampp\\htdocs\\Torres_Enrique\\app\\Views\\web\\producto.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('web/producto', [], true)
+ 5 APPPATH\Controllers\Web\Catalogo.php(130): view('web/producto', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Web\Catalogo->show('14')
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Catalogo))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+INFO - 2024-08-08 21:22:37 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2024-08-08 21:22:37 --> Error: Object of class stdClass could not be converted to string
+[Method: GET, Route: producto/14]
+in APPPATH\Views\web\producto.php on line 50.
+ 1 SYSTEMPATH\View\View.php(234): include()
+ 2 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 3 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('web/producto', [], true)
+ 4 APPPATH\Controllers\Web\Catalogo.php(131): view('web/producto', [...])
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Web\Catalogo->show('14')
+ 6 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Catalogo))
+ 7 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+INFO - 2024-08-08 21:23:17 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-08 21:25:25 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-08 22:44:00 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-08 22:44:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.

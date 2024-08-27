@@ -11,67 +11,51 @@ class Usuarios extends Migration
         $this->forge->addField([
             'id' => [
                 'type'           => 'INT',
-                'constraint'     => 6,
+                'constraint'     => 11,
                 'unsigned'       => true,
                 'auto_increment' => true,
             ],
             'nombre' => [
-                'type'           => 'VARCHAR',
-                'constraint'     => '255',
-                'null'           => false
+                'type'       => 'VARCHAR',
+                'constraint' => 255,
             ],
             'apellido' => [
-                'type'           => 'VARCHAR',
-                'constraint'     => '255',
-                'null'           => false
+                'type'       => 'VARCHAR',
+                'constraint' => 255,
             ],
             'email' => [
-                'type'           => 'VARCHAR',
-                'constraint'     => '125',
-                'unique'         => true,
-                'null'           => false
+                'type'       => 'VARCHAR',
+                'constraint' => 255,
+                'unique'     => true,
             ],
-            'password' => [
-                'type'           => 'VARCHAR',
-                'constraint'     => '255',
-                'null'           => false
+            'contrasena' => [
+                'type'       => 'VARCHAR',
+                'constraint' => 255,
             ],
-            'direccion' => [
-                'type'           => 'VARCHAR',
-                'constraint'     => '100',
+            'rol' => [
+                'type'       => 'ENUM',
+                'constraint' => ['administrador', 'cliente'],
+                'default'    => 'cliente',
             ],
-            'telefono' => [
-                'type'           => 'VARCHAR',
-                'constraint'     => '20',
+            'fecha_registro' => [
+                'type' => 'DATETIME',
+                'default' => 'CURRENT_TIMESTAMP',
             ],
-            'created_at' => [
-                'type'           => 'DATETIME',
-                'null'           => true,
+            'fecha_actualizacion' => [
+                'type' => 'DATETIME',
             ],
-            'updated_at' => [
-                'type'           => 'DATETIME',
-                'null'           => true,
-            ],
-            'rol_id' => [
-                'type'           => 'TINYINT',
-                'constraint'     => 2,
-                'unsigned'       => true,
-                'default'        => 2
-            ],
-            'baja' => [
-                'type'           => 'BOOLEAN',
-                'default'        => false
+            'estado' => [
+                'type'       => 'ENUM',
+                'constraint' => ['activo', 'inactivo'],
+                'default'    => 'activo',
             ],
         ]);
-
         $this->forge->addKey('id', true);
-        $this->forge->addForeignKey('rol_id', 'roles', 'id', 'CASCADE', 'CASCADE', 'fk_usuarios_roles');
         $this->forge->createTable('usuarios');
     }
 
     public function down()
     {
-        $this->forge->dropForeignKey('usuarios', 'fk_usuarios_roles');
-        $this->forge->dropTable('usuarios', true, true);
+        $this->forge->dropTable('usuarios');
     }
 }

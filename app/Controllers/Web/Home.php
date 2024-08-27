@@ -11,6 +11,7 @@ class Home extends BaseController
     {
         $data = [
             'titulo'     => 'Home',
+            'cart'       => $cart = \Config\Services::cart(),
         ];
 
         $mensaje = session('mensaje');

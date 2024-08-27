@@ -29,7 +29,6 @@
                     <th scope="col">Nombre</td>
                     <th scope="col">Apellido</td>
                     <th scope="col">Email</td>
-                    <th scope="col">Dirección</td>
                     <th scope="col">Telefono</td>
                     <th scope="col">Alta</td>
                     <th scope="col">Modificación</td>
@@ -52,16 +51,13 @@
                                 <?= $cliente->email ?>
                             </td>
                             <td>
-                                <?= $cliente->direccion ?>
-                            </td>
-                            <td>
                                 <?= $cliente->telefono ?>
                             </td>
                             <td>
-                                <?= $cliente->created_at ?>
+                                <?= $cliente->fecha_creacion ?>
                             </td>
                             <td>
-                                <?= $cliente->updated_at ?>
+                                <?= $cliente->fecha_actualizacion ?>
                             </td>
 
                             <td class="text-center g-2">

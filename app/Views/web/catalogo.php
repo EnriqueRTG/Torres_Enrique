@@ -1,130 +1,115 @@
-<!-- colocar un aviso de que el usuario debe loguearse para adicionar los productos al carrito
-    este cartel debe aparecer cada vez que se ingrese a catalogo sin loguearse
- -->
-<div class="container row row-cols-2 p-3 mx-auto">
-
-    <div class="bg-white container col-3">
-
-        <form method="get" action="<?= base_url('catalogo') ?>">
-            <div class="col-md-3">
-                <label for="orden">Ordenar por:</label>
-                <select name="orden" id="orden" class="form-control" onchange="this.form.submit()">
-                    <option value="novedades" <?= (!isset($filtro['orden']) || $filtro['orden'] == 'novedades') ? 'selected' : ''; ?>>Recientes</option>
-                    <option value="precio_asc" <?= (isset($filtro['orden']) && $filtro['orden'] == 'precio_asc') ? 'selected' : ''; ?>>Menor precio</option>
-                    <option value="precio_desc" <?= (isset($filtro['orden']) && $filtro['orden'] == 'precio_desc') ? 'selected' : ''; ?>>Mayor precio</option>
-                </select>
-            </div>
-        </form>
-
-        <form method="get" action="<?= base_url('catalogo') ?>">
-            <div class="row">
-                <div class="col-12">
-                    <label>Categorías:</label>
-                    <?php foreach ($categorias as $categoria) : ?>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" name="categoria[]" value="<?= $categoria->id; ?>" id="categoria<?= $categoria->id; ?>" <?= (isset($filtro['categoria']) && is_array($filtro['categoria']) && in_array($categoria->id, $filtro['categoria'])) ? 'checked' : ''; ?>>
-                            <label class="form-check-label" for="categoria<?= $categoria->id; ?>">
-                                <?= $categoria->nombre; ?>
-                            </label>
-                        </div>
-                    <?php endforeach; ?>
-                </div>
-                <div class="col-12">
-                    <label>Subcategorías:</label>
-                    <?php foreach ($subcategorias as $subcategoria) : ?>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" name="subcategoria[]" value="<?= $subcategoria->id; ?>" id="subcategoria<?= $subcategoria->id; ?>" <?= (isset($filtro['subcategoria']) && is_array($filtro['subcategoria']) && in_array($subcategoria->id, $filtro['subcategoria'])) ? 'checked' : ''; ?>>
-                            <label class="form-check-label" for="subcategoria<?= $subcategoria->id; ?>">
-                                <?= $subcategoria->nombre; ?>
-                            </label>
-                        </div>
-                    <?php endforeach; ?>
-                </div>
-                <div class="col-12">
-                    <label>Marcas:</label>
-                    <?php foreach ($marcas as $marca) : ?>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" name="marca[]" value="<?= $marca->id; ?>" id="marca<?= $marca->id; ?>" <?= (isset($filtro['marca']) && is_array($filtro['marca']) && in_array($marca->id, $filtro['marca'])) ? 'checked' : ''; ?>>
-                            <label class="form-check-label" for="marca<?= $marca->id; ?>">
-                                <?= $marca->nombre; ?>
-                            </label>
-                        </div>
-                    <?php endforeach; ?>
-                </div>
-                <div class="col-12 mt-3">
-                    <button type="submit" class="btn btn-primary">Filtrar</button>
-                </div>
-            </div>
-        </form>
-
+<?php if (!session()->has('usuario')): ?>
+    <div class="alert alert-warning text-center" role="alert">
+        Debes <a href="<?= base_url() ?><?= route_to('login') ?>" class="alert-link">iniciar sesión</a> para realizar compras.
     </div>
+<?php endif; ?>
 
+<div class="container mx-auto my-5 row">
 
-    <div class="col-8">
-        <div class="row row-cols-2 row-cols-md-3 row-cols-xl-3">
+    <?php if (!$productos) : ?>
+        <div class="container">
+            <div class="">
+                <h2 class="text-center">
+                    No hay Productos
+                </h2>
+            </div>
+        </div>
+    <?php else : ?>
 
-            <?php foreach ($productos as $key => $p) : ?>
+        <button class="btn btn-secondary mb-3 d-md-none mx-auto" type="button" data-bs-toggle="offcanvas" data-bs-target="#filtrosOffcanvas" aria-controls="filtrosOffcanvas">
+            Mostrar Filtros
+        </button>
 
-                <div class="col mb-3">
-                    <div class="card h-100">
-                        <!-- Imagen del Producto -->
-                        <a href="<?= url_to('producto', $p->id) ?>" class="position-relative">
-                            <img class="card-img-top" src="<?= base_url(); ?>assets/images/fondo/fondo-b_n.jpg" alt="..." />
-                            <div class="overlay d-flex justify-content-center align-items-center">
-                                <button class="btn btn-primary">Ver Detalles</button>
+        <div class="offcanvas offcanvas-start d-md-none" tabindex="-1" id="filtrosOffcanvas" aria-labelledby="filtrosOffcanvasLabel">
+            <div class="offcanvas-header">
+                <h5 class="offcanvas-title" id="filtrosOffcanvasLabel">Filtros</h5>
+                <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+                <?= $this->include('partials/filtros') ?>
+            </div>
+        </div>
+
+        <div class="d-none d-md-block col-md-2" id="filtrosContainer">
+            <?= $this->include('partials/filtros') ?>
+        </div>
+
+        <div class="col-md-10 mx-auto">
+            <div class="row row-cols-1 row-cols-lg-4 row-cols-md-3">
+
+                <?php foreach ($productos as $producto) : ?>
+                    <div class="col mb-3">
+                        <div class="card h-100 card-producto">
+                            <!-- Imagen del Producto -->
+                            <a href="<?= url_to('producto', $producto->id) ?>" class="position-relative">
+                                <img class="card-img-top" src="<?= base_url($producto->imagen_url) ?>" alt="<?= $producto->nombre ?>" />
+                                <div class="overlay d-flex justify-content-center align-items-center">
+                                    <button class="btn btn-info">Ver Detalles</button>
+                                </div>
+                            </a>
+                            <!-- Detalles del Producto -->
+                            <div class="card-body ">
+                                <div class="text-center">
+                                    <!-- Nombre del Producto-->
+                                    <h5 class="fw-bolder"><?= $producto->nombre ?></h5>
+                                    <!-- Marca del Producto -->
+                                    <p class="card-text"><?= $producto->nombre_marca ?></p>
+                                    <!-- Precio del Producto -->
+                                    <p class="fw-bold">$ <?= $producto->precio ?></p>
+                                </div>
                             </div>
-                        </a>
-
-                        <!-- Detalles del Producto -->
-                        <div class="card-body p-4">
-                            <div class="text-center">
-                                <!-- Nombre del Producto-->
-                                <h5 class="fw-bolder"><?= $p->nombre ?></h5>
-                                <!-- Marca del Producto -->
-                                <p class="card-text"><?= $p->nombre_marca ?></p>
-                                <!-- Presentacion del Producto -->
-                                <p class="card-text"><?= $p->presentacion ?></p>
-                                <!-- Precio del Producto -->
-                                <p>$ <?= $p->precio ?></p>
-                            </div>
-                        </div>
-
-                        <!-- Acciones -->
-                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                            <div class="text-center d-flex gap-3 justify-content-center">
-                                <?php if (session()->get('usuario')) : ?>
-                                    <div>
-                                        <a class="btn btn-warning" href="<?= url_to('producto', $p->id) ?>">
-                                            Añadir al carrito
-                                        </a>
-                                    </div>
-                                <?php endif; ?>
+                            <!-- Acciones -->
+                            <div class="card-footer border-top-0 bg-transparent pt-0">
+                                <div class="text-center d-flex gap-2 justify-content-center row">
+                                    <?php if (session()->get('usuario')) : ?>
+                                        <!-- Stock Disponible -->
+                                        <?php if ($producto->stock < 9 & $producto->stock > 1) : ?>
+                                            <span class="text-danger font-weight-bold">¡Últimas <?= $producto->stock ?> unidades!</span>
+                                        <?php elseif ($producto->stock == 1) : ?>
+                                            <span class="text-danger font-weight-bold">¡Última unidad!</span>
+                                        <?php endif; ?>
+                                        <div class="mb-2">
+                                            <a href="<?= base_url('carrito/agregar/' . $producto->id) ?>" class="btn btn-warning">
+                                                Agregar al Carrito
+                                            </a>
+                                        </div>
+                                    <?php endif; ?>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                <?php endforeach ?>
 
-            <?php endforeach ?>
-
+            </div>
         </div>
-    </div>
 
+    <?php endif  ?>
 
 </div>
 
+<div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasWithBothOptionsLabel">Carrito de Compras</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+        <p>Try scrolling the rest of the page to see this option in action.</p>
+        <p>Subtotal (sin envío) :</p>
+    </div>
+</div>
 
 <style>
-    .card:hover {
+    .card-producto:hover {
         background-color: #f0f0f0 !important;
         box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2) !important;
         transform: scale(1.05);
     }
 
-    .card:hover .card-title {
+    .card-producto:hover .card-producto-title {
         color: #007bff !important;
     }
 
-    .card .overlay {
+    .card-producto .overlay {
         position: absolute;
         top: 0;
         left: 0;
@@ -138,18 +123,69 @@
         /* Transición suave */
     }
 
-    .card:hover .overlay {
+    .card-producto:hover .overlay {
         opacity: 1;
         /* Visible al pasar el mouse */
     }
 
-    .card .overlay button {
+    .card-producto .overlay button {
         display: none;
         /* Botón oculto por defecto */
     }
 
-    .card:hover .overlay button {
+    .card-producto:hover .overlay button {
         display: block;
         /* Botón visible al pasar el mouse */
     }
 </style>
+
+<!-- <script>
+    function actualizarOffcanvas(response) {
+        var offcanvasBody = $('#offcanvasWithBothOptions .offcanvas-body');
+
+        // Limpiar el contenido anterior del offcanvas (opcional)
+        // offcanvasBody.empty(); 
+
+        // Verificar si carritoProductos existe y es un array
+        if (response.carritoProductos && Array.isArray(response.carritoProductos)) {
+            // Si el carrito está vacío, mostrar un mensaje
+            if (response.carritoProductos.length === 0) {
+                offcanvasBody.html('<p>Tu carrito está vacío.</p>');
+            } else {
+                // Agregar los productos del carrito al offcanvas
+                var productosHTML = '';
+                for (var i = 0; i < response.carritoProductos.length; i++) {
+                    var producto = response.carritoProductos[i];
+                    productosHTML += `
+                    <div class="carrito-producto">
+                        <p>Producto: ${producto.nombre}</p>
+                        <p>Precio: $${producto.precio}</p>
+                        <p>Cantidad: ${producto.cantidad}</p>
+                        <button class="btn btn-danger btn-sm eliminar-producto" data-producto-id="${producto.id}">Eliminar</button> 
+                    </div>
+                `;
+                }
+                offcanvasBody.append(productosHTML);
+
+                // Agregar el botón "Iniciar compra"
+                var botonIniciarCompra = `
+                <a href="<?= route_to('carrito') ?>" class="btn btn-primary mt-3">Iniciar compra</a>
+            `;
+                offcanvasBody.append(botonIniciarCompra);
+
+                // Manejar el evento de clic en los botones "Eliminar" (si es necesario)
+                $('.eliminar-producto').click(function() {
+                    var productoId = $(this).data('producto-id');
+                    eliminarProductoDelCarrito(productoId);
+                });
+            }
+
+            // Actualizar el subtotal
+            $('#offcanvas-subtotal').text('$' + response.subtotal);
+        } else {
+            // Manejar el caso en que carritoProductos no existe o no es un array
+            console.error("Error: carritoProductos no es un array válido en la respuesta del servidor.");
+            // Puedes mostrar un mensaje de error al usuario aquí si lo deseas
+        }
+    }
+</script> -->

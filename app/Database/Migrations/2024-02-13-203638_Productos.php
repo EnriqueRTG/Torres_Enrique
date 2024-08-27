@@ -3,6 +3,7 @@
 namespace App\Database\Migrations;
 
 use CodeIgniter\Database\Migration;
+use CodeIgniter\Database\RawSql;
 
 class Productos extends Migration
 {
@@ -10,68 +11,107 @@ class Productos extends Migration
     {
         $this->forge->addField([
             'id' => [
-                'type'             => 'INT',
-                'constraint'       => 6,
-                'unsigned'         => true,
-                'auto_increment'   => true,
+                'type'           => 'INT',
+                'constraint'     => 11,
+                'unsigned'       => true,
+                'auto_increment' => true,
             ],
             'nombre' => [
-                'type'             => 'VARCHAR',
-                'constraint'       => '255',
-                'null'             => false
+                'type'       => 'VARCHAR',
+                'constraint' => 255,
+                'unique'     => true
             ],
             'descripcion' => [
-                'type'             => 'TEXT',
+                'type'   => 'TEXT',
+                'null' => true,
             ],
             'precio' => [
-                'type'             => 'DECIMAL(12,2)',
-                'null'             => false,
-                'unsigned'         => true
+                'type'       => 'DECIMAL',
+                'constraint' => '10,2',
+                'unsigned'   => true,
+                'null'       => false
             ],
             'stock' => [
-                'type'             => 'INT',
-                'constraint'       => 6,
-                'null'             => false,
-                'unsigned'         => true,
+                'type'       => 'INT',
+                'constraint' => 11,
+                'default'    => 1,
+                'unsigned'   => true,
+                'null'       => false
+            ],
+            'categoria_id' => [
+                'type' => 'INT',
+                'constraint' => 11,
+                'unsigned' => true,
+                'null' => false,
             ],
             'marca_id' => [
-                'type'             => 'INT',
-                'constraint'       => 6,
-                'unsigned'         => true,
+                'type'       => 'INT',
+                'constraint' => 11,
+                'unsigned'   => true,
+                'null'       => true,
             ],
-            'subcategoria_id' => [
-                'type'             => 'INT',
-                'constraint'       => 6,
-                'unsigned'         => true,
+            'modelo' => [
+                'type'       => 'VARCHAR',
+                'constraint' => '255',
+                'null'       => true
             ],
-            'presentacion' => [
-                'type'             => 'VARCHAR',
-                'constraint'       => '50',
+            'peso' => [
+                'type'       => 'VARCHAR',
+                'constraint' => '255',
+                'null'       => true
             ],
-            'created_at' => [
-                'type'             => 'DATETIME',
-                'null'             => true,
+            'dimensiones' => [
+                'type'       => 'VARCHAR',
+                'constraint' => '255',
+                'null'       => true
             ],
-            'updated_at' => [
-                'type'             => 'DATETIME',
-                'null'             => true,
+            'material' => [
+                'type'       => 'VARCHAR',
+                'constraint' => '255',
+                'null'       => true
             ],
-            'baja' => [
-                'type'             => 'BOOLEAN',
-                'default'          => false
+            'color' => [
+                'type'       => 'VARCHAR',
+                'constraint' => '255',
+                'null'       => true
+            ],
+            'fecha_registro' => [
+                'type' => 'DATETIME',
+                'default' => 'CURRENT_TIMESTAMP',
+            ],
+            'fecha_actualizacion' => [
+                'type' => 'DATETIME',
+            ],
+            'estado' => [
+                'type'       => 'ENUM',
+                'constraint' => ['activo', 'inactivo'],
+                'default'    => 'activo',
             ],
         ]);
 
         $this->forge->addKey('id', true);
-        $this->forge->addForeignKey('marca_id', 'marcas', 'id', 'CASCADE', 'CASCADE', 'fk_productos_marcas');
-        $this->forge->addForeignKey('subcategoria_id', 'subcategorias', 'id', 'CASCADE', 'CASCADE', 'fk_productos_subcategorias');
+
+        $this->forge->addForeignKey(
+            'categoria_id',
+            'categorias',
+            'id',
+            'CASCADE',
+            'CASCADE'
+        );
+
+        $this->forge->addForeignKey(
+            'marca_id',
+            'marcas',
+            'id',
+            'CASCADE',
+            'SET NULL'
+        );
+        
         $this->forge->createTable('productos');
     }
 
     public function down()
     {
-        $this->forge->dropForeignKey('productos', 'fk_productos_marcas');
-        $this->forge->dropForeignKey('productos', 'fk_productos_subcategorias');
-        $this->forge->dropTable('productos', true, true);
+        $this->forge->dropTable('productos');
     }
 }

@@ -11,35 +11,33 @@ class Categorias extends Migration
         $this->forge->addField([
             'id' => [
                 'type'           => 'INT',
-                'constraint'     => 6,
+                'constraint'     => 11,
                 'unsigned'       => true,
                 'auto_increment' => true,
             ],
             'nombre' => [
-                'type'           => 'VARCHAR',
-                'constraint'     => '125',
-                'unique'         => true
+                'type'       => 'VARCHAR',
+                'constraint' => 255,
+                'unique'     => true,
             ],
-            'created_at' => [
-                'type'           => 'DATETIME',
-                'null'           => true,
+            'descripcion' => [
+                'type' => 'TEXT',
+                'null' => true,
             ],
-            'updated_at' => [
-                'type'           => 'DATETIME',
-                'null'           => true,
+            'estado' => [
+                'type'       => 'ENUM',
+                'constraint' => ['activo', 'inactivo'],
+                'default'    => 'activo',
             ],
-            'baja' => [
-                'type'           => 'BOOLEAN',
-                'default'        => false,
-            ]
         ]);
-        
+
         $this->forge->addKey('id', true);
+
         $this->forge->createTable('categorias');
     }
 
     public function down()
     {
-        $this->forge->dropTable('categorias', true, true);
+        $this->forge->dropTable('categorias');
     }
 }

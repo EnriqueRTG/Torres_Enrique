@@ -7,8 +7,6 @@ use CodeIgniter\Router\RouteCollection;
  */
 $routes->setAutoRoute(true);
 
-
-
 $routes->group('', function ($routes) {
     $routes->get('/', 'Web\Home::index', ['as' => 'web.home']); // Home
     $routes->get('nosotros', 'Web\Nosotros::index'); // Nosotros
@@ -24,22 +22,44 @@ $routes->group('', function ($routes) {
         $routes->get('ubicacion', 'Web\Contacto::obtener_ubicacion'); // Contacto-Ubicacion
     });
 
+    $routes->group('consulta', ['filter' => 'authCliente'], function ($routes) { // Consulta
+        $routes->get('', 'Web\Consulta::index');
+        $routes->post('', 'Web\Consulta::consulta_post'); // Registro de Consulta
+    });
+
     $routes->get('terminos', 'Web\Terminos::index'); // Terminos y usos
     $routes->add('garantia', 'Web\Garantia::index'); // Garantias
 
     $routes->get('catalogo', 'Web\Catalogo::index', ['as' => 'web.catalogo']); // Catalogo
     $routes->get('producto/(:num)', 'Web\Catalogo::show/$1', ['as' => 'producto']); // Producto del catalogo
-    
-    $routes->group('carrito', function ($routes) { // Carrito
-        $routes->get('', 'Carrito::index', ['as' => 'carrito']);
-        $routes->post('agregar', 'Carrito::agregar');
-        $routes->post('actualizar', 'Carrito::actualizar');
-        $routes->post('eliminar', 'Carrito::eliminar');
-        $routes->get('finalizar', 'Carrito::finalizarCompra');
+
+    $routes->get('visitas', 'Web\Visitas::index');
+    $routes->get('visitas/obtener_visitas', 'Web\Visitas::obtener_visitas');
+    $routes->post('visitas/incrementar_visita', 'Web\Visitas::incrementar_visita');
+
+    $routes->group('carrito', ['filter' => 'authCliente'], function ($routes) { // Carrito
+        $routes->get('', 'Web\Carrito::index');
+        //$routes->post('actualizar', 'Web\Carrito::actualizar', ['as' => 'carrito.actualizar']);
+        $routes->get('agregar/(:num)', 'Web\Carrito::agregar/$1', ['as' => 'carrito.agregar']);
+        $routes->get('quitar/(:any)', 'Web\Carrito::quitar/$1', ['as' => 'carrito.quitar']);
+        $routes->get('borrar', 'Web\Carrito::borrar', ['as' => 'carrito.borrar']);
+        $routes->get('comprar', 'Web\Carrito::comprar');
+        $routes->post('finalizarCompra', 'Web\Carrito::finalizarCompra');
     });
+
+    $routes->group('compras', ['filter' => 'authCliente'], function ($routes) { // Facturacion
+        $routes->get('', 'Web\Compras::index');
+        $routes->get('detalle/(:num)', 'Web\Compras::detalle_compra/$1');
+        $routes->get('descargar/(:num)', 'Web\Compras::descargar/$1'); 
+        $routes->get('descargar_factura/(:num)', 'Web\Compras::descargar_factura/$1'); 
+    });
+
+    // Venta
+    $routes->get('finalizar', 'Web\Carrito::finalizarCompra', ['as' => 'carrito.borrar']);
+    $routes->get('/carrito-comprar', 'Ventascontroller::registrar_venta', ['filter' => 'auth']);
 });
 
-$routes->group('admin', ['filter' => 'auth:admin'], function ($routes) {
+$routes->group('admin', ['filter' => 'authAdmin'], function ($routes) {
     $routes->get('dashboard', 'Admin\Dashboard::index', ['as' => 'admin.dashboard']); // panel del admin (Dashboard)
     $routes->resource('productos', ['controller' => 'Admin\Producto']); // Producto
 
@@ -54,7 +74,6 @@ $routes->group('admin', ['filter' => 'auth:admin'], function ($routes) {
     });
 
     $routes->resource('categorias', ['controller' => 'Admin\Products']); // Categoria
-    $routes->resource('subcategorias'); // Subcategoria
     $routes->resource('marcas'); // Marca
     $routes->resource('clientes'); // Cliente
 });
@@ -69,6 +88,3 @@ $routes->group('registro', function ($routes) { // Registro
     $routes->get('', 'Auth\Register::index');
     $routes->post('', 'Auth\Register::register_post');
 });
-
-
-

@@ -1,0 +1,575 @@
+INFO - 2024-08-09 01:39:52 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-09 01:52:45 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-09 01:52:55 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-09 01:53:03 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-09 01:53:14 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-09 01:53:23 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-09 01:53:32 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-09 01:53:33 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-09 01:53:35 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-09 01:53:37 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-09 01:53:38 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-09 01:53:38 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-09 01:53:40 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-09 01:55:10 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-09 01:55:14 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-09 01:56:01 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-09 01:56:45 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-09 01:56:48 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-09 01:56:50 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-09 01:56:52 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-09 01:56:54 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-09 01:57:47 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+ERROR - 2024-08-09 01:57:47 --> mysqli_sql_exception: Not unique table/alias: 'marcas' in C:\xampp\htdocs\Torres_Enrique\system\Database\MySQLi\Connection.php:308
+Stack trace:
+#0 C:\xampp\htdocs\Torres_Enrique\system\Database\MySQLi\Connection.php(308): mysqli->query('SELECT `product...', 0)
+#1 C:\xampp\htdocs\Torres_Enrique\system\Database\BaseConnection.php(722): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `product...')
+#2 C:\xampp\htdocs\Torres_Enrique\system\Database\BaseConnection.php(636): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `product...')
+#3 C:\xampp\htdocs\Torres_Enrique\system\Database\BaseBuilder.php(1629): CodeIgniter\Database\BaseConnection->query('SELECT `product...', Array, false)
+#4 C:\xampp\htdocs\Torres_Enrique\system\Model.php(919): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\Torres_Enrique\app\Models\ProductoModel.php(88): CodeIgniter\Model->__call('get', Array)
+#6 C:\xampp\htdocs\Torres_Enrique\app\Controllers\Web\Catalogo.php(110): App\Models\ProductoModel->obtenerProductosActivos()
+#7 C:\xampp\htdocs\Torres_Enrique\system\CodeIgniter.php(933): App\Controllers\Web\Catalogo->index()
+#8 C:\xampp\htdocs\Torres_Enrique\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Catalogo))
+#9 C:\xampp\htdocs\Torres_Enrique\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\xampp\htdocs\Torres_Enrique\system\Boot.php(312): CodeIgniter\CodeIgniter->run()
+#11 C:\xampp\htdocs\Torres_Enrique\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#12 C:\xampp\htdocs\Torres_Enrique\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#13 {main}
+CRITICAL - 2024-08-09 01:57:47 --> CodeIgniter\Database\Exceptions\DatabaseException: Not unique table/alias: 'marcas'
+[Method: GET, Route: catalogo]
+in SYSTEMPATH\Database\BaseConnection.php on line 676.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1629): CodeIgniter\Database\BaseConnection->query('SELECT `productos`.*, `productos`.*, `marcas`.`nombre` AS `nombre_marca`, `imagenes`.`url` AS `imagen_url`, `categorias`.`nombre` AS `categoria`
+FROM `productos`
+LEFT JOIN `marcas` ON `marcas`.`id` = `productos`.`marca_id`
+JOIN `marcas` ON `marcas`.`id` = `productos`.`marca_id`
+JOIN `productos_imagenes` ON `productos_imagenes`.`producto_id` = `productos`.`id`
+JOIN `imagenes` ON `imagenes`.`id` = `productos_imagenes`.`imagen_id`
+JOIN `productos_categorias` ON `productos_categorias`.`producto_id` = `productos`.`id`
+JOIN `categorias` ON `categorias`.`id` = `productos_categorias`.`categoria_id`
+WHERE `productos`.`baja` = :productos.baja:
+GROUP BY `productos`.`id`', [...], false)
+ 2 SYSTEMPATH\Model.php(919): CodeIgniter\Database\BaseBuilder->get()
+ 3 APPPATH\Models\ProductoModel.php(88): CodeIgniter\Model->__call('get', [])
+ 4 APPPATH\Controllers\Web\Catalogo.php(110): App\Models\ProductoModel->obtenerProductosActivos()
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Web\Catalogo->index()
+ 6 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Catalogo))
+ 7 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2024-08-09 01:57:47 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Not unique table/alias: 'marcas'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 313.
+ 1 SYSTEMPATH\Database\BaseConnection.php(722): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `productos`.*, `productos`.*, `marcas`.`nombre` AS `nombre_marca`, `imagenes`.`url` AS `imagen_url`, `categorias`.`nombre` AS `categoria`
+FROM `productos`
+LEFT JOIN `marcas` ON `marcas`.`id` = `productos`.`marca_id`
+JOIN `marcas` ON `marcas`.`id` = `productos`.`marca_id`
+JOIN `productos_imagenes` ON `productos_imagenes`.`producto_id` = `productos`.`id`
+JOIN `imagenes` ON `imagenes`.`id` = `productos_imagenes`.`imagen_id`
+JOIN `productos_categorias` ON `productos_categorias`.`producto_id` = `productos`.`id`
+JOIN `categorias` ON `categorias`.`id` = `productos_categorias`.`categoria_id`
+WHERE `productos`.`baja` = 0
+GROUP BY `productos`.`id`')
+ 2 SYSTEMPATH\Database\BaseConnection.php(636): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `productos`.*, `productos`.*, `marcas`.`nombre` AS `nombre_marca`, `imagenes`.`url` AS `imagen_url`, `categorias`.`nombre` AS `categoria`
+FROM `productos`
+LEFT JOIN `marcas` ON `marcas`.`id` = `productos`.`marca_id`
+JOIN `marcas` ON `marcas`.`id` = `productos`.`marca_id`
+JOIN `productos_imagenes` ON `productos_imagenes`.`producto_id` = `productos`.`id`
+JOIN `imagenes` ON `imagenes`.`id` = `productos_imagenes`.`imagen_id`
+JOIN `productos_categorias` ON `productos_categorias`.`producto_id` = `productos`.`id`
+JOIN `categorias` ON `categorias`.`id` = `productos_categorias`.`categoria_id`
+WHERE `productos`.`baja` = 0
+GROUP BY `productos`.`id`')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1629): CodeIgniter\Database\BaseConnection->query('SELECT `productos`.*, `productos`.*, `marcas`.`nombre` AS `nombre_marca`, `imagenes`.`url` AS `imagen_url`, `categorias`.`nombre` AS `categoria`
+FROM `productos`
+LEFT JOIN `marcas` ON `marcas`.`id` = `productos`.`marca_id`
+JOIN `marcas` ON `marcas`.`id` = `productos`.`marca_id`
+JOIN `productos_imagenes` ON `productos_imagenes`.`producto_id` = `productos`.`id`
+JOIN `imagenes` ON `imagenes`.`id` = `productos_imagenes`.`imagen_id`
+JOIN `productos_categorias` ON `productos_categorias`.`producto_id` = `productos`.`id`
+JOIN `categorias` ON `categorias`.`id` = `productos_categorias`.`categoria_id`
+WHERE `productos`.`baja` = :productos.baja:
+GROUP BY `productos`.`id`', [...], false)
+ 4 SYSTEMPATH\Model.php(919): CodeIgniter\Database\BaseBuilder->get()
+ 5 APPPATH\Models\ProductoModel.php(88): CodeIgniter\Model->__call('get', [])
+ 6 APPPATH\Controllers\Web\Catalogo.php(110): App\Models\ProductoModel->obtenerProductosActivos()
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Web\Catalogo->index()
+ 8 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Catalogo))
+ 9 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2024-08-09 01:57:47 --> [Caused by] mysqli_sql_exception: Not unique table/alias: 'marcas'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 308.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(308): mysqli->query('SELECT `productos`.*, `productos`.*, `marcas`.`nombre` AS `nombre_marca`, `imagenes`.`url` AS `imagen_url`, `categorias`.`nombre` AS `categoria`
+FROM `productos`
+LEFT JOIN `marcas` ON `marcas`.`id` = `productos`.`marca_id`
+JOIN `marcas` ON `marcas`.`id` = `productos`.`marca_id`
+JOIN `productos_imagenes` ON `productos_imagenes`.`producto_id` = `productos`.`id`
+JOIN `imagenes` ON `imagenes`.`id` = `productos_imagenes`.`imagen_id`
+JOIN `productos_categorias` ON `productos_categorias`.`producto_id` = `productos`.`id`
+JOIN `categorias` ON `categorias`.`id` = `productos_categorias`.`categoria_id`
+WHERE `productos`.`baja` = 0
+GROUP BY `productos`.`id`', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(722): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `productos`.*, `productos`.*, `marcas`.`nombre` AS `nombre_marca`, `imagenes`.`url` AS `imagen_url`, `categorias`.`nombre` AS `categoria`
+FROM `productos`
+LEFT JOIN `marcas` ON `marcas`.`id` = `productos`.`marca_id`
+JOIN `marcas` ON `marcas`.`id` = `productos`.`marca_id`
+JOIN `productos_imagenes` ON `productos_imagenes`.`producto_id` = `productos`.`id`
+JOIN `imagenes` ON `imagenes`.`id` = `productos_imagenes`.`imagen_id`
+JOIN `productos_categorias` ON `productos_categorias`.`producto_id` = `productos`.`id`
+JOIN `categorias` ON `categorias`.`id` = `productos_categorias`.`categoria_id`
+WHERE `productos`.`baja` = 0
+GROUP BY `productos`.`id`')
+ 3 SYSTEMPATH\Database\BaseConnection.php(636): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `productos`.*, `productos`.*, `marcas`.`nombre` AS `nombre_marca`, `imagenes`.`url` AS `imagen_url`, `categorias`.`nombre` AS `categoria`
+FROM `productos`
+LEFT JOIN `marcas` ON `marcas`.`id` = `productos`.`marca_id`
+JOIN `marcas` ON `marcas`.`id` = `productos`.`marca_id`
+JOIN `productos_imagenes` ON `productos_imagenes`.`producto_id` = `productos`.`id`
+JOIN `imagenes` ON `imagenes`.`id` = `productos_imagenes`.`imagen_id`
+JOIN `productos_categorias` ON `productos_categorias`.`producto_id` = `productos`.`id`
+JOIN `categorias` ON `categorias`.`id` = `productos_categorias`.`categoria_id`
+WHERE `productos`.`baja` = 0
+GROUP BY `productos`.`id`')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1629): CodeIgniter\Database\BaseConnection->query('SELECT `productos`.*, `productos`.*, `marcas`.`nombre` AS `nombre_marca`, `imagenes`.`url` AS `imagen_url`, `categorias`.`nombre` AS `categoria`
+FROM `productos`
+LEFT JOIN `marcas` ON `marcas`.`id` = `productos`.`marca_id`
+JOIN `marcas` ON `marcas`.`id` = `productos`.`marca_id`
+JOIN `productos_imagenes` ON `productos_imagenes`.`producto_id` = `productos`.`id`
+JOIN `imagenes` ON `imagenes`.`id` = `productos_imagenes`.`imagen_id`
+JOIN `productos_categorias` ON `productos_categorias`.`producto_id` = `productos`.`id`
+JOIN `categorias` ON `categorias`.`id` = `productos_categorias`.`categoria_id`
+WHERE `productos`.`baja` = :productos.baja:
+GROUP BY `productos`.`id`', [...], false)
+ 5 SYSTEMPATH\Model.php(919): CodeIgniter\Database\BaseBuilder->get()
+ 6 APPPATH\Models\ProductoModel.php(88): CodeIgniter\Model->__call('get', [])
+ 7 APPPATH\Controllers\Web\Catalogo.php(110): App\Models\ProductoModel->obtenerProductosActivos()
+ 8 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Web\Catalogo->index()
+ 9 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Catalogo))
+10 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+INFO - 2024-08-09 01:57:49 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+ERROR - 2024-08-09 01:57:49 --> mysqli_sql_exception: Not unique table/alias: 'marcas' in C:\xampp\htdocs\Torres_Enrique\system\Database\MySQLi\Connection.php:308
+Stack trace:
+#0 C:\xampp\htdocs\Torres_Enrique\system\Database\MySQLi\Connection.php(308): mysqli->query('SELECT `product...', 0)
+#1 C:\xampp\htdocs\Torres_Enrique\system\Database\BaseConnection.php(722): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `product...')
+#2 C:\xampp\htdocs\Torres_Enrique\system\Database\BaseConnection.php(636): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `product...')
+#3 C:\xampp\htdocs\Torres_Enrique\system\Database\BaseBuilder.php(1629): CodeIgniter\Database\BaseConnection->query('SELECT `product...', Array, false)
+#4 C:\xampp\htdocs\Torres_Enrique\system\Model.php(919): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\Torres_Enrique\app\Models\ProductoModel.php(88): CodeIgniter\Model->__call('get', Array)
+#6 C:\xampp\htdocs\Torres_Enrique\app\Controllers\Web\Catalogo.php(110): App\Models\ProductoModel->obtenerProductosActivos()
+#7 C:\xampp\htdocs\Torres_Enrique\system\CodeIgniter.php(933): App\Controllers\Web\Catalogo->index()
+#8 C:\xampp\htdocs\Torres_Enrique\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Catalogo))
+#9 C:\xampp\htdocs\Torres_Enrique\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\xampp\htdocs\Torres_Enrique\system\Boot.php(312): CodeIgniter\CodeIgniter->run()
+#11 C:\xampp\htdocs\Torres_Enrique\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#12 C:\xampp\htdocs\Torres_Enrique\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#13 {main}
+CRITICAL - 2024-08-09 01:57:49 --> CodeIgniter\Database\Exceptions\DatabaseException: Not unique table/alias: 'marcas'
+[Method: GET, Route: catalogo]
+in SYSTEMPATH\Database\BaseConnection.php on line 676.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1629): CodeIgniter\Database\BaseConnection->query('SELECT `productos`.*, `productos`.*, `marcas`.`nombre` AS `nombre_marca`, `imagenes`.`url` AS `imagen_url`, `categorias`.`nombre` AS `categoria`
+FROM `productos`
+LEFT JOIN `marcas` ON `marcas`.`id` = `productos`.`marca_id`
+JOIN `marcas` ON `marcas`.`id` = `productos`.`marca_id`
+JOIN `productos_imagenes` ON `productos_imagenes`.`producto_id` = `productos`.`id`
+JOIN `imagenes` ON `imagenes`.`id` = `productos_imagenes`.`imagen_id`
+JOIN `productos_categorias` ON `productos_categorias`.`producto_id` = `productos`.`id`
+JOIN `categorias` ON `categorias`.`id` = `productos_categorias`.`categoria_id`
+WHERE `productos`.`baja` = :productos.baja:
+GROUP BY `productos`.`id`', [...], false)
+ 2 SYSTEMPATH\Model.php(919): CodeIgniter\Database\BaseBuilder->get()
+ 3 APPPATH\Models\ProductoModel.php(88): CodeIgniter\Model->__call('get', [])
+ 4 APPPATH\Controllers\Web\Catalogo.php(110): App\Models\ProductoModel->obtenerProductosActivos()
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Web\Catalogo->index()
+ 6 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Catalogo))
+ 7 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2024-08-09 01:57:49 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Not unique table/alias: 'marcas'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 313.
+ 1 SYSTEMPATH\Database\BaseConnection.php(722): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `productos`.*, `productos`.*, `marcas`.`nombre` AS `nombre_marca`, `imagenes`.`url` AS `imagen_url`, `categorias`.`nombre` AS `categoria`
+FROM `productos`
+LEFT JOIN `marcas` ON `marcas`.`id` = `productos`.`marca_id`
+JOIN `marcas` ON `marcas`.`id` = `productos`.`marca_id`
+JOIN `productos_imagenes` ON `productos_imagenes`.`producto_id` = `productos`.`id`
+JOIN `imagenes` ON `imagenes`.`id` = `productos_imagenes`.`imagen_id`
+JOIN `productos_categorias` ON `productos_categorias`.`producto_id` = `productos`.`id`
+JOIN `categorias` ON `categorias`.`id` = `productos_categorias`.`categoria_id`
+WHERE `productos`.`baja` = 0
+GROUP BY `productos`.`id`')
+ 2 SYSTEMPATH\Database\BaseConnection.php(636): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `productos`.*, `productos`.*, `marcas`.`nombre` AS `nombre_marca`, `imagenes`.`url` AS `imagen_url`, `categorias`.`nombre` AS `categoria`
+FROM `productos`
+LEFT JOIN `marcas` ON `marcas`.`id` = `productos`.`marca_id`
+JOIN `marcas` ON `marcas`.`id` = `productos`.`marca_id`
+JOIN `productos_imagenes` ON `productos_imagenes`.`producto_id` = `productos`.`id`
+JOIN `imagenes` ON `imagenes`.`id` = `productos_imagenes`.`imagen_id`
+JOIN `productos_categorias` ON `productos_categorias`.`producto_id` = `productos`.`id`
+JOIN `categorias` ON `categorias`.`id` = `productos_categorias`.`categoria_id`
+WHERE `productos`.`baja` = 0
+GROUP BY `productos`.`id`')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1629): CodeIgniter\Database\BaseConnection->query('SELECT `productos`.*, `productos`.*, `marcas`.`nombre` AS `nombre_marca`, `imagenes`.`url` AS `imagen_url`, `categorias`.`nombre` AS `categoria`
+FROM `productos`
+LEFT JOIN `marcas` ON `marcas`.`id` = `productos`.`marca_id`
+JOIN `marcas` ON `marcas`.`id` = `productos`.`marca_id`
+JOIN `productos_imagenes` ON `productos_imagenes`.`producto_id` = `productos`.`id`
+JOIN `imagenes` ON `imagenes`.`id` = `productos_imagenes`.`imagen_id`
+JOIN `productos_categorias` ON `productos_categorias`.`producto_id` = `productos`.`id`
+JOIN `categorias` ON `categorias`.`id` = `productos_categorias`.`categoria_id`
+WHERE `productos`.`baja` = :productos.baja:
+GROUP BY `productos`.`id`', [...], false)
+ 4 SYSTEMPATH\Model.php(919): CodeIgniter\Database\BaseBuilder->get()
+ 5 APPPATH\Models\ProductoModel.php(88): CodeIgniter\Model->__call('get', [])
+ 6 APPPATH\Controllers\Web\Catalogo.php(110): App\Models\ProductoModel->obtenerProductosActivos()
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Web\Catalogo->index()
+ 8 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Catalogo))
+ 9 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2024-08-09 01:57:49 --> [Caused by] mysqli_sql_exception: Not unique table/alias: 'marcas'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 308.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(308): mysqli->query('SELECT `productos`.*, `productos`.*, `marcas`.`nombre` AS `nombre_marca`, `imagenes`.`url` AS `imagen_url`, `categorias`.`nombre` AS `categoria`
+FROM `productos`
+LEFT JOIN `marcas` ON `marcas`.`id` = `productos`.`marca_id`
+JOIN `marcas` ON `marcas`.`id` = `productos`.`marca_id`
+JOIN `productos_imagenes` ON `productos_imagenes`.`producto_id` = `productos`.`id`
+JOIN `imagenes` ON `imagenes`.`id` = `productos_imagenes`.`imagen_id`
+JOIN `productos_categorias` ON `productos_categorias`.`producto_id` = `productos`.`id`
+JOIN `categorias` ON `categorias`.`id` = `productos_categorias`.`categoria_id`
+WHERE `productos`.`baja` = 0
+GROUP BY `productos`.`id`', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(722): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `productos`.*, `productos`.*, `marcas`.`nombre` AS `nombre_marca`, `imagenes`.`url` AS `imagen_url`, `categorias`.`nombre` AS `categoria`
+FROM `productos`
+LEFT JOIN `marcas` ON `marcas`.`id` = `productos`.`marca_id`
+JOIN `marcas` ON `marcas`.`id` = `productos`.`marca_id`
+JOIN `productos_imagenes` ON `productos_imagenes`.`producto_id` = `productos`.`id`
+JOIN `imagenes` ON `imagenes`.`id` = `productos_imagenes`.`imagen_id`
+JOIN `productos_categorias` ON `productos_categorias`.`producto_id` = `productos`.`id`
+JOIN `categorias` ON `categorias`.`id` = `productos_categorias`.`categoria_id`
+WHERE `productos`.`baja` = 0
+GROUP BY `productos`.`id`')
+ 3 SYSTEMPATH\Database\BaseConnection.php(636): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `productos`.*, `productos`.*, `marcas`.`nombre` AS `nombre_marca`, `imagenes`.`url` AS `imagen_url`, `categorias`.`nombre` AS `categoria`
+FROM `productos`
+LEFT JOIN `marcas` ON `marcas`.`id` = `productos`.`marca_id`
+JOIN `marcas` ON `marcas`.`id` = `productos`.`marca_id`
+JOIN `productos_imagenes` ON `productos_imagenes`.`producto_id` = `productos`.`id`
+JOIN `imagenes` ON `imagenes`.`id` = `productos_imagenes`.`imagen_id`
+JOIN `productos_categorias` ON `productos_categorias`.`producto_id` = `productos`.`id`
+JOIN `categorias` ON `categorias`.`id` = `productos_categorias`.`categoria_id`
+WHERE `productos`.`baja` = 0
+GROUP BY `productos`.`id`')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1629): CodeIgniter\Database\BaseConnection->query('SELECT `productos`.*, `productos`.*, `marcas`.`nombre` AS `nombre_marca`, `imagenes`.`url` AS `imagen_url`, `categorias`.`nombre` AS `categoria`
+FROM `productos`
+LEFT JOIN `marcas` ON `marcas`.`id` = `productos`.`marca_id`
+JOIN `marcas` ON `marcas`.`id` = `productos`.`marca_id`
+JOIN `productos_imagenes` ON `productos_imagenes`.`producto_id` = `productos`.`id`
+JOIN `imagenes` ON `imagenes`.`id` = `productos_imagenes`.`imagen_id`
+JOIN `productos_categorias` ON `productos_categorias`.`producto_id` = `productos`.`id`
+JOIN `categorias` ON `categorias`.`id` = `productos_categorias`.`categoria_id`
+WHERE `productos`.`baja` = :productos.baja:
+GROUP BY `productos`.`id`', [...], false)
+ 5 SYSTEMPATH\Model.php(919): CodeIgniter\Database\BaseBuilder->get()
+ 6 APPPATH\Models\ProductoModel.php(88): CodeIgniter\Model->__call('get', [])
+ 7 APPPATH\Controllers\Web\Catalogo.php(110): App\Models\ProductoModel->obtenerProductosActivos()
+ 8 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Web\Catalogo->index()
+ 9 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Catalogo))
+10 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+INFO - 2024-08-09 01:57:50 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+ERROR - 2024-08-09 01:57:50 --> mysqli_sql_exception: Not unique table/alias: 'marcas' in C:\xampp\htdocs\Torres_Enrique\system\Database\MySQLi\Connection.php:308
+Stack trace:
+#0 C:\xampp\htdocs\Torres_Enrique\system\Database\MySQLi\Connection.php(308): mysqli->query('SELECT `product...', 0)
+#1 C:\xampp\htdocs\Torres_Enrique\system\Database\BaseConnection.php(722): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `product...')
+#2 C:\xampp\htdocs\Torres_Enrique\system\Database\BaseConnection.php(636): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `product...')
+#3 C:\xampp\htdocs\Torres_Enrique\system\Database\BaseBuilder.php(1629): CodeIgniter\Database\BaseConnection->query('SELECT `product...', Array, false)
+#4 C:\xampp\htdocs\Torres_Enrique\system\Model.php(919): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\Torres_Enrique\app\Models\ProductoModel.php(88): CodeIgniter\Model->__call('get', Array)
+#6 C:\xampp\htdocs\Torres_Enrique\app\Controllers\Web\Catalogo.php(110): App\Models\ProductoModel->obtenerProductosActivos()
+#7 C:\xampp\htdocs\Torres_Enrique\system\CodeIgniter.php(933): App\Controllers\Web\Catalogo->index()
+#8 C:\xampp\htdocs\Torres_Enrique\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Catalogo))
+#9 C:\xampp\htdocs\Torres_Enrique\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\xampp\htdocs\Torres_Enrique\system\Boot.php(312): CodeIgniter\CodeIgniter->run()
+#11 C:\xampp\htdocs\Torres_Enrique\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#12 C:\xampp\htdocs\Torres_Enrique\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#13 {main}
+CRITICAL - 2024-08-09 01:57:50 --> CodeIgniter\Database\Exceptions\DatabaseException: Not unique table/alias: 'marcas'
+[Method: GET, Route: catalogo]
+in SYSTEMPATH\Database\BaseConnection.php on line 676.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1629): CodeIgniter\Database\BaseConnection->query('SELECT `productos`.*, `productos`.*, `marcas`.`nombre` AS `nombre_marca`, `imagenes`.`url` AS `imagen_url`, `categorias`.`nombre` AS `categoria`
+FROM `productos`
+LEFT JOIN `marcas` ON `marcas`.`id` = `productos`.`marca_id`
+JOIN `marcas` ON `marcas`.`id` = `productos`.`marca_id`
+JOIN `productos_imagenes` ON `productos_imagenes`.`producto_id` = `productos`.`id`
+JOIN `imagenes` ON `imagenes`.`id` = `productos_imagenes`.`imagen_id`
+JOIN `productos_categorias` ON `productos_categorias`.`producto_id` = `productos`.`id`
+JOIN `categorias` ON `categorias`.`id` = `productos_categorias`.`categoria_id`
+WHERE `productos`.`baja` = :productos.baja:
+GROUP BY `productos`.`id`', [...], false)
+ 2 SYSTEMPATH\Model.php(919): CodeIgniter\Database\BaseBuilder->get()
+ 3 APPPATH\Models\ProductoModel.php(88): CodeIgniter\Model->__call('get', [])
+ 4 APPPATH\Controllers\Web\Catalogo.php(110): App\Models\ProductoModel->obtenerProductosActivos()
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Web\Catalogo->index()
+ 6 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Catalogo))
+ 7 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2024-08-09 01:57:50 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Not unique table/alias: 'marcas'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 313.
+ 1 SYSTEMPATH\Database\BaseConnection.php(722): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `productos`.*, `productos`.*, `marcas`.`nombre` AS `nombre_marca`, `imagenes`.`url` AS `imagen_url`, `categorias`.`nombre` AS `categoria`
+FROM `productos`
+LEFT JOIN `marcas` ON `marcas`.`id` = `productos`.`marca_id`
+JOIN `marcas` ON `marcas`.`id` = `productos`.`marca_id`
+JOIN `productos_imagenes` ON `productos_imagenes`.`producto_id` = `productos`.`id`
+JOIN `imagenes` ON `imagenes`.`id` = `productos_imagenes`.`imagen_id`
+JOIN `productos_categorias` ON `productos_categorias`.`producto_id` = `productos`.`id`
+JOIN `categorias` ON `categorias`.`id` = `productos_categorias`.`categoria_id`
+WHERE `productos`.`baja` = 0
+GROUP BY `productos`.`id`')
+ 2 SYSTEMPATH\Database\BaseConnection.php(636): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `productos`.*, `productos`.*, `marcas`.`nombre` AS `nombre_marca`, `imagenes`.`url` AS `imagen_url`, `categorias`.`nombre` AS `categoria`
+FROM `productos`
+LEFT JOIN `marcas` ON `marcas`.`id` = `productos`.`marca_id`
+JOIN `marcas` ON `marcas`.`id` = `productos`.`marca_id`
+JOIN `productos_imagenes` ON `productos_imagenes`.`producto_id` = `productos`.`id`
+JOIN `imagenes` ON `imagenes`.`id` = `productos_imagenes`.`imagen_id`
+JOIN `productos_categorias` ON `productos_categorias`.`producto_id` = `productos`.`id`
+JOIN `categorias` ON `categorias`.`id` = `productos_categorias`.`categoria_id`
+WHERE `productos`.`baja` = 0
+GROUP BY `productos`.`id`')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1629): CodeIgniter\Database\BaseConnection->query('SELECT `productos`.*, `productos`.*, `marcas`.`nombre` AS `nombre_marca`, `imagenes`.`url` AS `imagen_url`, `categorias`.`nombre` AS `categoria`
+FROM `productos`
+LEFT JOIN `marcas` ON `marcas`.`id` = `productos`.`marca_id`
+JOIN `marcas` ON `marcas`.`id` = `productos`.`marca_id`
+JOIN `productos_imagenes` ON `productos_imagenes`.`producto_id` = `productos`.`id`
+JOIN `imagenes` ON `imagenes`.`id` = `productos_imagenes`.`imagen_id`
+JOIN `productos_categorias` ON `productos_categorias`.`producto_id` = `productos`.`id`
+JOIN `categorias` ON `categorias`.`id` = `productos_categorias`.`categoria_id`
+WHERE `productos`.`baja` = :productos.baja:
+GROUP BY `productos`.`id`', [...], false)
+ 4 SYSTEMPATH\Model.php(919): CodeIgniter\Database\BaseBuilder->get()
+ 5 APPPATH\Models\ProductoModel.php(88): CodeIgniter\Model->__call('get', [])
+ 6 APPPATH\Controllers\Web\Catalogo.php(110): App\Models\ProductoModel->obtenerProductosActivos()
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Web\Catalogo->index()
+ 8 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Catalogo))
+ 9 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2024-08-09 01:57:50 --> [Caused by] mysqli_sql_exception: Not unique table/alias: 'marcas'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 308.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(308): mysqli->query('SELECT `productos`.*, `productos`.*, `marcas`.`nombre` AS `nombre_marca`, `imagenes`.`url` AS `imagen_url`, `categorias`.`nombre` AS `categoria`
+FROM `productos`
+LEFT JOIN `marcas` ON `marcas`.`id` = `productos`.`marca_id`
+JOIN `marcas` ON `marcas`.`id` = `productos`.`marca_id`
+JOIN `productos_imagenes` ON `productos_imagenes`.`producto_id` = `productos`.`id`
+JOIN `imagenes` ON `imagenes`.`id` = `productos_imagenes`.`imagen_id`
+JOIN `productos_categorias` ON `productos_categorias`.`producto_id` = `productos`.`id`
+JOIN `categorias` ON `categorias`.`id` = `productos_categorias`.`categoria_id`
+WHERE `productos`.`baja` = 0
+GROUP BY `productos`.`id`', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(722): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `productos`.*, `productos`.*, `marcas`.`nombre` AS `nombre_marca`, `imagenes`.`url` AS `imagen_url`, `categorias`.`nombre` AS `categoria`
+FROM `productos`
+LEFT JOIN `marcas` ON `marcas`.`id` = `productos`.`marca_id`
+JOIN `marcas` ON `marcas`.`id` = `productos`.`marca_id`
+JOIN `productos_imagenes` ON `productos_imagenes`.`producto_id` = `productos`.`id`
+JOIN `imagenes` ON `imagenes`.`id` = `productos_imagenes`.`imagen_id`
+JOIN `productos_categorias` ON `productos_categorias`.`producto_id` = `productos`.`id`
+JOIN `categorias` ON `categorias`.`id` = `productos_categorias`.`categoria_id`
+WHERE `productos`.`baja` = 0
+GROUP BY `productos`.`id`')
+ 3 SYSTEMPATH\Database\BaseConnection.php(636): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `productos`.*, `productos`.*, `marcas`.`nombre` AS `nombre_marca`, `imagenes`.`url` AS `imagen_url`, `categorias`.`nombre` AS `categoria`
+FROM `productos`
+LEFT JOIN `marcas` ON `marcas`.`id` = `productos`.`marca_id`
+JOIN `marcas` ON `marcas`.`id` = `productos`.`marca_id`
+JOIN `productos_imagenes` ON `productos_imagenes`.`producto_id` = `productos`.`id`
+JOIN `imagenes` ON `imagenes`.`id` = `productos_imagenes`.`imagen_id`
+JOIN `productos_categorias` ON `productos_categorias`.`producto_id` = `productos`.`id`
+JOIN `categorias` ON `categorias`.`id` = `productos_categorias`.`categoria_id`
+WHERE `productos`.`baja` = 0
+GROUP BY `productos`.`id`')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1629): CodeIgniter\Database\BaseConnection->query('SELECT `productos`.*, `productos`.*, `marcas`.`nombre` AS `nombre_marca`, `imagenes`.`url` AS `imagen_url`, `categorias`.`nombre` AS `categoria`
+FROM `productos`
+LEFT JOIN `marcas` ON `marcas`.`id` = `productos`.`marca_id`
+JOIN `marcas` ON `marcas`.`id` = `productos`.`marca_id`
+JOIN `productos_imagenes` ON `productos_imagenes`.`producto_id` = `productos`.`id`
+JOIN `imagenes` ON `imagenes`.`id` = `productos_imagenes`.`imagen_id`
+JOIN `productos_categorias` ON `productos_categorias`.`producto_id` = `productos`.`id`
+JOIN `categorias` ON `categorias`.`id` = `productos_categorias`.`categoria_id`
+WHERE `productos`.`baja` = :productos.baja:
+GROUP BY `productos`.`id`', [...], false)
+ 5 SYSTEMPATH\Model.php(919): CodeIgniter\Database\BaseBuilder->get()
+ 6 APPPATH\Models\ProductoModel.php(88): CodeIgniter\Model->__call('get', [])
+ 7 APPPATH\Controllers\Web\Catalogo.php(110): App\Models\ProductoModel->obtenerProductosActivos()
+ 8 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Web\Catalogo->index()
+ 9 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Catalogo))
+10 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+INFO - 2024-08-09 02:00:00 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+ERROR - 2024-08-09 02:00:00 --> mysqli_sql_exception: Not unique table/alias: 'marcas' in C:\xampp\htdocs\Torres_Enrique\system\Database\MySQLi\Connection.php:308
+Stack trace:
+#0 C:\xampp\htdocs\Torres_Enrique\system\Database\MySQLi\Connection.php(308): mysqli->query('SELECT `product...', 0)
+#1 C:\xampp\htdocs\Torres_Enrique\system\Database\BaseConnection.php(722): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `product...')
+#2 C:\xampp\htdocs\Torres_Enrique\system\Database\BaseConnection.php(636): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `product...')
+#3 C:\xampp\htdocs\Torres_Enrique\system\Database\BaseBuilder.php(1629): CodeIgniter\Database\BaseConnection->query('SELECT `product...', Array, false)
+#4 C:\xampp\htdocs\Torres_Enrique\system\Model.php(919): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\Torres_Enrique\app\Models\ProductoModel.php(88): CodeIgniter\Model->__call('get', Array)
+#6 C:\xampp\htdocs\Torres_Enrique\app\Controllers\Web\Catalogo.php(110): App\Models\ProductoModel->obtenerProductosActivos()
+#7 C:\xampp\htdocs\Torres_Enrique\system\CodeIgniter.php(933): App\Controllers\Web\Catalogo->index()
+#8 C:\xampp\htdocs\Torres_Enrique\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Catalogo))
+#9 C:\xampp\htdocs\Torres_Enrique\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\xampp\htdocs\Torres_Enrique\system\Boot.php(312): CodeIgniter\CodeIgniter->run()
+#11 C:\xampp\htdocs\Torres_Enrique\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#12 C:\xampp\htdocs\Torres_Enrique\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#13 {main}
+CRITICAL - 2024-08-09 02:00:00 --> CodeIgniter\Database\Exceptions\DatabaseException: Not unique table/alias: 'marcas'
+[Method: GET, Route: catalogo]
+in SYSTEMPATH\Database\BaseConnection.php on line 676.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1629): CodeIgniter\Database\BaseConnection->query('SELECT `productos`.*, `productos`.*, `marcas`.`nombre` AS `nombre_marca`, `imagenes`.`url` AS `imagen_url`, `categorias`.`nombre` AS `categoria`
+FROM `productos`
+LEFT JOIN `marcas` ON `marcas`.`id` = `productos`.`marca_id`
+JOIN `marcas` ON `marcas`.`id` = `productos`.`marca_id`
+JOIN `productos_imagenes` ON `productos_imagenes`.`producto_id` = `productos`.`id`
+JOIN `imagenes` ON `imagenes`.`id` = `productos_imagenes`.`imagen_id`
+JOIN `productos_categorias` ON `productos_categorias`.`producto_id` = `productos`.`id`
+JOIN `categorias` ON `categorias`.`id` = `productos_categorias`.`categoria_id`
+WHERE `productos`.`baja` = :productos.baja:
+GROUP BY `productos`.`id`
+ORDER BY `productos`.`fecha_creacion` DESC', [...], false)
+ 2 SYSTEMPATH\Model.php(919): CodeIgniter\Database\BaseBuilder->get()
+ 3 APPPATH\Models\ProductoModel.php(88): CodeIgniter\Model->__call('get', [])
+ 4 APPPATH\Controllers\Web\Catalogo.php(110): App\Models\ProductoModel->obtenerProductosActivos()
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Web\Catalogo->index()
+ 6 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Catalogo))
+ 7 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2024-08-09 02:00:00 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Not unique table/alias: 'marcas'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 313.
+ 1 SYSTEMPATH\Database\BaseConnection.php(722): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `productos`.*, `productos`.*, `marcas`.`nombre` AS `nombre_marca`, `imagenes`.`url` AS `imagen_url`, `categorias`.`nombre` AS `categoria`
+FROM `productos`
+LEFT JOIN `marcas` ON `marcas`.`id` = `productos`.`marca_id`
+JOIN `marcas` ON `marcas`.`id` = `productos`.`marca_id`
+JOIN `productos_imagenes` ON `productos_imagenes`.`producto_id` = `productos`.`id`
+JOIN `imagenes` ON `imagenes`.`id` = `productos_imagenes`.`imagen_id`
+JOIN `productos_categorias` ON `productos_categorias`.`producto_id` = `productos`.`id`
+JOIN `categorias` ON `categorias`.`id` = `productos_categorias`.`categoria_id`
+WHERE `productos`.`baja` = 0
+GROUP BY `productos`.`id`
+ORDER BY `productos`.`fecha_creacion` DESC')
+ 2 SYSTEMPATH\Database\BaseConnection.php(636): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `productos`.*, `productos`.*, `marcas`.`nombre` AS `nombre_marca`, `imagenes`.`url` AS `imagen_url`, `categorias`.`nombre` AS `categoria`
+FROM `productos`
+LEFT JOIN `marcas` ON `marcas`.`id` = `productos`.`marca_id`
+JOIN `marcas` ON `marcas`.`id` = `productos`.`marca_id`
+JOIN `productos_imagenes` ON `productos_imagenes`.`producto_id` = `productos`.`id`
+JOIN `imagenes` ON `imagenes`.`id` = `productos_imagenes`.`imagen_id`
+JOIN `productos_categorias` ON `productos_categorias`.`producto_id` = `productos`.`id`
+JOIN `categorias` ON `categorias`.`id` = `productos_categorias`.`categoria_id`
+WHERE `productos`.`baja` = 0
+GROUP BY `productos`.`id`
+ORDER BY `productos`.`fecha_creacion` DESC')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1629): CodeIgniter\Database\BaseConnection->query('SELECT `productos`.*, `productos`.*, `marcas`.`nombre` AS `nombre_marca`, `imagenes`.`url` AS `imagen_url`, `categorias`.`nombre` AS `categoria`
+FROM `productos`
+LEFT JOIN `marcas` ON `marcas`.`id` = `productos`.`marca_id`
+JOIN `marcas` ON `marcas`.`id` = `productos`.`marca_id`
+JOIN `productos_imagenes` ON `productos_imagenes`.`producto_id` = `productos`.`id`
+JOIN `imagenes` ON `imagenes`.`id` = `productos_imagenes`.`imagen_id`
+JOIN `productos_categorias` ON `productos_categorias`.`producto_id` = `productos`.`id`
+JOIN `categorias` ON `categorias`.`id` = `productos_categorias`.`categoria_id`
+WHERE `productos`.`baja` = :productos.baja:
+GROUP BY `productos`.`id`
+ORDER BY `productos`.`fecha_creacion` DESC', [...], false)
+ 4 SYSTEMPATH\Model.php(919): CodeIgniter\Database\BaseBuilder->get()
+ 5 APPPATH\Models\ProductoModel.php(88): CodeIgniter\Model->__call('get', [])
+ 6 APPPATH\Controllers\Web\Catalogo.php(110): App\Models\ProductoModel->obtenerProductosActivos()
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Web\Catalogo->index()
+ 8 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Catalogo))
+ 9 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2024-08-09 02:00:00 --> [Caused by] mysqli_sql_exception: Not unique table/alias: 'marcas'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 308.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(308): mysqli->query('SELECT `productos`.*, `productos`.*, `marcas`.`nombre` AS `nombre_marca`, `imagenes`.`url` AS `imagen_url`, `categorias`.`nombre` AS `categoria`
+FROM `productos`
+LEFT JOIN `marcas` ON `marcas`.`id` = `productos`.`marca_id`
+JOIN `marcas` ON `marcas`.`id` = `productos`.`marca_id`
+JOIN `productos_imagenes` ON `productos_imagenes`.`producto_id` = `productos`.`id`
+JOIN `imagenes` ON `imagenes`.`id` = `productos_imagenes`.`imagen_id`
+JOIN `productos_categorias` ON `productos_categorias`.`producto_id` = `productos`.`id`
+JOIN `categorias` ON `categorias`.`id` = `productos_categorias`.`categoria_id`
+WHERE `productos`.`baja` = 0
+GROUP BY `productos`.`id`
+ORDER BY `productos`.`fecha_creacion` DESC', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(722): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `productos`.*, `productos`.*, `marcas`.`nombre` AS `nombre_marca`, `imagenes`.`url` AS `imagen_url`, `categorias`.`nombre` AS `categoria`
+FROM `productos`
+LEFT JOIN `marcas` ON `marcas`.`id` = `productos`.`marca_id`
+JOIN `marcas` ON `marcas`.`id` = `productos`.`marca_id`
+JOIN `productos_imagenes` ON `productos_imagenes`.`producto_id` = `productos`.`id`
+JOIN `imagenes` ON `imagenes`.`id` = `productos_imagenes`.`imagen_id`
+JOIN `productos_categorias` ON `productos_categorias`.`producto_id` = `productos`.`id`
+JOIN `categorias` ON `categorias`.`id` = `productos_categorias`.`categoria_id`
+WHERE `productos`.`baja` = 0
+GROUP BY `productos`.`id`
+ORDER BY `productos`.`fecha_creacion` DESC')
+ 3 SYSTEMPATH\Database\BaseConnection.php(636): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `productos`.*, `productos`.*, `marcas`.`nombre` AS `nombre_marca`, `imagenes`.`url` AS `imagen_url`, `categorias`.`nombre` AS `categoria`
+FROM `productos`
+LEFT JOIN `marcas` ON `marcas`.`id` = `productos`.`marca_id`
+JOIN `marcas` ON `marcas`.`id` = `productos`.`marca_id`
+JOIN `productos_imagenes` ON `productos_imagenes`.`producto_id` = `productos`.`id`
+JOIN `imagenes` ON `imagenes`.`id` = `productos_imagenes`.`imagen_id`
+JOIN `productos_categorias` ON `productos_categorias`.`producto_id` = `productos`.`id`
+JOIN `categorias` ON `categorias`.`id` = `productos_categorias`.`categoria_id`
+WHERE `productos`.`baja` = 0
+GROUP BY `productos`.`id`
+ORDER BY `productos`.`fecha_creacion` DESC')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1629): CodeIgniter\Database\BaseConnection->query('SELECT `productos`.*, `productos`.*, `marcas`.`nombre` AS `nombre_marca`, `imagenes`.`url` AS `imagen_url`, `categorias`.`nombre` AS `categoria`
+FROM `productos`
+LEFT JOIN `marcas` ON `marcas`.`id` = `productos`.`marca_id`
+JOIN `marcas` ON `marcas`.`id` = `productos`.`marca_id`
+JOIN `productos_imagenes` ON `productos_imagenes`.`producto_id` = `productos`.`id`
+JOIN `imagenes` ON `imagenes`.`id` = `productos_imagenes`.`imagen_id`
+JOIN `productos_categorias` ON `productos_categorias`.`producto_id` = `productos`.`id`
+JOIN `categorias` ON `categorias`.`id` = `productos_categorias`.`categoria_id`
+WHERE `productos`.`baja` = :productos.baja:
+GROUP BY `productos`.`id`
+ORDER BY `productos`.`fecha_creacion` DESC', [...], false)
+ 5 SYSTEMPATH\Model.php(919): CodeIgniter\Database\BaseBuilder->get()
+ 6 APPPATH\Models\ProductoModel.php(88): CodeIgniter\Model->__call('get', [])
+ 7 APPPATH\Controllers\Web\Catalogo.php(110): App\Models\ProductoModel->obtenerProductosActivos()
+ 8 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Web\Catalogo->index()
+ 9 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Catalogo))
+10 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+INFO - 2024-08-09 02:00:36 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2024-08-09 02:00:36 --> ErrorException: Undefined variable $builder
+[Method: GET, Route: catalogo]
+in APPPATH\Controllers\Web\Catalogo.php on line 97.
+ 1 APPPATH\Controllers\Web\Catalogo.php(97): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $builder', 'C:\\xampp\\htdocs\\Torres_Enrique\\app\\Controllers\\Web\\Catalogo.php', 97)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Web\Catalogo->index()
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Catalogo))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+INFO - 2024-08-09 02:09:01 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2024-08-09 02:09:01 --> ErrorException: Undefined property: App\Controllers\Web\Catalogo::$db
+[Method: GET, Route: catalogo]
+in APPPATH\Controllers\Web\Catalogo.php on line 46.
+ 1 APPPATH\Controllers\Web\Catalogo.php(46): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined property: App\\Controllers\\Web\\Catalogo::$db', 'C:\\xampp\\htdocs\\Torres_Enrique\\app\\Controllers\\Web\\Catalogo.php', 46)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Web\Catalogo->index()
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Catalogo))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))

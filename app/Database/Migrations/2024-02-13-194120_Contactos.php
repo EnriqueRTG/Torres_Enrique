@@ -11,48 +11,41 @@ class Contactos extends Migration
         $this->forge->addField([
             'id' => [
                 'type'           => 'INT',
-                'constraint'     => 6,
+                'constraint'     => 11,
                 'unsigned'       => true,
                 'auto_increment' => true,
             ],
             'nombre' => [
-                'type'           => 'VARCHAR',
-                'constraint'     => '255',
-                'null'           => false
+                'type'       => 'VARCHAR',
+                'constraint' => '255',
+                'null'       => false
             ],
             'email' => [
-                'type'           => 'VARCHAR',
-                'constraint'     => '125',
-                'null'           => false
+                'type'       => 'VARCHAR',
+                'constraint' => '125',
+                'null'       => false
             ],
             'asunto' => [
-                'type'           => 'VARCHAR',
-                'constraint'     => '255',
-                'null'           => false
+                'type'       => 'VARCHAR',
+                'constraint' => '255',
+                'null'       => false
             ],
             'mensaje' => [
-                'type'           => 'TEXT',
-                'null'           => false
+                'type' => 'TEXT',
+                'null' => false
             ],
-            'created_at' => [
-                'type'           => 'DATETIME',
-                'null'           => true,
-            ],
-            'updated_at' => [
-                'type'           => 'DATETIME',
-                'null'           => true,
+            'fecha' => [
+                'type' => 'DATETIME',
+                'default' => 'CURRENT_TIMESTAMP',
             ],
             'leido' => [
-                'type'           => 'BOOLEAN',
-                'default'        => false
+                'type'    => 'BOOLEAN',
+                'default' => false
             ],
-            'baja' => [
-                'type'           => 'BOOLEAN',
-                'default'        => false,
-            ]
         ]);
-        
+
         $this->forge->addKey('id', true);
+
         $this->forge->createTable('contactos');
     }
 

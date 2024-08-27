@@ -11,7 +11,6 @@ use App\Controllers\BaseController;
 
 use App\Models\ProductoModel;
 use App\Models\MarcaModel;
-use App\Models\SubcategoriaModel;
 use App\Models\CategoriaModel;
 use App\Models\ImagenModel;
 
@@ -26,14 +25,11 @@ class Producto extends BaseController
     public function index()
     {
         $productoModel = new ProductoModel();
-        $subcategoriaModel = new SubcategoriaModel();
-        $marcaModel = new MarcaModel();
 
-        $this->generar_imagen();
 
         $data = [
             'titulo'        => 'Productos',
-            'productos'     => $productoModel->productosDetallados(),
+            'productos'     => $productoModel->obtenerTodosLosProductos(),
         ];
 
         echo view('admin/producto/index', $data);
@@ -54,14 +50,12 @@ class Producto extends BaseController
     public function new()
     {
         $productoModel = new ProductoModel();
-        $subcategoriaModel = new SubcategoriaModel();
         $categoriaModel = new CategoriaModel();
         $marcaModel = new MarcaModel();
 
         $data = [
             'titulo'        => "Crear Producto",
             'producto'      => $productoModel,
-            'subcategorias' => $subcategoriaModel->find(),
             'categorias'    => $categoriaModel->find(),
             'marcas'        => $marcaModel->find(),
             'nombreBoton'   => 'Crear',
@@ -82,7 +76,6 @@ class Producto extends BaseController
                 'precio'          => $this->request->getPost('precio'),
                 'stock'           => $this->request->getPost('stock'),
                 'marca_id'        => $this->request->getPost('marca_id'),
-                'subcategoria_id' => $this->request->getPost('subcategoria_id'),
                 'presentacion'    => $this->request->getPost('presentacion'),
             ]);
 
@@ -121,13 +114,11 @@ class Producto extends BaseController
     public function edit($id)
     {
         $productoModel = new ProductoModel();
-        $subcategoriaModel = new SubcategoriaModel();
         $marcaModel = new MarcaModel();
 
         $data = [
             'titulo'        => "Editar Subcategoria",
             'producto'      => $productoModel->productoDetallado($id),
-            'subcategorias' => $subcategoriaModel->find(),
             'marcas'        => $marcaModel->find(),
             'nombreBoton'   => "Editar"
         ];
@@ -146,7 +137,6 @@ class Producto extends BaseController
                 'precio'          => $this->request->getPost('precio'),
                 'stock'           => $this->request->getPost('stock'),
                 'marca_id'        => $this->request->getPost('marca_id'),
-                'subcategoria_id' => $this->request->getPost('subcategoria_id'),
                 'peso'            => $this->request->getPost('peso'),
                 'dimension'       => $this->request->getPost('dimension'),
                 'imagen'          => $this->request->getPost('imagen'),
@@ -171,15 +161,5 @@ class Producto extends BaseController
         ]);
 
         return redirect()->to('/dashboard/producto')->with('mensaje', 'Baja de producto exitosa!');
-    }
-
-    private function generar_imagen()
-    {
-        $imagenModel = new ImagenModel();
-        $imagenModel->insert([
-            'imagen'    => date('Y-m-d H:m:s'),
-            'extension' => 'Pendiente',
-            'data'      => 'Pendiente',
-        ]);
     }
 }

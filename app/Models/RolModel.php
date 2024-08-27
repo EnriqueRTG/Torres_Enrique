@@ -16,9 +16,12 @@ use CodeIgniter\Model;
  */
 class RolModel extends Model
 {
-    protected $table = 'roles';
+    protected $table      = 'roles';
     protected $primaryKey = 'id';
     protected $allowedFields = ['nombre'];
-    protected $returnType = 'object';
-
+    protected $useAutoIncrement = true;
+    protected $returnType     = 'object';
+    protected $useSoftDeletes = false;
+    protected $useTimestamps = false;
+    protected $skipValidation  = true; 
 }

@@ -1,3 +1,9 @@
+@font-face {
+    font-family: "Bootstrap Icons";
+    src: url("bootstrap-icons.woff2") format("woff2"),
+         url("bootstrap-icons.woff") format("woff");
+}
+
 .nav-item-per {
     font-size: 1.25rem;
 }

@@ -15,12 +15,15 @@ use CodeIgniter\Model;
  */
 class CategoriaModel extends Model
 {
-    protected $table      = 'categorias';
-    protected $primaryKey = 'id';
-    protected $allowedFields = ['nombre', 'baja'];
-    protected $returnType = 'object';
-
-    protected $useTimestamps = true; // Habilita timestamps (created_at, updated_at)
-    protected $createdField = 'created_at';
-    protected $updatedField = 'updated_at';
+    protected $table            = 'categorias';
+    protected $primaryKey       = 'id';
+    protected $useAutoIncrement = true;
+    protected $returnType       = 'object';
+    protected $useSoftDeletes   = false;
+    protected $allowedFields    = ['nombre', 'descripcion', 'baja', 'fecha_creacion', 'fecha_actualizacion'];
+    protected $useTimestamps    = false;
+    protected $createdField     = 'fecha_creacion';
+    protected $updatedField     = 'fecha_actualizacion';
+    protected $validationRules  = 'categorias';  // Referencia a la configuración en Validation.php
+    protected $skipValidation   = false;
 }

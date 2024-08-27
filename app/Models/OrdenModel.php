@@ -16,11 +16,14 @@ use CodeIgniter\Model;
  */
 class OrdenModel extends Model
 {
-    protected $table = 'ordenes';
-    protected $primaryKey = 'id';
-    protected $allowedFields = ['usuario_id', 'estado', 'baja'];
-    protected $returnType = 'object';
-    protected $useTimestamps = true; // Habilita timestamps (created_at, updated_at)
-    protected $createdField = 'created_at';
-    protected $updatedField = 'updated_at';
+    protected $table            = 'ordenes';
+    protected $primaryKey       = 'id';
+    protected $useAutoIncrement = true;
+    protected $returnType       = 'object';
+    protected $useSoftDeletes   = false;
+    protected $allowedFields    = ['usuario_id', 'total', 'metodo_pago_id', 'estado', 'baja', 'fecha_creacion', 'fecha_actualizacion'];
+    protected $useTimestamps    = false;
+    protected $createdField     = 'fecha_creacion';
+    protected $updatedField     = 'fecha_actualizacion';
+    protected $skipValidation  = false;
 }

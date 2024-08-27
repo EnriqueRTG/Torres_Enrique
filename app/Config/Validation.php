@@ -54,37 +54,63 @@ class Validation extends BaseConfig
         ],
     ];
 
-    public $subcategorias_create = [
+    public array $marcas = [
         'nombre' => [
-            'rules'  => 'required|min_length[4]|max_length[125]|is_unique[subcategorias.nombre, id, {id}]',
+            'rules' => 'required|alpha_numeric_space|min_length[3]|is_unique[marcas.nombre]',
             'errors' => [
-                'required'        => 'Por favor, ingresa el nombre de una subcategoria.',
-                'min_length[4]'   => 'La subcategoria debe tener al menos 4 caracteres.',
-                'max_length[125]' => 'La subcategoria no debe superar los 125 caracteres.',
-                'is_unique'       => 'Esta subcategoria ya está registrada.',
+                'required' => 'El nombre de la marca es obligatorio',
+                'alpha_numeric_space' => 'El nombre de la marca solo puede contener caracteres alfanuméricos y espacios',
+                'min_length' => 'El nombre de la marca debe tener al menos 3 caracteres',
+                'is_unique' => 'El nombre de la marca ya existe'
             ],
         ],
     ];
 
-    public $subcategorias_update = [
+    public array $usuarios = [
         'nombre' => [
-            'rules'  => 'required|min_length[4]|max_length[125]',
+            'rules' => 'required|min_length[3]|max_length[255]',
             'errors' => [
-                'required'        => 'Por favor, ingresa el nombre de una subcategoria.',
-                'min_length[4]'   => 'La subcategoria debe tener al menos 4 caracteres.',
-                'max_length[125]' => 'La subcategoria no debe superar los 125 caracteres.',
+                'required'   => 'El campo {field} es obligatorio.',
+                'min_length' => 'El campo {field} debe tener al menos {param} caracteres.',
+                'max_length' => 'El campo {field} no puede exceder los {param} caracteres.',
             ],
         ],
-    ];
-
-    public $marcas = [
-        'nombre' => [
-            'rules'  => 'required|min_length[2]|max_length[125]|is_unique[marcas.nombre, id, {id}]',
+        'apellido' => [
+            'rules' => 'required|min_length[3]|max_length[255]',
             'errors' => [
-                'required'        => 'Por favor, ingresa el nombre de una marca.',
-                'min_length[4]'   => 'La marca debe tener al menos 2 caracteres.',
-                'max_length[125]' => 'La marca no debe superar los 125 caracteres.',
-                'is_unique'       => 'Esta marca ya está registrada.',
+                'required'   => 'El campo {field} es obligatorio.',
+                'min_length' => 'El campo {field} debe tener al menos {param} caracteres.',
+                'max_length' => 'El campo {field} no puede exceder los {param} caracteres.',
+            ],
+        ],
+        'email' => [
+            'rules' => 'required|valid_email|is_unique[usuarios.email]|max_length[125]',
+            'errors' => [
+                'required'   => 'El campo {field} es obligatorio.',
+                'valid_email' => 'El campo {field} debe contener una dirección de correo electrónico válida.',
+                'is_unique'  => 'El correo electrónico ya está registrado.',
+                'max_length' => 'El campo {field} no puede exceder los {param} caracteres.',
+            ],
+        ],
+        'password' => [
+            'rules' => 'required|min_length[8]|max_length[255]',
+            'errors' => [
+                'required'   => 'El campo {field} es obligatorio.',
+                'min_length' => 'El campo {field} debe tener al menos {param} caracteres.',
+                'max_length' => 'El campo {field} no puede exceder los {param} caracteres.',
+            ],
+        ],
+        'telefono' => [
+            'rules' => 'permit_empty|max_length[20]',
+            'errors' => [
+                'max_length' => 'El campo {field} no puede exceder los {param} caracteres.',
+            ],
+        ],
+        'rol_id' => [
+            'rules' => 'required|is_natural_no_zero',
+            'errors' => [
+                'required' => 'El campo {field} es obligatorio.',
+                'is_natural_no_zero' => 'El campo {field} debe ser un número entero positivo.',
             ],
         ],
     ];
@@ -117,16 +143,16 @@ class Validation extends BaseConfig
                 'required'        => 'Por favor, ingresa un correo electrónico.',
                 'min_length[12]'  => 'El correo electrónico debe tener al menos 12 caracteres.',
                 'max_length[125]' => 'El correo electrónico no debe superar los 125 caracteres.',
-                'valid_email'     => 'El correo electrónico ingresado debe ser válido',
+                'valid_email'     => 'El correo electrónico ingresado debe ser válido.',
                 'is_unique'       => 'Este correo electrónico ya está registrado.',
             ],
         ],
         'password' => [
             'label' => 'Contraseña',
-            'rules' => 'required|min_length[6]|max_length[20]|alpha_dash',
+            'rules' => 'required|min_length[8]|max_length[20]|alpha_dash',
             'errors' => [
                 'required'        => 'Por favor, ingresa una contraseña.',
-                'min_length[6]'   => 'La contraseña debe tener al menos 6 caracteres.',
+                'min_length[8]'   => 'La contraseña debe tener al menos 8 caracteres.',
                 'max_length[20]'  => 'La contraseña no debe superar los 20 caracteres.',
                 'alpha_dash'      => 'La contraseña solo admite caracteres alfanuméricos, guiones y/o guiones bajos.',
             ],
@@ -139,110 +165,162 @@ class Validation extends BaseConfig
                 'matches'  => 'Las contraseñas no coinciden.',
             ],
         ],
-        'direccion' => [
-            'label' => 'Dirección',
-            'rules' => 'required|min_length[6]|max_length[125]|alpha_numeric_space',
-            'errors' => [
-                'required'            => 'Por favor, ingresa la dirección de domicilio.',
-                'min_length[6]'       => 'La dirección debe tener al menos 6 caracteres.',
-                'max_length[125]'     => 'La dirección no debe superar los 125 caracteres.',
-                'alpha_numeric_space' => 'La dirección solo debe contener caracteres alfanuméricos y/o espacios',
-            ],
-        ],
         'telefono' => [
             'label' => 'Teléfono',
-            'rules' => 'required|min_length[8]|max_length[16]|',
+            'rules' => 'required|min_length[8]|max_length[16]|numeric',
             'errors' => [
                 'required'        => 'Por favor, ingresa un número de teléfono o celular.',
                 'min_length[8]'   => 'El teléfono debe tener al menos 8 caracteres.',
                 'max_length[16]'  => 'El teléfono no debe superar los 16 caracteres.',
-                'numeric'         => 'El teléfono solo debe contener caracteres numéricos',
+                'numeric'         => 'El teléfono solo debe contener caracteres numéricos.',
             ],
         ],
         'terms' => [
             'label' => 'Términos y Condiciones',
             'rules' => 'required',
             'errors' => [
-                'required' => 'Debe aceptar los términos y condiciones.'
+                'required' => 'Debe aceptar los términos y condiciones.',
             ],
         ],
     ];
 
-    public $usuarios_update = [
-        'nombre'       => 'required|min_length[4]|max_length[125]|alpha_space',
-        'apellido'     => 'required|min_length[4]|max_length[125]|alpha_space',
-        'email'        => 'required_with[password,passwordConf]|min_length[4]|max_length[125]|valid_email|is_unique[usuarios.email, id, {id}]',
-        'password'     => 'required_with[email,passwordConf]|min_length[8]|max_length[20]|alpha_dash',
-        'passwordConf' => 'required_with[password,email]|min_length[8]|max_length[20]|alpha_dash|matches[password]',
-        'direccion'    => 'required|max_length[125]|alpha_numeric_space',
-        'telefono'     => 'required|max_length[15]|numeric',
+    public array $usuarios_update = [
+        'nombre' => [
+            'rules' => 'required|min_length[4]|max_length[125]|alpha_space',
+            'errors' => [
+                'required'   => 'El campo {field} es obligatorio.',
+                'min_length' => 'El campo {field} debe tener al menos {param} caracteres.',
+                'max_length' => 'El campo {field} no puede exceder los {param} caracteres.',
+                'alpha_space' => 'El campo {field} solo puede contener letras y espacios.',
+            ],
+        ],
+        'apellido' => [
+            'rules' => 'required|min_length[4]|max_length[125]|alpha_space',
+            'errors' => [
+                'required'   => 'El campo {field} es obligatorio.',
+                'min_length' => 'El campo {field} debe tener al menos {param} caracteres.',
+                'max_length' => 'El campo {field} no puede exceder los {param} caracteres.',
+                'alpha_space' => 'El campo {field} solo puede contener letras y espacios.',
+            ],
+        ],
+        'email' => [
+            'rules' => 'permit_empty|min_length[4]|max_length[125]|valid_email|is_unique[usuarios.email,id,{id}]',
+            'errors' => [
+                'min_length' => 'El campo {field} debe tener al menos {param} caracteres.',
+                'max_length' => 'El campo {field} no puede exceder los {param} caracteres.',
+                'valid_email' => 'El campo {field} debe contener una dirección de correo electrónico válida.',
+                'is_unique'  => 'El correo electrónico ya está registrado.',
+            ],
+        ],
+        'password' => [
+            'rules' => 'permit_empty|min_length[8]|max_length[20]|alpha_dash',
+            'errors' => [
+                'min_length' => 'La contraseña debe tener al menos {param} caracteres.',
+                'max_length' => 'La contraseña no puede exceder los {param} caracteres.',
+                'alpha_dash' => 'La contraseña solo admite caracteres alfanuméricos, guiones y/o guiones bajos.',
+            ],
+        ],
+        'passwordConf' => [
+            'rules' => 'permit_empty|min_length[8]|max_length[20]|alpha_dash|matches[password]',
+            'errors' => [
+                'min_length' => 'La confirmación de la contraseña debe tener al menos {param} caracteres.',
+                'max_length' => 'La confirmación de la contraseña no puede exceder los {param} caracteres.',
+                'alpha_dash' => 'La confirmación de la contraseña solo admite caracteres alfanuméricos, guiones y/o guiones bajos.',
+                'matches'  => 'La confirmación de la contraseña no coincide con la contraseña.',
+            ],
+        ],
+        'telefono' => [
+            'rules' => 'permit_empty|max_length[15]|numeric',
+            'errors' => [
+                'max_length' => 'El campo {field} no puede exceder los {param} caracteres.',
+                'numeric'    => 'El campo {field} debe contener solo caracteres numéricos.',
+            ],
+        ],
     ];
 
-    public  $productos_create = [
+    public array $productos_create = [
         'nombre' => [
             'label'  => 'Nombre del producto',
-            'rules'  => 'required|min_length[3]|max_length[255]',
+            'rules'  => 'required|min_length[3]|max_length[255]|is_unique[productos.nombre,id,{id}]',
             'errors' => [
                 'required' => 'El nombre del producto es obligatorio.',
                 'min_length' => 'El nombre del producto debe tener al menos 3 caracteres.',
                 'max_length' => 'El nombre del producto no puede exceder los 255 caracteres.',
+                'is_unique' => 'El nombre del producto ya está registrado.',
             ],
         ],
         'descripcion' => [
             'label'  => 'Descripción',
-            'rules'  => 'required|min_length[10]',
+            'rules'  => 'permit_empty|min_length[10]',
             'errors' => [
-                'required' => 'La descripción del producto es obligatoria.',
                 'min_length' => 'La descripción debe tener al menos 10 caracteres.',
             ],
         ],
         'precio' => [
             'label'  => 'Precio',
-            'rules'  => 'required|numeric|greater_than[0]',
+            'rules'  => 'required|decimal|greater_than[0]',
             'errors' => [
                 'required' => 'El precio del producto es obligatorio.',
-                'numeric' => 'El precio debe ser un número.',
+                'decimal' => 'El precio debe ser un número decimal.',
                 'greater_than' => 'El precio debe ser mayor a 0.',
             ],
         ],
         'stock' => [
             'label'  => 'Stock',
-            'rules'  => 'required|is_natural', 
+            'rules'  => 'required|is_natural|greater_than_equal_to[0]',
             'errors' => [
                 'required' => 'El stock del producto es obligatorio.',
                 'is_natural' => 'El stock debe ser un número entero positivo.',
+                'greater_than_equal_to' => 'El stock debe ser mayor o igual a 0.',
             ],
         ],
         'marca_id' => [
             'label'  => 'Marca',
-            'rules'  => 'required|is_natural_no_zero',
+            'rules'  => 'required|is_natural_no_zero|is_not_unique[marcas.id]',
             'errors' => [
                 'required' => 'Debe seleccionar una marca.',
                 'is_natural_no_zero' => 'La marca seleccionada no es válida.',
+                'is_not_unique' => 'La marca seleccionada no existe.',
             ],
         ],
-        'subcategoria_id' => [
-            'label'  => 'Subcategoría',
-            'rules'  => 'required|is_natural_no_zero',
+        'modelo' => [
+            'label'  => 'Modelo',
+            'rules'  => 'permit_empty|max_length[255]',
             'errors' => [
-                'required' => 'Debe seleccionar una subcategoría.',
-                'is_natural_no_zero' => 'La subcategoría seleccionada no es válida.',
+                'max_length' => 'El modelo no puede exceder los 255 caracteres.',
             ],
         ],
-        'presentacion' => [
-            'label'  => 'Presentación',
-            'rules'  => 'permit_empty|max_length[100]', // Opcional, pero con límite de caracteres
+        'peso' => [
+            'label'  => 'Peso',
+            'rules'  => 'permit_empty|max_length[255]',
             'errors' => [
-                'max_length' => 'La presentación no puede exceder los 100 caracteres.',
+                'max_length' => 'El peso no puede exceder los 255 caracteres.',
             ],
         ],
-        'imagenes' => [
-            'label' => 'Imágenes',
-            'rules' => 'uploaded[imagenes.*]|max_size[imagenes,1024]|is_image[imagenes.*]|mime_in[imagenes,image/jpg,image/jpeg,image/png]',
+        'dimensiones' => [
+            'label'  => 'Dimensiones',
+            'rules'  => 'permit_empty|max_length[255]',
+            'errors' => [
+                'max_length' => 'Las dimensiones no pueden exceder los 255 caracteres.',
+            ],
+        ],
+        'material' => [
+            'label'  => 'Material',
+            'rules'  => 'permit_empty|max_length[255]',
+            'errors' => [
+                'max_length' => 'El material no puede exceder los 255 caracteres.',
+            ],
+        ],
+        'color' => [
+            'label'  => 'Color',
+            'rules'  => 'permit_empty|max_length[255]',
+            'errors' => [
+                'max_length' => 'El color no puede exceder los 255 caracteres.',
+            ],
         ],
     ];
 
-    public  $productos_update = [
+    public array $productos_update = [
         'nombre'          => 'required|min_length[4]|max_length[125]|alpha_numeric_space',
         'descripcion'     => 'required|string',
         'precio'          => 'required|decimal',
@@ -272,41 +350,203 @@ class Validation extends BaseConfig
     ];
 
     public array $contactos = [
-        'email' =>  [
-            'label' => 'Correo electrónico',
-            'rules' => 'required|valid_email',
+        'nombre' => [
+            'rules' => 'required|min_length[3]|max_length[255]',
             'errors' => [
-                'required'        => 'Por favor, ingresa un correo electrónico.',
-                'valid_email'     => 'El correo electrónico ingresado debe ser válido',
+                'required'   => 'El campo {field} es obligatorio.',
+                'min_length' => 'El campo {field} debe tener al menos {param} caracteres.',
+                'max_length' => 'El campo {field} no puede exceder los {param} caracteres.',
             ],
         ],
-        'nombre' => [
-            'label' => 'Nombre',
-            'rules' => 'required|min_length[2]|max_length[125]|alpha_space',
+        'email' => [
+            'rules' => 'required|valid_email|max_length[125]',
             'errors' => [
-                'required'        => 'Por favor, ingrese Nombre.',
-                'min_length[2]'   => 'El Nombre debe tener al menos 2 caracteres.',
-                'max_length[125]' => 'El Nombre no debe superar los 125 caracteres.',
-                'alpha_space'     => 'El Nombre no debe contener otros caracteres que no sean los del alfabeto y/o espacios.',
+                'required'   => 'El campo {field} es obligatorio.',
+                'valid_email' => 'El campo {field} debe contener una dirección de correo electrónico válida.',
+                'max_length' => 'El campo {field} no puede exceder los {param} caracteres.',
             ],
         ],
         'asunto' => [
-            'label' => 'Asunto',
-            'rules' => 'required|min_length[10]|max_length[70]|alpha_space',
+            'rules' => 'required|min_length[3]|max_length[255]',
             'errors' => [
-                'required'        => 'Por favor, ingrese el asunto.',
-                'min_length[2]'   => 'El asunto debe tener al menos 10 caracteres.',
-                'max_length[125]' => 'El asunto no debe superar los 70 caracteres.',
-                'alpha_space'     => 'El asunto no debe contener otros caracteres que no sean los del alfabeto y/o espacios.',
+                'required'   => 'El campo {field} es obligatorio.',
+                'min_length' => 'El campo {field} debe tener al menos {param} caracteres.',
+                'max_length' => 'El campo {field} no puede exceder los {param} caracteres.',
             ],
         ],
         'mensaje' => [
-            'label' => 'Mensaje',
-            'rules' => 'required|min_length[25]|max_length[1000]',
+            'rules' => 'required',
             'errors' => [
-                'required'        => 'Por favor, ingrese el mensaje.',
-                'min_length[2]'   => 'El mensaje debe tener al menos 25 caracteres.',
-                'max_length[125]' => 'El mensaje no debe superar los 1000 caracteres.'
+                'required' => 'El campo {field} es obligatorio.',
+            ],
+        ],
+    ];
+
+    public $consultas = [
+        'usuario_id' => [
+            'rules' => 'required|integer|is_not_unique[usuarios.id]',
+            'errors' => [
+                'required'   => 'El campo {field} es obligatorio.',
+                'integer'    => 'El campo {field} debe ser un número entero.',
+                'is_not_unique' => 'El {field} seleccionado no existe en la tabla usuarios.',
+            ],
+        ],
+        'asunto' => [
+            'rules' => 'required|min_length[5]|max_length[255]',
+            'errors' => [
+                'required'   => 'El campo {field} es obligatorio.',
+                'min_length' => 'El campo {field} debe tener al menos {param} caracteres.',
+                'max_length' => 'El campo {field} no puede exceder los {param} caracteres.',
+            ],
+        ],
+        'mensaje' => [
+            'rules' => 'required|min_length[10]',
+            'errors' => [
+                'required'   => 'El campo {field} es obligatorio.',
+                'min_length' => 'El campo {field} debe tener al menos {param} caracteres.',
+            ],
+        ],
+    ];
+
+    public array $imagenes_create = [
+        'nombre' => [
+            'label'  => 'Nombre de la imagen',
+            'rules'  => 'required|min_length[3]|max_length[255]',
+            'errors' => [
+                'required' => 'El nombre de la imagen es obligatorio.',
+                'min_length' => 'El nombre de la imagen debe tener al menos 3 caracteres.',
+                'max_length' => 'El nombre de la imagen no puede exceder los 255 caracteres.',
+            ],
+        ],
+        'imagen' => [
+            'label' => 'Imagen',
+            'rules' => 'uploaded[imagen]|max_size[imagen,1024]|is_image[imagen]|mime_in[imagen,image/jpg,image/jpeg,image/png]',
+            'errors' => [
+                'uploaded' => 'Debe subir una imagen.',
+                'max_size' => 'La imagen no debe exceder los 1024 KB.',
+                'is_image' => 'El archivo debe ser una imagen válida.',
+                'mime_in' => 'Las imágenes deben ser de tipo jpg, jpeg o png.',
+            ],
+        ],
+        'url' => [
+            'label'  => 'URL de la imagen',
+            'rules'  => 'required|valid_url|max_length[255]',
+            'errors' => [
+                'required' => 'La URL de la imagen es obligatoria.',
+                'valid_url' => 'La URL debe ser válida.',
+                'max_length' => 'La URL no puede exceder los 255 caracteres.',
+            ],
+        ],
+    ];
+
+    public array $imagenes_update = [
+        'nombre' => [
+            'label'  => 'Nombre de la imagen',
+            'rules'  => 'required|min_length[3]|max_length[255]',
+            'errors' => [
+                'required' => 'El nombre de la imagen es obligatorio.',
+                'min_length' => 'El nombre de la imagen debe tener al menos 3 caracteres.',
+                'max_length' => 'El nombre de la imagen no puede exceder los 255 caracteres.',
+            ],
+        ],
+        'url' => [
+            'label'  => 'URL de la imagen',
+            'rules'  => 'required|valid_url|max_length[255]',
+            'errors' => [
+                'required' => 'La URL de la imagen es obligatoria.',
+                'valid_url' => 'La URL debe ser válida.',
+                'max_length' => 'La URL no puede exceder los 255 caracteres.',
+            ],
+        ],
+    ];
+
+    public array $direcciones = [
+        'calle' => [
+            'label'  => 'Calle',
+            'rules'  => 'required|max_length[255]',
+            'errors' => [
+                'required'   => 'La calle es obligatoria.',
+                'max_length' => 'La calle no puede exceder los 255 caracteres.',
+            ],
+        ],
+        'numero' => [
+            'label'  => 'Número',
+            'rules'  => 'required|max_length[10]',
+            'errors' => [
+                'required'   => 'El número es obligatorio.',
+                'max_length' => 'El número no puede exceder los 10 caracteres.',
+            ],
+        ],
+        'piso' => [
+            'label'  => 'Piso',
+            'rules'  => 'permit_empty|max_length[10]',
+            'errors' => [
+                'max_length' => 'El piso no puede exceder los 10 caracteres.',
+            ],
+        ],
+        'departamento' => [
+            'label'  => 'Departamento',
+            'rules'  => 'permit_empty|max_length[10]',
+            'errors' => [
+                'max_length' => 'El departamento no puede exceder los 10 caracteres.',
+            ],
+        ],
+        'ciudad' => [
+            'label'  => 'Ciudad',
+            'rules'  => 'required|max_length[100]',
+            'errors' => [
+                'required'   => 'La ciudad es obligatoria.',
+                'max_length' => 'La ciudad no puede exceder los 100 caracteres.',
+            ],
+        ],
+        'provincia' => [
+            'label'  => 'Provincia',
+            'rules'  => 'required|max_length[100]',
+            'errors' => [
+                'required'   => 'La provincia es obligatoria.',
+                'max_length' => 'La provincia no puede exceder los 100 caracteres.',
+            ],
+        ],
+        'codigo_postal' => [
+            'label'  => 'Código Postal',
+            'rules'  => 'required|max_length[10]',
+            'errors' => [
+                'required'   => 'El código postal es obligatorio.',
+                'max_length' => 'El código postal no puede exceder los 10 caracteres.',
+            ],
+        ],
+        'pais' => [
+            'label'  => 'País',
+            'rules'  => 'required|max_length[100]',
+            'errors' => [
+                'required'   => 'El país es obligatorio.',
+                'max_length' => 'El país no puede exceder los 100 caracteres.',
+            ],
+        ],
+    ];
+
+    public array $usuarios_direcciones = [
+        'usuario_id' => [
+            'label'  => 'ID del Usuario',
+            'rules'  => 'required|integer',
+            'errors' => [
+                'required' => 'El ID del usuario es obligatorio.',
+                'integer'  => 'El ID del usuario debe ser un número entero.',
+            ],
+        ],
+        'direccion_id' => [
+            'label'  => 'ID de la Dirección',
+            'rules'  => 'required|integer',
+            'errors' => [
+                'required' => 'El ID de la dirección es obligatorio.',
+                'integer'  => 'El ID de la dirección debe ser un número entero.',
+            ],
+        ],
+        'baja' => [
+            'label'  => 'Baja',
+            'rules'  => 'permit_empty|boolean',
+            'errors' => [
+                'boolean' => 'El campo baja debe ser verdadero o falso.',
             ],
         ],
     ];

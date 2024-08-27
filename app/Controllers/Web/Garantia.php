@@ -21,6 +21,7 @@ class Garantia extends BaseController
     {
         $data = [
             'titulo' => 'Garantia',
+            'cart'       => $cart = \Config\Services::cart(),
         ];
 
         return view('layouts/header', $data) . view('web/garantia') . view('layouts/footer');

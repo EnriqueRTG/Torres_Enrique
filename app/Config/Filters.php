@@ -13,7 +13,8 @@ use CodeIgniter\Filters\PageCache;
 use CodeIgniter\Filters\PerformanceMetrics;
 use CodeIgniter\Filters\SecureHeaders;
 
-use App\Filters\AuthFilter;
+use App\Filters\AuthAdminFilter;
+use App\Filters\AuthClienteFilter;
 
 class Filters extends BaseFilters
 {
@@ -36,7 +37,8 @@ class Filters extends BaseFilters
         'forcehttps'    => ForceHTTPS::class,
         'pagecache'     => PageCache::class,
         'performance'   => PerformanceMetrics::class,
-        'auth'          => AuthFilter::class,
+        'authAdmin'     => AuthAdminFilter::class,
+        'authCliente'   => AuthClienteFilter::class,
     ];
 
     /**
@@ -107,11 +109,18 @@ class Filters extends BaseFilters
      * @var array<string, array<string, list<string>>>
      */
     public array $filters = [
-        'auth' => [
+        'authAdmin' => [ // Nuevo alias
             'before' => [
                 'admin',
                 'admin/*',
             ]
         ],
+        'authCliente' => [
+            'before' => [
+                'cliente', // Asegúrate de tener definido el filtro 'cliente' en tus alias
+                'cliente/*', // Si tienes rutas específicas para clientes
+            ]
+        ],
+
     ];
 }

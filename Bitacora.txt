@@ -1,0 +1,13 @@
+usuarios -
+productos -
+categorias -
+marcas -
+imagenes_productos -
+ordenes -
+detalle_orden -
+direcciones -
+consultas -
+contactos -
+carritos -
+facturas -
+detalle_factura -

@@ -26,6 +26,12 @@
 
 }
 
+@font-face {
+    font-family: "Bootstrap Icons";
+    src: url(../icons/bootstrap-icons.woff) format("woff2"),
+         url(../icons/bootstrap-icons.woff2) format("woff");
+}
+
 * {
     font-family: 'Merriweather', sans-serif;
     font-weight: normal;
@@ -289,6 +295,8 @@ body {
     color: #EDE7DD;
 }
 
+
+
 /* RESPONSIVE
    ========================================================================= */
 /* escritorios normales
@@ -452,3 +460,11 @@ body {
     }
 
 } */
+
+/* Estilo Retro y Artístico
+
+    Negro (#000000): Fondo o texto principal.
+    Blanco (#FFFFFF): Texto o elementos de fondo.
+    Rojo Carmesí (#DC143C): Para acentos y botones de llamada a la acción.
+    Azul Petróleo (#2E8B57): Para elementos de fondo y secciones.
+    Amarillo Mostaza (#FFDD57): Para destacar elementos importantes. */

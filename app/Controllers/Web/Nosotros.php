@@ -21,6 +21,7 @@ class Nosotros extends BaseController
     {
         $data = [
             'titulo' => 'Nosotros',
+            'cart'       => $cart = \Config\Services::cart(),
         ];
 
         return view('layouts/header', $data) . view('web/nosotros') . view('layouts/footer');

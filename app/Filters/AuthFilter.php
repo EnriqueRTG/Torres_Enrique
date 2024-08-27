@@ -23,16 +23,14 @@ class AuthFilter implements FilterInterface
      *
      * @return RequestInterface|ResponseInterface|string|void
      */
-    public function before(RequestInterface $request, $arguments = null)
-    {
-        if (!session()->get('usuario')) {
-            return redirect()->to(route_to('login'));
-        }
 
-        if (session()->get('usuario')->rol_id != 1) {
-            return redirect()->to(route_to('web.home'));
-        }
-    }
+     public function before(RequestInterface $request, $arguments = null)
+     {
+         if (!session()->has('usuario')) {
+             return redirect()->to(route_to('login'));  
+ 
+         }
+     }
 
     /**
      * Allows After filters to inspect and modify the response

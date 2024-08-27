@@ -8,38 +8,31 @@ class Marcas extends Migration
 {
     public function up()
     {
-         $this->forge->addField([
+        $this->forge->addField([
             'id' => [
                 'type'           => 'INT',
-                'constraint'     => 6,
+                'constraint'     => 11,
                 'unsigned'       => true,
                 'auto_increment' => true,
             ],
             'nombre' => [
-                'type'           => 'VARCHAR',
-                'constraint'     => '125',
-                'unique'         => true
+                'type'       => 'VARCHAR',
+                'constraint' => 255,
+                'unique'     => true,
             ],
-            'created_at' => [
-                'type'           => 'DATETIME',
-                'null'           => true,
+            'descripcion' => [
+                'type' => 'TEXT',
+                'null' => true,
             ],
-            'updated_at' => [
-                'type'           => 'DATETIME',
-                'null'           => true,
-            ],
-             'baja' => [
-                'type'           => 'BOOLEAN',
-                'default'        => false,
-            ]
         ]);
-        
+
         $this->forge->addKey('id', true);
+
         $this->forge->createTable('marcas');
     }
 
     public function down()
     {
-        $this->forge->dropTable('marcas', true, true);
+        $this->forge->dropTable('marcas');
     }
 }

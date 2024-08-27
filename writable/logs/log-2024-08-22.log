@@ -1,0 +1,612 @@
+INFO - 2024-08-22 04:32:18 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 04:32:18 --> Cart Class Initialized
+DEBUG - 2024-08-22 04:32:18 --> Resultado de actualizar la cantidad de productos 3
+DEBUG - 2024-08-22 04:32:18 --> Respuesta JSON en actualizar: {"success":true,"subtotal":"25,000.00","total":"37,500.00"}
+INFO - 2024-08-22 04:34:03 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 04:34:03 --> Cart Class Initialized
+INFO - 2024-08-22 04:34:06 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 04:34:06 --> Cart Class Initialized
+ERROR - 2024-08-22 04:34:06 --> Error al actualizar el carrito: Array to string conversion
+INFO - 2024-08-22 04:34:21 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 04:34:21 --> Cart Class Initialized
+INFO - 2024-08-22 04:34:23 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 04:34:23 --> Cart Class Initialized
+DEBUG - 2024-08-22 04:34:23 --> Respuesta JSON en actualizar: {"success":true,"subtotal":"50,000.00","total":"37,500.00"}
+INFO - 2024-08-22 04:34:27 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 04:34:27 --> Cart Class Initialized
+INFO - 2024-08-22 04:35:12 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 04:35:12 --> Cart Class Initialized
+INFO - 2024-08-22 04:35:13 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 04:35:13 --> Cart Class Initialized
+DEBUG - 2024-08-22 04:35:13 --> Respuesta JSON en actualizar: {"success":true,"subtotal":"50,000.00","total":"50,000.00"}
+INFO - 2024-08-22 04:35:15 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 04:35:15 --> Cart Class Initialized
+DEBUG - 2024-08-22 04:35:15 --> Respuesta JSON en actualizar: {"success":true,"subtotal":"37,500.00","total":"37,500.00"}
+INFO - 2024-08-22 04:35:16 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 04:35:16 --> Cart Class Initialized
+DEBUG - 2024-08-22 04:35:16 --> Respuesta JSON en actualizar: {"success":true,"subtotal":"25,000.00","total":"25,000.00"}
+INFO - 2024-08-22 04:35:17 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 04:35:17 --> Cart Class Initialized
+DEBUG - 2024-08-22 04:35:17 --> Respuesta JSON en actualizar: {"success":true,"subtotal":"12,500.00","total":"12,500.00"}
+INFO - 2024-08-22 04:35:19 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 04:35:19 --> Cart Class Initialized
+DEBUG - 2024-08-22 04:35:19 --> Respuesta JSON en actualizar: {"success":true,"subtotal":"25,000.00","total":"25,000.00"}
+INFO - 2024-08-22 04:35:19 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 04:35:19 --> Cart Class Initialized
+DEBUG - 2024-08-22 04:35:19 --> Respuesta JSON en actualizar: {"success":true,"subtotal":"37,500.00","total":"37,500.00"}
+INFO - 2024-08-22 04:35:20 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 04:35:20 --> Cart Class Initialized
+DEBUG - 2024-08-22 04:35:20 --> Respuesta JSON en actualizar: {"success":true,"subtotal":"50,000.00","total":"50,000.00"}
+INFO - 2024-08-22 04:35:21 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 04:35:21 --> Cart Class Initialized
+DEBUG - 2024-08-22 04:35:21 --> Respuesta JSON en actualizar: {"success":true,"subtotal":"62,500.00","total":"62,500.00"}
+INFO - 2024-08-22 04:35:22 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 04:35:22 --> Cart Class Initialized
+DEBUG - 2024-08-22 04:35:22 --> Respuesta JSON en actualizar: {"success":true,"subtotal":"50,000.00","total":"50,000.00"}
+INFO - 2024-08-22 04:35:22 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 04:35:22 --> Cart Class Initialized
+DEBUG - 2024-08-22 04:35:22 --> Respuesta JSON en actualizar: {"success":true,"subtotal":"37,500.00","total":"37,500.00"}
+INFO - 2024-08-22 04:35:23 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 04:35:23 --> Cart Class Initialized
+DEBUG - 2024-08-22 04:35:23 --> Respuesta JSON en actualizar: {"success":true,"subtotal":"25,000.00","total":"25,000.00"}
+INFO - 2024-08-22 04:35:23 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 04:35:23 --> Cart Class Initialized
+DEBUG - 2024-08-22 04:35:23 --> Respuesta JSON en actualizar: {"success":true,"subtotal":"37,500.00","total":"37,500.00"}
+INFO - 2024-08-22 04:35:24 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 04:35:24 --> Cart Class Initialized
+DEBUG - 2024-08-22 04:35:24 --> Respuesta JSON en actualizar: {"success":true,"subtotal":"50,000.00","total":"50,000.00"}
+INFO - 2024-08-22 04:35:24 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 04:35:24 --> Cart Class Initialized
+DEBUG - 2024-08-22 04:35:24 --> Respuesta JSON en actualizar: {"success":true,"subtotal":"62,500.00","total":"62,500.00"}
+INFO - 2024-08-22 04:35:24 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 04:35:24 --> Cart Class Initialized
+DEBUG - 2024-08-22 04:35:24 --> Respuesta JSON en actualizar: {"success":true,"subtotal":"75,000.00","total":"75,000.00"}
+INFO - 2024-08-22 04:35:24 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 04:35:24 --> Cart Class Initialized
+DEBUG - 2024-08-22 04:35:24 --> Respuesta JSON en actualizar: {"success":true,"subtotal":"87,500.00","total":"87,500.00","stockMessage":"\u00a1\u00daltimas 10 unidades!"}
+INFO - 2024-08-22 04:35:32 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 04:35:32 --> Cart Class Initialized
+DEBUG - 2024-08-22 04:35:32 --> Respuesta JSON en actualizar: {"success":true,"subtotal":"75,000.00","total":"75,000.00"}
+INFO - 2024-08-22 04:35:32 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 04:35:32 --> Cart Class Initialized
+DEBUG - 2024-08-22 04:35:33 --> Respuesta JSON en actualizar: {"success":true,"subtotal":"62,500.00","total":"62,500.00"}
+INFO - 2024-08-22 04:35:33 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 04:35:33 --> Cart Class Initialized
+DEBUG - 2024-08-22 04:35:33 --> Respuesta JSON en actualizar: {"success":true,"subtotal":"50,000.00","total":"50,000.00"}
+INFO - 2024-08-22 04:35:33 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 04:35:33 --> Cart Class Initialized
+DEBUG - 2024-08-22 04:35:33 --> Respuesta JSON en actualizar: {"success":true,"subtotal":"37,500.00","total":"37,500.00"}
+INFO - 2024-08-22 04:35:34 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 04:35:34 --> Cart Class Initialized
+DEBUG - 2024-08-22 04:35:34 --> Respuesta JSON en actualizar: {"success":true,"subtotal":"25,000.00","total":"25,000.00"}
+INFO - 2024-08-22 04:35:35 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 04:35:35 --> Cart Class Initialized
+DEBUG - 2024-08-22 04:35:35 --> Respuesta JSON en actualizar: {"success":true,"subtotal":"12,500.00","total":"12,500.00"}
+INFO - 2024-08-22 04:35:57 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 04:35:57 --> Cart Class Initialized
+INFO - 2024-08-22 04:36:00 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 04:36:00 --> Cart Class Initialized
+INFO - 2024-08-22 04:36:01 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 04:36:01 --> Cart Class Initialized
+INFO - 2024-08-22 04:37:47 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 04:37:47 --> Cart Class Initialized
+INFO - 2024-08-22 04:37:49 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 04:37:49 --> Cart Class Initialized
+INFO - 2024-08-22 04:37:50 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 04:37:50 --> Cart Class Initialized
+INFO - 2024-08-22 04:37:52 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 04:37:52 --> Cart Class Initialized
+INFO - 2024-08-22 04:37:53 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 04:37:53 --> Cart Class Initialized
+INFO - 2024-08-22 04:37:55 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 04:37:55 --> Cart Class Initialized
+INFO - 2024-08-22 04:37:56 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 04:37:56 --> Cart Class Initialized
+INFO - 2024-08-22 04:37:56 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 04:37:56 --> Cart Class Initialized
+INFO - 2024-08-22 04:37:56 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 04:37:56 --> Cart Class Initialized
+INFO - 2024-08-22 04:37:56 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 04:37:56 --> Cart Class Initialized
+INFO - 2024-08-22 04:37:57 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 04:37:57 --> Cart Class Initialized
+INFO - 2024-08-22 04:38:00 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 04:38:00 --> Cart Class Initialized
+INFO - 2024-08-22 04:38:02 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 04:38:02 --> Cart Class Initialized
+INFO - 2024-08-22 04:38:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 04:38:04 --> Cart Class Initialized
+INFO - 2024-08-22 04:38:05 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 04:38:05 --> Cart Class Initialized
+INFO - 2024-08-22 04:38:06 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 04:38:06 --> Cart Class Initialized
+INFO - 2024-08-22 04:38:07 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 04:38:07 --> Cart Class Initialized
+INFO - 2024-08-22 04:38:08 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 04:38:08 --> Cart Class Initialized
+INFO - 2024-08-22 04:38:10 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 04:38:10 --> Cart Class Initialized
+INFO - 2024-08-22 04:38:12 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 04:38:12 --> Cart Class Initialized
+INFO - 2024-08-22 04:38:13 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 04:38:13 --> Cart Class Initialized
+INFO - 2024-08-22 04:38:15 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 04:38:15 --> Cart Class Initialized
+INFO - 2024-08-22 04:38:15 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 04:38:15 --> Cart Class Initialized
+INFO - 2024-08-22 04:38:16 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 04:38:16 --> Cart Class Initialized
+INFO - 2024-08-22 04:38:18 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 04:38:19 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 04:38:19 --> Cart Class Initialized
+INFO - 2024-08-22 04:38:21 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 04:38:21 --> Cart Class Initialized
+ERROR - 2024-08-22 04:38:21 --> An invalid name was submitted as the product name: Cartuchos Tattoo Spark Greywash 1203 RL (Caja x 20 u.) The name can only contain alpha-numeric characters, dashes, underscores, colons, and spaces
+INFO - 2024-08-22 04:38:22 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 04:38:22 --> Cart Class Initialized
+INFO - 2024-08-22 04:38:23 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 04:38:23 --> Cart Class Initialized
+INFO - 2024-08-22 04:38:25 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 04:38:25 --> Cart Class Initialized
+INFO - 2024-08-22 04:38:27 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 04:38:27 --> Cart Class Initialized
+ERROR - 2024-08-22 04:38:28 --> An invalid name was submitted as the product name: Cartuchos Tattoo Mast Pro 0805 RL (caja de 20) The name can only contain alpha-numeric characters, dashes, underscores, colons, and spaces
+INFO - 2024-08-22 04:38:28 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 04:38:28 --> Cart Class Initialized
+INFO - 2024-08-22 04:38:29 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 04:38:29 --> Cart Class Initialized
+INFO - 2024-08-22 04:38:31 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 04:38:31 --> Cart Class Initialized
+INFO - 2024-08-22 04:38:33 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 04:38:33 --> Cart Class Initialized
+INFO - 2024-08-22 04:38:33 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 04:38:33 --> Cart Class Initialized
+INFO - 2024-08-22 04:38:34 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 04:38:34 --> Cart Class Initialized
+INFO - 2024-08-22 04:39:35 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 04:39:35 --> Cart Class Initialized
+INFO - 2024-08-22 04:39:38 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 04:39:38 --> Cart Class Initialized
+INFO - 2024-08-22 04:39:38 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 04:39:38 --> Cart Class Initialized
+INFO - 2024-08-22 04:40:57 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 04:40:57 --> Cart Class Initialized
+INFO - 2024-08-22 04:40:59 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 04:40:59 --> Cart Class Initialized
+INFO - 2024-08-22 04:40:59 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 04:40:59 --> Cart Class Initialized
+INFO - 2024-08-22 04:41:02 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 04:41:02 --> Cart Class Initialized
+INFO - 2024-08-22 04:41:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 04:41:04 --> Cart Class Initialized
+INFO - 2024-08-22 04:41:10 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 04:41:10 --> Cart Class Initialized
+INFO - 2024-08-22 04:41:10 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 04:41:10 --> Cart Class Initialized
+INFO - 2024-08-22 04:41:11 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 04:41:11 --> Cart Class Initialized
+INFO - 2024-08-22 04:41:11 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 04:41:11 --> Cart Class Initialized
+INFO - 2024-08-22 04:41:12 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 04:41:12 --> Cart Class Initialized
+INFO - 2024-08-22 04:41:12 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 04:41:12 --> Cart Class Initialized
+INFO - 2024-08-22 04:41:13 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 04:41:13 --> Cart Class Initialized
+INFO - 2024-08-22 04:41:13 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 04:41:13 --> Cart Class Initialized
+INFO - 2024-08-22 04:41:14 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 04:41:14 --> Cart Class Initialized
+INFO - 2024-08-22 04:41:14 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 04:41:14 --> Cart Class Initialized
+INFO - 2024-08-22 04:41:15 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 04:41:15 --> Cart Class Initialized
+INFO - 2024-08-22 04:41:15 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 04:41:15 --> Cart Class Initialized
+INFO - 2024-08-22 04:41:15 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 04:41:15 --> Cart Class Initialized
+INFO - 2024-08-22 04:41:15 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 04:41:15 --> Cart Class Initialized
+INFO - 2024-08-22 04:41:15 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 04:41:15 --> Cart Class Initialized
+INFO - 2024-08-22 04:41:16 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 04:41:16 --> Cart Class Initialized
+INFO - 2024-08-22 04:41:19 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 04:41:19 --> Cart Class Initialized
+INFO - 2024-08-22 04:41:19 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 04:41:19 --> Cart Class Initialized
+INFO - 2024-08-22 04:41:20 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 04:41:20 --> Cart Class Initialized
+INFO - 2024-08-22 04:41:21 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 04:41:21 --> Cart Class Initialized
+INFO - 2024-08-22 04:41:25 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 04:41:25 --> Cart Class Initialized
+INFO - 2024-08-22 04:41:25 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 04:41:25 --> Cart Class Initialized
+INFO - 2024-08-22 04:41:25 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 04:41:25 --> Cart Class Initialized
+INFO - 2024-08-22 04:41:25 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 04:41:25 --> Cart Class Initialized
+INFO - 2024-08-22 04:41:29 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 04:41:29 --> Cart Class Initialized
+INFO - 2024-08-22 04:41:34 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 04:41:34 --> Cart Class Initialized
+INFO - 2024-08-22 04:41:37 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 04:41:37 --> Cart Class Initialized
+INFO - 2024-08-22 04:41:40 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 04:41:40 --> Cart Class Initialized
+INFO - 2024-08-22 04:41:43 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 04:41:43 --> Cart Class Initialized
+INFO - 2024-08-22 04:46:38 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 04:46:38 --> Cart Class Initialized
+INFO - 2024-08-22 04:46:38 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 04:46:38 --> Cart Class Initialized
+INFO - 2024-08-22 04:46:38 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 04:46:38 --> Cart Class Initialized
+INFO - 2024-08-22 04:46:38 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 04:46:38 --> Cart Class Initialized
+INFO - 2024-08-22 04:46:38 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 04:46:38 --> Cart Class Initialized
+INFO - 2024-08-22 04:46:38 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 04:46:38 --> Cart Class Initialized
+INFO - 2024-08-22 04:46:39 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 04:46:39 --> Cart Class Initialized
+INFO - 2024-08-22 04:46:39 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 04:46:39 --> Cart Class Initialized
+INFO - 2024-08-22 04:46:39 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 04:46:39 --> Cart Class Initialized
+INFO - 2024-08-22 04:46:39 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 04:46:39 --> Cart Class Initialized
+INFO - 2024-08-22 04:46:39 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 04:46:39 --> Cart Class Initialized
+INFO - 2024-08-22 04:46:39 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 04:46:39 --> Cart Class Initialized
+INFO - 2024-08-22 04:46:39 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 04:46:39 --> Cart Class Initialized
+INFO - 2024-08-22 04:46:40 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 04:46:40 --> Cart Class Initialized
+INFO - 2024-08-22 04:46:41 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 04:46:41 --> Cart Class Initialized
+INFO - 2024-08-22 04:46:44 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 04:46:44 --> Cart Class Initialized
+INFO - 2024-08-22 04:46:45 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 04:46:45 --> Cart Class Initialized
+CRITICAL - 2024-08-22 04:46:45 --> Error: Call to undefined method CodeIgniterCart\Cart::find()
+[Method: GET, Route: carrito/agregar/1]
+in APPPATH\Controllers\Web\Carrito.php on line 48.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Web\Carrito->agregar('1')
+ 2 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Carrito))
+ 3 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+INFO - 2024-08-22 04:47:00 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 04:47:00 --> Cart Class Initialized
+INFO - 2024-08-22 04:47:01 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 04:47:01 --> Cart Class Initialized
+INFO - 2024-08-22 04:47:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 04:47:04 --> Cart Class Initialized
+INFO - 2024-08-22 04:47:11 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 04:47:11 --> Cart Class Initialized
+INFO - 2024-08-22 04:47:13 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 04:47:13 --> Cart Class Initialized
+INFO - 2024-08-22 04:47:14 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 04:47:14 --> Cart Class Initialized
+INFO - 2024-08-22 04:47:18 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 04:47:18 --> Cart Class Initialized
+INFO - 2024-08-22 04:47:20 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 04:47:20 --> Cart Class Initialized
+ERROR - 2024-08-22 04:47:20 --> An invalid name was submitted as the product name: Cartuchos Tattoo Spark Greywash 1203 RL (Caja x 20 u.) The name can only contain alpha-numeric characters, dashes, underscores, colons, and spaces
+INFO - 2024-08-22 04:47:36 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 04:47:36 --> Cart Class Initialized
+INFO - 2024-08-22 04:47:37 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 04:47:37 --> Cart Class Initialized
+INFO - 2024-08-22 04:47:49 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 04:48:05 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 04:48:06 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 04:48:06 --> Cart Class Initialized
+INFO - 2024-08-22 04:48:10 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 04:48:10 --> Cart Class Initialized
+INFO - 2024-08-22 04:48:10 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 04:48:10 --> Cart Class Initialized
+INFO - 2024-08-22 04:59:08 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 04:59:08 --> Cart Class Initialized
+INFO - 2024-08-22 04:59:10 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 04:59:10 --> Cart Class Initialized
+INFO - 2024-08-22 04:59:10 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 04:59:10 --> Cart Class Initialized
+INFO - 2024-08-22 04:59:13 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 04:59:13 --> Cart Class Initialized
+INFO - 2024-08-22 04:59:13 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 04:59:13 --> Cart Class Initialized
+INFO - 2024-08-22 04:59:15 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 04:59:15 --> Cart Class Initialized
+INFO - 2024-08-22 05:00:02 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 05:00:02 --> Cart Class Initialized
+INFO - 2024-08-22 05:00:03 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 05:00:03 --> Cart Class Initialized
+INFO - 2024-08-22 05:00:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 05:00:04 --> Cart Class Initialized
+INFO - 2024-08-22 05:00:05 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 05:00:05 --> Cart Class Initialized
+INFO - 2024-08-22 05:00:06 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 05:00:06 --> Cart Class Initialized
+INFO - 2024-08-22 05:00:07 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 05:00:07 --> Cart Class Initialized
+INFO - 2024-08-22 05:00:08 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 05:00:08 --> Cart Class Initialized
+INFO - 2024-08-22 05:00:08 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 05:00:08 --> Cart Class Initialized
+INFO - 2024-08-22 05:00:09 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 05:00:09 --> Cart Class Initialized
+INFO - 2024-08-22 05:00:10 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 05:00:10 --> Cart Class Initialized
+INFO - 2024-08-22 05:00:11 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 05:00:11 --> Cart Class Initialized
+INFO - 2024-08-22 05:00:11 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 05:00:11 --> Cart Class Initialized
+INFO - 2024-08-22 05:00:12 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 05:00:12 --> Cart Class Initialized
+INFO - 2024-08-22 05:01:36 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 05:01:36 --> Cart Class Initialized
+INFO - 2024-08-22 05:01:37 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 05:01:37 --> Cart Class Initialized
+INFO - 2024-08-22 05:01:38 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 05:01:38 --> Cart Class Initialized
+INFO - 2024-08-22 05:01:39 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 05:01:39 --> Cart Class Initialized
+INFO - 2024-08-22 05:01:40 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 05:01:40 --> Cart Class Initialized
+INFO - 2024-08-22 05:01:43 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 05:01:43 --> Cart Class Initialized
+INFO - 2024-08-22 05:01:47 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 05:01:47 --> Cart Class Initialized
+INFO - 2024-08-22 05:01:51 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 05:01:51 --> Cart Class Initialized
+INFO - 2024-08-22 05:01:52 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 05:01:52 --> Cart Class Initialized
+INFO - 2024-08-22 05:02:15 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 05:02:15 --> Cart Class Initialized
+INFO - 2024-08-22 05:02:17 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 05:02:17 --> Cart Class Initialized
+INFO - 2024-08-22 05:02:17 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 05:02:17 --> Cart Class Initialized
+INFO - 2024-08-22 05:02:18 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 05:02:18 --> Cart Class Initialized
+INFO - 2024-08-22 05:02:19 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 05:02:19 --> Cart Class Initialized
+INFO - 2024-08-22 05:02:19 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 05:02:19 --> Cart Class Initialized
+INFO - 2024-08-22 05:03:29 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 05:03:29 --> Cart Class Initialized
+INFO - 2024-08-22 05:03:31 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 05:03:31 --> Cart Class Initialized
+INFO - 2024-08-22 05:03:31 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 05:03:31 --> Cart Class Initialized
+INFO - 2024-08-22 05:03:33 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 05:03:33 --> Cart Class Initialized
+INFO - 2024-08-22 05:03:35 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 05:03:35 --> Cart Class Initialized
+INFO - 2024-08-22 05:03:35 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 05:03:35 --> Cart Class Initialized
+INFO - 2024-08-22 05:03:38 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 05:03:38 --> Cart Class Initialized
+INFO - 2024-08-22 05:03:38 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 05:03:38 --> Cart Class Initialized
+INFO - 2024-08-22 05:03:40 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 05:03:40 --> Cart Class Initialized
+INFO - 2024-08-22 05:03:40 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 05:03:40 --> Cart Class Initialized
+INFO - 2024-08-22 05:03:42 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 05:03:42 --> Cart Class Initialized
+INFO - 2024-08-22 05:03:44 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 05:03:44 --> Cart Class Initialized
+INFO - 2024-08-22 05:03:44 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 05:03:44 --> Cart Class Initialized
+INFO - 2024-08-22 05:03:45 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 05:03:45 --> Cart Class Initialized
+INFO - 2024-08-22 05:03:45 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 05:03:45 --> Cart Class Initialized
+INFO - 2024-08-22 05:03:48 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 05:03:48 --> Cart Class Initialized
+INFO - 2024-08-22 05:03:48 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 05:03:48 --> Cart Class Initialized
+INFO - 2024-08-22 05:03:48 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 05:03:48 --> Cart Class Initialized
+INFO - 2024-08-22 05:03:48 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 05:03:48 --> Cart Class Initialized
+INFO - 2024-08-22 05:03:50 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 05:03:50 --> Cart Class Initialized
+INFO - 2024-08-22 05:03:50 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 05:03:50 --> Cart Class Initialized
+INFO - 2024-08-22 05:04:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 05:04:04 --> Cart Class Initialized
+INFO - 2024-08-22 05:04:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 05:04:04 --> Cart Class Initialized
+INFO - 2024-08-22 05:04:14 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 05:04:14 --> Cart Class Initialized
+INFO - 2024-08-22 05:04:15 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 05:04:15 --> Cart Class Initialized
+INFO - 2024-08-22 05:04:15 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 05:04:15 --> Cart Class Initialized
+INFO - 2024-08-22 05:04:18 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 05:04:18 --> Cart Class Initialized
+INFO - 2024-08-22 05:04:18 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 05:04:18 --> Cart Class Initialized
+INFO - 2024-08-22 05:04:19 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 05:04:19 --> Cart Class Initialized
+INFO - 2024-08-22 05:04:19 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 05:04:19 --> Cart Class Initialized
+INFO - 2024-08-22 05:04:20 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 05:04:20 --> Cart Class Initialized
+INFO - 2024-08-22 05:04:20 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 05:04:20 --> Cart Class Initialized
+INFO - 2024-08-22 05:04:22 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 05:04:22 --> Cart Class Initialized
+INFO - 2024-08-22 05:04:22 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 05:04:22 --> Cart Class Initialized
+INFO - 2024-08-22 05:04:39 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 05:04:39 --> Cart Class Initialized
+INFO - 2024-08-22 05:04:40 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 05:04:40 --> Cart Class Initialized
+INFO - 2024-08-22 05:04:41 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 05:04:41 --> Cart Class Initialized
+INFO - 2024-08-22 05:04:41 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 05:04:41 --> Cart Class Initialized
+INFO - 2024-08-22 05:04:42 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 05:04:42 --> Cart Class Initialized
+INFO - 2024-08-22 05:04:43 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 05:04:43 --> Cart Class Initialized
+INFO - 2024-08-22 05:04:44 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 05:04:44 --> Cart Class Initialized
+INFO - 2024-08-22 05:04:44 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 05:04:44 --> Cart Class Initialized
+INFO - 2024-08-22 05:04:44 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 05:04:44 --> Cart Class Initialized
+INFO - 2024-08-22 05:04:45 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 05:04:45 --> Cart Class Initialized
+INFO - 2024-08-22 05:04:45 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 05:04:45 --> Cart Class Initialized
+INFO - 2024-08-22 05:04:46 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 05:04:46 --> Cart Class Initialized
+INFO - 2024-08-22 05:04:46 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 05:04:46 --> Cart Class Initialized
+INFO - 2024-08-22 05:04:47 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 05:04:47 --> Cart Class Initialized
+INFO - 2024-08-22 05:04:47 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 05:04:47 --> Cart Class Initialized
+INFO - 2024-08-22 05:04:47 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 05:04:47 --> Cart Class Initialized
+INFO - 2024-08-22 05:04:47 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 05:04:47 --> Cart Class Initialized
+INFO - 2024-08-22 05:04:49 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 05:04:49 --> Cart Class Initialized
+INFO - 2024-08-22 05:04:50 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 05:04:50 --> Cart Class Initialized
+INFO - 2024-08-22 05:04:52 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 05:04:52 --> Cart Class Initialized
+INFO - 2024-08-22 05:04:52 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 05:04:52 --> Cart Class Initialized
+INFO - 2024-08-22 05:04:52 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 05:04:52 --> Cart Class Initialized
+INFO - 2024-08-22 05:04:52 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 05:04:52 --> Cart Class Initialized
+INFO - 2024-08-22 05:04:53 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 05:04:53 --> Cart Class Initialized
+INFO - 2024-08-22 05:04:53 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 05:04:53 --> Cart Class Initialized
+INFO - 2024-08-22 05:04:53 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 05:04:53 --> Cart Class Initialized
+INFO - 2024-08-22 05:04:54 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 05:04:54 --> Cart Class Initialized
+INFO - 2024-08-22 05:04:54 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 05:04:54 --> Cart Class Initialized
+INFO - 2024-08-22 05:04:54 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 05:04:54 --> Cart Class Initialized
+INFO - 2024-08-22 05:04:54 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 05:04:54 --> Cart Class Initialized
+INFO - 2024-08-22 05:04:54 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 05:04:54 --> Cart Class Initialized
+INFO - 2024-08-22 05:04:55 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 05:04:55 --> Cart Class Initialized
+INFO - 2024-08-22 05:04:55 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 05:04:55 --> Cart Class Initialized
+INFO - 2024-08-22 05:04:56 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 05:04:56 --> Cart Class Initialized
+INFO - 2024-08-22 05:04:56 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 05:04:56 --> Cart Class Initialized
+INFO - 2024-08-22 05:04:59 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 05:04:59 --> Cart Class Initialized
+INFO - 2024-08-22 05:05:00 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 05:05:00 --> Cart Class Initialized
+INFO - 2024-08-22 05:05:01 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 05:05:01 --> Cart Class Initialized
+INFO - 2024-08-22 05:05:02 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 05:05:02 --> Cart Class Initialized
+INFO - 2024-08-22 05:05:03 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 05:05:03 --> Cart Class Initialized
+INFO - 2024-08-22 05:05:09 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 05:05:10 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 05:05:10 --> Cart Class Initialized
+INFO - 2024-08-22 05:05:12 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 05:05:12 --> Cart Class Initialized
+INFO - 2024-08-22 05:05:13 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 05:05:13 --> Cart Class Initialized
+INFO - 2024-08-22 05:05:44 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 05:05:44 --> Cart Class Initialized
+INFO - 2024-08-22 05:05:44 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 05:05:44 --> Cart Class Initialized
+INFO - 2024-08-22 05:05:48 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 05:05:48 --> Cart Class Initialized
+ERROR - 2024-08-22 05:05:48 --> An invalid name was submitted as the product name: Cartuchos Tattoo Spark Greywash 1209 RL (caja X 20 U.) The name can only contain alpha-numeric characters, dashes, underscores, colons, and spaces
+INFO - 2024-08-22 05:05:48 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 05:05:48 --> Cart Class Initialized
+INFO - 2024-08-22 05:06:25 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 05:06:25 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 05:06:25 --> Cart Class Initialized
+INFO - 2024-08-22 05:06:27 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 05:06:27 --> Cart Class Initialized
+INFO - 2024-08-22 05:06:27 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 05:06:27 --> Cart Class Initialized
+INFO - 2024-08-22 05:07:50 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 05:07:50 --> Cart Class Initialized
+INFO - 2024-08-22 05:07:51 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 05:07:51 --> Cart Class Initialized
+CRITICAL - 2024-08-22 05:07:51 --> ArgumentCountError: Too few arguments to function CodeIgniter\HTTP\RedirectResponse::with(), 0 passed in C:\xampp\htdocs\Torres_Enrique\app\Controllers\Web\Carrito.php on line 68 and exactly 2 expected
+[Method: GET, Route: carrito/agregar/1]
+in SYSTEMPATH\HTTP\RedirectResponse.php on line 134.
+ 1 APPPATH\Controllers\Web\Carrito.php(68): CodeIgniter\HTTP\RedirectResponse->with()
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Web\Carrito->agregar('1')
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Web\Carrito))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(312): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+INFO - 2024-08-22 05:08:17 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 05:08:17 --> Cart Class Initialized
+INFO - 2024-08-22 05:08:18 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 05:08:18 --> Cart Class Initialized
+INFO - 2024-08-22 05:08:18 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 05:08:18 --> Cart Class Initialized
+INFO - 2024-08-22 05:08:20 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 05:08:20 --> Cart Class Initialized
+INFO - 2024-08-22 05:08:22 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 05:08:22 --> Cart Class Initialized
+INFO - 2024-08-22 05:08:22 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 05:08:22 --> Cart Class Initialized
+INFO - 2024-08-22 05:08:23 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 05:08:23 --> Cart Class Initialized
+INFO - 2024-08-22 05:08:23 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 05:08:23 --> Cart Class Initialized
+INFO - 2024-08-22 05:08:24 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 05:08:24 --> Cart Class Initialized
+INFO - 2024-08-22 05:08:27 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 05:08:27 --> Cart Class Initialized
+INFO - 2024-08-22 05:08:27 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 05:08:27 --> Cart Class Initialized
+INFO - 2024-08-22 05:08:29 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 05:08:29 --> Cart Class Initialized
+INFO - 2024-08-22 05:12:55 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 05:12:56 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 05:12:56 --> Cart Class Initialized
+INFO - 2024-08-22 05:35:22 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 05:35:22 --> Cart Class Initialized
+INFO - 2024-08-22 05:35:24 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 05:35:24 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 05:35:27 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 05:35:28 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 05:35:28 --> Cart Class Initialized
+INFO - 2024-08-22 05:35:30 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 05:35:30 --> Cart Class Initialized
+INFO - 2024-08-22 05:35:32 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 05:35:32 --> Cart Class Initialized
+INFO - 2024-08-22 05:35:33 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 05:35:33 --> Cart Class Initialized
+INFO - 2024-08-22 05:35:37 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 05:35:42 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 05:35:42 --> Cart Class Initialized
+INFO - 2024-08-22 05:35:43 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 05:35:43 --> Cart Class Initialized
+INFO - 2024-08-22 05:35:44 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-08-22 05:35:44 --> Cart Class Initialized
+INFO - 2024-08-22 05:35:56 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.

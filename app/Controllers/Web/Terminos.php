@@ -21,6 +21,7 @@ class Terminos extends BaseController
     {
         $data = [
             'titulo' => 'Terminos',
+            'cart'       => $cart = \Config\Services::cart(),
         ];
 
         return view('layouts/header', $data) . view('web/terminos') . view('layouts/footer');

@@ -8,9 +8,9 @@
     <title><?= $titulo ?></title>
 
     <!-- Bootstrap CSS -->
-    <link href="<?= base_url('assets/bootstrap/css/bootstrap.min.css'); ?>" rel="stylesheet">
+    <link href="<?= base_url('assets/css/bootstrap.min.css'); ?>" rel="stylesheet">
 
-    <link href="<?= base_url('assets/bootstrap/icons/font/bootstrap-icons.css'); ?>" rel="stylesheet">
+    <link href="<?= base_url('assets/icons/bootstrap-icons.css'); ?>" rel="stylesheet">
 
     <!-- CSS -->
     <link href="<?= base_url('assets/css/my_styles.css'); ?>" rel="stylesheet" type="text/css" />
@@ -31,58 +31,114 @@
                         <a class="navbar-brand mx-0" href="<?= site_url(); ?>">
                             <img id="logo-nav" class="rounded" src="<?= site_url(); ?>assets/images/logos/Logo.png" alt="Logo">
                         </a>
-                        <ul class="navbar-nav mb-2 mb-lg-0 mx-0 mx-lg-5">
-                            <li class="nav-item nav-item-per">
-                                <a class="nav-link" aria-current="page" href="<?= site_url(); ?>">Principal</a>
-                            </li>
-                            <li class="nav-item nav-item-per">
-                                <a class="nav-link" href="<?= site_url('catalogo'); ?>">Catalogo</a>
-                            </li>
-                            <li class="nav-item nav-item-per">
-                                <a class="nav-link" href="<?= site_url('nosotros'); ?>">Nosotros</a>
-                            </li>
-                            <li class="nav-item nav-item-per">
-                                <a class="nav-link" href="<?= site_url('comercializacion'); ?>">Comercialización</a>
-                            </li>
-                            <li class="nav-item nav-item-per">
-                                <a class="nav-link" href="<?= site_url('contacto'); ?>">Contacto</a>
-                            </li>
-                            <li class="nav-item nav-item-per">
-                                <a class="nav-link" href="<?= site_url('terminos'); ?>">Términos y usos</a>
-                            </li>
-                        </ul>
-                        <ul class="navbar-nav gap-3 mx-0">
-
-                            <?php if (session()->get('usuario')) : ?>
-                                <li class="nav-item">
-                                    <a class="btn btn-nav-personalizado" href="<?= base_url() ?><?= route_to('logout'); ?>">
-                                        Salir
-                                    </a>
+                        <?php if (session()->get('usuario')) : ?>
+                            <?php if (session()->get('usuario')->rol_id == ROL_CLIENTE) : ?>
+                                <ul class="navbar-nav mb-2 mb-lg-0 mx-0 mx-lg-5">
+                                    <li class="nav-item nav-item-per">
+                                        <a class="nav-link" aria-current="page" href="<?= site_url(); ?>">Principal</a>
+                                    </li>
+                                    <li class="nav-item nav-item-per">
+                                        <a class="nav-link" href="<?= site_url('catalogo'); ?>">Catalogo</a>
+                                    </li>
+                                    <li class="nav-item nav-item-per">
+                                        <a class="nav-link" href="<?= site_url('nosotros'); ?>">Nosotros</a>
+                                    </li>
+                                    <li class="nav-item nav-item-per">
+                                        <a class="nav-link" href="<?= site_url('comercializacion'); ?>">Comercialización</a>
+                                    </li>
+                                    <li class="nav-item nav-item-per">
+                                        <a class="nav-link" href="<?= site_url('consulta'); ?>">Consulta</a>
+                                    </li>
+                                    <li class="nav-item nav-item-per">
+                                        <a class="nav-link" href="<?= site_url('terminos'); ?>">Términos y usos</a>
+                                    </li>
+                                </ul>
+                                <ul class="navbar-nav gap-3 mx-0">
+                                    <li class="nav-item">
+                                        <a class="btn btn-nav-personalizado position-relative" href="<?= base_url('') ?><?= route_to('carrito'); ?>">
+                                            <i class="bi bi-cart3"></i>
+                                            <?php if ($cart->totalItems() > 0): ?>
+                                                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                                    <?= $cart->totalItems() ?>
+                                                </span>
+                                            <?php endif; ?>
+                                        
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="btn btn-nav-personalizado" href="<?= base_url() ?><?= route_to('logout'); ?>">
+                                            Salir
+                                        </a>
+                                    </li>
+                                </ul>
+                            <?php elseif (session()->get('usuario')->rol_id == ROL_ADMIN): ?>
+                                <ul class="navbar-nav mb-2 mb-lg-0 mx-0 mx-lg-5">
+                                    <li class="nav-item nav-item-per">
+                                        <a class="nav-link" aria-current="page" href="<?= site_url(); ?>">Principal</a>
+                                    </li>
+                                    <li class="nav-item nav-item-per">
+                                        <a class="nav-link" href="<?= site_url('catalogo'); ?>">Catalogo</a>
+                                    </li>
+                                    <li class="nav-item nav-item-per">
+                                        <a class="nav-link" href="<?= site_url('nosotros'); ?>">Nosotros</a>
+                                    </li>
+                                    <li class="nav-item nav-item-per">
+                                        <a class="nav-link" href="<?= site_url('comercializacion'); ?>">Comercialización</a>
+                                    </li>
+                                    <li class="nav-item nav-item-per">
+                                        <a class="nav-link" href="<?= site_url('terminos'); ?>">Términos y usos</a>
+                                    </li>
+                                </ul>
+                                <ul class="navbar-nav gap-3 mx-0">
+                                    <li class="nav-item">
+                                        <a class="btn btn-nav-personalizado" href="<?= base_url('admin/dashboard'); ?>">
+                                            <span>Dashboard</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="btn btn-nav-personalizado" href="<?= base_url() ?><?= route_to('logout'); ?>">
+                                            Salir
+                                        </a>
+                                    </li>
+                                </ul>
+                            <?php endif ?>
+                        <?php else : ?>
+                            <ul class="navbar-nav mb-2 mb-lg-0 mx-0 mx-lg-5">
+                                <li class="nav-item nav-item-per">
+                                    <a class="nav-link" aria-current="page" href="<?= site_url(); ?>">Principal</a>
                                 </li>
-
-                                <li class="nav-item">
-                                    <a class="btn btn-nav-personalizado" href="<?= base_url() ?><?= route_to('carrito'); ?>">
-                                        <i class="bi bi-cart3"></i>
-                                    </a>
+                                <li class="nav-item nav-item-per">
+                                    <a class="nav-link" href="<?= site_url('catalogo'); ?>">Catalogo</a>
                                 </li>
-                            <?php else : ?>
+                                <li class="nav-item nav-item-per">
+                                    <a class="nav-link" href="<?= site_url('nosotros'); ?>">Nosotros</a>
+                                </li>
+                                <li class="nav-item nav-item-per">
+                                    <a class="nav-link" href="<?= site_url('comercializacion'); ?>">Comercialización</a>
+                                </li>
+                                <li class="nav-item nav-item-per">
+                                    <a class="nav-link" href="<?= site_url('contacto'); ?>">Contacto</a>
+                                </li>
+                                <li class="nav-item nav-item-per">
+                                    <a class="nav-link" href="<?= site_url('terminos'); ?>">Términos y usos</a>
+                                </li>
+                            </ul>
+                            <ul class="navbar-nav gap-3 mx-0">
                                 <li class="nav-item">
                                     <a class="btn btn-nav-personalizado" href="<?= base_url('login'); ?>">
                                         Ingresar
                                     </a>
                                 </li>
-
                                 <li class="nav-item">
                                     <a class="btn btn-nav-personalizado" href="<?= base_url('registro'); ?>">
                                         Registrarse
                                     </a>
                                 </li>
-                            <?php endif; ?>
-                        </ul>
+                            </ul>
+                        <?php endif; ?>
                     </div>
                 </div>
             </nav>
-
         </header>
 
         <div class="container text-center">

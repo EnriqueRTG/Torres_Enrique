@@ -16,12 +16,15 @@ use CodeIgniter\Model;
  */
 class MarcaModel extends Model
 {
-    protected $table      = 'marcas';
-    protected $primaryKey = 'id';
-    protected $allowedFields = ['nombre', 'baja'];
-    protected $returnType = 'object';
-
-    protected $useTimestamps = true; // Habilita timestamps (created_at, updated_at)
-    protected $createdField = 'created_at';
-    protected $updatedField = 'updated_at';
+    protected $table            = 'marcas';
+    protected $primaryKey       = 'id';
+    protected $useAutoIncrement = true;
+    protected $returnType       = 'object';
+    protected $useSoftDeletes   = false;  
+    protected $allowedFields    = ['nombre', 'baja', 'fecha_creacion', 'fecha_actualizacion'];
+    protected $useTimestamps    = false;
+    protected $createdField     = 'fecha_creacion';
+    protected $updatedField     = 'fecha_actualizacion';
+    protected $validationRules = 'marcas'; // Referencia a las reglas en Validation.php
+    protected $skipValidation  = false;
 }
