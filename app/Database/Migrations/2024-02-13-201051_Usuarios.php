@@ -39,7 +39,7 @@ class Usuarios extends Migration
             ],
             'fecha_registro' => [
                 'type' => 'DATETIME',
-                'default' => 'CURRENT_TIMESTAMP',
+                'null' => false,
             ],
             'fecha_actualizacion' => [
                 'type' => 'DATETIME',
@@ -50,7 +50,9 @@ class Usuarios extends Migration
                 'default'    => 'activo',
             ],
         ]);
+
         $this->forge->addKey('id', true);
+        
         $this->forge->createTable('usuarios');
     }
 

@@ -24,7 +24,7 @@ class Facturas extends Migration
             ],
             'fecha_emision' => [
                 'type' => 'DATETIME',
-                'default' => 'CURRENT_TIMESTAMP',
+                'null' => false,
             ],
             'numero_factura' => [
                 'type' => 'VARCHAR',

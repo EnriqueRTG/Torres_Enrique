@@ -36,19 +36,13 @@ class Consultas extends Migration
             ],
             'fecha' => [
                 'type' => 'DATETIME',
-                'default' => 'CURRENT_TIMESTAMP',
+                'null' => false,
             ],
         ]);
 
         $this->forge->addKey('id', true);
 
-        $this->forge->addForeignKey( 
-            'usuario_id',
-            'usuarios',
-            'id',
-            'CASCADE',
-            'CASCADE'
-        );
+        $this->forge->addForeignKey('usuario_id', 'usuarios', 'id', 'CASCADE', 'CASCADE');
 
         $this->forge->createTable('consultas');
     }

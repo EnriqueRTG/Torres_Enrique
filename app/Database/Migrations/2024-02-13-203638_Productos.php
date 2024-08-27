@@ -77,7 +77,7 @@ class Productos extends Migration
             ],
             'fecha_registro' => [
                 'type' => 'DATETIME',
-                'default' => 'CURRENT_TIMESTAMP',
+                'null' => false,
             ],
             'fecha_actualizacion' => [
                 'type' => 'DATETIME',

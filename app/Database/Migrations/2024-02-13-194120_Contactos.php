@@ -36,7 +36,7 @@ class Contactos extends Migration
             ],
             'fecha' => [
                 'type' => 'DATETIME',
-                'default' => 'CURRENT_TIMESTAMP',
+                'null' => false,
             ],
             'leido' => [
                 'type'    => 'BOOLEAN',

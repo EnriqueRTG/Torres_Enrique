@@ -17,13 +17,27 @@ class CategoriaModel extends Model
 {
     protected $table            = 'categorias';
     protected $primaryKey       = 'id';
-    protected $useAutoIncrement = true;
-    protected $returnType       = 'object';
     protected $useSoftDeletes   = false;
-    protected $allowedFields    = ['nombre', 'descripcion', 'baja', 'fecha_creacion', 'fecha_actualizacion'];
-    protected $useTimestamps    = false;
-    protected $createdField     = 'fecha_creacion';
-    protected $updatedField     = 'fecha_actualizacion';
-    protected $validationRules  = 'categorias';  // Referencia a la configuración en Validation.php
-    protected $skipValidation   = false;
+    protected $allowedFields    = ['nombre', 'descripcion', 'estado'];
+    protected $returnType       = 'object'; // Devolver objetos por defecto
+    protected $useTimestamps = false; // No necesitamos timestamps en este modelo
+
+    // Validación de datos (opcional)
+    protected $validationRules    = [
+        'nombre'      => 'required|min_length[3]|max_length[255]|is_unique[categorias.nombre]',
+        'descripcion' => 'permit_empty',
+        'estado'      => 'required|in_list[activo,inactivo]',
+    ];
+    protected $validationMessages = [
+        'nombre' => [
+            'required' => 'El nombre de la categoría es obligatorio.',
+            'min_length' => 'El nombre de la categoría debe tener al menos 3 caracteres.',
+            'max_length' => 'El nombre de la categoría no puede superar los 255 caracteres.',
+            'is_unique' => 'Ya existe una categoría con ese nombre.',
+        ],
+        'estado' => [
+            'required' => 'El estado de la categoría es obligatorio.',
+            'in_list' => 'El estado de la categoría debe ser "activo" o "inactivo".',
+        ],
+    ];
 }

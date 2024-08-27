@@ -18,81 +18,78 @@ class UsuarioModel extends Model
 {
     protected $table            = 'usuarios';
     protected $primaryKey       = 'id';
-    protected $useAutoIncrement = true;
+    protected
+        $useSoftDeletes   = false;
+    protected $allowedFields    = ['nombre', 'apellido', 'email', 'contrasena', 'rol', 'estado', 'fecha_actualizacion'];
     protected $returnType       = 'object';
-    protected $useSoftDeletes   = false;
-    protected $allowedFields    = ['nombre', 'apellido', 'email', 'password', 'telefono', 'rol_id', 'baja', 'fecha_creacion', 'fecha_actualizacion'];
-    protected $useTimestamps    = false;
-    protected $createdField     = 'fecha_creacion';
-    protected $updatedField     = 'fecha_actualizacion';
-    protected $validationRules  = 'usuarios'; // Referencia a las reglas en Validation.php
-    protected $skipValidation   = false;
+    protected $useTimestamps = true;
+    protected $createdField  = 'fecha_registro';
+    protected $updatedField  = 'fecha_actualizacion';
 
-    /**
-     * Hash a plain text password.
-     *
-     * @param string $passwordPlana
-     * @return string
-     */
-    public function passwordHash($passwordPlana)
+    // Validación de datos
+    protected $validationRules    = [
+        'nombre'      => 'required|min_length[3]|max_length[255]',
+        'apellido'    => 'required|min_length[3]|max_length[255]',
+        'email'       => 'required|valid_email|is_unique[usuarios.email,id,{id}]', // Permite actualizar el mismo email
+        'contrasena'  => 'required|min_length[6]',
+        'rol'         => 'required|in_list[administrador,cliente]',
+        'estado'      => 'required|in_list[activo,inactivo]',
+    ];
+    protected $validationMessages = [
+        'nombre' => [
+            'required' => 'El nombre es obligatorio.',
+            'min_length' => 'El nombre debe tener al menos 3 caracteres.',
+            'max_length' => 'El nombre no puede superar los 255 caracteres.',
+        ],
+        'apellido' => [
+            'required' => 'El apellido es obligatorio.',
+            'min_length' => 'El apellido debe tener al menos 3 caracteres.',
+            'max_length' => 'El apellido no puede superar los 255 caracteres.',
+        ],
+        'email' => [
+            'required' => 'El email es obligatorio.',
+            'valid_email' => 'El email debe ser válido.',
+            'is_unique' => 'El email ya está registrado.',
+        ],
+        'contrasena' => [
+            'required' => 'La contraseña es obligatoria.',
+            'min_length' => 'La contraseña debe tener al menos 6 caracteres.',
+        ],
+        'rol' => [
+            'required' => 'El rol es obligatorio.',
+            'in_list' => 'El rol debe ser "administrador" o "cliente".',
+        ],
+        'estado' => [
+            'required' => 'El estado es obligatorio.',
+            'in_list' => 'El estado debe ser "activo" o "inactivo".',
+        ],
+    ];
+
+    // Métodos personalizados
+
+    // Buscar usuario por email
+    public function findByEmail($email)
     {
-        return password_hash($passwordPlana, PASSWORD_DEFAULT);
+        return $this->where('email', $email)->first();
     }
 
-    /**
-     * Verify a plain text password against a hashed password.
-     *
-     * @param string $passwordPlana
-     * @param string $passwordHash
-     * @return bool
-     */
-    public function passwordVerificar($passwordPlana, $passwordHash)
+    // Verificar si la contraseña es correcta
+    public function passwordVerify($contrasenaIngresada, $contrasenaHash)
     {
-        return password_verify($passwordPlana, $passwordHash);
+        return password_verify($contrasenaIngresada, $contrasenaHash);
     }
 
-    /**
-     * Obtiene todos los clientes, incluyendo los dados de baja.
-     *
-     * @return array Un array de objetos que representan a los clientes.
-     */
-    public function obtenerTodosLosClientes()
+    // Obtener todos los usuarios activos
+    public function getUsuariosActivos()
     {
-        return $this->select('usuarios.*, GROUP_CONCAT(CONCAT(direcciones.calle, " ", direcciones.numero, IFNULL(CONCAT(", ", direcciones.piso), ""), IFNULL(CONCAT(", Dpto. ", direcciones.departamento), ""))) as direcciones')
-            ->join('usuarios_direcciones', 'usuarios_direcciones.usuario_id = usuarios.id', 'left')
-            ->join('direcciones', 'direcciones.id = usuarios_direcciones.direccion_id', 'left')
-            ->where('usuarios.rol_id', 2) // Asumiendo que el rol_id 2 es para clientes
-            ->groupBy('usuarios.id')
-            ->findAll();
+        return $this->where('estado', 'activo')->findAll();
     }
 
-    /**
-     * Obtiene todos los clientes activos (no dados de baja).
-     *
-     * @return array Un array de objetos que representan a los clientes activos.
-     */
-    public function obtenerClientesActivos()
+    // Obtener todos los usuarios administradores
+    public function getAdministradores()
     {
-        return $this->select('usuarios.*, GROUP_CONCAT(direcciones.direccion) as direcciones')
-            ->join('clientes_direcciones', 'clientes_direcciones.cliente_id = usuarios.id', 'left')
-            ->join('direcciones', 'direcciones.id = clientes_direcciones.direccion_id', 'left')
-            ->where('usuarios.rol_id', 2)
-            ->where('usuarios.baja', 0)
-            ->groupBy('usuarios.id')
-            ->findAll();
+        return $this->where('rol', 'administrador')->findAll();
     }
 
-    /**
-     * Obtiene las órdenes de compra de un cliente específico.
-     *
-     * @param int $clienteId El ID del cliente.
-     * @return array Un array de objetos que representan las órdenes de compra del cliente.
-     */
-    public function obtenerOrdenesCompraPorCliente($clienteId)
-    {
-        return $this->db->table('detalles_orden')
-            ->where('cliente_id', $clienteId)
-            ->get()
-            ->getResult();
-    }
+    // ... Puedes agregar más métodos según tus necesidades 
 }

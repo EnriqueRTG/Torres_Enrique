@@ -84,7 +84,7 @@ class Catalogo extends BaseController
                 $filtro['orden'] = $session->get('filtro_orden'); // Leer el orden de la sesión
             } else {
                 // Si no hay filtro en la petición ni en la sesión, ordenar por defecto por 'fecha_creacion' DESC
-                $filtro['orden'] = 'fecha_creacion';
+                $filtro['orden'] = 'fecha_registro';
             }
         }
 
@@ -98,12 +98,12 @@ class Catalogo extends BaseController
                 break;
             case 'novedades': // Asegúrate de usar 'novedades' si es el valor correcto en tu vista
             default: // Ordenar por 'fecha_creacion' DESC por defecto si el valor no es válido
-                $builder->orderBy('productos.fecha_creacion', 'DESC');
+                $builder->orderBy('productos.fecha_registro', 'DESC');
                 break;
         }
 
         // Obtener los productos después de aplicar los filtros
-        $productos = $productoModel->obtenerProductosActivos($builder);
+        $productos = $productoModel->getProductosActivos($builder);
 
         $data = [
             'titulo'     => 'Catalogo',

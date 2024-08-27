@@ -48,6 +48,7 @@ class Database extends Config
             'datetime' => 'Y-m-d H:i:s',
             'time'     => 'H:i:s',
         ],
+        'returnObjects' => true, // <-- Aquí se configura para devolver objetos
     ];
 
     //    /**

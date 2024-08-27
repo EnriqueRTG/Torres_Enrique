@@ -24,7 +24,7 @@ class Carritos extends Migration
             ],
             'fecha_creacion' => [
                 'type' => 'DATETIME',
-                'default' => 'CURRENT_TIMESTAMP',
+                'null' => false,
             ],
             'estado' => [ 
                 'type'       => 'ENUM',

@@ -23,7 +23,7 @@ class Ordenes extends Migration
             ],
             'fecha' => [
                 'type' => 'DATETIME',
-                'default' => 'CURRENT_TIMESTAMP',
+                'null' => false,
             ],
             'estado' => [
                 'type'       => 'ENUM',

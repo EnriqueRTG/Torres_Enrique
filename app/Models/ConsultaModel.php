@@ -16,15 +16,32 @@ use CodeIgniter\Model;
  */
 class ConsultaModel extends Model
 {
-    protected $table      = 'consultas';
-    protected $primaryKey = 'id';
-    protected $useAutoIncrement = true;
-    protected $returnType     = 'object';
-    protected $useSoftDeletes = false;
-    protected $allowedFields = ['usuario_id', 'asunto', 'mensaje', 'leido', 'baja', 'fecha_creacion', 'fecha_actualizacion'];
-    protected $useTimestamps = false;
-    protected $createdField     = 'fecha_creacion';
-    protected $updatedField     = 'fecha_actualizacion';
-    protected $validationRules    = 'consultas';  // Referencia a la configuración en Validation.php
-    protected $skipValidation     = false;
+    protected $table            = 'consultas';
+    protected $primaryKey       = 'id';
+    protected $useSoftDeletes   = false;
+    protected $allowedFields    = ['usuario_id', 'asunto', 'mensaje', 'leido'];
+    protected $returnType       = 'object';
+    protected $useTimestamps = true;
+    protected $createdField  = 'fecha';
+    protected $updatedField  = null;
+
+    // Validación de datos (opcional) - Puedes ajustar las reglas según tus necesidades
+    protected $validationRules    = [
+        'usuario_id' => 'required|integer',
+        'asunto'     => 'required|max_length[255]',
+        'mensaje'    => 'required',
+    ];
+    protected $validationMessages = [
+        'usuario_id' => [
+            'required' => 'El ID de usuario es obligatorio.',
+            'integer' => 'El ID de usuario debe ser un número entero.',
+        ],
+        'asunto' => [
+            'required' => 'El asunto es obligatorio.',
+            'max_length' => 'El asunto no puede superar los 255 caracteres.',
+        ],
+        'mensaje' => [
+            'required' => 'El mensaje es obligatorio.',
+        ],
+    ];
 }

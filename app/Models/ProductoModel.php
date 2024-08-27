@@ -16,142 +16,111 @@ use CodeIgniter\Model;
  */
 class ProductoModel extends Model
 {
-    protected $table      = 'productos';
-    protected $primaryKey = 'id';
-    protected $useAutoIncrement = true;
-    protected $returnType = 'object';
-    protected $useSoftDeletes = false;
-    protected $allowedFields = ['nombre', 'descripcion', 'precio', 'stock', 'marca_id', 'modelo', 'peso', 'dimensiones', 'material', 'color', 'baja', 'fecha_creacion', 'fecha_actualizacion'];
-    protected $useTimestamps = false;
-    protected $createdField  = 'fecha_creacion';
+    protected $table            = 'productos';
+    protected $primaryKey       = 'id';
+    protected $useSoftDeletes   = false;
+    protected $allowedFields    = [
+        'nombre',
+        'descripcion',
+        'precio',
+        'stock',
+        'categoria_id',
+        'marca_id',
+        'modelo',
+        'peso',
+        'dimensiones',
+        'material',
+        'color',
+        'estado',
+        'fecha_actualizacion'
+    ];
+    protected $returnType    = 'object';
+    protected $useTimestamps = true;
+    protected $createdField  = 'fecha_registro';
     protected $updatedField  = 'fecha_actualizacion';
-    protected $skipValidation   = false;
 
-    /**
-     * Obtiene todos los productos, incluyendo su marca asociada, la primera imagen y todas las categorías.
-     *
-     * Esta función realiza una consulta a la base de datos para obtener todos los productos,
-     * junto con el nombre de la marca correspondiente, la URL de la primera imagen asociada
-     * y todas las categorías a las que pertenece.
-     *
-     * @return array Un array de objetos, donde cada objeto representa un producto y contiene
-     *              las siguientes propiedades:
-     *              - id: Identificador único del producto.
-     *              - nombre: Nombre del producto.
-     *              - marca_id: Identificador de la marca asociada.
-     *              - nombre_marca: Nombre de la marca asociada.
-     *              - imagen_url: URL de la primera imagen asociada.
-     *              - categorias: Un array con los nombres de todas las categorías a las que pertenece.
-     *              - ... (otras propiedades de la tabla productos)
-     */
-    public function obtenerTodosLosProductos()
+    // Validación de datos (opcional) - Puedes ajustar las reglas según tus necesidades
+    protected $validationRules    = [
+        'nombre'        => 'required|min_length[3]|max_length[255]|is_unique[productos.nombre,id,{id}]',
+        'descripcion'   => 'permit_empty',
+        'precio'        => 'required|decimal|greater_than[0]',
+        'stock'         => 'required|integer|is_natural_no_zero',
+        'categoria_id'  => 'required|integer',
+        'marca_id'      => 'permit_empty|integer',
+        'modelo'        => 'permit_empty|max_length[255]',
+        'peso'          => 'permit_empty|max_length[255]',
+        'dimensiones'   => 'permit_empty|max_length[255]',
+        'material'      => 'permit_empty|max_length[255]',
+        'color'         => 'permit_empty|max_length[255]',
+        'estado'        => 'required|in_list[activo,inactivo]',
+    ];
+
+    protected $validationMessages = [
+        'nombre' => [
+            'required'    => 'El nombre del producto es obligatorio.',
+            'min_length'  => 'El nombre del producto debe tener al menos 3 caracteres.',
+            'max_length'  => 'El nombre del producto no puede superar los 255 caracteres.',
+            'is_unique'   => 'Ya existe un producto con ese nombre.'
+        ],
+        'precio' => [
+            'required'    => 'El precio es obligatorio.',
+            'decimal'     => 'El precio debe ser un número decimal.',
+            'greater_than' => 'El precio debe ser mayor a 0.'
+        ],
+        'stock' => [
+            'required'        => 'El stock es obligatorio.',
+            'integer'         => 'El stock debe ser un número entero.',
+            'is_natural_no_zero' => 'El stock debe ser un número natural mayor a 0.'
+        ],
+        'categoria_id' => [
+            'required'    => 'La categoría es obligatoria.',
+            'integer'     => 'La categoría debe ser un número entero.'
+        ],
+        'marca_id' => [
+            'integer' => 'La marca debe ser un número entero.'
+        ],
+        'modelo' => [
+            'max_length' => 'El modelo no puede superar los 255 caracteres.'
+        ],
+        'peso' => [
+            'max_length' => 'El peso no puede superar los 255 caracteres.'
+        ],
+        'dimensiones' => [
+            'max_length' => 'Las dimensiones no pueden superar los 255 caracteres.'
+        ],
+        'material' => [
+            'max_length' => 'El material no puede superar los 255 caracteres.'
+        ],
+        'color' => [
+            'max_length' => 'El color no puede superar los 255 caracteres.'
+        ],
+        'estado' => [
+            'required' => 'El estado es obligatorio.',
+            'in_list' => 'El estado debe ser "activo" o "inactivo".'
+        ],
+    ];
+
+    // Métodos personalizados
+
+    public function getProductosPorMarca($marcaId)
     {
-        return $this->select('productos.*, marcas.nombre AS nombre_marca, imagenes.url AS imagen_url, categorias.nombre AS categoria')
-            ->join('marcas', 'marcas.id = productos.marca_id')
-            ->join('productos_imagenes', 'productos_imagenes.producto_id = productos.id')
-            ->join('imagenes', 'imagenes.id = productos_imagenes.imagen_id')
-            ->join('productos_categorias', 'productos_categorias.producto_id = productos.id')
-            ->join('categorias', 'categorias.id = productos_categorias.categoria_id')
-            ->groupBy('productos.id')
-            ->get()
-            ->getResult();
+        return $this->where('marca_id', $marcaId)
+            ->findAll();
     }
 
-    /**
-     * Obtiene todos los productos activos (no dados de baja), incluyendo sus detalles.
-     *
-     * Esta función realiza una consulta a la base de datos para obtener todos los productos
-     * que no están marcados como 'baja', junto con sus marcas asociadas, imágenes y categorías.
-     * La cláusula `groupBy('productos.id')` se utiliza para evitar duplicados de productos
-     * en caso de que un producto tenga múltiples imágenes o categorías.
-     *
-     * @return array Un array de objetos, donde cada objeto representa un producto activo y contiene
-     *              las siguientes propiedades:
-     *              - id: Identificador único del producto.
-     *              - nombre: Nombre del producto.
-     *              - marca_id: Identificador de la marca asociada.
-     *              - nombre_marca: Nombre de la marca asociada.
-     *              - imagen_url: URL de la primera imagen asociada.
-     *              - categorias: Un array con los nombres de todas las categorías a las que pertenece.
-     *              - ... (otras propiedades de la tabla productos)
-     */
-    public function obtenerProductosActivos($builder = null, $perPage = null, $offset = null)
+    public function getProductosPorCategoria($categoriaId)
     {
-        if ($builder === null) {
-            $builder = $this->builder();
-        }
-
-        $builder->select('productos.*, marcas.nombre AS nombre_marca, imagenes.url AS imagen_url, GROUP_CONCAT(categorias.nombre) AS categorias')
-            ->join('marcas', 'marcas.id = productos.marca_id')
-            ->join('productos_imagenes', 'productos_imagenes.producto_id = productos.id', 'left')
-            ->join('imagenes', 'imagenes.id = productos_imagenes.imagen_id', 'left')
-            ->join('productos_categorias', 'productos_categorias.producto_id = productos.id')
-            ->join('categorias', 'categorias.id = productos_categorias.categoria_id')
-            ->where('productos.baja', 0)
-            ->groupBy('productos.id');
-
-        if ($perPage !== null && $offset !== null) {
-            $builder->limit($perPage, $offset);
-        }
-
-        return $builder->get()->getResult(); // Eliminamos la segunda aplicación de limit y offset
+        return $this->where('categoria_id', $categoriaId)
+            ->findAll();
     }
 
-    /**
-     * Obtiene un producto específico por su ID, junto con sus detalles asociados.
-     *
-     * Esta función realiza una consulta a la base de datos para obtener un producto
-     * específico, incluyendo su marca, imágenes y categorías asociadas. Utiliza varias
-     * uniones para relacionar las tablas de productos, marcas, imágenes y categorías.
-     *
-     * @param int $id El ID del producto a buscar.
-     * @return object|null Un objeto que representa el producto, o null si no se encuentra.
-     */
-    public function obtenerProductoPorId($id)
+    // Puedes agregar más métodos según tus necesidades
+    public function getProductosActivos()
     {
-        return $this->select('productos.*, marcas.nombre AS nombre_marca, categorias.nombre AS categoria, imagenes.url AS imagen_url')
-            ->join('marcas', 'marcas.id = productos.marca_id')
-            ->join('productos_categorias', 'productos_categorias.producto_id = productos.id')
-            ->join('categorias', 'categorias.id = productos_categorias.categoria_id')
-            ->join('productos_imagenes', 'productos_imagenes.producto_id = productos.id')
-            ->join('imagenes', 'imagenes.id = productos_imagenes.imagen_id')
-            ->where('productos.id', $id)
-            ->groupBy('productos.id') // Agrupar por producto para evitar duplicados
-            ->first();
-    }
-
-    public function obtenerImagenesProducto($id)
-    {
-        $builder = $this->db->table('productos_imagenes');
-        return $builder->select('imagenes.url')
-            ->join('imagenes', 'imagenes.id = productos_imagenes.imagen_id')
-            ->where('productos_imagenes.producto_id', $id)
-            ->get()
-            ->getResultObject(Imagen::class);
-    }
-
-    public function obtenerCategorias($productoId)
-    {
-        $builder = $this->db->table('productos_categorias');
-        $builder->select('categorias.*');
-        $builder->join('categorias', 'categorias.id = productos_categorias.categoria_id');
-        $builder->where('productos_categorias.producto_id', $productoId);
-        return $builder->get()->getResultObject('Categoria');
-    }
-
-    public function actualizarStock($productoId, $nuevaCantidad)
-    {
-        // Validar que el producto exista
-        $producto = $this->find($productoId);
-        if (!$producto) {
-            return false; // O lanzar una excepción si prefieres
-        }
-        // Validar que la nueva cantidad sea válida (puedes agregar más validaciones según tus necesidades)
-        if (!is_numeric($nuevaCantidad) || $nuevaCantidad < 0) {
-            return false; // O lanzar una excepción
-        }
-        // Actualizar el stock en la base de datos
-        $this->update($productoId, ['stock' => $nuevaCantidad]);
-        return true;
+        return $this->select('productos.*, imagenes_productos.ruta_imagen')
+                    ->join('imagenes_productos', 'imagenes_productos.producto_id = productos.id', 'left') // Left join para incluir productos sin imágenes
+                    ->where('productos.estado', 'activo')
+                    ->groupBy('productos.id') // Agrupar por producto para evitar duplicados si un producto tiene varias imágenes
+                    ->findAll();
     }
 }
