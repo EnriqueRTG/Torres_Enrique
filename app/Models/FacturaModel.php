@@ -6,21 +6,54 @@
  */
 
 namespace App\Models;
+
 use CodeIgniter\Model;
+
 /**
  * Description of FacturaModel
  *
  * @author Torres Gamarra Enrique Ramon
  */
-class FacturaModel extends Model{
+class FacturaModel extends Model
+{
     protected $table            = 'facturas';
     protected $primaryKey       = 'id';
-    protected $useAutoIncrement = true;
-    protected $returnType       = 'object';
     protected $useSoftDeletes   = false;
-    protected $allowedFields    = ['orden_id', 'total', 'fecha_emision', 'identificador_cliente', 'nombre_empresa', 'direccion_empresa', 'baja', 'fecha_creacion', 'fecha_actualizacion'];
-    protected $useTimestamps    = false;
-    protected $createdField     = 'fecha_creacion';
-    protected $updatedField     = 'fecha_actualizacion';
-    protected $skipValidation   = false;
+    protected $allowedFields    = ['orden_id', 'numero_factura', 'total'];
+    protected $returnType       = 'object';
+    protected $useTimestamps = true;
+    protected $createdField  = 'fecha_emision';
+    protected $updatedField  = null;
+
+    // Validación de datos (opcional) - Puedes ajustar las reglas según tus necesidades
+    protected $validationRules    = [
+        'orden_id'        => 'required|integer|is_unique[facturas.orden_id]', // Asegura que una orden tenga solo una factura
+        'numero_factura'  => 'required|max_length[255]|is_unique[facturas.numero_factura]',
+        'total'           => 'required|decimal|greater_than_equal_to[0]',
+    ];
+    protected $validationMessages = [
+        'orden_id' => [
+            'required' => 'El ID de la orden es obligatorio.',
+            'integer' => 'El ID de la orden debe ser un número entero.',
+            'is_unique' => 'Esta orden ya tiene una factura asociada.',
+        ],
+        'numero_factura' => [
+            'required' => 'El número de factura es obligatorio.',
+            'max_length' => 'El número de factura no puede superar los 255 caracteres.',
+            'is_unique' => 'Ya existe una factura con ese número.',
+        ],
+        'total' => [
+            'required' => 'El total de la factura es obligatorio.',
+            'decimal' => 'El total debe ser un número decimal.',
+            'greater_than_equal_to' => 'El total no puede ser negativo.',
+        ],
+    ];
+
+    // Puedes agregar otros métodos o propiedades según tus necesidades, por ejemplo:
+
+    // Obtener la factura de una orden específica
+    public function getFacturaPorOrden($ordenId)
+    {
+        return $this->where('orden_id', $ordenId)->first();
+    }
 }

@@ -8,43 +8,36 @@ class CarritoModel extends Model
 {
     protected $table            = 'carritos';
     protected $primaryKey       = 'id';
-    protected $useAutoIncrement = true;
-    protected $returnType       = 'object';
     protected $useSoftDeletes   = false;
-    protected $allowedFields    = ['usuario_id', 'estado', 'baja', 'fecha_creacion', 'fecha_actualizacion'];
-    protected $useTimestamps    = false;
-    protected $createdField     = 'fecha_creacion';
-    protected $updatedField     = 'fecha_actualizacion';
+    protected $allowedFields    = ['usuario_id', 'estado'];
+    protected $returnType       = 'object';
+    protected $useTimestamps = true;
+    protected $createdField  = 'fecha_creacion';
+    protected $updatedField  = null;
 
-    public function obtenerCarritoActivo($usuarioId)
+    // Validación de datos (opcional) - Puedes ajustar las reglas según tus necesidades
+    protected $validationRules    = [
+        'usuario_id' => 'required|integer',
+        'estado'     => 'required|in_list[activo,finalizado]',
+    ];
+    protected $validationMessages = [
+        'usuario_id' => [
+            'required' => 'El ID de usuario es obligatorio.',
+            'integer' => 'El ID de usuario debe ser un número entero.',
+        ],
+        'estado' => [
+            'required' => 'El estado del carrito es obligatorio.',
+            'in_list' => 'El estado del carrito debe ser "activo" o "finalizado".',
+        ],
+    ];
+
+    // Puedes agregar otros métodos o propiedades según tus necesidades, por ejemplo:
+
+    // Obtener el carrito activo de un usuario específico
+    public function getCarritoActivoPorUsuario($usuarioId)
     {
-        $carrito = $this->where('usuario_id', $usuarioId)
-                    ->where('estado', 'activo')
-                    ->first();
-    
-        if ($carrito) {
-            return $carrito; // Devuelve el carrito si se encontró
-        } else {
-            return null; // O puedes lanzar una excepción o manejar el error de otra manera
-        }
-    }
-
-    // Crear un nuevo carrito para un usuario
-    public function crearCarrito($usuarioId)
-    {
-        $data = [
-            'usuario_id' => $usuarioId,
-            'estado' => 'activo',
-            'fecha_creacion' => date('Y-m-d H:i:s')
-        ];
-
-        $this->insert($data);
-        return $this->getInsertID(); // Devuelve el ID del carrito creado
-    }
-
-    // Marcar un carrito como completado (cuando se genera una orden)
-    public function marcarComoCompletado($carritoId)
-    {
-        return $this->update($carritoId, ['estado' => 'completado']);
+        return $this->where('usuario_id', $usuarioId)
+            ->where('estado', 'activo')
+            ->first();
     }
 }

@@ -11,3 +11,129 @@ contactos -
 carritos -
 facturas -
 detalle_factura -
+
+para utilizar composer (y gestionar todas las dependencias de mi proyecto) hay que habilitar en php.ini -> extension=zip 
+y el flujo de trabajo sera clonar proyecto -> ejecutar composer install -> trabajar, add y commit -> push
+
+-> agregue dompdf para la generacion de las facturas y ordenes (composer require dompdf/dompdf)
+-> agregue facker para la generacion de datos para los seeders (composer require --dev fakerphp/faker)
+-> agregue codeigniter4-cart-module para el carrito (composer require jason-napolitano/codeigniter4-cart-module)
+modificaciones en App/Config/Autoload.php:
+public $psr4 = [
+        APP_NAMESPACE => APPPATH,
+        'Config'      => APPPATH . 'Config',
+        'CodeIgniterCart' => ROOTPATH . 'vendor/jason-napolitano/codeigniter4-cart-module/src',
+        'Dompdf\\' => ROOTPATH . 'vendor/dompdf/dompdf/src/Dompdf', 
+    ];
+
+
+ categorías:
+
+    Máquinas de Tatuar
+        Rotativas
+        De Bobina
+        Kits de Máquinas
+
+    Tintas para Tatuajes
+        Negras y Grises
+        Colores
+        Sets de Tintas
+
+    Agujas y Cartuchos
+        Agujas de Tatuaje
+        Cartuchos de Agujas
+        Grips Desechables
+
+    Fuentes de Poder
+        Fuentes de Poder para Tatuaje
+        Pedales y Cables
+
+    Mobiliario y Accesorios
+        Camillas y Sillas
+        Lámparas y Lupas
+        Apoyabrazos y Reposapiés
+
+    Cuidado y Sanitización
+        Jabones y Desinfectantes
+        Guantes y Mascarillas
+        Film Protector y Vendajes
+
+    Transferencia y Diseño
+        Papel de Transferencia
+        Lápices y Marcadores
+        Plantillas y Guías
+
+    Práctica y Aprendizaje
+        Piel Sintética
+        Kits de Práctica
+        Libros y DVDs
+
+    Merchandising
+        Camisetas y Ropa
+        Tazas y Accesorios
+        Posters y Arte
+
+    Otros
+        Accesorios para Máquinas
+        Caps para Tinta
+        Vaselina y Productos para el Cuidado Posterior
+
+
+-> para ejecutar un seeder en especifico 'php spark db:seed -s NombreDelSeeder' en mi caso el seeder que contiene a todos 'php spark db:seed -s DataBaseSeeder'
+
+Pasos recomendados:
+
+    Revisar y optimizar controladores existentes:
+
+    Analiza tus controladores actuales para asegurarte de que estén utilizando los nuevos modelos y entidades de manera eficiente.
+    Busca oportunidades para mejorar la legibilidad, la organización y la reutilización del código.
+    Implementa buenas prácticas de programación y patrones de diseño, como la inyección de dependencias y la separación de responsabilidades.
+    Asegúrate de que los controladores manejen correctamente la validación de datos y los errores.
+
+    Actualizar las vistas:
+
+    Adapta tus vistas para utilizar los datos proporcionados por los nuevos modelos y entidades.
+    Implementa un diseño responsive y atractivo utilizando Bootstrap 5.
+    Optimiza el rendimiento de las vistas, minimizando el uso de recursos y mejorando los tiempos de carga.
+    Asegúrate de que las vistas sean accesibles y fáciles de usar para todos los usuarios.
+
+    Implementar funcionalidades faltantes:
+
+    Identifica las funcionalidades que aún no están implementadas en tu sistema y priorízalas según su importancia.
+    Desarrolla los controladores, modelos y vistas necesarios para implementar estas funcionalidades.
+    Asegúrate de que las nuevas funcionalidades se integren correctamente con el resto de tu aplicación.
+
+    Probar exhaustivamente:
+
+    Realiza pruebas unitarias y de integración para asegurarte de que todas las funcionalidades de tu sistema funcionen correctamente.
+    Prueba tu aplicación en diferentes dispositivos y navegadores para verificar su compatibilidad y capacidad de respuesta.
+    Solicita a otros usuarios que prueben tu aplicación y proporcionen comentarios sobre su experiencia.
+
+    Optimizar el rendimiento:
+
+    Utiliza herramientas de profiling y benchmarking para identificar áreas de mejora en el rendimiento de tu aplicación.
+    Optimiza las consultas a la base de datos, el uso de memoria y otros recursos.
+    Implementa técnicas de caché para mejorar los tiempos de carga.
+
+    Seguridad:
+
+    Realiza una auditoría de seguridad para identificar posibles vulnerabilidades en tu aplicación.
+    Implementa medidas de seguridad para proteger tu aplicación y los datos de tus usuarios, como la validación de entradas, la prevención de ataques XSS y CSRF, y la protección contra inyección SQL.
+
+    Documentación:
+
+    Documenta tu código, incluyendo comentarios claros y descriptivos en tus controladores, modelos, vistas y otras partes de tu aplicación.
+    Crea una documentación de usuario que explique cómo utilizar las diferentes funcionalidades de tu e-commerce.
+
+Consideraciones adicionales:
+
+    Control de versiones: Utiliza un sistema de control de versiones como Git para llevar un seguimiento de los cambios en tu código y facilitar la colaboración si trabajas en equipo.
+    Despliegue: Planifica y ejecuta el despliegue de tu aplicación en un servidor de producción, asegurándote de que todos los componentes estén configurados correctamente.
+    Mantenimiento: Realiza un mantenimiento regular de tu aplicación, incluyendo actualizaciones de seguridad, corrección de errores y mejoras en el rendimiento.
+
+Conclusión:
+
+Al seguir estos pasos, podrás refactorizar y mejorar tu proyecto de e-commerce de manera efectiva, garantizando una estructura de código sólida, funcionalidades completas, un buen rendimiento y una experiencia de usuario satisfactoria.
+
+
+--> queda pendiente revisar 'contactos, productos' no carga el seeder

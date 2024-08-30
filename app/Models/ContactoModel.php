@@ -21,9 +21,9 @@ class ContactoModel extends Model
     protected $useSoftDeletes   = false;
     protected $allowedFields    = ['nombre', 'email', 'asunto', 'mensaje', 'leido'];
     protected $returnType       = 'object';
-    protected $useTimestamps = true;
-    protected $createdField  = 'fecha';
-    protected $updatedField  = null;
+    protected $useTimestamps    = true;
+    protected $createdField     = 'fecha';
+    protected $updatedField     = 'fecha_actualizacion';
 
     // Validación de datos (opcional)
     protected $validationRules    = [
@@ -48,6 +48,6 @@ class ContactoModel extends Model
         ],
         'mensaje' => [
             'required' => 'El mensaje es obligatorio.',
-        ],
+        ]
     ];
 }

@@ -18,8 +18,7 @@ class UsuarioModel extends Model
 {
     protected $table            = 'usuarios';
     protected $primaryKey       = 'id';
-    protected
-        $useSoftDeletes   = false;
+    protected $useSoftDeletes   = false;
     protected $allowedFields    = ['nombre', 'apellido', 'email', 'contrasena', 'rol', 'estado', 'fecha_actualizacion'];
     protected $returnType       = 'object';
     protected $useTimestamps = true;

@@ -49,7 +49,7 @@ class Ordenes extends Migration
         $this->forge->addForeignKey('usuario_id', 'usuarios', 'id', 'CASCADE', 'CASCADE');
 
         $this->forge->addForeignKey('direccion_envio_id', 'direcciones', 'id', 'CASCADE', 'CASCADE');
-        
+
         $this->forge->createTable('ordenes');
     }
 

@@ -3,7 +3,6 @@
 namespace App\Database\Migrations;
 
 use CodeIgniter\Database\Migration;
-use CodeIgniter\Database\RawSql;
 
 class Productos extends Migration
 {
@@ -34,7 +33,6 @@ class Productos extends Migration
             'stock' => [
                 'type'       => 'INT',
                 'constraint' => 11,
-                'default'    => 1,
                 'unsigned'   => true,
                 'null'       => false
             ],
@@ -48,7 +46,7 @@ class Productos extends Migration
                 'type'       => 'INT',
                 'constraint' => 11,
                 'unsigned'   => true,
-                'null'       => true,
+                'null'       => false,
             ],
             'modelo' => [
                 'type'       => 'VARCHAR',
@@ -75,6 +73,11 @@ class Productos extends Migration
                 'constraint' => '255',
                 'null'       => true
             ],
+            'estado' => [
+                'type'       => 'ENUM',
+                'constraint' => ['activo', 'inactivo'],
+                'default'    => 'activo',
+            ],
             'fecha_registro' => [
                 'type' => 'DATETIME',
                 'null' => false,
@@ -82,31 +85,14 @@ class Productos extends Migration
             'fecha_actualizacion' => [
                 'type' => 'DATETIME',
             ],
-            'estado' => [
-                'type'       => 'ENUM',
-                'constraint' => ['activo', 'inactivo'],
-                'default'    => 'activo',
-            ],
         ]);
 
         $this->forge->addKey('id', true);
 
-        $this->forge->addForeignKey(
-            'categoria_id',
-            'categorias',
-            'id',
-            'CASCADE',
-            'CASCADE'
-        );
+        $this->forge->addForeignKey('categoria_id', 'categorias', 'id', 'CASCADE', 'CASCADE');
 
-        $this->forge->addForeignKey(
-            'marca_id',
-            'marcas',
-            'id',
-            'CASCADE',
-            'SET NULL'
-        );
-        
+        $this->forge->addForeignKey('marca_id', 'marcas', 'id', 'CASCADE', 'CASCADE');
+
         $this->forge->createTable('productos');
     }
 

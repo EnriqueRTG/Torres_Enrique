@@ -32,6 +32,7 @@ class ProductoModel extends Model
         'material',
         'color',
         'estado',
+        'fecha_registro',
         'fecha_actualizacion'
     ];
     protected $returnType    = 'object';
@@ -46,7 +47,7 @@ class ProductoModel extends Model
         'precio'        => 'required|decimal|greater_than[0]',
         'stock'         => 'required|integer|is_natural_no_zero',
         'categoria_id'  => 'required|integer',
-        'marca_id'      => 'permit_empty|integer',
+        'marca_id'      => 'required|integer',
         'modelo'        => 'permit_empty|max_length[255]',
         'peso'          => 'permit_empty|max_length[255]',
         'dimensiones'   => 'permit_empty|max_length[255]',
@@ -117,10 +118,16 @@ class ProductoModel extends Model
     // Puedes agregar más métodos según tus necesidades
     public function getProductosActivos()
     {
-        return $this->select('productos.*, imagenes_productos.ruta_imagen')
-                    ->join('imagenes_productos', 'imagenes_productos.producto_id = productos.id', 'left') // Left join para incluir productos sin imágenes
-                    ->where('productos.estado', 'activo')
-                    ->groupBy('productos.id') // Agrupar por producto para evitar duplicados si un producto tiene varias imágenes
-                    ->findAll();
+        $productos = $this->select('productos.*')
+            ->where('productos.estado', 'activo')
+            ->findAll();
+
+        $imagenProductoModel = new \App\Models\ImagenProductoModel();
+        foreach ($productos as &$producto) {
+            $producto->imagenes = $imagenProductoModel->where('producto_id', $producto->id)
+                ->first(); // Obtener solo la primera imagen
+        }
+
+        return $productos;
     }
 }

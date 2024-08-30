@@ -8,45 +8,51 @@ class CategoriaSeeder extends Seeder
 {
     public function run()
     {
-        $data = [
+        $categorias = [
             [
-                'nombre' => 'aguja',
+                'nombre' => 'Máquinas de Tatuar',
+                'estado' => 'activo'
             ],
             [
-                'nombre' => 'cartucho',
+                'nombre' => 'Tintas para Tatuajes',
+                'estado' => 'activo'
             ],
             [
-                'nombre' => 'grip',
+                'nombre' => 'Agujas y Cartuchos',
+                'estado' => 'activo'
             ],
             [
-                'nombre' => 'maquina',
+                'nombre' => 'Fuentes de Poder',
+                'estado' => 'activo'
             ],
             [
-                'nombre' => 'herramienta',
+                'nombre' => 'Mobiliario y Accesorios',
+                'estado' => 'activo'
             ],
             [
-                'nombre' => 'mueble',
+                'nombre' => 'Cuidado y Sanitización',
+                'estado' => 'activo'
             ],
             [
-                'nombre' => 'accesorio',
+                'nombre' => 'Transferencia y Diseño',
+                'estado' => 'activo'
             ],
             [
-                'nombre' => 'fuente',
+                'nombre' => 'Práctica y Aprendizaje',
+                'estado' => 'activo'
             ],
             [
-                'nombre' => 'pigmento',
+                'nombre' => 'Merchandising',
+                'estado' => 'activo'
             ],
             [
-                'nombre' => 'otro',
-            ],
-            [
-                'nombre' => 'puntera',
-            ],
-            [
-                'nombre' => 'descartable',
+                'nombre' => 'Otros',
+                'estado' => 'activo'
             ],
         ];
 
-        $this->db->table('categorias')->insertBatch($data);
+        $categoriaModel = new \App\Models\CategoriaModel();
+
+        $categoriaModel->insertBatch($categorias);
     }
 }

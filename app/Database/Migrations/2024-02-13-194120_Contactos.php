@@ -36,11 +36,12 @@ class Contactos extends Migration
             ],
             'fecha' => [
                 'type' => 'DATETIME',
-                'null' => false,
+            ],
+            'fecha_actualizacion' => [
+                'type' => 'DATETIME',
             ],
             'leido' => [
                 'type'    => 'BOOLEAN',
-                'default' => false
             ],
         ]);
 

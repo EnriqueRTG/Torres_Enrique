@@ -15,8 +15,7 @@ class DetalleCarrito extends Migration
                 'unsigned'       => true,
                 'auto_increment' => true,
             ],
-            'carrito_id'
-            => [
+            'carrito_id' => [
                 'type' => 'INT',
                 'constraint' => 11,
                 'unsigned' => true,

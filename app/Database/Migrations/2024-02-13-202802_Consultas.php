@@ -38,6 +38,9 @@ class Consultas extends Migration
                 'type' => 'DATETIME',
                 'null' => false,
             ],
+            'fecha_actualizacion' => [
+                'type' => 'DATETIME',
+            ],
         ]);
 
         $this->forge->addKey('id', true);

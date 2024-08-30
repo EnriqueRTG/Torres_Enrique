@@ -3,64 +3,41 @@
 namespace App\Database\Seeds;
 
 use CodeIgniter\Database\Seeder;
+use Faker\Factory;
 
 class DireccionSeeder extends Seeder
 {
     public function run()
     {
-        $data = [
-            [
-                'calle' => 'Calle Falsa',
-                'numero' => '123',
-                'piso' => '2',
-                'departamento' => 'B',
-                'ciudad' => 'Ciudad Falsa',
-                'provincia' => 'Formosa',
-                'pais' => 'Argentina',
-                'codigo_postal' => '1000',
-            ],
-            [
-                'calle' => 'Avenida Siempreviva',
-                'numero' => '742',
-                'piso' => '3',
-                'departamento' => 'A',
-                'ciudad' => 'Springfield',
-                'provincia' => 'Chubut',
-                'pais' => 'Argentina',
-                'codigo_postal' => '12345',
-            ],
-            [
-                'calle' => 'Calle Real',
-                'numero' => '456',
-                'piso' => null,
-                'departamento' => null,
-                'ciudad' => 'Ciudad de Corrientes',
-                'provincia' => 'Corrientes',
-                'pais' => 'Argentina',
-                'codigo_postal' => '3400',
-            ],
-            [
-                'calle' => 'Boulevard de los Sueños',
-                'numero' => '789',
-                'piso' => '1',
-                'departamento' => 'C',
-                'ciudad' => 'Ciudad de Corrientes',
-                'provincia' => 'Corrientes',
-                'pais' => 'Argentina',
-                'codigo_postal' => '3400',
-            ],
-            [
-                'calle' => 'Ruta 66',
-                'numero' => '999',
-                'piso' => null,
-                'departamento' => null,
-                'ciudad' => 'Ciudad Ruta',
-                'provincia' => 'Santa Fe',
-                'pais' => 'Argentina',
-                'codigo_postal' => '4000',
-            ],
-        ];
+        $faker = Factory::create();
 
-        $this->db->table('direcciones')->insertBatch($data);
+        // 1. Obtener IDs de usuarios existentes
+        $usuarioModel = new \App\Models\UsuarioModel();
+        $usuarios = $usuarioModel->findAll();
+        $usuarios_id = array_column($usuarios, 'id');
+
+        // 2. Crear array para almacenar datos de direcciones
+        $direccines = [];
+
+        // 3. Generar 10 direcciones de ejemplo
+        for ($i = 0; $i < 10; $i++) {
+            $direccines[] = [
+                // 4. Generar datos falsos con Faker
+                'usuario_id'         => $faker->randomElement($usuarios_id),
+                'nombre_destinatario' => $faker->name,
+                'calle'              => $faker->streetName,
+                'numero'             => $faker->numberBetween(1, 3000),
+                'piso'               => $faker->optional()->numberBetween(1, 10), // Opcional
+                'departamento'       => $faker->optional()->randomLetter(),        // Opcional
+                'ciudad'             => $faker->city,
+                'provincia'          => $faker->state,
+                'codigo_postal'      => $faker->postcode,
+                'telefono'           => $faker->phoneNumber,
+            ];
+        }
+
+        // 5. Insertar los datos en la base de datos
+        $direccionModel = new \App\Models\DireccionModel();
+        $direccionModel->insertBatch($direccines);
     }
 }

@@ -42,7 +42,7 @@
                         <div class="card h-100 card-producto">
                             <!-- Imagen del Producto -->
                             <a href="<?= url_to('producto', $producto->id) ?>" class="position-relative">
-                                <img class="card-img-top" src="<?= base_url($producto->imagen_url) ?>" alt="<?= $producto->nombre ?>" />
+                                <img class="card-img-top" src="<?= base_url($producto->imagenes->ruta_imagen) ?>" alt="<?= $producto->nombre ?>" />
                                 <div class="overlay d-flex justify-content-center align-items-center">
                                     <button class="btn btn-info">Ver Detalles</button>
                                 </div>
@@ -53,7 +53,7 @@
                                     <!-- Nombre del Producto-->
                                     <h5 class="fw-bolder"><?= $producto->nombre ?></h5>
                                     <!-- Marca del Producto -->
-                                    <p class="card-text"><?= $producto->nombre_marca ?></p>
+                                    <p class="card-text"><?= $producto->marca_id ?></p>
                                     <!-- Precio del Producto -->
                                     <p class="fw-bold">$ <?= $producto->precio ?></p>
                                 </div>

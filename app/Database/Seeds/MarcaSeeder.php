@@ -8,51 +8,24 @@ class MarcaSeeder extends Seeder
 {
     public function run()
     {
-        $data = [
-            [
-                'nombre' => 'EZ'
-            ],
-            [
-                'nombre' => 'Cheyenne'
-            ],
-            [
-                'nombre' => 'Solid Ink'
-            ],
-            [
-                'nombre' => 'Dynamic Ink'
-            ],
-            [
-                'nombre' => 'AVA'
-            ],
-            [
-                'nombre' => 'Genérica'
-            ],
-            [
-                'nombre' => 'Hurricane'
-            ],
-            [
-                'nombre' => 'Mast'
-            ],
-            [
-                'nombre' => 'Hewlett-Packard'
-            ],
-            [
-                'nombre' => 'Sharpie'
-            ],
-            [
-                'nombre' => 'Congreso'
-            ],
-            [
-                'nombre' => 'Spark'
-            ],
-            [
-                'nombre' => 'Excelent'
-            ],
-            [
-                'nombre' => 'Bronc'
-            ],
+        $marcas = [
+            ['nombre' => 'Cheyenne Professional Tattoo Equipment'],
+            ['nombre' => 'Hurricane'],
+            ['nombre' => 'Spark'],
+            ['nombre' => 'FK Irons'],
+            ['nombre' => 'Eternal Ink'],
+            ['nombre' => 'Intenze Tattoo Ink'],
+            ['nombre' => 'Dynamic Ink'],
+            ['nombre' => 'Killer Ink Tattoo'],
+            ['nombre' => 'World Famous Ink'],
+            ['nombre' => 'Genérica'],
+            ['nombre' => 'Mast'],
+            ['nombre' => 'Excelent'],
+            ['nombre' => 'Bronc'],
         ];
 
-        $this->db->table('marcas')->insertBatch($data);
+        $marcaModel = new \App\Models\MarcaModel();
+        
+        $marcaModel->insertBatch($marcas);
     }
 }

@@ -23,7 +23,7 @@ class ConsultaModel extends Model
     protected $returnType       = 'object';
     protected $useTimestamps = true;
     protected $createdField  = 'fecha';
-    protected $updatedField  = null;
+    protected $updatedField  = 'fecha_actualizacion';
 
     // Validación de datos (opcional) - Puedes ajustar las reglas según tus necesidades
     protected $validationRules    = [

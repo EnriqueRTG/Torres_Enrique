@@ -42,7 +42,7 @@ class Facturas extends Migration
         $this->forge->addKey('id', true);
 
         $this->forge->addForeignKey('orden_id', 'ordenes', 'id', 'CASCADE', 'CASCADE');
-        
+
         $this->forge->createTable('facturas');
     }
 

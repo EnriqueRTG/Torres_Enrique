@@ -19,9 +19,11 @@ class Terminos extends BaseController
 
     public function index()
     {
+        $cart = \Config\Services::cart();
+
         $data = [
             'titulo' => 'Terminos',
-            'cart'       => $cart = \Config\Services::cart(),
+            'cart'       => $cart,
         ];
 
         return view('layouts/header', $data) . view('web/terminos') . view('layouts/footer');

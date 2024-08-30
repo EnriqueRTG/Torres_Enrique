@@ -28,6 +28,7 @@ class CategoriaModel extends Model
         'descripcion' => 'permit_empty',
         'estado'      => 'required|in_list[activo,inactivo]',
     ];
+    
     protected $validationMessages = [
         'nombre' => [
             'required' => 'El nombre de la categoría es obligatorio.',
