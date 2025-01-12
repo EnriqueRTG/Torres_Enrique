@@ -8,11 +8,10 @@
 namespace App\Controllers\Admin;
 
 use App\Controllers\BaseController;
-
 use App\Models\ProductoModel;
 use App\Models\MarcaModel;
 use App\Models\CategoriaModel;
-use App\Models\ImagenModel;
+use App\Models\ImagenProductoModel;
 
 /**
  * Description of Producto
@@ -29,7 +28,7 @@ class Producto extends BaseController
 
         $data = [
             'titulo'        => 'Productos',
-            'productos'     => $productoModel->obtenerTodosLosProductos(),
+            'productos'     => $productoModel->obtenerProductosActivosConDetalles(),
         ];
 
         echo view('admin/producto/index', $data);
@@ -67,7 +66,7 @@ class Producto extends BaseController
     public function create()
     {
         $productoModel = new ProductoModel();
-        $imagenModel = new ImagenModel();
+        $imagenModel = new ImagenProductoModel();
 
         if ($this->validate('productos_create')) {
             $productoModel->insert([

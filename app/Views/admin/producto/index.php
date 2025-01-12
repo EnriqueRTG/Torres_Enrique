@@ -25,9 +25,8 @@
 
     <div class="my-4">
         <table class="table table-dark table-striped table-hover table-responsive">
-
             <thead>
-                <tr class="text-capitalize text-center ">
+                <tr class="text-capitalize text-center">
                     <th scope="col">Nombre</th>
                     <th scope="col">Descripción</th>
                     <th scope="col">Precio</th>
@@ -38,80 +37,74 @@
                     <th scope="col">Dimensiones</th>
                     <th scope="col">Material</th>
                     <th scope="col">Color</th>
-                    <th scope="col">Categoria</th>
-                    <th scope="col">Alta</th>
-                    <th scope="col">Modificación</th>
-                    <th scope="col">Opciones</th>
+                    <th scope="col">Categoría</th>
+                    <th scope="col">Fecha de Alta</th>
+                    <th scope="col">Última Modificación</th>
+                    <th scope="col">Acciones</th>
                 </tr>
             </thead>
-
             <tbody class="text-center">
-                <?php foreach ($productos as $key => $producto) : ?>
+                <?php foreach ($productos as $producto): ?>
                     <tr>
-                        <?php if ($producto->baja != 1) : ?>
-
-                            <td>
-                                <?= $producto->nombre ?>
-                            </td>
-                            <td>
-                                <span class="text-truncate d-inline-block" style="max-width: 200px;">
-                                    <?= $producto->descripcion ?>
-                                </span>
-                            </td>
-                            <td>
-                                $ <?= $producto->precio ?>
-                            </td>
-                            <td>
-                                <?= $producto->stock ?>
-                            </td>
-                            <td>
-                                <?= $producto->nombre_marca ?>
-                            </td>
-                            <td>
-                                <?= $producto->modelo ?>
-                            </td>
-                            <td>
-                                <?= $producto->peso ?>
-                            </td>
-                            <td>
-                                <?= $producto->dimensiones ?>
-                            </td>
-                            <td>
-                                <?= $producto->material ?>
-                            </td>
-                            <td>
-                                <?= $producto->color ?>
-                            </td>
-                            <td>
-                                <?= $producto->categoria ?>
-                            </td>
-
-                            <td>
-                                <?= $producto->fecha_creacion ?>
-                            </td>
-                            <td>
-                                <?= $producto->fecha_actualizacion  ?>
-                            </td>
-
-                            <td class="text-center g-2">
-                                <a class="btn btn-outline-info border-3 fw-bolder m-1" href="/dashboard/producto/<?= $producto->id ?>">
-                                    <i class="bi bi-eye-fill"></i>
-                                </a>
-                                <form action="/dashboard/producto/delete/<?= $producto->id ?>" method="POST">
-                                    <button class="btn btn-outline-danger border-3 fw-bolder m-1" type="submit">
-                                        <i class="bi bi-trash" alt="Eliminar"></i>
-                                    </button>
-                                </form>
-                                <a class="btn btn-outline-warning border-3 m-1" href="/dashboard/producto/edit/<?= $producto->id ?>">
-                                    <i class="bi bi-pencil-square" alt="Editar"></i>
-                                </a>
-                            </td>
-                        <?php endif ?>
+                        <td class="align-middle">
+                            <?= $producto->nombre ?>
+                        </td>
+                        <td class="align-middle">
+                            <div class="overflow-auto" style="max-height: 100px;">
+                                <?= $producto->descripcion ?>
+                            </div>
+                        </td>
+                        <td class="align-middle">
+                            $<?= $producto->precio ?>
+                        </td>
+                        <td class="align-middle">
+                            <?= $producto->stock ?>
+                        </td>
+                        <td class="align-middle">
+                            <?= $producto->marca ?>
+                        </td>
+                        <td class="align-middle">
+                            <?= $producto->modelo ?>
+                        </td>
+                        <td class="align-middle">
+                            <?= $producto->peso ?>
+                        </td>
+                        <td class="align-middle">
+                            <?= $producto->dimensiones ?>
+                        </td>
+                        <td class="align-middle">
+                            <?= $producto->material ?>
+                        </td>
+                        <td class="align-middle">
+                            <?= $producto->color ?>
+                        </td>
+                        <td class="align-middle">
+                            <?= $producto->categoria ?>
+                        </td>
+                        <td class="align-middle">
+                            <?= DateTime::createFromFormat('Y-m-d H:i:s', $producto->fecha_registro)->format('d/m/Y H:i') ?>
+                        </td>
+                        <td class="align-middle">
+                            <?= DateTime::createFromFormat('Y-m-d H:i:s', $producto->fecha_actualizacion)->format('d/m/Y H:i') ?>
+                        </td>
+                        <td class="text-center align-middle">
+                            <a href="/dashboard/producto/<?= $producto->id ?>" class="btn btn-sm btn-outline-info border-3 fw-bolder m-1" data-bs-toggle="tooltip" data-bs-placement="top" title="Ver">
+                                <i class="bi bi-eye-fill"></i>
+                            </a>
+                            <form action="/dashboard/producto/delete/<?= $producto->id ?>" method="POST" class="d-inline">
+                                <button type="submit" class="btn btn-sm btn-outline-danger border-3 fw-bolder m-1" data-bs-toggle="tooltip" data-bs-placement="top" title="Eliminar">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                            </form>
+                            <a href="/dashboard/producto/edit/<?= $producto->id ?>" class="btn btn-sm btn-outline-warning border-3 m-1" data-bs-toggle="tooltip" data-bs-placement="top" title="Editar">
+                                <i class="bi bi-pencil-square"></i>
+                            </a>
+                        </td>
                     </tr>
                 <?php endforeach ?>
             </tbody>
-
         </table>
+
     </div>
 </section>
 
@@ -130,3 +123,11 @@
 </nav>
 
 <?= view("layouts/footer-admin") ?>
+
+<script>
+    // Inicializar tooltips de Bootstrap ( muestran información adicional cuando el usuario pasa el mouse sobre un elemento)
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+    var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl)
+    })
+</script>

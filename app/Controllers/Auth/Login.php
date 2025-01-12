@@ -4,7 +4,6 @@ namespace App\Controllers\Auth;
 
 use App\Controllers\BaseController;
 use App\Models\UsuarioModel;
-use Config\Services;
 
 class Login extends BaseController
 {
@@ -12,6 +11,7 @@ class Login extends BaseController
 
     public function __construct()
     {
+        helper(['form', 'url']);
         $this->usuarioModel = new UsuarioModel();
     }
 
@@ -23,7 +23,7 @@ class Login extends BaseController
 
         // Si el usuario ya está logueado, redirígelo según su rol
         if (session()->get('usuario')) {
-            if (session()->get('usuario')->rol_id === 1) {
+            if (session()->get('usuario')->rol === 'administrador') {
                 return redirect()->route('admin.dashboard');
             } else {
                 return redirect()->route('web.home');
@@ -48,10 +48,10 @@ class Login extends BaseController
             return redirect()->back()->with('mensaje', 'Usuario y/o Contraseña invalida');
         }
 
-        if ($usuario && $this->usuarioModel->passwordVerificar($password, $usuario->password)) {
+        if ($usuario && $this->usuarioModel->verificarPassword($password, $usuario->password)) {
             unset($usuario->password); // elimino la password del conjunto de datos traidos del usuario
             $this->setUsuarioSesion($usuario); // guardo los datos del usuario en la sesion
-            return $this->redirectBasedOnRole($usuario->rol_id); // redirijo a algun modulo de la aplicion en funcion al rol del usuario
+            return $this->redirigirEnBaseAlRol($usuario->rol); // redirijo a algun modulo de la aplicion en funcion al rol del usuario
         } else {
             return redirect()->back()
                 ->withInput()
@@ -64,9 +64,9 @@ class Login extends BaseController
         session()->set('usuario', $usuario);
     }
 
-    private function redirectBasedOnRole($rol_id)
+    private function redirigirEnBaseAlRol($rol)
     {
-        if ($rol_id == 1) {
+        if ($rol === 'administrador') {
             return redirect()->route('admin.dashboard');
         } else {
             return redirect()->route('web.catalogo');

@@ -43,13 +43,14 @@ class Register extends BaseController
             return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
         }
 
+        $passwordHash = $this->usuarioModel->passwordHash($this->request->getPost('password'));
+
         $data = [
             'nombre' => $this->request->getVar('nombre'),
             'apellido' => $this->request->getVar('apellido'),
             'email' => $this->request->getVar('email'),
-            'password' => $this->usuarioModel->passwordHash($this->request->getPost('password')),
+            'password' => $passwordHash,
             'direccion' => $this->request->getVar('direccion'),
-            'telefono' => $this->request->getVar('telefono'),
         ];
 
         try {

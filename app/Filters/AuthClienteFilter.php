@@ -30,7 +30,7 @@ class AuthClienteFilter implements FilterInterface
  
         }
 
-        if (session()->get('usuario')->rol_id != ROL_CLIENTE) { // Asegúrate de tener definida la constante ROL_CLIENTE
+        if (session()->get('usuario')->rol != ROL_CLIENTE) { // Asegúrate de tener definida la constante ROL_CLIENTE
             return redirect()->to(route_to('web.home')); // O a otra ruta adecuada
         }
     }

@@ -1,6 +1,6 @@
 <?php if (!session()->has('usuario')): ?>
     <div class="alert alert-warning text-center" role="alert">
-        Debes <a href="<?= base_url() ?><?= route_to('login') ?>" class="alert-link">iniciar sesión</a> para realizar compras.
+        Debes <a href="<?= site_url('login') ?>" class="alert-link">iniciar sesión</a> para realizar compras.
     </div>
 <?php endif; ?>
 
@@ -51,11 +51,9 @@
                             <div class="card-body ">
                                 <div class="text-center">
                                     <!-- Nombre del Producto-->
-                                    <h5 class="fw-bolder"><?= $producto->nombre ?></h5>
-                                    <!-- Marca del Producto -->
-                                    <p class="card-text"><?= $producto->marca_id ?></p>
+                                    <h5 class="fw-medium"><?= $producto->nombre ?></h5>
                                     <!-- Precio del Producto -->
-                                    <p class="fw-bold">$ <?= $producto->precio ?></p>
+                                    <p class="fw-semibold fs-5">$ <?= $producto->precio ?></p>
                                 </div>
                             </div>
                             <!-- Acciones -->

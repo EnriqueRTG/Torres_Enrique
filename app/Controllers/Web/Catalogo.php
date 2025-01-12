@@ -19,46 +19,39 @@ use App\Models\CategoriaModel;
  */
 class Catalogo extends BaseController
 {
-    
+
+    protected $productoModel;
+    protected $categoriaModel;
+    protected $cart;
+
     public function __construct()
     {
         helper(['form', 'url', 'cart']);
-        $session = session();
-        $cart = \Config\Services::cart();
-        $cart->contents();
+        $this->productoModel = new ProductoModel();
+        $this->categoriaModel = new CategoriaModel();
+        $this->cart = \Config\Services::cart();
     }
 
     public function index()
     {
-
-        $productoModel = new ProductoModel();
-        $categoriaModel = new CategoriaModel();
-
         $filtro = $this->request->getGet();
         $session = session();
 
         if ($this->request->getGet('limpiar_filtros')) {
-            // Limpiar la sesión de filtros
-            $session = session();
-            $session->remove('filtro_categoria');
-            $session->remove('filtro_precio_min');
-            $session->remove('filtro_precio_max');
-            $session->remove('filtro_orden');
-
-            // Redirigir sin filtros (usando route_to para generar la URL correcta)
+            $session->remove(['filtro_categoria', 'filtro_precio_min', 'filtro_precio_max', 'filtro_orden']);
             return redirect()->to(route_to('web.catalogo'));
         }
 
         // Construir la consulta utilizando el Query Builder
-        $builder = $productoModel->builder(); // Usar el builder del modelo para aprovechar las relaciones
+        $builder = $this->productoModel->builder(); // Usar el builder del modelo para aprovechar las relaciones
 
         // Aplicar filtros (leer de la sesión si existen)
         if (!empty($filtro['categoria'])) {
-            $builder->whereIn('productos_categorias.categoria_id', $filtro['categoria']);
+            $builder->whereIn('productos.categoria_id', $filtro['categoria']); // Filtrar por 'categoria_id' en la tabla 'productos'
             $session->set('filtro_categoria', $filtro['categoria']);
         } elseif ($session->has('filtro_categoria')) {
             $filtro['categoria'] = $session->get('filtro_categoria');
-            $builder->whereIn('productos_categorias.categoria_id', $filtro['categoria']);
+            $builder->whereIn('productos.categoria_id', $filtro['categoria']);
         }
 
         if (!empty($filtro['precio_min'])) {
@@ -103,19 +96,33 @@ class Catalogo extends BaseController
         }
 
         // Obtener los productos después de aplicar los filtros
-        $productos = $productoModel->getProductosActivos($builder);
+        $productos = $this->productoModel->getProductosActivos($builder);
+
+        // Obtener las categorías que tienen productos activos en stock
+        $categorias = $this->obtenerCategoriasConProductosActivos();
 
         $data = [
             'titulo'     => 'Catalogo',
             'productos'  => $productos,
-            'categorias' => $categoriaModel->find(),
+            'categorias' => $categorias,
             'filtro'     => $filtro,
-            'cart'       => $cart = \Config\Services::cart(),
+            'cart'       => $this->cart,
         ];
 
         return view('layouts/header', $data)
             . view('web/catalogo', $data)
             . view('layouts/footer');
+    }
+
+    // Método privado para obtener categorías con productos activos
+    private function obtenerCategoriasConProductosActivos()
+    {
+        return $this->categoriaModel->select('categorias.*')
+            ->join('productos', 'productos.categoria_id = categorias.id')
+            ->where('productos.estado', 'activo')
+            ->where('productos.stock >', 0)
+            ->groupBy('categorias.id')
+            ->findAll();
     }
 
     public function show($id)
@@ -125,9 +132,8 @@ class Catalogo extends BaseController
         $data = [
             'producto'   => $productoModel->obtenerProductoPorId($id),
             'imagenes'   => $productoModel->obtenerImagenesProducto($id),
-            'categorias' => $productoModel->obtenerCategorias($id),
             'titulo'     => $productoModel->find($id)->nombre,
-            'cart'       => $cart = \Config\Services::cart(),
+            'cart'       => $this->cart,
         ];
 
         return view('layouts/header', $data) . view('web/producto', $data) . view('layouts/footer');

@@ -32,7 +32,7 @@
                             <img id="logo-nav" class="rounded" src="<?= site_url(); ?>assets/images/logos/Logo.png" alt="Logo">
                         </a>
                         <?php if (session()->get('usuario')) : ?>
-                            <?php if (session()->get('usuario')->rol_id == ROL_CLIENTE) : ?>
+                            <?php if (session()->get('usuario')->rol == ROL_CLIENTE) : ?>
                                 <ul class="navbar-nav mb-2 mb-lg-0 mx-0 mx-lg-5">
                                     <li class="nav-item nav-item-per">
                                         <a class="nav-link" aria-current="page" href="<?= site_url(); ?>">Principal</a>
@@ -71,7 +71,7 @@
                                         </a>
                                     </li>
                                 </ul>
-                            <?php elseif (session()->get('usuario')->rol_id == ROL_ADMIN): ?>
+                            <?php elseif (session()->get('usuario')->rol == ROL_ADMIN): ?>
                                 <ul class="navbar-nav mb-2 mb-lg-0 mx-0 mx-lg-5">
                                     <li class="nav-item nav-item-per">
                                         <a class="nav-link" aria-current="page" href="<?= site_url(); ?>">Principal</a>

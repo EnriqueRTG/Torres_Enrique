@@ -41,4 +41,10 @@ class CategoriaModel extends Model
             'in_list' => 'El estado de la categoría debe ser "activo" o "inactivo".',
         ],
     ];
+
+    // Relación con productos
+    public function productos()
+    {
+        return $this->hasMany(ProductoModel::class, 'categoria_id');
+    }
 }

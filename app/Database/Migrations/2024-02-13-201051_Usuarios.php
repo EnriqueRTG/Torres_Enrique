@@ -28,7 +28,7 @@ class Usuarios extends Migration
                 'constraint' => 255,
                 'unique'     => true,
             ],
-            'contrasena' => [
+            'password' => [
                 'type'       => 'VARCHAR',
                 'constraint' => 255,
             ],

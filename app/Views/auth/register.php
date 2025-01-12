@@ -88,18 +88,6 @@
                 <?php endif; ?>
             </div>
 
-            <div class="mb-3">
-                <label for="telefono" class="form-label text-white">Teléfono</label>
-                <input type="tel" class="form-control  <?= session('errors.telefono') ? 'is-invalid' : '' ?>" id="telefono" name="telefono" value="<?= old('telefono') ?>" placeholder="1193456890">
-                <?php if (session('errors.telefono')) : ?>
-                    <div class="invalid-feedback">
-                        <span class="text-sm">
-                            <?= session('errors.telefono') ?>
-                        </span>
-                    </div>
-                <?php endif; ?>
-            </div>
-
             <div class="form-check my-3">
                 <input type="checkbox" name="terms" class="form-check-input" id="terms" value="1" >
                 <label class="form-check-label text-white" for="terms">Acepto los <a href="<?= site_url('terminos') ?>" target="_blank">términos y condiciones</a></label>

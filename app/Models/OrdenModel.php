@@ -32,7 +32,7 @@ class OrdenModel extends Model
         'total'              => 'required|decimal|greater_than_equal_to[0]',
         'direccion_envio_id' => 'required|integer',
     ];
-    
+
     protected $validationMessages = [
         'usuario_id' => [
             'required' => 'El ID de usuario es obligatorio.',
@@ -56,8 +56,81 @@ class OrdenModel extends Model
     // Puedes agregar otros métodos o propiedades según tus necesidades, por ejemplo:
 
     // Obtener las órdenes de un usuario específico
-    public function getOrdenesPorUsuario($usuarioId)
+    public function obtenerOrdenesPorUsuario($usuarioId)
     {
         return $this->where('usuario_id', $usuarioId)->findAll();
+    }
+
+    // Obtener ordenes pendientes
+    public function obtenerOrdenesPendientes()
+    {
+        return $this->where('estado', 'pendiente')->findAll();
+    }
+
+    // Obtener ordenes procesadas
+    public function obtenerOrdenesProcesadas()
+    {
+        return $this->where('estado', 'procesada')->findAll();
+    }
+
+    // Obtener ordenes enviadas
+    public function obtenerOrdenesEnviadas()
+    {
+        return $this->where('estado', 'enviada')->findAll();
+    }
+
+    // Obtener ordenes completadas
+    public function obtenerOrdenesCompletadas()
+    {
+        return $this->where('estado', 'completada')->findAll();
+    }
+
+    // Obtener ordenes canceladas
+    public function obtenerOrdenesCanceladas()
+    {
+        return $this->where('estado', 'cancelada')->findAll();
+    }
+
+    // Obtener informacion detalla de una orden especifica
+    public function obtenerOrdenDetallada($ordenId)
+    {
+        $orden = $this->select([
+            'ordenes.*',
+            'usuarios.nombre as nombre_usuario',
+            'usuarios.apellido as apellido_usuario',
+            'usuarios.email as email_usuario',
+            'direcciones.calle',
+            'direcciones.numero',
+            'direcciones.piso',
+            'direcciones.departamento',
+            'direcciones.ciudad',
+            'direcciones.provincia',
+            'direcciones.codigo_postal',
+            'direcciones.telefono'
+        ])
+            ->join('usuarios', 'usuarios.id = ordenes.usuario_id')
+            ->join('direcciones', 'direcciones.id = ordenes.direccion_envio_id')
+            ->where('ordenes.id', $ordenId)
+            ->first();
+
+        if ($orden) { // Verificar si se encontró una orden
+            // Obtener los detalles de la orden por separado
+            $detalleOrdenModel = new DetalleOrdenModel();
+            $orden->detalle = $detalleOrdenModel->select([
+                'detalle_orden.*',
+                'productos.nombre as nombre_producto',
+                'productos.precio as precio_producto'
+            ])
+                ->join('productos', 'productos.id = detalle_orden.producto_id')
+                ->where('orden_id', $ordenId)
+                ->findAll();
+        } else {
+            // Manejar el caso en que no se encuentra la orden
+            // Puedes retornar un array vacío, un objeto vacío, o lanzar una excepción, 
+            // dependiendo de cómo quieras manejar este caso en tu controlador.
+            return null; // O un array vacío: [] 
+        }
+
+        return $orden;
     }
 }

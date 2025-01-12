@@ -61,7 +61,18 @@ $routes->group('', function ($routes) {
 
 $routes->group('admin', ['filter' => 'authAdmin'], function ($routes) {
     $routes->get('dashboard', 'Admin\Dashboard::index', ['as' => 'admin.dashboard']); // panel del admin (Dashboard)
+
+    $routes->get('ordenes', ['controller' => 'Admin\Orden']); // Ordenes
+
+    $routes->get('clientes', 'Admin\Cliente::index'); // Cliente
+
+    $routes->get('cliente/(:num)/ordenes', 'Admin\Orden::obtenerOrdenesCliente/$1', ['as' => 'cliente.ordenes']); // Ordenes
+
+    
+
     $routes->resource('productos', ['controller' => 'Admin\Producto']); // Producto
+
+    
 
     $routes->group('consultas', function ($routes) { // Consulta
         $routes->get('', 'Admin\Consulta::index');
@@ -75,7 +86,7 @@ $routes->group('admin', ['filter' => 'authAdmin'], function ($routes) {
 
     $routes->resource('categorias', ['controller' => 'Admin\Products']); // Categoria
     $routes->resource('marcas'); // Marca
-    $routes->resource('clientes'); // Cliente
+    
 });
 
 $routes->group('login', function ($routes) { // Login

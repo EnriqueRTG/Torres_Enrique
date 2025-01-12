@@ -27,7 +27,7 @@ class Ordenes extends Migration
             ],
             'estado' => [
                 'type'       => 'ENUM',
-                'constraint' => ['pendiente', 'procesando', 'enviado', 'completado', 'cancelado'],
+                'constraint' => ['pendiente', 'procesanda', 'enviada', 'completada', 'cancelada'],
                 'default'    => 'pendiente',
             ],
             'total' => [

@@ -11,7 +11,7 @@ class Usuario extends Entity
         'nombre' => null,
         'apellido' => null,
         'email' => null,
-        'contrasena' => null,
+        'password' => null,
         'rol' => 'cliente',
         'fecha_registro' => null,
         'fecha_actualizacion' => null,

@@ -28,7 +28,7 @@ class OrdenSeeder extends Seeder
             $ordenes[] = [
                 'usuario_id'         => $faker->randomElement($usuarios_id),
                 'fecha'              => $faker->dateTimeBetween('-1 year', 'now'),
-                'estado'             => $faker->randomElement(['pendiente', 'procesando', 'enviado', 'completado', 'cancelado']),
+                'estado'             => $faker->randomElement(['pendiente', 'procesanda', 'enviada', 'completada', 'cancelada']),
                 'total'              => 0, // El total se calculará en el DetalleOrdenSeeder
                 'direccion_envio_id' => $faker->randomElement($direcciones_id),
             ];

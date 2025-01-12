@@ -24,7 +24,7 @@ class Cliente extends BaseController
 
         $data = [
             'titulo'   => 'Clientes',
-            'clientes' => $usuarioModel->obtenerTodosLosClientes(),
+            'clientes' => $usuarioModel->traerClientesActivos(),
         ];
 
         echo view('admin/cliente/index', $data);

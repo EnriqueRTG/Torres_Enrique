@@ -1,0 +1,10 @@
+/vendor/
+database.php
+.env
+development/
+docker-compose.yml
+cache/
+logs/
+writable/
+.idea/
+.vscode/

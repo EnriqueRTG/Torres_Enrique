@@ -137,3 +137,20 @@ Al seguir estos pasos, podrás refactorizar y mejorar tu proyecto de e-commerce 
 
 
 --> queda pendiente revisar 'contactos, productos' no carga el seeder
+
+netstat -nao|findstr 3306 -->> para saber que proceso cerrar para liberar el puerto 3306
+
+11/01/2025
+realice el listado de los productos desde el panel del admin
+realice las funciones de referencia en los modelos de producto, marca, categoria e imagenes
+realice funciones especificas en el modelo de productos
+
+PENDIENTES:
+refactorizar el controlador de catalogo: mover los filtros y consultas al modelo
+refactorizar el modelo de productos agregando el filtro de marcas: asi como se implemento el filtro de categorias
+refactorizar la validacion de session que esta en catalogo
+realizar las funciones especificas de productos y los demas modelos
+revisar funciones de consultas de mis modelos, como las validaciones de datos y sus respectivos mensajes
+refactorizar el alta y modificacion de productos, categorias y marcas, como de cualquier registro... ya que validaciones van en sus respectivos modelos y las inserciones y updates se deben realizar en los modelos, en los controladores solo deberian ir el llamado a dichas funciones, donde se le pasa como parametron el set de datos optenidos el getPost
+finalizar funcionalidad de gestion de productos: realizar vista y controlador de alta, modificacion y detalles.
+generar filtro de productos de baja y productos sin stock y/o bajo stock

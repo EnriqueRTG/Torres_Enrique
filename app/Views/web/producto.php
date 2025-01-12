@@ -11,7 +11,7 @@
                     <?php $active = 'active';
                     foreach ($imagenes as $imagen) : ?>
                         <div class="carousel-item <?= $active ?>">
-                            <img src="<?= base_url($imagen->url) ?>" class="d-block w-100 rounded" alt="<?= $producto->nombre ?>">
+                            <img src="<?= base_url($imagen->ruta_imagen) ?>" class="d-block w-100 rounded" alt="<?= $producto->nombre ?>">
                         </div>
                         <?php $active = ''; ?>
                     <?php endforeach; ?>
@@ -111,11 +111,7 @@
             </tr>
             <tr>
                 <td>Categorias</td>
-                <td>
-                    <?php foreach ($categorias as $categoria) : ?>
-                        <span class="text-capitalize me-3"><?= $categoria->nombre ?></span>
-                    <?php endforeach; ?>
-                </td>
+                <td><?= $producto->nombre_categoria ?></td>
             </tr>
         </tbody>
     </table>

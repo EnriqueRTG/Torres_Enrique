@@ -30,7 +30,7 @@ class AuthAdminFilter  implements FilterInterface
  
         }
 
-        if (session()->get('usuario')->rol_id != ROL_ADMIN) {
+        if (session()->get('usuario')->rol != ROL_ADMIN) {
             return redirect()->to(route_to('web.home')); // O a otra ruta adecuada
         }
     }

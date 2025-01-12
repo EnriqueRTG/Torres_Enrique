@@ -165,16 +165,6 @@ class Validation extends BaseConfig
                 'matches'  => 'Las contraseñas no coinciden.',
             ],
         ],
-        'telefono' => [
-            'label' => 'Teléfono',
-            'rules' => 'required|min_length[8]|max_length[16]|numeric',
-            'errors' => [
-                'required'        => 'Por favor, ingresa un número de teléfono o celular.',
-                'min_length[8]'   => 'El teléfono debe tener al menos 8 caracteres.',
-                'max_length[16]'  => 'El teléfono no debe superar los 16 caracteres.',
-                'numeric'         => 'El teléfono solo debe contener caracteres numéricos.',
-            ],
-        ],
         'terms' => [
             'label' => 'Términos y Condiciones',
             'rules' => 'required',

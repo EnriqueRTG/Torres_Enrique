@@ -32,17 +32,17 @@ class ImagenProductoModel extends Model
             'max_length' => 'La ruta de la imagen no puede superar los 255 caracteres.',
         ],
     ];
+
+    // Relación con productos
+    public function productos()
+    {
+        return $this->belongsTo(ProductoModel::class, 'producto_id'); 
+    }
+
     // Puedes agregar otros métodos o propiedades según tus necesidades, por ejemplo:
 
     public function getImagenesPorProducto($productoId)
     {
-        $imagenesIds = $this->where('producto_id', $productoId)->findAll();
-
-        if (!empty($imagenesIds)) {
-            $imagenesIds = array_column($imagenesIds, 'id'); // Extraer solo los IDs de las imágenes
-            return $this->find($imagenesIds);
-        } else {
-            return []; // Retornar un array vacío si no hay imágenes
-        }
+        return $this->where('producto_id', $productoId)->findAll();
     }
 }

@@ -29,7 +29,6 @@
                     <th scope="col">Nombre</td>
                     <th scope="col">Apellido</td>
                     <th scope="col">Email</td>
-                    <th scope="col">Telefono</td>
                     <th scope="col">Alta</td>
                     <th scope="col">Modificación</td>
                     <th scope="col">Opciones</th>
@@ -39,36 +38,31 @@
             <tbody class="text-center">
                 <?php foreach ($clientes as $key => $cliente) : ?>
                     <tr>
+                        <td>
+                            <?= $cliente->nombre ?>
+                        </td>
+                        <td>
+                            <?= $cliente->apellido ?>
+                        </td>
+                        <td>
+                            <?= $cliente->email ?>
+                        </td>
+                        <td>
+                            <?= $cliente->fecha_registro ?>
+                        </td>
+                        <td>
+                            <?= $cliente->fecha_actualizacion ?>
+                        </td>
 
-                        <?php if ($cliente->baja != 1) : ?>
-                            <td>
-                                <?= $cliente->nombre ?>
-                            </td>
-                            <td>
-                                <?= $cliente->apellido ?>
-                            </td>
-                            <td>
-                                <?= $cliente->email ?>
-                            </td>
-                            <td>
-                                <?= $cliente->telefono ?>
-                            </td>
-                            <td>
-                                <?= $cliente->fecha_creacion ?>
-                            </td>
-                            <td>
-                                <?= $cliente->fecha_actualizacion ?>
-                            </td>
+                        <td class="text-center g-2">
+                            <a class="btn btn-outline-warning btn-sm border-3 mx-1" href="<?php echo base_url('admin/cliente/'); ?><?= $cliente->id ?>/ordenes">
+                                <i class="bi bi-box-seam-fill"></i>
+                            </a>
+                            <a class="btn btn-outline-info btn-sm border-3 mx-1" href="<?php echo base_url('admin/dashboard'); ?><?= $cliente->id ?>">
+                                <i class="bi bi-envelope-at-fill"></i>
+                            </a>
+                        </td>
 
-                            <td class="text-center g-2">
-                                <a class="btn btn-outline-warning btn-sm border-3 mx-1" href="<?php echo base_url('admin/dashboard'); ?><?= $cliente->id ?>">
-                                    <i class="bi bi-box-seam-fill"></i>
-                                </a>
-                                <a class="btn btn-outline-info btn-sm border-3 mx-1" href="<?php echo base_url('admin/dashboard'); ?><?= $cliente->id ?>">
-                                    <i class="bi bi-envelope-at-fill"></i>
-                                </a>
-                            </td>
-                        <?php endif ?>
 
                     </tr>
                 <?php endforeach ?>

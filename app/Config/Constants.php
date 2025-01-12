@@ -94,5 +94,5 @@ define('EVENT_PRIORITY_NORMAL', 100);
 define('EVENT_PRIORITY_HIGH', 10);
 
 /** Definiendo los roles */
-define('ROL_ADMIN', 1);
-define('ROL_CLIENTE', 2);
+define('ROL_ADMIN', 'administrador');
+define('ROL_CLIENTE', 'cliente');

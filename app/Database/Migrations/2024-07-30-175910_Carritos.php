@@ -15,18 +15,17 @@ class Carritos extends Migration
                 'unsigned'       => true,
                 'auto_increment' => true,
             ],
-            'usuario_id'
-            => [
+            'usuario_id' => [
                 'type' => 'INT',
                 'constraint' => 11,
                 'unsigned' => true,
-                'null' => false, 
+                'null' => false,
             ],
             'fecha_creacion' => [
                 'type' => 'DATETIME',
                 'null' => false,
             ],
-            'estado' => [ 
+            'estado' => [
                 'type'       => 'ENUM',
                 'constraint' => ['activo', 'finalizado'],
                 'default'    => 'activo',

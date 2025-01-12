@@ -101,8 +101,25 @@ class ProductoModel extends Model
         ],
     ];
 
-    // Métodos personalizados
+    // Relacion con Categoria
+    public function categoria()
+    {
+        return $this->belongsTo(CategoriaModel::class, 'categoria_id');
+    }
 
+    // Relacion con Marca
+    public function marca()
+    {
+        return $this->belongsTo(MarcaModel::class, 'marca_id');
+    }
+
+    // Relacion con Imagenes
+    public function imagenes()
+    {
+        return $this->hasMany(ImagenProductoModel::class, 'producto_id');
+    }
+
+    // Métodos personalizados
     public function getProductosPorMarca($marcaId)
     {
         return $this->where('marca_id', $marcaId)
@@ -115,7 +132,6 @@ class ProductoModel extends Model
             ->findAll();
     }
 
-    // Puedes agregar más métodos según tus necesidades
     public function getProductosActivos()
     {
         $productos = $this->select('productos.*')
@@ -129,5 +145,32 @@ class ProductoModel extends Model
         }
 
         return $productos;
+    }
+
+    public function obtenerProductosActivosConDetalles()
+    {
+        $builder = $this->select('productos.*, categorias.nombre AS categoria, marcas.nombre AS marca')
+            ->join('categorias', 'categorias.id = productos.categoria_id')
+            ->join('marcas', 'marcas.id = productos.marca_id')
+            ->where('productos.estado', 'activo'); // Filtra por estado activo
+
+        $productos = $builder->findAll();
+
+        return $productos;
+    }
+
+    public function obtenerProductoPorId($id)
+    {
+        return $this->select('productos.*, marcas.nombre as nombre_marca, categorias.nombre as nombre_categoria') // Seleccionar también el nombre de la categoría
+            ->join('marcas', 'marcas.id = productos.marca_id', 'left')
+            ->join('categorias', 'categorias.id = productos.categoria_id', 'left') // Unir con la tabla de categorías
+            ->where('productos.id', $id)
+            ->first();
+    }
+
+    public function obtenerImagenesProducto($id)
+    {
+        $imagenProductoModel = new \App\Models\ImagenProductoModel();
+        return $imagenProductoModel->where('producto_id', $id)->findAll();
     }
 }

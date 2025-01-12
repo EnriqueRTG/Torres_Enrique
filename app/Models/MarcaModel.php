@@ -36,4 +36,10 @@ class MarcaModel extends Model
             'is_unique' => 'Ya existe una marca con ese nombre.',
         ],
     ];
+
+    // Relación con productos
+    public function productos()
+    {
+        return $this->hasMany(ProductoModel::class, 'marca_id'); 
+    }
 }
