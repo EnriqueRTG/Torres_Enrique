@@ -25,7 +25,6 @@ class Producto extends BaseController
     {
         $productoModel = new ProductoModel();
 
-
         $data = [
             'titulo'        => 'Productos',
             'productos'     => $productoModel->obtenerProductosActivosConDetalles(),
@@ -38,12 +37,23 @@ class Producto extends BaseController
     {
         $productoModel = new ProductoModel();
 
+        $producto = $productoModel->obtenerProductoPorId($id);
+
+        $imagenes = $productoModel->obtenerImagenesProducto($id);
+
+        // Verificar si el producto tiene imágenes
+        if (empty($imagenes)) {
+            // Agregar la imagen por defecto
+            $producto->imagenes[] = (object) ['ruta_imagen' => 'uploads/productos/no-image.png'];
+        } else {}
+
         $data = [
-            'producto' => $productoModel->productoDetallado($id),
-            'imagenes' => $productoModel->getImangenById($id),
+            'titulo'   => $producto->nombre,
+            'producto' => $producto,
+            'imagenes' => $imagenes,
         ];
 
-        echo view("producto/show", $data);
+        echo view("admin/producto/show", $data);
     }
 
     public function new()
@@ -67,6 +77,10 @@ class Producto extends BaseController
     {
         $productoModel = new ProductoModel();
         $imagenModel = new ImagenProductoModel();
+
+        if (empty($data['ruta_imagen'])) {
+            $data['ruta_imagen'] = 'uploads/productos/no_image.png';
+        }
 
         if ($this->validate('productos_create')) {
             $productoModel->insert([
@@ -112,17 +126,33 @@ class Producto extends BaseController
 
     public function edit($id)
     {
+
+        // En el controlador (método edit)
+        $referer = $this->request->getServer('HTTP_REFERER');
+        session()->set('referer', $referer);
+
         $productoModel = new ProductoModel();
         $marcaModel = new MarcaModel();
+        $categoriaModel = new CategoriaModel();
+        $producto = $productoModel->obtenerProductoPorId($id); // Obtener el producto por ID
+
+        if (!$producto) {
+            // Manejar el caso en que el producto no se encuentre
+            return redirect()->to('/admin/productos')->with('error', 'Producto no encontrado');
+        }
 
         $data = [
-            'titulo'        => "Editar Subcategoria",
-            'producto'      => $productoModel->productoDetallado($id),
-            'marcas'        => $marcaModel->find(),
-            'nombreBoton'   => "Editar"
+            'titulo' => 'Editar Producto',
+            'producto' => $producto,
+            'marcas' => $marcaModel->find(),
+            'categorias' => $categoriaModel->find(),
+            'nombre_boton' => 'Editar',
+            'imagenes' => $productoModel->obtenerImagenesProducto($id),
+            'referer' => $referer
+            // ... otros datos que necesites para la vista ...
         ];
 
-        echo view('producto/edit', $data);
+        return view('admin/producto/edit', $data); // Mostrar la vista de edición
     }
 
     public function update($id)
@@ -149,6 +179,27 @@ class Producto extends BaseController
         }
 
         return redirect()->to('/dashboard/producto')->with('mensaje', 'Modificacion de producto exitosa!');
+    }
+
+    public function update2($id)
+    {
+        $imagenProductoModel = new ImagenProductoModel();
+        // ...
+
+        // Subir la imagen
+        $imagen = $this->request->getFile('imagen');
+        if ($imagen->isValid() && !$imagen->hasMoved()) {
+            $nombreImagen = $imagen->getRandomName();
+            $imagen->move(WRITEPATH . 'uploads', $nombreImagen);
+
+            // Guardar el nombre de la imagen en la base de datos
+            $imagenProductoModel->save([
+                'producto_id' => $id,
+                'ruta_imagen' => 'uploads/' . $nombreImagen,
+            ]);
+        }
+
+        // ...
     }
 
     public function delete($id)

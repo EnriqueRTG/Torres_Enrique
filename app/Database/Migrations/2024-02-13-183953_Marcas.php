@@ -24,6 +24,11 @@ class Marcas extends Migration
                 'type' => 'TEXT',
                 'null' => true,
             ],
+            'estado' => [
+                'type'       => 'ENUM',
+                'constraint' => ['activo', 'inactivo'],
+                'default'    => 'activo',
+            ],
         ]);
 
         $this->forge->addKey('id', true);

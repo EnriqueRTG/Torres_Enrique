@@ -19,7 +19,7 @@ class MarcaModel extends Model
     protected $table            = 'marcas';
     protected $primaryKey       = 'id';
     protected $useSoftDeletes   = false;
-    protected $allowedFields    = ['nombre', 'descripcion'];
+    protected $allowedFields    = ['nombre', 'descripcion','estado'];
     protected $returnType       = 'object'; 
     protected $useTimestamps = false; 
 
@@ -27,6 +27,7 @@ class MarcaModel extends Model
     protected $validationRules    = [
         'nombre'      => 'required|min_length[3]|max_length[255]|is_unique[marcas.nombre]',
         'descripcion' => 'permit_empty',
+        'estado'      => 'required|in_list[activo,inactivo]',
     ];
     protected $validationMessages = [
         'nombre' => [
@@ -34,6 +35,10 @@ class MarcaModel extends Model
             'min_length' => 'El nombre de la marca debe tener al menos 3 caracteres.',
             'max_length' => 'El nombre de la marca no puede superar los 255 caracteres.',
             'is_unique' => 'Ya existe una marca con ese nombre.',
+        ],
+        'estado' => [
+            'required' => 'El estado es obligatorio.',
+            'in_list' => 'El estado debe ser "activo" o "inactivo".'
         ],
     ];
 

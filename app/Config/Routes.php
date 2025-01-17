@@ -50,8 +50,8 @@ $routes->group('', function ($routes) {
     $routes->group('compras', ['filter' => 'authCliente'], function ($routes) { // Facturacion
         $routes->get('', 'Web\Compras::index');
         $routes->get('detalle/(:num)', 'Web\Compras::detalle_compra/$1');
-        $routes->get('descargar/(:num)', 'Web\Compras::descargar/$1'); 
-        $routes->get('descargar_factura/(:num)', 'Web\Compras::descargar_factura/$1'); 
+        $routes->get('descargar/(:num)', 'Web\Compras::descargar/$1');
+        $routes->get('descargar_factura/(:num)', 'Web\Compras::descargar_factura/$1');
     });
 
     // Venta
@@ -68,11 +68,11 @@ $routes->group('admin', ['filter' => 'authAdmin'], function ($routes) {
 
     $routes->get('cliente/(:num)/ordenes', 'Admin\Orden::obtenerOrdenesCliente/$1', ['as' => 'cliente.ordenes']); // Ordenes
 
-    
-
-    $routes->resource('productos', ['controller' => 'Admin\Producto']); // Producto
-
-    
+    $routes->get('productos', 'Admin\Producto::index'); // Productos
+    $routes->get('producto/(:num)', 'Admin\Producto::show/$1'); // Detalle del producto
+    $routes->get('producto/editar/(:num)', 'Admin\Producto::edit/$1'); // Editar el producto
+    $routes->post('producto/eliminar/(:num)', 'Admin\Producto::delete/$1'); // Eliminar producto
+    $routes->post('producto', 'Admin\Producto::create'); // crear producto
 
     $routes->group('consultas', function ($routes) { // Consulta
         $routes->get('', 'Admin\Consulta::index');
@@ -84,9 +84,13 @@ $routes->group('admin', ['filter' => 'authAdmin'], function ($routes) {
         $routes->get('(:num)', 'Admin\Contacto::view/$1');
     });
 
-    $routes->resource('categorias', ['controller' => 'Admin\Products']); // Categoria
-    $routes->resource('marcas'); // Marca
-    
+    $routes->resource('categorias', ['controller' => 'Admin\Categoria']); // Categoria
+
+    $routes->get('marcas', 'Admin\Marca::index'); // Marca
+    $routes->get('marca/editar/(:num)', 'Admin\Marca::edit/$1'); // Editar el producto
+    $routes->post('marca/eliminar/(:num)', 'Admin\Marca::delete/$1'); // Eliminar producto
+    $routes->post('marca', 'Admin\Marca::create'); // crear producto
+
 });
 
 $routes->group('login', function ($routes) { // Login

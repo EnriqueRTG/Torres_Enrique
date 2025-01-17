@@ -5,7 +5,7 @@
 
         <ul class="nav justify-content-center">
             <li>
-                <p class="text-center text-white ">Tatto Supply Store &middot; &copy; <?php echo date('Y') ?>
+                <p class="text-center text-white ">Tattoo Supply Store &middot; &copy; <?php echo date('Y') ?>
                     <br>
                     <span>
                         by <a href="https://github.com/EnriqueRTG" target="_blank">EnriqueRTG</a>

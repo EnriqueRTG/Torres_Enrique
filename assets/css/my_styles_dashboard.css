@@ -1,7 +1,7 @@
 @font-face {
     font-family: "Bootstrap Icons";
     src: url("bootstrap-icons.woff2") format("woff2"),
-         url("bootstrap-icons.woff") format("woff");
+        url("bootstrap-icons.woff") format("woff");
 }
 
 .nav-item-per {
@@ -24,4 +24,9 @@
 
 a {
     text-decoration: none;
+}
+
+#fondo-card-previsualizacion-producto {
+    background-color: #f0f0f0;
+    /* Color gris claro */
 }

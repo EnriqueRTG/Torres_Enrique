@@ -8,7 +8,7 @@
 <section class="container py-5">
     <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-5">
         <div class="col">
-            <a href="<?php echo base_url('admin/orden'); ?>">
+            <a href="<?php echo base_url('admin/ordenes'); ?>">
                 <div class="card rounded-5 text-center shadow-lg card-dashboard">
                     <img src="<?php echo base_url("assets/images/panel/ordenes.png") ?>" class="card-img-top rounded-top-5" alt="...">
                     <div class="card-body">
@@ -32,7 +32,7 @@
         </div>
 
         <div class="col">
-            <a href="<?php echo base_url('admin/producto'); ?>">
+            <a href="<?php echo base_url('admin/productos'); ?>">
                 <div class="card rounded-5 text-center shadow-lg card-dashboard">
                     <img src="<?php echo base_url("assets/images/panel/productos.png") ?>" class="card-img-top rounded-top-5" alt="...">
                     <div class="card-body">
@@ -44,7 +44,7 @@
         </div>
 
         <div class="col">
-            <a href="<?php echo base_url('admin/categoria'); ?>">
+            <a href="<?php echo base_url('admin/categorias'); ?>">
                 <div class="card rounded-5 text-center shadow-lg card-dashboard">
                     <img src="<?php echo base_url("assets/images/panel/categorias.png") ?>" class="card-img-top rounded-top-5" alt="...">
                     <div class="card-body">
@@ -57,7 +57,7 @@
 
 
         <div class="col">
-            <a href="<?php echo base_url('admin/marca'); ?>">
+            <a href="<?php echo base_url('admin/marcas'); ?>">
                 <div class="card rounded-5 text-center shadow-lg card-dashboard">
                     <img src="<?php echo base_url("assets/images/panel/marcas.png") ?>" class="card-img-top rounded-top-5" alt="...">
                     <div class="card-body">

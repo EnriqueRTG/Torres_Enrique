@@ -24,7 +24,7 @@ class Marca extends BaseController{
             'marcas' => $marcaModel->find(),
         ];
         
-        echo view('marca/index', $data);
+        echo view('admin/marca/index', $data);
     }
     
     public function show($id) {
@@ -55,6 +55,7 @@ class Marca extends BaseController{
         if ($this->validate('marcas')){
             $marcaModel->insert([
                 'nombre' => $this->request->getPost('nombre'),
+                'estado' => 'activo'
             ]);
         } else {
             session()->setFlashdata([
@@ -64,7 +65,7 @@ class Marca extends BaseController{
             return redirect()->back()->withInput();
         }
             
-        return redirect()->to('/dashboard/marca')->with('mensaje', 'Registro exitoso!');
+        return redirect()->to('admin/marca/index')->with('mensaje', 'Registro exitoso!');
     }
     
     public function edit($id) {
@@ -102,9 +103,9 @@ class Marca extends BaseController{
         $marcaModel = new MarcaModel();
         
         $marcaModel->update($id, [
-            'baja' => 1
+            'estado' => 'inactivo'
         ]);
         
-        return redirect()->to('/dashboard/marca')->with('mensaje', 'Eliminacion exitosa!');
+        return redirect()->to('admin/marca')->with('mensaje', 'Eliminacion exitosa!');
     }
 }

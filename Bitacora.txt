@@ -154,3 +154,15 @@ revisar funciones de consultas de mis modelos, como las validaciones de datos y 
 refactorizar el alta y modificacion de productos, categorias y marcas, como de cualquier registro... ya que validaciones van en sus respectivos modelos y las inserciones y updates se deben realizar en los modelos, en los controladores solo deberian ir el llamado a dichas funciones, donde se le pasa como parametron el set de datos optenidos el getPost
 finalizar funcionalidad de gestion de productos: realizar vista y controlador de alta, modificacion y detalles.
 generar filtro de productos de baja y productos sin stock y/o bajo stock
+
+16/01/2025
+funcionadad de marcas necesita:
+    - que el buscador funcione para traer todas las marcas
+    - las marcas que se van agregando tienen que estar arriba en la lista
+    - las marcas dadas de baja o eliminadas deben estar al final de la lista
+    - si no se puede agregar la marca tiene que aparecer el mensaje de error
+    - se deben probar los mensajes exitos de alta, modificacion y baja
+    - implementar la paginacion
+    - a la hora de crear o editar las marcas, agregar al formulario el campo 'descripcion'
+
+avanzar aplicando exatamente las mismas funcionalidades para categorias

@@ -173,4 +173,5 @@ class ProductoModel extends Model
         $imagenProductoModel = new \App\Models\ImagenProductoModel();
         return $imagenProductoModel->where('producto_id', $id)->findAll();
     }
+
 }

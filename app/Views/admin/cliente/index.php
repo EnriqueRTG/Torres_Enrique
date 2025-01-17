@@ -12,11 +12,17 @@
 
     </nav>
 
-    <div class="text-end">
-        <form class="d-inline-flex mt-5" role="search">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-primary border-3 fw-bold " type="submit">Buscar</button>
-        </form>
+    <div class="row my-4">
+        <div class="col-auto">
+        </div>
+        <div class="col-auto ms-auto">
+            <form class="d-inline-flex" role="search">
+
+                <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Buscar">
+
+                <button class="btn btn-outline-primary border-3 fw-bold" type="submit">Buscar</button>
+            </form>
+        </div>
     </div>
 
 
