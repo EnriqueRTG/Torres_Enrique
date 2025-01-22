@@ -157,12 +157,22 @@ generar filtro de productos de baja y productos sin stock y/o bajo stock
 
 16/01/2025
 funcionadad de marcas necesita:
-    - que el buscador funcione para traer todas las marcas
-    - las marcas que se van agregando tienen que estar arriba en la lista
-    - las marcas dadas de baja o eliminadas deben estar al final de la lista
-    - si no se puede agregar la marca tiene que aparecer el mensaje de error
-    - se deben probar los mensajes exitos de alta, modificacion y baja
-    - implementar la paginacion
-    - a la hora de crear o editar las marcas, agregar al formulario el campo 'descripcion'
+    - que el buscador funcione para traer todas las marcas (LISTO)
+    - las marcas que se van agregando tienen que estar arriba en la lista (LISTO)
+    - si no se puede agregar la marca tiene que aparecer el mensaje de error (TESTEAR)
+    - se deben probar los mensajes exitos de alta, modificacion y baja (LISTO)
+    - a la hora de crear o editar las marcas, agregar al formulario el campo 'descripcion' (LISTO)
 
 avanzar aplicando exatamente las mismas funcionalidades para categorias
+
+20/01
+    - aplicar paginacion
+    - guardar filtro aunque se refresque la pagina (LISTO)
+    - al editar un registro inactivo pasarlo a 'activo' (LISTO)
+    
+21/01
+    - aplicación de paginacion a medias... se genera la cantidad correcta de links para al paginacion pero no puedo navegar usandolos
+        -> revisar Pager.php, documentacion, script, revisar nuevo funcion (buscarMarca())
+    - se rompio los tooltips, debo hacer que vuelvan a funcionar previa a la implementacion de la paginacion (LISTO)
+    - el buscador realiza la busqueda entre todos los registros en base al filtro aplicado, por defecto todos (LISTO)
+

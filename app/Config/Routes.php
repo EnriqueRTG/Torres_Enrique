@@ -86,11 +86,11 @@ $routes->group('admin', ['filter' => 'authAdmin'], function ($routes) {
 
     $routes->resource('categorias', ['controller' => 'Admin\Categoria']); // Categoria
 
-    $routes->get('marcas', 'Admin\Marca::index'); // Marca
-    $routes->get('marca/editar/(:num)', 'Admin\Marca::edit/$1'); // Editar el producto
-    $routes->post('marca/eliminar/(:num)', 'Admin\Marca::delete/$1'); // Eliminar producto
-    $routes->post('marca', 'Admin\Marca::create'); // crear producto
-
+    $routes->get('marcas', 'Admin\Marca::index'); // Listado de Marcas
+    $routes->get('marcas', 'Admin\Marca::update/$1'); // Editar la marca
+    $routes->post('marcas', 'Admin\Marca::delete/$1'); // Eliminar la marca
+    $routes->post('marca', 'Admin\Marca::create'); // Crear la marca
+    $routes->post('marcas', 'Admin\Marca::filtrar', ['as' => 'filtrar_marcas']); // Filtrar las maracas por estado
 });
 
 $routes->group('login', function ($routes) { // Login
