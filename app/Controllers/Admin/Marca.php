@@ -17,13 +17,30 @@ use App\Models\MarcaModel;
  */
 class Marca extends BaseController
 {
+    protected $marcaModel;
+
+    public function __construct()
+    {
+        $this->marcaModel = new MarcaModel();
+    }
+
     public function index()
     {
-        $marcaModel = new MarcaModel();
-
+        // Obtener parámetros de la solicitud
+        $estado = $this->request->getGet('estado') ?? 'todos';
+        $busqueda = $this->request->getGet('busqueda') ?? '';
+        $page = $this->request->getGet('page') ?? 1;
+        $perPage = 10;
+        // Ejecutar la consulta con paginación y filtros
+        // Ejecutar consulta con paginación y filtros
+        $marcas = $this->marcaModel->obtenerMarcasFiltradas($estado, $busqueda, $perPage);
+        
         $data = [
-            'titulo' => 'Marcas',
-            'marcas' => $marcaModel->obtenerMarcasPorModifiacion(),
+            'titulo' => 'Administrar Marcas',
+            'marcas' => $marcas,
+            'pager' => $this->marcaModel->pager,
+            'estado' => $estado,
+            'busqueda' => $busqueda
         ];
 
         echo view('admin/marca/index', $data);

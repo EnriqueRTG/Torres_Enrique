@@ -132,7 +132,7 @@ class ProductoModel extends Model
             ->findAll();
     }
 
-    public function getProductosActivos()
+    public function getProductosActivos($builder = null)
     {
         $productos = $this->select('productos.*')
             ->where('productos.estado', 'activo')

@@ -2,8 +2,8 @@
 
 <section class="container py-5">
 
-    <section class="alert-info">
-        <?= view('partials/_session') ?>
+    <section class="alert-info text-center">
+        <?= session()->has('errors') ? view('partials/_session-error') : view('partials/_session') ?>
     </section>
 
     <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb" class="fs-4">

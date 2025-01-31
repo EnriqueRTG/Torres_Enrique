@@ -42,6 +42,30 @@ class MarcaModel extends Model
         ],
     ];
 
+    // Obtener marcas con paginación y filtros
+    public function obtenerMarcasFiltradas($estado = 'todos', $busqueda = '', $perPage = 10)
+    {
+        // Limpiar cualquier consulta anterior
+        $this->builder()->resetQuery();
+
+        // Si hay término de búsqueda, aplicar la búsqueda primero
+        if (!empty($busqueda)) {
+            $this->groupStart()
+                 ->like('nombre', '%'.$busqueda.'%')
+                 ->orLike('descripcion', '%'.$busqueda.'%')
+                 ->groupEnd();
+        }
+
+        // Aplicar el filtro de estado después de la búsqueda
+        if ($estado !== 'todos') {
+            $this->where('estado', $estado);
+        }
+
+        // Aplicar el ordenamiento al final
+        return $this->orderBy('updated_at', 'DESC')
+                    ->paginate($perPage);
+    }
+
     // Relación con productos
     public function productos()
     {
@@ -67,11 +91,12 @@ class MarcaModel extends Model
             return false;
         }
 
+        $data['estado'] = 'activo';
         return $this->update($id, $data);
     }
 
     // Obtener marcas segun Modificacion
-    public function obtenerMarcasPorModifiacion()
+    public function obtenerMarcasPorModificacion()
     {
         return $this->orderBy('updated_at', 'DESC')
             ->findAll();

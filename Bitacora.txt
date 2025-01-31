@@ -176,3 +176,22 @@ avanzar aplicando exatamente las mismas funcionalidades para categorias
     - se rompio los tooltips, debo hacer que vuelvan a funcionar previa a la implementacion de la paginacion (LISTO)
     - el buscador realiza la busqueda entre todos los registros en base al filtro aplicado, por defecto todos (LISTO)
 
+23-01
+Para agregar la biblioteca del carrito de compras:
+    - la agrego al proyecto:  composer require jason-napolitano/codeigniter4-cart-module
+    - configuro las rutas en app/config/Autoload.php agrego en $psr4: 'CodeIgniterCart' => ROOTPATH . 'vendor/jason-napolitano/codeigniter4-cart-module/src',
+    - modifico la linea de codigo del archivo que se encuentra en vendor/jason-napolitano/codeigniter4-cart-module/src/Config/Service.php: reemplazo 'return new \JasonN\Cart\Cart();' por 'return new \CodeIgniterCart\Cart();'
+    - link de la biblioteca: https://github.com/jason-napolitano/codeigniter4-cart-module
+ 
+24/01
+Trabajando en categorias:
+    - actualizar migration y modelo. Tambien estructura de la tabla. (LISTO)
+    - aplicar paginacion. (LISTO)
+    - implementar alta, baja y modificacion. (LISTO)
+    - probar los mensajes de las operacion, incluso las de validaciones a los datos. (LISTO)
+    - implementar filtros
+    - implementar buscador
+
+    - implementar correctamente el partial de mensajes de error o exito.. solo aparece el de exito (LISTO)
+
+25/01
