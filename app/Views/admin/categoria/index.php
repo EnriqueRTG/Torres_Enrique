@@ -29,7 +29,7 @@
                         <div class="modal-body">
                             <input type="hidden" name="id" id="crearCategoriaId">
                             <div class="mb-3">
-                            <input type="hidden" name="id" id="crearCategoriaId">
+                                <input type="hidden" name="id" id="crearCategoriaId">
                                 <label for="nombre" class="form-label">Nombre:</label>
                                 <input type="text" class="form-control" id="crearCategoriaNombre" name="nombre">
                                 <label for="descripcion" class="form-label">Descripcion (Opcional):</label>
@@ -84,12 +84,10 @@
                         <span class="visually-hidden">Cargando...</span>
                     </div>
                 </div>
-                
+
                 <?php foreach ($categorias as $key => $categoria) : ?>
 
                     <tr>
-
-
                         <td class="col-8">
                             <?= $categoria->nombre ?>
                         </td>
@@ -155,131 +153,31 @@
                                 </div>
                             </div>
                         </div>
-
-
                     </tr>
-
                 <?php endforeach ?>
             </tbody>
-
         </table>
 
-        <div class="text-center paginacion">
+        <div class="text-center" id="paginacion">
             <?= $pager->links('default', 'default_full') ?>
         </div>
 
-
     </div>
-
 
 </section>
 
 <?= view("layouts/footer-admin") ?>
 
 <script>
-    // Inicializar tooltips
+    // Inicializar tooltips para todos los elementos que lo requieran
     function inicializarTooltips() {
         const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="modal"]');
-        tooltipTriggerList.forEach(tooltipTriggerEl => {
+        console.log(tooltipTriggerList); // Verificar los elementos seleccionados
+
+        tooltipTriggerList.forEach(function(tooltipTriggerEl) {
             new bootstrap.Tooltip(tooltipTriggerEl);
         });
     }
-
-    // Función para actualizar la tabla
-    function actualizarTabla(page = 1) {
-        // Mostrar el spinner
-        document.getElementById('spinner').classList.remove('d-none');
-
-        // Obtener el estado del filtro y el término de búsqueda
-        const estado = $('#filtroEstado').val();
-        const busqueda = $('form[role="search"]').find('input[type="search"]').val();
-
-        fetch('<?php echo base_url() ?>admin/categoria/buscarMarca', { // Asegúrate de que la ruta sea correcta
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                    'X-Requested-With': 'XMLHttpRequest'
-                },
-                body: `estado=${estado}&busqueda=${busqueda}&page=${page}`
-            })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Error en la respuesta del servidor');
-                }
-                return response.json();
-            })
-            .then(data => {
-                // Ocultar el spinner
-                document.getElementById('spinner').classList.add('d-none');
-
-                const tbody = document.querySelector('#tablaCategorias tbody');
-                tbody.innerHTML = '';
-
-                if (data.categorias.length > 0) {
-                    data.categorias.forEach(categoria => {
-                        const fila = `
-                                        <tr>
-                                            <td class="col-8">${categoria.nombre}</td>
-                                            <td>
-                                                ${categoria.estado === 'activo' ? '<span class="badge bg-success">Activo</span>' : '<span class="badge bg-danger">Inactivo</span>'}
-                                            </td>
-                                            <td class="text-center g-2">
-                                                <a href="#" class="btn btn-outline-warning border-3 fw-bolder mx-1" data-bs-toggle="modal" data-bs-target="#editarCategoriaModal${categoria.id}" data-bs-categoria-id="${categoria.id}" data-bs-categoria-nombre="${categoria.nombre}" data-bs-categoria-descripcion="${categoria.descripcion}" title="Editar" aria-label="Editar categoría">
-                                                <i class="bi bi-pencil-square" alt="Editar"></i>
-                                                </a>
-                                                <a href="#" class="btn btn-outline-danger border-3 fw-bolder mx-1" data-bs-toggle="modal" data-bs-target="#eliminarCategoriaModal${categoria.id}" title="Eliminar" aria-label="Eliminar categoría">
-                                                <i class="bi bi-trash" alt="Eliminar"></i>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                        `;
-                        tbody.innerHTML += fila;
-                    });
-
-                    // Re-inicializar los tooltips después de agregar las filas
-                    inicializarTooltips();
-                } else {
-                    // Mostrar un mensaje si no hay resultados
-                    tbody.innerHTML = '<tr><td colspan="3" class="text-center">No se encontraron resultados.</td></tr>';
-                }
-
-                // Actualizar la paginación
-                const paginationContainer = document.querySelector('.paginacion');
-                if (paginationContainer) {
-                    paginationContainer.innerHTML = data.pager;
-                }
-
-                // Agregar evento click a los enlaces de paginación usando delegación de eventos
-                if (paginationContainer) {
-                    paginationContainer.addEventListener('click', function(event) {
-                        if (event.target.tagName === 'A' && event.target.classList.contains('page-link')) {
-                            event.preventDefault();
-                            const page = $(event.target).data('ci-pagination-page');
-                            actualizarTabla(page);
-                        }
-                    });
-                }
-            })
-            .catch(error => {
-                console.error('Error en la solicitud AJAX:', error);
-                alert('Error al cargar las categorías. Por favor, inténtalo de nuevo más tarde.');
-            });
-    }
-
-    // Manejar el evento change del filtro de estado
-    $('#filtroEstado').on('change', function(event) {
-        event.preventDefault();
-        actualizarTabla();
-    });
-
-    // Manejar el evento submit del formulario de búsqueda
-    $('form[role="search"]').on('submit', function(event) {
-        event.preventDefault();
-        actualizarTabla();
-    });
-
-    // Inicializar tooltips de Bootstrap
-    inicializarTooltips();
 
     // Para cargar los datos de la categoria en el formulario dentro del modal
     $('[id^="editarCategoriaModal"]').on('show.bs.modal', function(event) {
@@ -293,4 +191,196 @@
         modal.find('#editarCategoriaNombre').val(categoriaNombre);
         modal.find('#editarCategoriaDescripcion').val(categoriaDescripcion);
     });
+
+    // Inicializar tooltips de Bootstrap
+    inicializarTooltips();
+
+    const filtroEstado = document.getElementById('filtroEstado');
+    const tablaCategorias = document.querySelector('#tablaCategorias tbody');
+    const paginacionContainer = document.getElementById('paginacion');
+    const inputBusqueda = document.querySelector('input[type="search"]');
+
+
+    function aplicarFiltro(pagina = 1, textoBusqueda = '', estado = 'todos') {
+        // Convertir 'pagina' a número
+        pagina = parseInt(pagina, 10);
+
+        const url = '<?php echo base_url() ?>admin/categoria/buscarCategoria'; // Asegúrate de que esta ruta sea correcta
+        const params = new URLSearchParams({
+            pagina: pagina,
+            texto: textoBusqueda,
+            estado: estado
+        });
+
+        // Mostrar el spinner
+        document.getElementById('spinner').classList.remove('d-none');
+
+        fetch(`${url}?${params.toString()}`, {
+                method: 'GET',
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Ocultar el spinner
+                document.getElementById('spinner').classList.add('d-none');
+
+                // Actualizar la tabla con los datos recibidos
+                const tbody = document.querySelector('#tablaCategorias tbody');
+                tbody.innerHTML = '';
+
+                data.categorias.forEach(categoria => {
+                    const fila = `
+                <tr>
+                    <td class="col-8">${categoria.nombre}</td>
+                    <td>
+                        ${categoria.estado === 'activo' 
+                            ? '<span class="badge bg-success">Activo</span>' 
+                            : '<span class="badge bg-danger">Inactivo</span>'}
+                    </td>
+                    <td class="text-center g-2">
+                        <a href="#" class="btn btn-outline-warning border-3 fw-bolder mx-1" 
+                           data-bs-toggle="modal" 
+                           data-bs-target="#editarCategoriaModal${categoria.id}" 
+                           data-bs-categoria-id="${categoria.id}" 
+                           data-bs-categoria-nombre="${categoria.nombre}" 
+                           data-bs-categoria-descripcion="${categoria.descripcion}" 
+                           title="Editar" aria-label="Editar categoría">
+                           <i class="bi bi-pencil-square" alt="Editar"></i>
+                        </a>
+                        <a href="#" class="btn btn-outline-danger border-3 fw-bolder mx-1" 
+                           data-bs-toggle="modal" 
+                           data-bs-target="#eliminarCategoriaModal${categoria.id}" 
+                           title="Eliminar" aria-label="Eliminar categoría">
+                           <i class="bi bi-trash" alt="Eliminar"></i>
+                        </a>
+                    </td>
+                </tr>
+            `;
+                    tbody.innerHTML += fila;
+                });
+
+                // Actualizar la paginación
+                generarPaginacion(data.paginaActual, data.totalPaginas, textoBusqueda, estado);
+            })
+            .catch(error => {
+                console.error('Error en la solicitud AJAX:', error);
+                alert('Error al cargar las categorías. Por favor, inténtalo de nuevo más tarde.');
+            });
+    }
+
+    // Evento para el cambio de filtro
+    filtroEstado.addEventListener('change', function() {
+        const estado = this.value;
+        const textoBusqueda = inputBusqueda.value;
+        aplicarFiltro(1, textoBusqueda, estado); // Reiniciar a la página 1
+    });
+
+
+
+    // Evento para la búsqueda
+    inputBusqueda.addEventListener('input', function() {
+        const textoBusqueda = this.value;
+        const estado = filtroEstado.value;
+        aplicarFiltro(1, textoBusqueda, estado); // Reiniciar a la página 1
+    });
+
+    // Al cargar la página, recuperar el estado del filtro
+    window.addEventListener('load', function() {
+        const estadoGuardado = localStorage.getItem('estado') || 'todos';
+        const textoBusqueda = inputBusqueda.value;
+        filtroEstado.value = estadoGuardado;
+        aplicarFiltro(1, textoBusqueda, estadoGuardado);
+    });
+
+    let timeoutBusqueda = null;
+    let filasCoincidentes = new Set(); // Usar un Set para las filas coincidentes
+
+    inputBusqueda.addEventListener('input', function() {
+        clearTimeout(timeoutBusqueda);
+
+        timeoutBusqueda = setTimeout(() => {
+            const textoBusqueda = this.value.toLowerCase();
+            const filas = tablaCategorias.querySelectorAll('tr');
+            filasCoincidentes.clear(); // Limpiar el conjunto de filas coincidentes
+
+            filas.forEach(fila => {
+                const nombreCategoria = fila.querySelector('td:first-child').textContent.toLowerCase();
+                if (nombreCategoria.includes(textoBusqueda)) {
+                    fila.style.display = '';
+                    filasCoincidentes.add(fila); // Agregar la fila al conjunto
+                } else {
+                    if (!filasCoincidentes.has(fila)) { // Ocultar solo si no coincide con otra búsqueda
+                        fila.style.display = 'none';
+                    }
+                }
+            });
+        }, 300);
+    });
+
+
+    function generarPaginacion(paginaActual, totalPaginas, textoBusqueda, estado) {
+        const paginacionContainer = document.getElementById('paginacion');
+        paginacionContainer.innerHTML = '';
+
+        // Convertir 'paginaActual' y 'totalPaginas' a números
+        paginaActual = parseInt(paginaActual, 10);
+        totalPaginas = parseInt(totalPaginas, 10);
+
+        // Generar enlaces de paginación (con un máximo de 5 páginas visibles)
+        const maxPaginasVisibles = 5;
+        let paginaInicial = Math.max(1, paginaActual - Math.floor(maxPaginasVisibles / 2));
+        let paginaFinal = Math.min(totalPaginas, paginaInicial + maxPaginasVisibles - 1);
+
+        if (paginaFinal - paginaInicial < maxPaginasVisibles - 1) {
+            paginaInicial = Math.max(1, paginaFinal - maxPaginasVisibles + 1);
+        }
+
+        // Botón "Anterior"
+        if (paginaActual > 1) {
+            const enlaceAnterior = document.createElement('a');
+            enlaceAnterior.href = '#';
+            enlaceAnterior.textContent = 'Anterior';
+            enlaceAnterior.classList.add('btn', 'btn-outline-primary', 'm-1');
+            enlaceAnterior.addEventListener('click', function(event) {
+                event.preventDefault();
+                if (paginaActual > 1) { // Validar que no se pase de la página 1
+                    aplicarFiltro(paginaActual - 1, textoBusqueda, estado);
+                }
+            });
+            paginacionContainer.appendChild(enlaceAnterior);
+        }
+
+        // Enlaces de páginas
+        for (let i = paginaInicial; i <= paginaFinal; i++) {
+            const enlace = document.createElement('a');
+            enlace.href = '#';
+            enlace.textContent = i;
+            enlace.classList.add('btn', 'btn-outline-primary', 'm-1');
+            if (i === paginaActual) {
+                enlace.classList.add('active');
+            }
+            enlace.addEventListener('click', function(event) {
+                event.preventDefault();
+                aplicarFiltro(i, textoBusqueda, estado);
+            });
+            paginacionContainer.appendChild(enlace);
+        }
+
+        // Botón "Siguiente"
+        if (paginaActual < totalPaginas) {
+            const enlaceSiguiente = document.createElement('a');
+            enlaceSiguiente.href = '#';
+            enlaceSiguiente.textContent = 'Siguiente';
+            enlaceSiguiente.classList.add('btn', 'btn-outline-primary', 'm-1');
+            enlaceSiguiente.addEventListener('click', function(event) {
+                event.preventDefault();
+                if (paginaActual < totalPaginas) { // Validar que no se pase de la última página
+                    aplicarFiltro(paginaActual + 1, textoBusqueda, estado);
+                }
+            });
+            paginacionContainer.appendChild(enlaceSiguiente);
+        }
+    }
 </script>

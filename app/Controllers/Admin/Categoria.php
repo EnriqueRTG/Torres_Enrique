@@ -110,4 +110,31 @@ class Categoria extends BaseController
             return $this->response->setJSON(['error' => 'Error al obtener las categorías.'], 500);
         }
     }
+
+    public function buscarCategoria()
+    {
+        $pagina = $this->request->getGet('pagina') ?? 1;
+        $texto = $this->request->getGet('texto') ?? '';
+        $estado = $this->request->getGet('estado') ?? 'todos';
+
+        try {
+            // Obtener las categorías filtradas y paginadas
+            $categorias = $this->categoriaModel->filtrarCategorias($texto, $estado, $pagina);
+
+            // Obtener el total de páginas
+            $totalPaginas = $this->categoriaModel->obtenerTotalPaginas($texto, $estado);
+
+            // Devolver los datos en formato JSON
+            return $this->response->setJSON([
+                'categorias' => $categorias,
+                'paginaActual' => $pagina,
+                'totalPaginas' => $totalPaginas
+            ]);
+        } catch (\Exception $e) {
+            // En caso de error, devolver un mensaje de error
+            return $this->response->setStatusCode(500)->setJSON([
+                'error' => 'Error al cargar las categorías. Por favor, inténtalo de nuevo más tarde.'
+            ]);
+        }
+    }
 }

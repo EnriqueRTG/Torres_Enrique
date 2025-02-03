@@ -195,3 +195,44 @@ Trabajando en categorias:
     - implementar correctamente el partial de mensajes de error o exito.. solo aparece el de exito (LISTO)
 
 25/01
+
+
+01/02
+Falta:
+    - terminar el modulo de:
+        Marcas: falta paginacion.
+        Categorias: falta paginacion
+        Productos: alta, baja y modificacion
+        Contactos: altas. Notificacion al correo del admin (opcional) -> vistas de: lista de mensajes de contactos (usuarios no registrados). Y vista de mensaje.
+        Mensajes: altas. Notificacion al correo del admin como usuario (opcional) -> vista de: lista de mensajes de usuairos registrados. y vista de conversaciones con cada usuario.
+        Ordenes: alta, baja y modificacion. Generacion PDF y/o enviar al correo para ambos (opcional). Notificacion al administrador al correo (opcional) 
+        Facturacion: alta, baja y modificacion. Generacion PDF y/o enviar al correo (opcional). Notificacion al usuario por correo (opcional) -> operacion que existe cuando el administrador da por cumplida exitosamente la orden.
+        Avisos-Alertas (opcional): notificiones de mensajes, contactos, ordenes y facturas
+        Perfil Usuario: editar informacion personal o cerrar cuenta. Seccion de pedidos con sus estados (ordenes) y vista o pdf de factura en caso de estar concretada. Mensajes.
+    - agregar resposividad a todas las vistas (mobile y desktop)
+    - cambiar las fuentes, las paletas de colores e imagenes
+    - generar la documentacion (ERS)
+
+03/02
+    Categoria: alta, baja, modificacion, paginacion, filtracion, busqueda (LISTO)
+    Cuestiones a tener en cuenta a medida que desarrolle lo faltante:
+        - Generar Componentes Reutilizables
+        - Generar funciones javascript Reutilizables
+        - optimizar consultas SQL
+        - Caché: Si ciertos datos no cambian con frecuencia (por ejemplo, categorías o productos), considera implementar un sistema de caché. CodeIgniter tiene soporte integrado para caché.
+        - Documentación del Código: Asegúrate de documentar tu código, especialmente las funciones complejas o las que tienen lógica de negocio importante. Usa comentarios claros y descriptivos.
+        - Uso de Constantes y Configuraciones: Evita usar valores "hardcodeados" en tu código. En su lugar, utiliza constantes o configuraciones.
+        - Arquitectura Modular: Si tu proyecto crece, considera dividirlo en módulos. CodeIgniter permite crear módulos independientes para cada funcionalidad (por ejemplo, módulo de categorías, módulo de productos, etc.).
+        - API RESTful: Si planeas expandir tu ecommerce a una aplicación móvil o integrarlo con otros sistemas, considera implementar una API RESTful en CodeIgniter.
+        - Validación y Sanitización: Asegúrate de validar y sanitizar todos los datos que provienen del usuario (por ejemplo, en formularios o parámetros de URL). ($texto = $this->request->getGet('texto', FILTER_SANITIZE_STRING);)
+        - Manejo de Errores: Implementa un manejo adecuado de errores. Por ejemplo, si una consulta SQL falla, muestra un mensaje de error amigable en lugar de exponer detalles técnicos.
+        - Pruebas Unitarias: Implementa pruebas unitarias para tus modelos y controladores. CodeIgniter tiene soporte para PHPUnit. 
+            public function testFiltrarCategorias()
+                {
+                    $resultado = $this->categoriaModel->filtrarCategorias('', 'activo', 1);
+                    $this->assertNotEmpty($resultado);
+                }
+        -Análisis de Código: Usa herramientas como PHPStan o Psalm para analizar la calidad de tu código y detectar posibles errores.
+
+04/02
+    

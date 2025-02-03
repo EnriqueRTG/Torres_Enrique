@@ -84,7 +84,11 @@ $routes->group('admin', ['filter' => 'authAdmin'], function ($routes) {
         $routes->get('(:num)', 'Admin\Contacto::view/$1');
     });
 
-    $routes->resource('categorias', ['controller' => 'Admin\Categoria']); // Categoria
+    $routes->get('categorias', 'Admin\Categoria::index'); // Listado de Categorias
+    $routes->get('categorias', 'Admin\Categoria::update/$1'); // Editar la categoria
+    $routes->post('categorias', 'Admin\Categoria::delete/$1'); // Eliminar la categoria
+    $routes->post('categoria', 'Admin\Categoria::create'); // Crear la categoria
+    $routes->post('categorias', 'Admin\Categoria::filtrar', ['as' => 'filtrar_Categorias']); // Filtrar las categorias por estado
 
     $routes->get('marcas', 'Admin\Marca::index'); // Listado de Marcas
     $routes->get('marcas', 'Admin\Marca::update/$1'); // Editar la marca

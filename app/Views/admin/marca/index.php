@@ -156,9 +156,10 @@
 
         </table>
 
-        <div id="paginacion">
-
+        <div class="text-center" id="paginacion">
+            <?= $pager->links('default', 'default_full') ?>
         </div>
+
     </div>
 </section>
 
@@ -222,28 +223,24 @@
 
                 data.marcas.forEach(marca => {
                     const fila = `
-        <tr>
-            <td class="col-8">${marca.nombre}</td>
-            <td>
-                ${marca.estado === 'activo' 
-                    ? '<span class="badge bg-success">Activo</span>' 
-                    : '<span class="badge bg-danger">Inactivo</span>'}
-            </td>
-            <td class="text-center g-2">
-                <a href="#" class="btn btn-outline-warning border-3 fw-bolder mx-1" data-bs-toggle="modal" data-bs-target="#editarMarcaModal${marca.id}" data-bs-marca-id="${marca.id}" data-bs-marca-nombre="${marca.nombre}" data-bs-marca-descripcion="${marca.descripcion}" title="Editar" aria-label="Editar marca">
-                    <i class="bi bi-pencil-square" alt="Editar"></i>
-                </a>
-                <a href="#" class="btn btn-outline-danger border-3 fw-bolder mx-1" data-bs-toggle="modal" data-bs-target="#eliminarMarcaModal${marca.id}" title="Eliminar" aria-label="Eliminar marca">
-                    <i class="bi bi-trash" alt="Eliminar"></i>
-                </a>
-            </td>
-        </tr>
-    `;
+                                    <tr>
+                                        <td class="col-8">${marca.nombre}</td>
+                                        <td>
+                                            ${marca.estado === 'activo' 
+                                                ? '<span class="badge bg-success">Activo</span>' 
+                                                : '<span class="badge bg-danger">Inactivo</span>'}
+                                        </td>
+                                        <td class="text-center g-2">
+                                            <a href="#" class="btn btn-outline-warning border-3 fw-bolder mx-1" data-bs-toggle="modal" data-bs-target="#editarMarcaModal${marca.id}" data-bs-marca-id="${marca.id}" data-bs-marca-nombre="${marca.nombre}" data-bs-marca-descripcion="${marca.descripcion}" title="Editar" aria-label="Editar marca">
+                                                <i class="bi bi-pencil-square" alt="Editar"></i>
+                                            </a>
+                                            <a href="#" class="btn btn-outline-danger border-3 fw-bolder mx-1" data-bs-toggle="modal" data-bs-target="#eliminarMarcaModal${marca.id}" title="Eliminar" aria-label="Eliminar marca">
+                                                <i class="bi bi-trash" alt="Eliminar"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                `;
                     tablaMarcas.innerHTML += fila;
-
-                    // Actualizar la paginación
-                    const paginacionContainer = document.getElementById('paginacion');
-                    paginacionContainer.innerHTML = data.enlacesPaginacion; // Reemplazar los enlaces
                 });
 
                 // Actualizar la paginación
