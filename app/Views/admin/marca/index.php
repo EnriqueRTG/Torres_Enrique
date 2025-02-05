@@ -17,13 +17,6 @@
         <div class="col-auto">
             <a class="btn btn-success" href="#" data-bs-toggle="modal" data-bs-target="#crearMarcaModal" title="Crear" id="crearMarcaBtn" aria-label="Crear marca">Crear</a>
         </div>
-        <div class="col-auto ms-auto">
-            <form class="d-inline-flex" role="search">
-                <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Buscar">
-                <button class="btn btn-outline-primary border-3 fw-bold" type="submit">Buscar</button>
-            </form>
-        </div>
-
         <div class="modal fade" id="crearMarcaModal" tabindex="-1" aria-labelledby="crearMarcaModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
@@ -48,6 +41,12 @@
                     </form>
                 </div>
             </div>
+        </div>
+        <div class="col-auto ms-auto">
+            <form class="d-inline-flex" role="search">
+                <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Buscar">
+                <button class="btn btn-outline-primary border-3 fw-bold" type="submit">Buscar</button>
+            </form>
         </div>
     </div>
 
@@ -147,9 +146,6 @@
                                 </div>
                             </div>
                         </div>
-
-
-
                     </tr>
                 <?php endforeach ?>
             </tbody>
@@ -171,7 +167,6 @@
     // Inicializar tooltips para todos los elementos que lo requieran
     function inicializarTooltips() {
         const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="modal"]');
-        console.log(tooltipTriggerList); // Verificar los elementos seleccionados
 
         tooltipTriggerList.forEach(function(tooltipTriggerEl) {
             new bootstrap.Tooltip(tooltipTriggerEl);

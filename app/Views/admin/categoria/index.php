@@ -17,7 +17,6 @@
         <div class="col-auto">
             <a class="btn btn-success" href="#" data-bs-toggle="modal" data-bs-target="#crearCategoriaModal" title="Crear" id="crearCategoriaBtn" aria-label="Crear Categoría">Crear</a>
         </div>
-
         <div class="modal fade" id="crearCategoriaModal" tabindex="-1" aria-labelledby="crearCategoriaModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
@@ -29,7 +28,6 @@
                         <div class="modal-body">
                             <input type="hidden" name="id" id="crearCategoriaId">
                             <div class="mb-3">
-                                <input type="hidden" name="id" id="crearCategoriaId">
                                 <label for="nombre" class="form-label">Nombre:</label>
                                 <input type="text" class="form-control" id="crearCategoriaNombre" name="nombre">
                                 <label for="descripcion" class="form-label">Descripcion (Opcional):</label>
@@ -44,12 +42,9 @@
                 </div>
             </div>
         </div>
-
         <div class="col-auto ms-auto">
             <form class="d-inline-flex" role="search">
-
                 <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Buscar">
-
                 <button class="btn btn-outline-primary border-3 fw-bold" type="submit">Buscar</button>
             </form>
         </div>
@@ -67,8 +62,8 @@
 
     <div class="my-4">
 
+        <!-- Tabla de categorías -->
         <table class="table table-dark table-striped table-hover table-responsive" id="tablaCategorias">
-
             <thead>
                 <tr class="text-capitalize text-center">
                     <th scope="col">Nombre</th>
@@ -76,22 +71,10 @@
                     <th scope="col">Opciones</th>
                 </tr>
             </thead>
-
             <tbody class="text-center">
-
-                <div class="text-center d-none m-5" id="spinner">
-                    <div class="spinner-border" role="status">
-                        <span class="visually-hidden">Cargando...</span>
-                    </div>
-                </div>
-
-                <?php foreach ($categorias as $key => $categoria) : ?>
-
+                <?php foreach ($categorias as $categoria) : ?>
                     <tr>
-                        <td class="col-8">
-                            <?= $categoria->nombre ?>
-                        </td>
-
+                        <td class="col-8"><?= esc($categoria->nombre) ?></td>
                         <td>
                             <?php if ($categoria->estado == 'activo'): ?>
                                 <span class="badge bg-success">Activo</span>
@@ -99,64 +82,78 @@
                                 <span class="badge bg-danger">Inactivo</span>
                             <?php endif; ?>
                         </td>
-
                         <td class="text-center g-2">
-                            <a href="#" class="btn btn-outline-warning border-3 fw-bolder mx-1" data-bs-toggle="modal" data-bs-target="#editarCategoriaModal<?= $categoria->id ?>" data-bs-categoria-id="<?= $categoria->id ?>" data-bs-categoria-nombre="<?= $categoria->nombre ?>" data-bs-categoria-descripcion="<?= $categoria->descripcion ?>" title="Editar" id="editarCategoriaBtn" aria-label="Editar categoría">
+                            <!-- Botón Editar (solo carga los datos en el modal global) -->
+                            <button type="button" class="btn btn-outline-warning border-3 fw-bolder mx-1 btn-editar"
+                                data-id="<?= esc($categoria->id) ?>"
+                                data-nombre="<?= esc($categoria->nombre) ?>"
+                                data-descripcion="<?= esc($categoria->descripcion) ?>"
+                                title="Editar" aria-label="Editar categoría">
                                 <i class="bi bi-pencil-square" alt="Editar"></i>
-                            </a>
-                            <a href="#" class="btn btn-outline-danger border-3 fw-bolder mx-1" data-bs-toggle="modal" data-bs-target="#eliminarCategoriaModal<?= $categoria->id ?>" title="Eliminar" id="eliminarCategoriaBtn" aria-label="Eliminar categoría">
-                                <i class="bi bi-trash" alt="Eliminar"></i>
-                            </a>
-                        </td>
-                        <div class="modal fade" id="editarCategoriaModal<?= $categoria->id ?>" tabindex="-1" aria-labelledby="editarCategoriaModalLabel" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="editarCategoriaModalLabel">Editar Categoría</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                    <form action="<?php echo base_url() ?>admin/categoria/update/<?= $categoria->id ?>" method="POST" id="editarCategoriaForm">
-                                        <div class="modal-body">
-                                            <input type="hidden" name="id" id="editarCategoriaId">
-                                            <div class="mb-3">
-                                                <label for="nombre" class="form-label">Nombre:</label>
-                                                <input type="text" class="form-control" id="editarCategoriaNombre" name="nombre">
-                                                <label for="descripcion" class="form-label">Descripción (Opcional):</label>
-                                                <textarea class="form-control" id="editarCategoriaDescripcion" name="descripcion" placeholder="Descripción de la Categoría"></textarea>
-                                            </div>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                                            <button type="submit" class="btn btn-warning">Editar</button>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
+                            </button>
 
-                        <div class="modal fade" id="eliminarCategoriaModal<?= $categoria->id ?>" tabindex="-1" aria-labelledby="eliminarCategoriaModalLabel" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="eliminarCategoriaModalLabel">Confirmar Eliminación</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <p class="text-wrap">¿Estás seguro de que quieres eliminar la categoría <span class="fw-bolder">'<?php echo $categoria->nombre ?>'</span>?</p>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                                        <form action="<?php echo base_url() ?>admin/categoria/delete/<?= $categoria->id ?>" method="POST" id="eliminarCategoriaForm">
-                                            <button type="submit" class="btn btn-danger">Eliminar</button>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                            <!-- Botón Eliminar (solo carga los datos en el modal global) -->
+                            <button type="button" class="btn btn-outline-danger border-3 fw-bolder mx-1 btn-eliminar"
+                                data-id="<?= esc($categoria->id) ?>"
+                                data-nombre="<?= esc($categoria->nombre) ?>"
+                                title="Eliminar" aria-label="Eliminar categoría">
+                                <i class="bi bi-trash" alt="Eliminar"></i>
+                            </button>
+                        </td>
                     </tr>
-                <?php endforeach ?>
+                <?php endforeach; ?>
             </tbody>
         </table>
+
+
+        <!-- Modal Editar (un solo modal en la página) -->
+        <div class="modal fade" id="editarCategoriaModal" tabindex="-1" aria-labelledby="editarCategoriaModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editarCategoriaModalLabel">Editar Categoría</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form action="" method="POST" id="editarCategoriaForm">
+                        <div class="modal-body">
+                            <input type="hidden" name="id" id="editarCategoriaId">
+                            <div class="mb-3">
+                                <label for="nombre" class="form-label">Nombre:</label>
+                                <input type="text" class="form-control" id="editarCategoriaNombre" name="nombre">
+                                <label for="descripcion" class="form-label">Descripción (Opcional):</label>
+                                <textarea class="form-control" id="editarCategoriaDescripcion" name="descripcion" placeholder="Descripción de la Categoría"></textarea>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                            <button type="submit" class="btn btn-warning">Editar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal Eliminar (un solo modal en la página) -->
+        <div class="modal fade" id="eliminarCategoriaModal" tabindex="-1" aria-labelledby="eliminarCategoriaModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="eliminarCategoriaModalLabel">Confirmar Eliminación</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p class="text-wrap">¿Estás seguro de que quieres eliminar la categoría <span class="fw-bolder" id="eliminarCategoriaNombre"></span>?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <form action="" method="POST" id="eliminarCategoriaForm">
+                            <button type="submit" class="btn btn-danger">Eliminar</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
 
         <div class="text-center" id="paginacion">
             <?= $pager->links('default', 'default_full') ?>
@@ -169,51 +166,65 @@
 <?= view("layouts/footer-admin") ?>
 
 <script>
-    // Inicializar tooltips para todos los elementos que lo requieran
-    function inicializarTooltips() {
-        const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="modal"]');
-        console.log(tooltipTriggerList); // Verificar los elementos seleccionados
+    document.addEventListener('DOMContentLoaded', function() {
+        inicializarTooltips();
+        delegarEventosModales();
+        cargarCategoriasDinamicas();
+    });
 
-        tooltipTriggerList.forEach(function(tooltipTriggerEl) {
-            new bootstrap.Tooltip(tooltipTriggerEl);
+    function inicializarTooltips() {
+        document.querySelectorAll('[data-bs-toggle="tooltip"]').forEach(el => {
+            new bootstrap.Tooltip(el);
         });
     }
 
-    // Para cargar los datos de la categoria en el formulario dentro del modal
-    $('[id^="editarCategoriaModal"]').on('show.bs.modal', function(event) {
-        const button = $(event.relatedTarget); // Convertir a objeto jQuery
-        const categoriaId = button.data('bs-categoria-id');
-        const categoriaNombre = button.data('bs-categoria-nombre');
-        const categoriaDescripcion = button.data('bs-categoria-descripcion');
+    function delegarEventosModales() {
+        document.addEventListener('click', function(event) {
+            const btnEditar = event.target.closest('.btn-editar');
+            const btnEliminar = event.target.closest('.btn-eliminar');
 
-        const modal = $(this);
-        modal.find('#editarCategoriaId').val(categoriaId);
-        modal.find('#editarCategoriaNombre').val(categoriaNombre);
-        modal.find('#editarCategoriaDescripcion').val(categoriaDescripcion);
-    });
+            if (btnEditar) {
+                abrirModalEditar(btnEditar);
+            }
 
-    // Inicializar tooltips de Bootstrap
-    inicializarTooltips();
+            if (btnEliminar) {
+                abrirModalEliminar(btnEliminar);
+            }
+        });
+    }
 
-    const filtroEstado = document.getElementById('filtroEstado');
-    const tablaCategorias = document.querySelector('#tablaCategorias tbody');
-    const paginacionContainer = document.getElementById('paginacion');
-    const inputBusqueda = document.querySelector('input[type="search"]');
+    function abrirModalEditar(btn) {
+        const categoriaId = btn.getAttribute('data-bs-id');
+        const categoriaNombre = btn.getAttribute('data-bs-nombre');
+        const categoriaDescripcion = btn.getAttribute('data-bs-descripcion');
 
+        document.querySelector('#editarCategoriaId').value = categoriaId;
+        document.querySelector('#editarCategoriaNombre').value = categoriaNombre;
+        document.querySelector('#editarCategoriaDescripcion').value = categoriaDescripcion;
+        document.querySelector('#editarCategoriaForm').action = `<?= base_url('admin/categoria/update/') ?>${categoriaId}`;
+
+        const modal = document.querySelector('#editarCategoriaModal');
+        bootstrap.Modal.getOrCreateInstance(modal).show();
+    }
+
+    function abrirModalEliminar(btn) {
+        const categoriaId = btn.getAttribute('data-bs-id');
+        const categoriaNombre = btn.getAttribute('data-bs-nombre');
+
+        document.querySelector('#eliminarCategoriaNombre').textContent = categoriaNombre;
+        document.querySelector('#eliminarCategoriaForm').action = `<?= base_url('admin/categoria/delete/') ?>${categoriaId}`;
+
+        const modal = document.querySelector('#eliminarCategoriaModal');
+        bootstrap.Modal.getOrCreateInstance(modal).show();
+    }
 
     function aplicarFiltro(pagina = 1, textoBusqueda = '', estado = 'todos') {
-        // Convertir 'pagina' a número
-        pagina = parseInt(pagina, 10);
-
-        const url = '<?php echo base_url() ?>admin/categoria/buscarCategoria'; // Asegúrate de que esta ruta sea correcta
+        const url = '<?= base_url("admin/categoria/buscarCategoria") ?>';
         const params = new URLSearchParams({
-            pagina: pagina,
+            pagina,
             texto: textoBusqueda,
-            estado: estado
+            estado
         });
-
-        // Mostrar el spinner
-        document.getElementById('spinner').classList.remove('d-none');
 
         fetch(`${url}?${params.toString()}`, {
                 method: 'GET',
@@ -223,112 +234,59 @@
             })
             .then(response => response.json())
             .then(data => {
-                // Ocultar el spinner
-                document.getElementById('spinner').classList.add('d-none');
-
-                // Actualizar la tabla con los datos recibidos
-                const tbody = document.querySelector('#tablaCategorias tbody');
-                tbody.innerHTML = '';
-
-                data.categorias.forEach(categoria => {
-                    const fila = `
-                <tr>
-                    <td class="col-8">${categoria.nombre}</td>
-                    <td>
-                        ${categoria.estado === 'activo' 
-                            ? '<span class="badge bg-success">Activo</span>' 
-                            : '<span class="badge bg-danger">Inactivo</span>'}
-                    </td>
-                    <td class="text-center g-2">
-                        <a href="#" class="btn btn-outline-warning border-3 fw-bolder mx-1" 
-                           data-bs-toggle="modal" 
-                           data-bs-target="#editarCategoriaModal${categoria.id}" 
-                           data-bs-categoria-id="${categoria.id}" 
-                           data-bs-categoria-nombre="${categoria.nombre}" 
-                           data-bs-categoria-descripcion="${categoria.descripcion}" 
-                           title="Editar" aria-label="Editar categoría">
-                           <i class="bi bi-pencil-square" alt="Editar"></i>
-                        </a>
-                        <a href="#" class="btn btn-outline-danger border-3 fw-bolder mx-1" 
-                           data-bs-toggle="modal" 
-                           data-bs-target="#eliminarCategoriaModal${categoria.id}" 
-                           title="Eliminar" aria-label="Eliminar categoría">
-                           <i class="bi bi-trash" alt="Eliminar"></i>
-                        </a>
-                    </td>
-                </tr>
-            `;
-                    tbody.innerHTML += fila;
-                });
-
-                // Actualizar la paginación
+                actualizarTablaCategorias(data.categorias);
                 generarPaginacion(data.paginaActual, data.totalPaginas, textoBusqueda, estado);
             })
             .catch(error => {
                 console.error('Error en la solicitud AJAX:', error);
-                alert('Error al cargar las categorías. Por favor, inténtalo de nuevo más tarde.');
+                alert('Error al cargar las categorías. Inténtalo de nuevo.');
             });
     }
 
-    // Evento para el cambio de filtro
-    filtroEstado.addEventListener('change', function() {
-        const estado = this.value;
-        const textoBusqueda = inputBusqueda.value;
-        aplicarFiltro(1, textoBusqueda, estado); // Reiniciar a la página 1
-    });
+    function actualizarTablaCategorias(categorias) {
+        const tbody = document.querySelector('#tablaCategorias tbody');
+        tbody.innerHTML = '';
 
+        categorias.forEach(categoria => {
+            const tr = document.createElement('tr');
 
+            tr.innerHTML = `
+            <td class="col-8">${categoria.nombre}</td>
+            <td>
+                <span class="badge ${categoria.estado === 'activo' ? 'bg-success' : 'bg-danger'}">
+                    ${categoria.estado.charAt(0).toUpperCase() + categoria.estado.slice(1)}
+                </span>
+            </td>
+            <td class="text-center g-2">
+                <a href="#" class="btn btn-outline-warning border-3 fw-bolder mx-1 btn-editar"
+                   data-bs-id="${categoria.id}"
+                   data-bs-nombre="${categoria.nombre}"
+                   data-bs-descripcion="${categoria.descripcion}"
+                   title="Editar" data-bs-toggle="tooltip">
+                   <i class="bi bi-pencil-square"></i>
+                </a>
+                <a href="#" class="btn btn-outline-danger border-3 fw-bolder mx-1 btn-eliminar"
+                   data-bs-id="${categoria.id}"
+                   data-bs-nombre="${categoria.nombre}"
+                   title="Eliminar" data-bs-toggle="tooltip">
+                   <i class="bi bi-trash"></i>
+                </a>
+            </td>
+        `;
 
-    // Evento para la búsqueda
-    inputBusqueda.addEventListener('input', function() {
-        const textoBusqueda = this.value;
-        const estado = filtroEstado.value;
-        aplicarFiltro(1, textoBusqueda, estado); // Reiniciar a la página 1
-    });
+            tbody.appendChild(tr);
+        });
 
-    // Al cargar la página, recuperar el estado del filtro
-    window.addEventListener('load', function() {
-        const estadoGuardado = localStorage.getItem('estado') || 'todos';
-        const textoBusqueda = inputBusqueda.value;
-        filtroEstado.value = estadoGuardado;
-        aplicarFiltro(1, textoBusqueda, estadoGuardado);
-    });
-
-    let timeoutBusqueda = null;
-    let filasCoincidentes = new Set(); // Usar un Set para las filas coincidentes
-
-    inputBusqueda.addEventListener('input', function() {
-        clearTimeout(timeoutBusqueda);
-
-        timeoutBusqueda = setTimeout(() => {
-            const textoBusqueda = this.value.toLowerCase();
-            const filas = tablaCategorias.querySelectorAll('tr');
-            filasCoincidentes.clear(); // Limpiar el conjunto de filas coincidentes
-
-            filas.forEach(fila => {
-                const nombreCategoria = fila.querySelector('td:first-child').textContent.toLowerCase();
-                if (nombreCategoria.includes(textoBusqueda)) {
-                    fila.style.display = '';
-                    filasCoincidentes.add(fila); // Agregar la fila al conjunto
-                } else {
-                    if (!filasCoincidentes.has(fila)) { // Ocultar solo si no coincide con otra búsqueda
-                        fila.style.display = 'none';
-                    }
-                }
-            });
-        }, 300);
-    });
-
+        inicializarTooltips();
+    }
 
     function generarPaginacion(paginaActual, totalPaginas, textoBusqueda, estado) {
         const paginacionContainer = document.getElementById('paginacion');
         paginacionContainer.innerHTML = '';
 
-        // Convertir 'paginaActual' y 'totalPaginas' a números
+        const fragment = document.createDocumentFragment();
         paginaActual = parseInt(paginaActual, 10);
         totalPaginas = parseInt(totalPaginas, 10);
-
-        // Generar enlaces de paginación (con un máximo de 5 páginas visibles)
         const maxPaginasVisibles = 5;
         let paginaInicial = Math.max(1, paginaActual - Math.floor(maxPaginasVisibles / 2));
         let paginaFinal = Math.min(totalPaginas, paginaInicial + maxPaginasVisibles - 1);
@@ -337,50 +295,47 @@
             paginaInicial = Math.max(1, paginaFinal - maxPaginasVisibles + 1);
         }
 
-        // Botón "Anterior"
         if (paginaActual > 1) {
-            const enlaceAnterior = document.createElement('a');
-            enlaceAnterior.href = '#';
-            enlaceAnterior.textContent = 'Anterior';
-            enlaceAnterior.classList.add('btn', 'btn-outline-primary', 'm-1');
-            enlaceAnterior.addEventListener('click', function(event) {
-                event.preventDefault();
-                if (paginaActual > 1) { // Validar que no se pase de la página 1
-                    aplicarFiltro(paginaActual - 1, textoBusqueda, estado);
-                }
-            });
-            paginacionContainer.appendChild(enlaceAnterior);
+            fragment.appendChild(crearBotonPaginacion('Anterior', paginaActual - 1, textoBusqueda, estado));
         }
 
-        // Enlaces de páginas
         for (let i = paginaInicial; i <= paginaFinal; i++) {
-            const enlace = document.createElement('a');
-            enlace.href = '#';
-            enlace.textContent = i;
-            enlace.classList.add('btn', 'btn-outline-primary', 'm-1');
-            if (i === paginaActual) {
-                enlace.classList.add('active');
-            }
-            enlace.addEventListener('click', function(event) {
-                event.preventDefault();
-                aplicarFiltro(i, textoBusqueda, estado);
-            });
-            paginacionContainer.appendChild(enlace);
+            fragment.appendChild(crearBotonPaginacion(i, i, textoBusqueda, estado, i === paginaActual));
         }
 
-        // Botón "Siguiente"
         if (paginaActual < totalPaginas) {
-            const enlaceSiguiente = document.createElement('a');
-            enlaceSiguiente.href = '#';
-            enlaceSiguiente.textContent = 'Siguiente';
-            enlaceSiguiente.classList.add('btn', 'btn-outline-primary', 'm-1');
-            enlaceSiguiente.addEventListener('click', function(event) {
-                event.preventDefault();
-                if (paginaActual < totalPaginas) { // Validar que no se pase de la última página
-                    aplicarFiltro(paginaActual + 1, textoBusqueda, estado);
-                }
-            });
-            paginacionContainer.appendChild(enlaceSiguiente);
+            fragment.appendChild(crearBotonPaginacion('Siguiente', paginaActual + 1, textoBusqueda, estado));
         }
+
+        paginacionContainer.appendChild(fragment);
     }
+
+    function crearBotonPaginacion(texto, pagina, textoBusqueda, estado, activo = false) {
+        const btn = document.createElement('a');
+        btn.href = '#';
+        btn.textContent = texto;
+        btn.classList.add('btn', 'btn-outline-primary', 'm-1');
+        if (activo) btn.classList.add('active');
+
+        btn.addEventListener('click', function(event) {
+            event.preventDefault();
+            aplicarFiltro(pagina, textoBusqueda, estado);
+        });
+
+        return btn;
+    }
+
+    function cargarCategoriasDinamicas() {
+        const estadoGuardado = localStorage.getItem('estado') || 'todos';
+        document.getElementById('filtroEstado').value = estadoGuardado;
+        aplicarFiltro(1, '', estadoGuardado);
+    }
+
+    document.getElementById('filtroEstado').addEventListener('change', function() {
+        aplicarFiltro(1, document.querySelector('input[type="search"]').value, this.value);
+    });
+
+    document.querySelector('input[type="search"]').addEventListener('input', function() {
+        aplicarFiltro(1, this.value, document.getElementById('filtroEstado').value);
+    });
 </script>

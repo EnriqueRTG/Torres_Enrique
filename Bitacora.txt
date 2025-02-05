@@ -233,6 +233,9 @@ Falta:
                     $this->assertNotEmpty($resultado);
                 }
         -Análisis de Código: Usa herramientas como PHPStan o Psalm para analizar la calidad de tu código y detectar posibles errores.
+    
+    SOLUCIONAR: los registros de las paginaciones a excepcion de la primera pagina no realizan alguna accion al hacer click en editar o eliminar en el registro seleccionado.
+                
 
 04/02
-    
+    MODULO CATEGORIA (LISTO)
