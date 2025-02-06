@@ -42,30 +42,6 @@ class MarcaModel extends Model
         ],
     ];
 
-    // Obtener marcas con paginación y filtros
-    public function obtenerMarcasFiltradas($estado = 'todos', $busqueda = '', $perPage = 10)
-    {
-        // Limpiar cualquier consulta anterior
-        $this->builder()->resetQuery();
-
-        // Si hay término de búsqueda, aplicar la búsqueda primero
-        if (!empty($busqueda)) {
-            $this->groupStart()
-                 ->like('nombre', '%'.$busqueda.'%')
-                 ->orLike('descripcion', '%'.$busqueda.'%')
-                 ->groupEnd();
-        }
-
-        // Aplicar el filtro de estado después de la búsqueda
-        if ($estado !== 'todos') {
-            $this->where('estado', $estado);
-        }
-
-        // Aplicar el ordenamiento al final
-        return $this->orderBy('updated_at', 'DESC')
-                    ->paginate($perPage);
-    }
-
     // Relación con productos
     public function productos()
     {
@@ -92,21 +68,111 @@ class MarcaModel extends Model
         }
 
         $data['estado'] = 'activo';
+
         return $this->update($id, $data);
     }
 
-    // Obtener marcas segun Modificacion
-    public function obtenerMarcasPorModificacion()
+    // Eliminar Marca (dar de baja -> estado == 'inactivo')
+    public function eliminarMarca($id)
     {
-        return $this->orderBy('updated_at', 'DESC')
-            ->findAll();
+        $data['estado'] = 'inactivo';
+
+        return $this->update($id, $data);
     }
 
-    // Obtener marcas inactivas y por modificacion mas reciente
-    public function obtenerMarcasInactivasOrdenadasPorModificacion()
+    /**
+     * Filtra las marcas según texto de búsqueda, estado y página.
+     *
+     * @param string $texto Texto de búsqueda.
+     * @param string $estado Estado de las marcas ('activo', 'inactivo' o 'todos').
+     * @param int $pagina Número de página.
+     * @param int $porPagina Cantidad de registros por página.
+     * @return array Lista de categorías filtradas y paginadas.
+     */
+    public function filtrarMarcas($texto = '', $estado = 'todos', $pagina = 1, $porPagina = 10)
     {
-        return $this->where('estado', 'inactivo')
-            ->orderBy('updated_at', 'DESC')
-            ->findAll();
+        // Iniciar la consulta
+        $builder = $this->db->table($this->table);
+
+        // Aplicar filtro de texto (búsqueda)
+        if (!empty($texto)) {
+            $builder->groupStart()
+                ->like('nombre', $texto)
+                ->orLike('descripcion', $texto)
+                ->groupEnd();
+        }
+
+        // Aplicar filtro de estado
+        if ($estado !== 'todos') {
+            $builder->where('estado', $estado);
+        }
+
+        // Ordenar por 'updated_at' en orden descendente
+        $builder->orderBy('updated_at', 'DESC');
+
+        // Paginación
+        $offset = ($pagina - 1) * $porPagina; // Calcular el offset
+        $builder->limit($porPagina, $offset);
+
+        // Ejecutar la consulta y obtener los resultados
+        $query = $builder->get();
+        return $query->getResultArray();
+    }
+
+    /**
+     * Obtiene el total de páginas para los filtros aplicados.
+     *
+     * @param string $texto Texto de búsqueda.
+     * @param string $estado Estado de las categorías ('activo', 'inactivo' o 'todos').
+     * @param int $porPagina Cantidad de registros por página.
+     * @return int Total de páginas.
+     */
+    public function obtenerTotalPaginas($texto = '', $estado = 'todos', $porPagina = 10)
+    {
+        // Iniciar la consulta
+        $builder = $this->db->table($this->table);
+
+        // Aplicar filtro de texto (búsqueda)
+        if (!empty($texto)) {
+            $builder->groupStart()
+                ->like('nombre', $texto) // Buscar en el campo 'nombre'
+                ->orLike('descripcion', $texto) // Buscar en el campo 'descripcion'
+                ->groupEnd();
+        }
+
+        // Aplicar filtro de estado
+        if ($estado !== 'todos') {
+            $builder->where('estado', $estado); // Filtrar por estado
+        }
+
+        // Obtener el total de registros que coinciden con los filtros
+        $totalRegistros = $builder->countAllResults();
+
+        // Calcular el total de páginas
+        return ceil($totalRegistros / $porPagina);
+    }
+
+    // Obtener marcas con paginación y filtros
+    public function obtenerMarcasFiltradas($estado = 'todos', $busqueda = '', $perPage = 10)
+    {
+        // Limpiar cualquier consulta anterior
+        $this->builder()->resetQuery();
+
+        // Si hay término de búsqueda, aplicar la búsqueda primero
+        if (!empty($busqueda)) {
+            $this->groupStart()
+                ->like('nombre', '%' . $busqueda . '%')
+                ->orLike('descripcion', '%' . $busqueda . '%')
+                ->groupEnd();
+        }
+
+        // Aplicar el filtro de estado después de la búsqueda
+        if ($estado !== 'todos') {
+            $this->where('estado', $estado);
+        }
+
+        // Aplicar el ordenamiento al final
+        return $this->orderBy('updated_at', 'DESC')
+            ->paginate($perPage);
     }
 }

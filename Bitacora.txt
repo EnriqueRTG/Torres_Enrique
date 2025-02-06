@@ -239,3 +239,7 @@ Falta:
 
 04/02
     MODULO CATEGORIA (LISTO)
+
+06/02
+    MODULO MARCAS (LISTO)
+    

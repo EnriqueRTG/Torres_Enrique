@@ -40,7 +40,10 @@ class Categoria extends BaseController
             'categorias' => $categorias,
             'pager' => $this->categoriaModel->pager,
             'estado' => $estado,
-            'busqueda' => $busqueda
+            'busqueda' => $busqueda,
+            'breadcrumbs' => [
+                ['label' => 'Gestión de Categorías'] // Último elemento sin URL
+            ],
         ];
 
         return view('admin/categoria/index', $data);
@@ -48,67 +51,31 @@ class Categoria extends BaseController
 
     public function create()
     {
-        $categoriaModel = new CategoriaModel();
-
         $data = $this->request->getPost();
 
-        if ($categoriaModel->crearCategoria($data)) {
+        if ($this->categoriaModel->crearCategoria($data)) {
             return redirect()->to('admin/categoria')->with('mensaje', 'Categoría creada correctamente');
         } else {
-            return redirect()->back()->withInput()->with('errors', $categoriaModel->errors())->with('validation', $this->validator);;
+            return redirect()->back()->withInput()->with('errors', $this->categoriaModel->errors())->with('validation', $this->validator);;
         }
     }
 
     public function update($id)
     {
-        $categoriaModel = new CategoriaModel();
-
         $data = $this->request->getPost();
 
-        if ($categoriaModel->actualizarCategoria($id, $data)) {
+        if ($this->categoriaModel->actualizarCategoria($id, $data)) {
             return redirect()->to('admin/categoria')->with('mensaje', 'Categoría modificada exitosamente!');
         } else {
-            return redirect()->back()->withInput()->with('errors', $categoriaModel->errors());
+            return redirect()->back()->withInput()->with('errors', $this->categoriaModel->errors());
         }
     }
 
     public function delete($id)
     {
-        $categoriaModel = new CategoriaModel();
-
-        $categoriaModel->eliminarCategoria($id);
+        $this->categoriaModel->eliminarCategoria($id);
 
         return redirect()->to('admin/categoria')->with('mensaje', 'Eliminacion exitosa!');
-    }
-
-    public function filtrar()
-    {
-        $estado = $this->request->getPost('estado');
-        $page = $this->request->getPost('page') ?? 1; // Página actual
-        $perPage = 10; // Cantidad de elementos por página
-
-        $categoriaModel = new CategoriaModel();
-
-        try {
-            // Aplicar filtro de estado
-            if ($estado !== 'todos') {
-                $categoriaModel->where('estado', $estado);
-            }
-
-            // Obtener las categorías paginadas y ordenadas
-            $categorias = $categoriaModel->orderBy('updated_at', 'DESC')
-                ->paginate($perPage, 'default', $page);
-
-            $pager = $categoriaModel->pager; // Obtener el paginador
-
-            return $this->response->setJSON([
-                'categorias' => $categorias,
-                'pager' => $pager->links() // Incluir los enlaces de paginación en la respuesta
-            ]);
-        } catch (\Exception $e) {
-            log_message('error', '[Categoria::filtrar] Error: ' . $e->getMessage());
-            return $this->response->setJSON(['error' => 'Error al obtener las categorías.'], 500);
-        }
     }
 
     public function buscarCategoria()

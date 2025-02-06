@@ -1,47 +1,28 @@
+<!-- Vista parcial header -->
 <?= view("layouts/header-admin", ['titulo' => $titulo]) ?>
 
+<!-- Contenedor principal -->
 <section class="container py-5">
 
-    <section class="alert-info text-center">
+    <!-- Mensajes de sesión -->
+    <div class="alert-info text-center">
         <?= session()->has('errors') ? view('partials/_session-error') : view('partials/_session') ?>
-    </section>
+    </div>
 
-    <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb" class="fs-4">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="<?php echo base_url('admin/dashboard'); ?>">Dashboard</a></li>
-            <li class="breadcrumb-item active" aria-current="page"><?= $titulo ?></li>
-        </ol>
+    <!-- Breadcrumb -->
+    <nav aria-label="breadcrumb">
+        <?= view('partials/_breadcrumb', ['breadcrumbs' => $breadcrumbs]) ?>
     </nav>
 
+    <!-- Botón Crear y Búsqueda -->
     <div class="row my-4">
+        <!-- Botón Crear -->
         <div class="col-auto">
-            <a class="btn btn-success" href="#" data-bs-toggle="modal" data-bs-target="#crearMarcaModal" title="Crear" id="crearMarcaBtn" aria-label="Crear marca">Crear</a>
+            <a class="btn btn-success" href="#" data-bs-toggle="modal" data-bs-target="#crearMarcaModal" title="Crear marca" id="crearMarcaBtn">
+                Crear
+            </a>
         </div>
-        <div class="modal fade" id="crearMarcaModal" tabindex="-1" aria-labelledby="crearMarcaModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="crearMarcaModalLabel">Crear Marca</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <form action="<?php echo base_url() ?>admin/marca" method="POST" id="crearMarcaForm">
-                        <div class="modal-body">
-                            <input type="hidden" name="id" id="crearMarcaId">
-                            <div class="mb-3">
-                                <label for="nombre" class="form-label">Nombre:</label>
-                                <input type="text" class="form-control" id="crearMarcaNombre" name="nombre" placeholder="Nombre de la Marca">
-                                <label for="descripcion" class="form-label">Descripcion (Opcional):</label>
-                                <textarea class="form-control" id="crearMarcaDescripcion" name="descripcion" placeholder="Descripcion de la Marca"></textarea>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                            <button type="submit" class="btn btn-primary">Crear</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
+        <!-- Búsqueda -->
         <div class="col-auto ms-auto">
             <form class="d-inline-flex" role="search">
                 <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Buscar">
@@ -50,6 +31,7 @@
         </div>
     </div>
 
+    <!-- Filtro -->
     <div class="row">
         <div class="col-md-2 offset-md-10">
             <select id="filtroEstado" class="form-select">
@@ -60,10 +42,17 @@
         </div>
     </div>
 
+    <!-- Tabla de marcas -->
     <div class="my-4">
-
+        <!-- Spinner de carga -->
+        <div class="text-center d-none m-5" id="spinner">
+            <div class="spinner-border" role="status">
+                <span class="visually-hidden">Cargando...</span>
+            </div>
+        </div>
+        <!-- Tabla -->
         <table class="table table-dark table-striped table-hover table-responsive" id="tablaMarcas">
-
+            <!-- Cabecera de la tabla -->
             <thead>
                 <tr class="text-capitalize text-center">
                     <th scope="col">Nombre</th>
@@ -71,259 +60,291 @@
                     <th scope="col">Opciones</th>
                 </tr>
             </thead>
-
+            <!-- Cuerpo de la tabla -->
             <tbody class="text-center">
-
-                <div class="text-center d-none m-5" id="spinner">
-                    <div class="spinner-border" role="status">
-                        <span class="visually-hidden">Cargando...</span>
-                    </div>
-                </div>
-
-                <?php foreach ($marcas as $key => $marca) : ?>
-                    <tr>
-                        <td class="col-8">
-                            <?= $marca->nombre ?>
-                        </td>
-                        <td>
-                            <?php if ($marca->estado == 'activo'): ?>
-                                <span class="badge bg-success">Activo</span>
-                            <?php else: ?>
-                                <span class="badge bg-danger">Inactivo</span>
-                            <?php endif; ?>
-                        </td>
-                        <td class="text-center g-2">
-                            <a href="#" class="btn btn-outline-warning border-3 fw-bolder mx-1" data-bs-toggle="modal" data-bs-target="#editarMarcaModal<?= $marca->id ?>" data-bs-marca-id="<?= $marca->id ?>" data-bs-marca-nombre="<?= $marca->nombre ?>" data-bs-marca-descripcion="<?= $marca->descripcion ?>" title="Editar" id="editarMarcaBtn" aria-label="Editar marca">
-                                <i class="bi bi-pencil-square" alt="Editar"></i>
-                            </a>
-                            <a href="#" class="btn btn-outline-danger border-3 fw-bolder mx-1" data-bs-toggle="modal" data-bs-target="#eliminarMarcaModal<?= $marca->id ?>" title="Eliminar" id="eliminarMarcaBtn" aria-label="Eliminar marca">
-                                <i class="bi bi-trash" alt="Eliminar"></i>
-                            </a>
-                        </td>
-
-                        <div class="modal fade" id="editarMarcaModal<?= $marca->id ?>" tabindex="-1" aria-labelledby="editarMarcaModalLabel" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="editarMarcaModalLabel">Editar Marca</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                    <form action="<?php echo base_url() ?>admin/marca/update/<?= $marca->id ?>" method="POST" id="editarMarcaForm">
-                                        <div class="modal-body">
-                                            <input type="hidden" name="id" id="editarMarcaId">
-                                            <div class="mb-3">
-                                                <label for="nombre" class="form-label">Nombre:</label>
-                                                <input type="text" class="form-control" id="editarMarcaNombre" name="nombre" placeholder="Nombre de la Marca">
-                                                <label for="descripcion" class="form-label">Descripcion (Opcional):</label>
-                                                <textarea class="form-control" id="editarMarcaDescripcion" name="descripcion" placeholder="Descripcion de la Marca"></textarea>
-                                            </div>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                                            <button type="submit" class="btn btn-warning">Editar</button>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="modal fade" id="eliminarMarcaModal<?= $marca->id ?>" tabindex="-1" aria-labelledby="eliminarMarcaModalLabel" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="eliminarMarcaModalLabel">Confirmar Eliminación</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <p class="text-wrap">¿Estás seguro de que quieres eliminar la marca <span class="fw-bolder">'<?php echo $marca->nombre ?>'</span> ?</p>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                                        <form action="<?php echo base_url() ?>admin/marca/delete/<?= $marca->id ?>" method="POST" id="eliminarMarcaForm">
-                                            <button type="submit" class="btn btn-danger">Eliminar</button>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </tr>
-                <?php endforeach ?>
+                <!-- Se carga dinamicamente JS y AJAX -->
+                <tr>
+                </tr>
             </tbody>
-
         </table>
 
+        <!-- Paginación -->
         <div class="text-center" id="paginacion">
             <?= $pager->links('default', 'default_full') ?>
         </div>
-
     </div>
 </section>
 
+<!-- Modal Crear -->
+<div class="modal fade" id="crearMarcaModal" tabindex="-1" aria-labelledby="crearMarcaModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="crearMarcaModalLabel">Crear Marca</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="<?= base_url('admin/marca/create') ?>" method="POST" id="crearMarcaForm">
+                <div class="modal-body">
+                    <input type="hidden" name="id" id="crearMarcaId">
+                    <div class="mb-3">
+                        <label for="nombre" class="form-label">Nombre:</label>
+                        <input type="text" class="form-control" id="crearMarcaNombre" name="nombre">
+                        <label for="descripcion" class="form-label">Descripcion (Opcional):</label>
+                        <textarea class="form-control" id="crearMarcaDescripcion" name="descripcion" placeholder="Descripcion de la Categoría"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-warning">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 
+<!-- Modal Editar -->
+<div class="modal fade" id="editarMarcaModal" tabindex="-1" aria-labelledby="editarMarcaModalLabel" aria-hidden="true" data-bs-focus="false">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
 
+            <div class="modal-header">
+                <h5 class="modal-title" id="editarMarcaModalLabel">Editar Marca</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <form action="" method="POST" id="editarMarcaForm">
+                <div class="modal-body">
+                    <input type="hidden" name="id" id="editarMarcaId">
+                    <div class="mb-3">
+                        <label for="nombre" class="form-label">Nombre:</label>
+                        <input type="text" class="form-control" id="editarMarcaNombre" name="nombre">
+                        <label for="descripcion" class="form-label">Descripción (Opcional):</label>
+                        <textarea class="form-control" id="editarMarcaDescripcion" name="descripcion" placeholder="Descripción de la Categoría"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-warning">Editar</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+<!-- Modal Eliminar -->
+<div class="modal fade" id="eliminarMarcaModal" tabindex="-1" aria-labelledby="eliminarMarcaModalLabel" aria-hidden="true" data-bs-focus="false">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title" id="eliminarMarcaModalLabel">Confirmar Eliminación</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                <p class="text-wrap">¿Estás seguro de que quieres eliminar la categoría <span class="fw-bolder" id="eliminarMarcaNombre"></span>?</p>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <form action="" method="POST" id="eliminarMarcaForm">
+                    <button type="submit" class="btn btn-danger">Eliminar</button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- Vista parcial footer -->
 <?= view("layouts/footer-admin") ?>
 
+<!-- Scripts -->
 <script>
-    // Inicializar tooltips para todos los elementos que lo requieran
-    function inicializarTooltips() {
-        const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="modal"]');
+    document.addEventListener('DOMContentLoaded', function() {
+        inicializarTooltips();
+        delegarEventosModales();
+        cargarMarcasDinamicas();
+    });
 
+    function inicializarTooltips() {
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="modal"]'));
         tooltipTriggerList.forEach(function(tooltipTriggerEl) {
             new bootstrap.Tooltip(tooltipTriggerEl);
         });
     }
 
-    // Para cargar los datos de la marca en el formulario dentro del modal
-    $('[id^="editarMarcaModal"]').on('show.bs.modal', function(event) {
-        const button = $(event.relatedTarget); // Convertir a objeto jQuery
-        const marcaId = button.data('bs-marca-id');
-        const marcaNombre = button.data('bs-marca-nombre');
-        const marcaDescripcion = button.data('bs-marca-descripcion');
+    function delegarEventosModales() {
+        document.addEventListener('click', function(event) {
 
-        const modal = $(this);
-        modal.find('#editarMarcaId').val(marcaId);
-        modal.find('#editarMarcaNombre').val(marcaNombre);
-        modal.find('#editarMarcaDescripcion').val(marcaDescripcion);
-    });
+            const btnEditar = event.target.closest('.btn-editar');
+            const btnEliminar = event.target.closest('.btn-eliminar');
 
-    // Inicializar tooltips de Bootstrap
-    inicializarTooltips();
+            if (btnEditar) {
+                abrirModalEditar(btnEditar);
+            }
 
-    const filtroEstado = document.getElementById('filtroEstado');
-    const tablaMarcas = document.querySelector('#tablaMarcas tbody');
-    const paginacionContainer = document.getElementById('paginacion');
+            if (btnEliminar) {
+                abrirModalEliminar(btnEliminar);
+            }
+        });
+    }
 
-    // Función para aplicar el filtro y la paginación
-    function aplicarFiltro(pagina = 1, textoBusqueda = '') {
-        const estado = filtroEstado.value;
+    function abrirModalEditar(btn) {
+        event.preventDefault(); // Evita el comportamiento predeterminado si es un botón dentro de un formulario
 
-        // Mostrar el spinner
+        const marcaId = btn.getAttribute('data-bs-id');
+        const marcaNombre = btn.getAttribute('data-bs-nombre');
+        const marcaDescripcion = btn.getAttribute('data-bs-descripcion');
+
+        document.querySelector('#editarMarcaId').value = marcaId;
+        document.querySelector('#editarMarcaNombre').value = marcaNombre;
+        document.querySelector('#editarMarcaDescripcion').value = marcaDescripcion;
+        document.querySelector('#editarMarcaForm').action = `<?= base_url('admin/marca/update/') ?>${marcaId}`;
+
+        const modal = document.querySelector('#editarMarcaModal');
+        bootstrap.Modal.getOrCreateInstance(modal).show();
+    }
+
+    function abrirModalEliminar(btn) {
+        event.preventDefault(); // Evita el comportamiento predeterminado si es un botón dentro de un formulario
+
+        const marcaId = btn.getAttribute('data-bs-id');
+        const marcaNombre = btn.getAttribute('data-bs-nombre');
+
+        document.querySelector('#eliminarMarcaNombre').textContent = marcaNombre;
+        document.querySelector('#eliminarMarcaForm').action = `<?= base_url('admin/marca/delete/') ?>${marcaId}`;
+
+        const modal = document.querySelector('#eliminarMarcaModal');
+        bootstrap.Modal.getOrCreateInstance(modal).show();
+    }
+
+    function aplicarFiltro(pagina = 1, textoBusqueda = '', estado = 'todos') {
+        const url = '<?= base_url("admin/marca/buscarMarca") ?>';
+        const params = new URLSearchParams({
+            pagina,
+            texto: textoBusqueda,
+            estado
+        });
+
+        // Mostrar el spinner antes de cargar
         document.getElementById('spinner').classList.remove('d-none');
 
-        const body = `estado=${estado}&pagina=${pagina}&texto=${textoBusqueda}`;
-
-        fetch('<?php echo base_url() ?>admin/marca/buscarMarca', {
-                method: 'POST',
+        fetch(`${url}?${params.toString()}`, {
+                method: 'GET',
                 headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
                     'X-Requested-With': 'XMLHttpRequest'
-                },
-                body: body
+                }
             })
             .then(response => response.json())
             .then(data => {
-                document.getElementById('spinner').classList.add('d-none');
-
-                tablaMarcas.innerHTML = '';
-
-                data.marcas.forEach(marca => {
-                    const fila = `
-                                    <tr>
-                                        <td class="col-8">${marca.nombre}</td>
-                                        <td>
-                                            ${marca.estado === 'activo' 
-                                                ? '<span class="badge bg-success">Activo</span>' 
-                                                : '<span class="badge bg-danger">Inactivo</span>'}
-                                        </td>
-                                        <td class="text-center g-2">
-                                            <a href="#" class="btn btn-outline-warning border-3 fw-bolder mx-1" data-bs-toggle="modal" data-bs-target="#editarMarcaModal${marca.id}" data-bs-marca-id="${marca.id}" data-bs-marca-nombre="${marca.nombre}" data-bs-marca-descripcion="${marca.descripcion}" title="Editar" aria-label="Editar marca">
-                                                <i class="bi bi-pencil-square" alt="Editar"></i>
-                                            </a>
-                                            <a href="#" class="btn btn-outline-danger border-3 fw-bolder mx-1" data-bs-toggle="modal" data-bs-target="#eliminarMarcaModal${marca.id}" title="Eliminar" aria-label="Eliminar marca">
-                                                <i class="bi bi-trash" alt="Eliminar"></i>
-                                            </a>
-                                        </td>
-                                    </tr>
-                                `;
-                    tablaMarcas.innerHTML += fila;
-                });
-
-                // Actualizar la paginación
-                generarPaginacion(data.paginaActual, data.totalPaginas);
-
-                // Inicializar tooltips después de actualizar la tabla
-                inicializarTooltips();
+                actualizarTablaMarcas(data.marcas);
+                generarPaginacion(data.paginaActual, data.totalPaginas, textoBusqueda, estado);
             })
             .catch(error => {
                 console.error('Error en la solicitud AJAX:', error);
-                // Mostrar un mensaje de error al usuario
-                alert('Error al cargar las marcas. Por favor, inténtalo de nuevo más tarde.');
+                alert('Error al cargar las marcas. Inténtalo de nuevo.');
+            })
+            .finally(() => {
+                // Ocultar el spinner cuando termine la carga
+                document.getElementById('spinner').classList.add('d-none');
             });
     }
 
-    // Evento para el cambio de filtro
-    filtroEstado.addEventListener('change', function() {
-        localStorage.setItem('estado', this.value);
-        aplicarFiltro();
-    });
+    function actualizarTablaMarcas(marcas) {
+        const tbody = document.querySelector('#tablaMarcas tbody');
+        tbody.innerHTML = '';
 
-    // Al cargar la página, recuperar el estado del filtro
-    window.addEventListener('load', function() {
-        const estadoGuardado = localStorage.getItem('estado');
-        if (estadoGuardado) {
-            filtroEstado.value = estadoGuardado;
-        }
-        aplicarFiltro();
-    });
+        marcas.forEach(marca => {
+            const tr = document.createElement('tr');
 
-    const inputBusqueda = document.querySelector('input[type="search"]');
+            tr.innerHTML = `
+            <td class="col-8">${marca.nombre}</td>
+            <td>
+                <span class="badge ${marca.estado === 'activo' ? 'bg-success' : 'bg-danger'}">
+                    ${marca.estado.charAt(0).toUpperCase() + marca.estado.slice(1)}
+                </span>
+            </td>
+            <td class="text-center g-2">
+                <a href="#" class="btn btn-outline-warning border-3 fw-bolder mx-1 btn-editar"
+                   data-bs-id="${marca.id}"
+                   data-bs-nombre="${marca.nombre}"
+                   data-bs-descripcion="${marca.descripcion}"
+                   title="Editar" data-bs-toggle="modal">
+                   <i class="bi bi-pencil-square"></i>
+                </a>
+                <a href="#" class="btn btn-outline-danger border-3 fw-bolder mx-1 btn-eliminar"
+                   data-bs-id="${marca.id}"
+                   data-bs-nombre="${marca.nombre}"
+                   title="Eliminar" data-bs-toggle="modal">
+                   <i class="bi bi-trash"></i>
+                </a>
+            </td>
+        `;
 
-    inputBusqueda.addEventListener('input', function() {
-        const textoBusqueda = this.value;
-        aplicarFiltro(1, textoBusqueda); // Llamar a aplicarFiltro con la página 1 y el texto de búsqueda
-    });
+            tbody.appendChild(tr);
+        });
 
-    let timeoutBusqueda = null;
-    let filasCoincidentes = new Set(); // Usar un Set para las filas coincidentes
+        inicializarTooltips();
+    }
 
-    inputBusqueda.addEventListener('input', function() {
-        clearTimeout(timeoutBusqueda);
-
-        timeoutBusqueda = setTimeout(() => {
-            const textoBusqueda = this.value.toLowerCase();
-            const filas = tablaMarcas.querySelectorAll('tr');
-            filasCoincidentes.clear(); // Limpiar el conjunto de filas coincidentes
-
-            filas.forEach(fila => {
-                const nombreMarca = fila.querySelector('td:first-child').textContent.toLowerCase();
-                if (nombreMarca.includes(textoBusqueda)) {
-                    fila.style.display = '';
-                    filasCoincidentes.add(fila); // Agregar la fila al conjunto
-                } else {
-                    if (!filasCoincidentes.has(fila)) { // Ocultar solo si no coincide con otra búsqueda
-                        fila.style.display = 'none';
-                    }
-                }
-            });
-        }, 300);
-    });
-
-
-    function generarPaginacion(paginaActual, totalPaginas) {
+    function generarPaginacion(paginaActual, totalPaginas, textoBusqueda, estado) {
         const paginacionContainer = document.getElementById('paginacion');
         paginacionContainer.innerHTML = '';
 
-        // Generar enlaces de paginación (con un máximo de 5 páginas visibles)
+        const fragment = document.createDocumentFragment();
+        paginaActual = parseInt(paginaActual, 10);
+        totalPaginas = parseInt(totalPaginas, 10);
         const maxPaginasVisibles = 5;
         let paginaInicial = Math.max(1, paginaActual - Math.floor(maxPaginasVisibles / 2));
         let paginaFinal = Math.min(totalPaginas, paginaInicial + maxPaginasVisibles - 1);
+
         if (paginaFinal - paginaInicial < maxPaginasVisibles - 1) {
             paginaInicial = Math.max(1, paginaFinal - maxPaginasVisibles + 1);
         }
 
-        for (let i = paginaInicial; i <= paginaFinal; i++) {
-            let enlace = document.createElement('a');
-            enlace.href = '#';
-            enlace.textContent = i;
-            enlace.classList.add('btn', 'btn-outline-primary', 'm-1');
-            if (i === paginaActual) {
-                enlace.classList.add('active');
-            }
-            enlace.addEventListener('click', function(event) {
-                event.preventDefault();
-                aplicarFiltro(i);
-            });
-            paginacionContainer.appendChild(enlace);
+        if (paginaActual > 1) {
+            fragment.appendChild(crearBotonPaginacion('Anterior', paginaActual - 1, textoBusqueda, estado));
         }
+
+        for (let i = paginaInicial; i <= paginaFinal; i++) {
+            fragment.appendChild(crearBotonPaginacion(i, i, textoBusqueda, estado, i === paginaActual));
+        }
+
+        if (paginaActual < totalPaginas) {
+            fragment.appendChild(crearBotonPaginacion('Siguiente', paginaActual + 1, textoBusqueda, estado));
+        }
+
+        paginacionContainer.appendChild(fragment);
     }
+
+    function crearBotonPaginacion(texto, pagina, textoBusqueda, estado, activo = false) {
+        const btn = document.createElement('a');
+        btn.href = '#';
+        btn.textContent = texto;
+        btn.classList.add('btn', 'btn-outline-primary', 'm-1');
+        if (activo) btn.classList.add('active');
+
+        btn.addEventListener('click', function(event) {
+            event.preventDefault();
+            aplicarFiltro(pagina, textoBusqueda, estado);
+        });
+
+        return btn;
+    }
+
+    function cargarMarcasDinamicas() {
+        const estadoGuardado = localStorage.getItem('estado') || 'todos';
+        document.getElementById('filtroEstado').value = estadoGuardado;
+        aplicarFiltro(1, '', estadoGuardado);
+    }
+
+    document.getElementById('filtroEstado').addEventListener('change', function() {
+        aplicarFiltro(1, document.querySelector('input[type="search"]').value, this.value);
+    });
+
+    document.querySelector('input[type="search"]').addEventListener('input', function() {
+        aplicarFiltro(1, this.value, document.getElementById('filtroEstado').value);
+    });
 </script>

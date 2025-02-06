@@ -51,6 +51,7 @@ class CategoriaModel extends Model
     public function crearCategoria($data)
     {
         $data['estado'] = 'activo'; // Asignar estado 'activo' por defecto
+
         if (!$this->validate($data)) {
             return false;
         }
@@ -66,13 +67,8 @@ class CategoriaModel extends Model
         }
 
         $data['estado'] = 'activo';
-        return $this->update($id, $data);
-    }
 
-    // Listar las Categoria en orden descendente por fecha de modificacion
-    public function obtenerCategoriasPorModificacion()
-    {
-        return $this->orderBy('updated_at', 'DESC')->findAll();
+        return $this->update($id, $data);
     }
 
     // Eliminar Categoria (dar de baja -> estado == 'inactivo')
@@ -81,36 +77,6 @@ class CategoriaModel extends Model
         $data['estado'] = 'inactivo';
 
         return $this->update($id, $data);
-    }
-
-    // Listar las Categorias en base a un estado en especifio y ordenarlas por fecha de ultima modificacion
-    public function obtenerCategoriasPorEstado($estado)
-    {
-        return $this->orderBy('updated_at', 'DESC')->where($estado, 'estado')->findAll();
-    }
-
-    // Obtener marcas con paginación y filtros
-    public function obtenerCategoriasFiltradas($estado = 'todos', $busqueda = '', $perPage = 10)
-    {
-        // Limpiar cualquier consulta anterior
-        $this->builder()->resetQuery();
-
-        // Si hay término de búsqueda, aplicar la búsqueda primero
-        if (!empty($busqueda)) {
-            $this->groupStart()
-                ->like('nombre', '%' . $busqueda . '%')
-                ->orLike('descripcion', '%' . $busqueda . '%')
-                ->groupEnd();
-        }
-
-        // Aplicar el filtro de estado después de la búsqueda
-        if ($estado !== 'todos') {
-            $this->where('estado', $estado);
-        }
-
-        // Aplicar el ordenamiento al final
-        return $this->orderBy('updated_at', 'DESC')
-            ->paginate($perPage);
     }
 
     /**
@@ -183,5 +149,29 @@ class CategoriaModel extends Model
 
         // Calcular el total de páginas
         return ceil($totalRegistros / $porPagina);
+    }
+
+    // Obtener marcas con paginación y filtros
+    public function obtenerCategoriasFiltradas($estado = 'todos', $busqueda = '', $perPage = 10)
+    {
+        // Limpiar cualquier consulta anterior
+        $this->builder()->resetQuery();
+
+        // Si hay término de búsqueda, aplicar la búsqueda primero
+        if (!empty($busqueda)) {
+            $this->groupStart()
+                ->like('nombre', '%' . $busqueda . '%')
+                ->orLike('descripcion', '%' . $busqueda . '%')
+                ->groupEnd();
+        }
+
+        // Aplicar el filtro de estado después de la búsqueda
+        if ($estado !== 'todos') {
+            $this->where('estado', $estado);
+        }
+
+        // Aplicar el ordenamiento al final
+        return $this->orderBy('updated_at', 'DESC')
+            ->paginate($perPage);
     }
 }

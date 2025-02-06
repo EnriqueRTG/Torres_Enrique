@@ -84,17 +84,19 @@ $routes->group('admin', ['filter' => 'authAdmin'], function ($routes) {
         $routes->get('(:num)', 'Admin\Contacto::view/$1');
     });
 
+    //Rutas Categorias
     $routes->get('categorias', 'Admin\Categoria::index'); // Listado de Categorias
     $routes->get('categorias', 'Admin\Categoria::update/$1'); // Editar la categoria
     $routes->post('categorias', 'Admin\Categoria::delete/$1'); // Eliminar la categoria
     $routes->post('categoria', 'Admin\Categoria::create'); // Crear la categoria
-    $routes->post('categorias', 'Admin\Categoria::filtrar', ['as' => 'filtrar_Categorias']); // Filtrar las categorias por estado
+    $routes->post('categorias', 'Admin\Categoria::buscarCategoria'); // Filtrar las categorias por estado
 
+    // Rutas Marcas
     $routes->get('marcas', 'Admin\Marca::index'); // Listado de Marcas
     $routes->get('marcas', 'Admin\Marca::update/$1'); // Editar la marca
     $routes->post('marcas', 'Admin\Marca::delete/$1'); // Eliminar la marca
     $routes->post('marca', 'Admin\Marca::create'); // Crear la marca
-    $routes->post('marcas', 'Admin\Marca::filtrar', ['as' => 'filtrar_marcas']); // Filtrar las maracas por estado
+    $routes->post('marcas', 'Admin\Marca::buscarMarca'); // Filtrar las maracas por estado
 });
 
 $routes->group('login', function ($routes) { // Login

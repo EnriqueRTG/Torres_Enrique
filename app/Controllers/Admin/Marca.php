@@ -34,13 +34,16 @@ class Marca extends BaseController
         // Ejecutar la consulta con paginación y filtros
         // Ejecutar consulta con paginación y filtros
         $marcas = $this->marcaModel->obtenerMarcasFiltradas($estado, $busqueda, $perPage);
-        
+
         $data = [
             'titulo' => 'Administrar Marcas',
             'marcas' => $marcas,
             'pager' => $this->marcaModel->pager,
             'estado' => $estado,
-            'busqueda' => $busqueda
+            'busqueda' => $busqueda,
+            'breadcrumbs' => [
+                ['label' => 'Gestión de Marcas'] // Último elemento sin URL
+            ],
         ];
 
         echo view('admin/marca/index', $data);
@@ -48,112 +51,57 @@ class Marca extends BaseController
 
     public function create()
     {
-        $marcaModel = new MarcaModel();
-
         $data = $this->request->getPost();
 
-        if ($marcaModel->crearMarca($data)) {
+        if ($this->marcaModel->crearMarca($data)) {
             return redirect()->to('admin/marca')->with('mensaje', 'Marca creada correctamente');
         } else {
-            return redirect()->back()->withInput()->with('errors', $marcaModel->errors());
+            return redirect()->back()->withInput()->with('errors', $this->marcaModel->errors());
         }
     }
 
     public function update($id)
     {
-        $marcaModel = new MarcaModel();
+        $data = $this->request->getPost();
 
-        $data = [
-            'nombre' => $this->request->getPost('nombre'),
-            'descripcion' => $this->request->getPost('descripcion'),
-            'estado' => 'activo',
-        ];
-
-        if ($marcaModel->actualizarMarca($id, $data)) {
+        if ($this->marcaModel->actualizarMarca($id, $data)) {
             return redirect()->to('admin/marca')->with('mensaje', 'Marca modificada exitosamente!');
         } else {
-            return redirect()->back()->withInput()->with('errors', $marcaModel->errors());
+            return redirect()->back()->withInput()->with('errors', $this->marcaModel->errors());
         }
     }
 
     public function delete($id)
     {
-
-        $marcaModel = new MarcaModel();
-
-        $marcaModel->update($id, [
-            'estado' => 'inactivo'
-        ]);
+        $this->marcaModel->eliminarMarca($id);
 
         return redirect()->to('admin/marca')->with('mensaje', 'Eliminacion exitosa!');
     }
 
-    public function filtrar()
-    {
-        try {
-            $marcaModel = new MarcaModel();
-
-            $estado = $this->request->getPost('estado');
-            $perPage = 10;
-            $page = $this->request->getPost('page') ?? 1;
-
-            if ($estado === 'todos') {
-                $marcas = $marcaModel->orderBy('updated_at', 'DESC')
-                    ->paginate($perPage, 'default', $page);
-            } else {
-                $marcas = $marcaModel->where('estado', $estado)
-                    ->orderBy('updated_at', 'DESC')
-                    ->paginate($perPage, 'default', $page);
-            }
-
-            $pager = $marcaModel->pager;
-
-            $data = [
-                'marcas' => $marcas,
-                'paginaActual' => $pager->getCurrentPage(),
-                'totalPaginas' => $pager->getPageCount(), // Usar el total de páginas del paginador
-                'enlacesPaginacion' => $pager->links()
-            ];
-
-            return $this->response->setJSON($data);
-        } catch (\Exception $e) {
-            log_message('error', $e->getMessage());
-            return $this->response->setJSON([
-                'error' => 'Error al obtener las marcas.'
-            ], 500);
-        }
-    }
-
     public function buscarMarca()
     {
-        $marcaModel = new MarcaModel();
+        $pagina = $this->request->getGet('pagina') ?? 1;
+        $texto = $this->request->getGet('texto') ?? '';
+        $estado = $this->request->getGet('estado') ?? 'todos';
 
-        $estado = $this->request->getPost('estado');
-        $texto = $this->request->getPost('texto');
-        $perPage = 10;
-        $page = $this->request->getPost('page') ?? 1;
+        try {
+            // Obtener las categorías filtradas y paginadas
+            $marcas = $this->marcaModel->filtrarMarcas($texto, $estado, $pagina);
 
-        // Construir la consulta
-        if ($estado === 'todos') {
-            $marcas = $marcaModel->like('nombre', $texto)
-                ->orderBy('updated_at', 'DESC')
-                ->paginate($perPage, 'default', $page);
-        } else {
-            $marcas = $marcaModel->where('estado', $estado)
-                ->like('nombre', $texto)
-                ->orderBy('updated_at', 'DESC')
-                ->paginate($perPage, 'default', $page);
+            // Obtener el total de páginas
+            $totalPaginas = $this->marcaModel->obtenerTotalPaginas($texto, $estado);
+
+            // Devolver los datos en formato JSON
+            return $this->response->setJSON([
+                'marcas' => $marcas,
+                'paginaActual' => $pagina,
+                'totalPaginas' => $totalPaginas
+            ]);
+        } catch (\Exception $e) {
+            // En caso de error, devolver un mensaje de error
+            return $this->response->setStatusCode(500)->setJSON([
+                'error' => 'Error al cargar las marcas. Por favor, inténtalo de nuevo más tarde.'
+            ]);
         }
-
-        $pager = $marcaModel->pager;
-
-        $data = [
-            'marcas' => $marcas,
-            'paginaActual' => $pager->getCurrentPage(),
-            'totalPaginas' => $pager->getPageCount(),
-            'enlacesPaginacion' => $pager->links()
-        ];
-
-        return $this->response->setJSON($data);
     }
 }

@@ -1,47 +1,28 @@
+<!-- Vista parcial header -->
 <?= view("layouts/header-admin", ['titulo' => $titulo]) ?>
 
+<!-- Contenedor principal -->
 <section class="container py-5">
 
-    <section class="alert-info text-center">
+    <!-- Mensajes de sesión -->
+    <div class="alert-info text-center">
         <?= session()->has('errors') ? view('partials/_session-error') : view('partials/_session') ?>
-    </section>
+    </div>
 
-    <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb" class="fs-4">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="<?= base_url('admin/dashboard') ?>">Dashboard</a></li>
-            <li class="breadcrumb-item active" aria-current="page"><?= $titulo ?></li>
-        </ol>
+    <!-- Breadcrumb -->
+    <nav aria-label="breadcrumb">
+        <?= view('partials/_breadcrumb', ['breadcrumbs' => $breadcrumbs]) ?>
     </nav>
 
+    <!-- Botón Crear y Búsqueda -->
     <div class="row my-4">
+        <!-- Botón Crear -->
         <div class="col-auto">
-            <a class="btn btn-success" href="#" data-bs-toggle="modal" data-bs-target="#crearCategoriaModal" title="Crear" id="crearCategoriaBtn" aria-label="Crear Categoría">Crear</a>
+            <a class="btn btn-success" href="#" data-bs-toggle="modal" data-bs-target="#crearCategoriaModal" title="Crear categoría" id="crearCategoriaBtn">
+                Crear
+            </a>
         </div>
-        <div class="modal fade" id="crearCategoriaModal" tabindex="-1" aria-labelledby="crearCategoriaModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="crearCategoriaModalLabel">Crear Categoría</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <form action="<?= base_url('admin/categoria/create') ?>" method="POST" id="crearCategoriaForm">
-                        <div class="modal-body">
-                            <input type="hidden" name="id" id="crearCategoriaId">
-                            <div class="mb-3">
-                                <label for="nombre" class="form-label">Nombre:</label>
-                                <input type="text" class="form-control" id="crearCategoriaNombre" name="nombre">
-                                <label for="descripcion" class="form-label">Descripcion (Opcional):</label>
-                                <textarea class="form-control" id="crearCategoriaDescripcion" name="descripcion" placeholder="Descripcion de la Categoría"></textarea>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                            <button type="submit" class="btn btn-warning">Guardar</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
+        <!-- Búsqueda -->
         <div class="col-auto ms-auto">
             <form class="d-inline-flex" role="search">
                 <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Buscar">
@@ -50,6 +31,7 @@
         </div>
     </div>
 
+    <!-- Filtro -->
     <div class="row">
         <div class="col-md-2 offset-md-10">
             <select id="filtroEstado" class="form-select">
@@ -60,10 +42,19 @@
         </div>
     </div>
 
-    <div class="my-4">
 
-        <!-- Tabla de categorías -->
+    <!-- Tabla de categorias -->
+    <div class="row my-4">
+
+        <!-- Spinner de carga -->
+        <div class="text-center d-none m-5" id="spinner">
+            <div class="spinner-border" role="status">
+                <span class="visually-hidden">Cargando...</span>
+            </div>
+        </div>
+        <!-- Tabla -->
         <table class="table table-dark table-striped table-hover table-responsive" id="tablaCategorias">
+            <!-- Cabecera de la tabla -->
             <thead>
                 <tr class="text-capitalize text-center">
                     <th scope="col">Nombre</th>
@@ -71,100 +62,107 @@
                     <th scope="col">Opciones</th>
                 </tr>
             </thead>
+            <!-- Cuerpo de la tabla -->
             <tbody class="text-center">
-                <?php foreach ($categorias as $categoria) : ?>
-                    <tr>
-                        <td class="col-8"><?= esc($categoria->nombre) ?></td>
-                        <td>
-                            <?php if ($categoria->estado == 'activo'): ?>
-                                <span class="badge bg-success">Activo</span>
-                            <?php else: ?>
-                                <span class="badge bg-danger">Inactivo</span>
-                            <?php endif; ?>
-                        </td>
-                        <td class="text-center g-2">
-                            <!-- Botón Editar (solo carga los datos en el modal global) -->
-                            <button type="button" class="btn btn-outline-warning border-3 fw-bolder mx-1 btn-editar"
-                                data-id="<?= esc($categoria->id) ?>"
-                                data-nombre="<?= esc($categoria->nombre) ?>"
-                                data-descripcion="<?= esc($categoria->descripcion) ?>"
-                                title="Editar" aria-label="Editar categoría">
-                                <i class="bi bi-pencil-square" alt="Editar"></i>
-                            </button>
-
-                            <!-- Botón Eliminar (solo carga los datos en el modal global) -->
-                            <button type="button" class="btn btn-outline-danger border-3 fw-bolder mx-1 btn-eliminar"
-                                data-id="<?= esc($categoria->id) ?>"
-                                data-nombre="<?= esc($categoria->nombre) ?>"
-                                title="Eliminar" aria-label="Eliminar categoría">
-                                <i class="bi bi-trash" alt="Eliminar"></i>
-                            </button>
-                        </td>
-                    </tr>
-                <?php endforeach; ?>
+                <!-- Se carga dinamicamente con JS y AJAX -->
+                <tr>
+                </tr>
             </tbody>
         </table>
 
-
-        <!-- Modal Editar (un solo modal en la página) -->
-        <div class="modal fade" id="editarCategoriaModal" tabindex="-1" aria-labelledby="editarCategoriaModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="editarCategoriaModalLabel">Editar Categoría</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <form action="" method="POST" id="editarCategoriaForm">
-                        <div class="modal-body">
-                            <input type="hidden" name="id" id="editarCategoriaId">
-                            <div class="mb-3">
-                                <label for="nombre" class="form-label">Nombre:</label>
-                                <input type="text" class="form-control" id="editarCategoriaNombre" name="nombre">
-                                <label for="descripcion" class="form-label">Descripción (Opcional):</label>
-                                <textarea class="form-control" id="editarCategoriaDescripcion" name="descripcion" placeholder="Descripción de la Categoría"></textarea>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                            <button type="submit" class="btn btn-warning">Editar</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-
-        <!-- Modal Eliminar (un solo modal en la página) -->
-        <div class="modal fade" id="eliminarCategoriaModal" tabindex="-1" aria-labelledby="eliminarCategoriaModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="eliminarCategoriaModalLabel">Confirmar Eliminación</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <p class="text-wrap">¿Estás seguro de que quieres eliminar la categoría <span class="fw-bolder" id="eliminarCategoriaNombre"></span>?</p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                        <form action="" method="POST" id="eliminarCategoriaForm">
-                            <button type="submit" class="btn btn-danger">Eliminar</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
+        <!-- Paginación -->
         <div class="text-center" id="paginacion">
             <?= $pager->links('default', 'default_full') ?>
         </div>
-
     </div>
-
 </section>
 
+<!-- Modal Crear -->
+<div class="modal fade" id="crearCategoriaModal" tabindex="-1" aria-labelledby="crearCategoriaModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="crearCategoriaModalLabel">Crear Categoría</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="<?= base_url('admin/categoria/create') ?>" method="POST" id="crearCategoriaForm">
+                <div class="modal-body">
+                    <input type="hidden" name="id" id="crearCategoriaId">
+                    <div class="mb-3">
+                        <label for="nombre" class="form-label">Nombre:</label>
+                        <input type="text" class="form-control" id="crearCategoriaNombre" name="nombre">
+                        <label for="descripcion" class="form-label">Descripcion (Opcional):</label>
+                        <textarea class="form-control" id="crearCategoriaDescripcion" name="descripcion" placeholder="Descripcion de la Categoría"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-warning">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Editar -->
+<div class="modal fade" id="editarCategoriaModal" tabindex="-1" aria-labelledby="editarCategoriaModalLabel" aria-hidden="true" data-bs-focus="false">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title" id="editarCategoriaModalLabel">Editar Categoría</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <form action="" method="POST" id="editarCategoriaForm">
+                <div class="modal-body">
+                    <input type="hidden" name="id" id="editarCategoriaId">
+                    <div class="mb-3">
+                        <label for="nombre" class="form-label">Nombre:</label>
+                        <input type="text" class="form-control" id="editarCategoriaNombre" name="nombre">
+                        <label for="descripcion" class="form-label">Descripción (Opcional):</label>
+                        <textarea class="form-control" id="editarCategoriaDescripcion" name="descripcion" placeholder="Descripción de la Categoría"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-warning">Editar</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+<!-- Modal Eliminar -->
+<div class="modal fade" id="eliminarCategoriaModal" tabindex="-1" aria-labelledby="eliminarCategoriaModalLabel" aria-hidden="true" data-bs-focus="false">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title" id="eliminarCategoriaModalLabel">Confirmar Eliminación</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                <p class="text-wrap">¿Estás seguro de que quieres eliminar la categoría <span class="fw-bolder" id="eliminarCategoriaNombre"></span>?</p>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <form action="" method="POST" id="eliminarCategoriaForm">
+                    <button type="submit" class="btn btn-danger">Eliminar</button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- Vista parcial header -->
 <?= view("layouts/footer-admin") ?>
 
+<!-- Scripts -->
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         inicializarTooltips();
@@ -173,13 +171,14 @@
     });
 
     function inicializarTooltips() {
-        document.querySelectorAll('[data-bs-toggle="tooltip"]').forEach(el => {
+        document.querySelectorAll('[data-bs-toggle="modal"]').forEach(el => {
             new bootstrap.Tooltip(el);
         });
     }
 
     function delegarEventosModales() {
         document.addEventListener('click', function(event) {
+
             const btnEditar = event.target.closest('.btn-editar');
             const btnEliminar = event.target.closest('.btn-eliminar');
 
@@ -194,6 +193,8 @@
     }
 
     function abrirModalEditar(btn) {
+        event.preventDefault(); // Evita el comportamiento predeterminado si es un botón dentro de un formulario
+
         const categoriaId = btn.getAttribute('data-bs-id');
         const categoriaNombre = btn.getAttribute('data-bs-nombre');
         const categoriaDescripcion = btn.getAttribute('data-bs-descripcion');
@@ -208,6 +209,8 @@
     }
 
     function abrirModalEliminar(btn) {
+        event.preventDefault(); // Evita el comportamiento predeterminado si es un botón dentro de un formulario
+
         const categoriaId = btn.getAttribute('data-bs-id');
         const categoriaNombre = btn.getAttribute('data-bs-nombre');
 
@@ -226,6 +229,9 @@
             estado
         });
 
+        // Mostrar el spinner antes de cargar
+        document.getElementById('spinner').classList.remove('d-none');
+
         fetch(`${url}?${params.toString()}`, {
                 method: 'GET',
                 headers: {
@@ -240,6 +246,10 @@
             .catch(error => {
                 console.error('Error en la solicitud AJAX:', error);
                 alert('Error al cargar las categorías. Inténtalo de nuevo.');
+            })
+            .finally(() => {
+                // Ocultar el spinner cuando termine la carga
+                document.getElementById('spinner').classList.add('d-none');
             });
     }
 
@@ -262,13 +272,13 @@
                    data-bs-id="${categoria.id}"
                    data-bs-nombre="${categoria.nombre}"
                    data-bs-descripcion="${categoria.descripcion}"
-                   title="Editar" data-bs-toggle="tooltip">
+                   title="Editar" data-bs-toggle="modal">
                    <i class="bi bi-pencil-square"></i>
                 </a>
                 <a href="#" class="btn btn-outline-danger border-3 fw-bolder mx-1 btn-eliminar"
                    data-bs-id="${categoria.id}"
                    data-bs-nombre="${categoria.nombre}"
-                   title="Eliminar" data-bs-toggle="tooltip">
+                   title="Eliminar" data-bs-toggle="modal">
                    <i class="bi bi-trash"></i>
                 </a>
             </td>
