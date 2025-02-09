@@ -35,15 +35,24 @@ class Categoria extends BaseController
         // Ejecutar consulta con paginación y filtros
         $categorias = $this->categoriaModel->obtenerCategoriasFiltradas($estado, $busqueda, $perPage);
 
+        $breadcrumbs = [
+            [
+                'label' => 'Dashboard',
+                'url'   => base_url('admin/dashboard')
+            ],
+            [
+                'label' => 'Gestión de Categorías',
+                'url'   => ''
+            ],
+        ];
+
         $data = [
             'titulo' => 'Administrar Categorias',
             'categorias' => $categorias,
             'pager' => $this->categoriaModel->pager,
             'estado' => $estado,
             'busqueda' => $busqueda,
-            'breadcrumbs' => [
-                ['label' => 'Gestión de Categorías'] // Último elemento sin URL
-            ],
+            'breadcrumbs' => $breadcrumbs,
         ];
 
         return view('admin/categoria/index', $data);

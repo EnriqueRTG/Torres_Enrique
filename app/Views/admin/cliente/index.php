@@ -1,16 +1,19 @@
+<!-- Vista parcial header -->
 <?= view("layouts/header-admin", ['titulo' => $titulo]) ?>
 
-<?= view('partials/_session') ?>
-
+<!-- Contenedor principal -->
 <section class="container py-5">
 
-    <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb" class="fs-4">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="<?php echo base_url('admin/dashboard'); ?>">Dashboard</a></li>
-            <li class="breadcrumb-item active" aria-current="page"><?= $titulo ?></li>
-        </ol>
+    <!-- Mensajes de sesión -->
+    <div class="alert-info text-center">
+        <?= session()->has('errors') ? view('partials/_session-error') : view('partials/_session') ?>
+    </div>
 
+    <!-- Breadcrumb: navegación jerárquica -->
+    <nav aria-label="breadcrumb">
+        <?= view('partials/_breadcrumb', ['breadcrumbs' => $breadcrumbs]) ?>
     </nav>
+
 
     <div class="row my-4">
         <div class="col-auto">

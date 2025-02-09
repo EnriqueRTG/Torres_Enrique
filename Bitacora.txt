@@ -242,4 +242,21 @@ Falta:
 
 06/02
     MODULO MARCAS (LISTO)
+
+08/02
+    MODULOS PRODUCTOS (EN PROCESO)
+
+09/02
+    MODULO PRODUCTOS:
+        tooltips (COMPLETO)
+        busqueda (COMPLETO)
+        filtros  (COMPLETO)
+        paginacion (COMPLETO)
+        breadcrumb (COMPLETO)
+        mensajes (COMPLETO)
+        vistas:
+            producto (COMPLETO)
+            editar (EN PROCESO) // implementacion de funcionalidad
+            modal eliminacion (COMPLETO)
+            crear (EN PROCESO) // implementacion de funcionalidad
     

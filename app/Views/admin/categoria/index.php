@@ -52,6 +52,7 @@
                 <span class="visually-hidden">Cargando...</span>
             </div>
         </div>
+        
         <!-- Tabla -->
         <table class="table table-dark table-striped table-hover table-responsive" id="tablaCategorias">
             <!-- Cabecera de la tabla -->

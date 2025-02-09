@@ -91,7 +91,7 @@ class Catalogo extends BaseController
                 break;
             case 'novedades': // Asegúrate de usar 'novedades' si es el valor correcto en tu vista
             default: // Ordenar por 'fecha_creacion' DESC por defecto si el valor no es válido
-                $builder->orderBy('productos.fecha_registro', 'DESC');
+                $builder->orderBy('productos.created_at', 'DESC');
                 break;
         }
 

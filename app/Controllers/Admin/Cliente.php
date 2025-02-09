@@ -22,9 +22,15 @@ class Cliente extends BaseController
     {
         $usuarioModel = new UsuarioModel();
 
+        $breadcrumbs = [
+            ['label' => 'Dashboard', 'url' => base_url('admin/dashboard')],
+            ['label' => 'Gestión de clientes', 'url' => base_url('admin/clientes')],
+        ];
+
         $data = [
             'titulo'   => 'Clientes',
             'clientes' => $usuarioModel->traerClientesActivos(),
+            'breadcrumbs' => $breadcrumbs,
         ];
 
         echo view('admin/cliente/index', $data);

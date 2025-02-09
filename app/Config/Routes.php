@@ -68,11 +68,16 @@ $routes->group('admin', ['filter' => 'authAdmin'], function ($routes) {
 
     $routes->get('cliente/(:num)/ordenes', 'Admin\Orden::obtenerOrdenesCliente/$1', ['as' => 'cliente.ordenes']); // Ordenes
 
-    $routes->get('productos', 'Admin\Producto::index'); // Productos
+    // Rutas Productos
+    $routes->get('productos', 'Admin\Producto::index'); // Lista de productos
     $routes->get('producto/(:num)', 'Admin\Producto::show/$1'); // Detalle del producto
-    $routes->get('producto/editar/(:num)', 'Admin\Producto::edit/$1'); // Editar el producto
-    $routes->post('producto/eliminar/(:num)', 'Admin\Producto::delete/$1'); // Eliminar producto
-    $routes->post('producto', 'Admin\Producto::create'); // crear producto
+    $routes->get('producto/editar/(:num)', 'Admin\Producto::edit/$1'); // Formulario de edición
+    $routes->post('producto/update/(:num)', 'Admin\Producto::update/$1'); // Procesa la actualización
+    $routes->post('producto/eliminar/(:num)', 'Admin\Producto::delete/$1'); // Elimina el producto
+    $routes->get('producto/crear', 'Admin\Producto::new'); // Vista Crear Producto
+    $routes->post('producto', 'Admin\Producto::create'); // Crea un producto
+    $routes->post('productos', 'Admin\Producto::buscarProducto'); // Filtra los productos
+
 
     $routes->group('consultas', function ($routes) { // Consulta
         $routes->get('', 'Admin\Consulta::index');

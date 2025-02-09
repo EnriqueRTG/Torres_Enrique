@@ -1,14 +1,17 @@
+<!-- Vista parcial header -->
 <?= view("layouts/header-admin", ['titulo' => $titulo]) ?>
 
-<?= view("partials/_form-error") ?>
-
+<!-- Contenedor principal -->
 <section class="container py-5">
-    <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb" class="fs-4">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="<?= base_url('admin/dashboard') ?>">Dashboard</a></li>
-            <li class="breadcrumb-item"><a href="<?= base_url('admin/productos') ?>">Productos</a></li>
-            <li class="breadcrumb-item active" aria-current="page"><?= $titulo ?></li>
-        </ol>
+
+    <!-- Mensajes de sesión -->
+    <div class="alert-info text-center">
+        <?= session()->has('errors') ? view('partials/_session-error') : view('partials/_session') ?>
+    </div>
+
+    <!-- Breadcrumb: navegación jerárquica -->
+    <nav aria-label="breadcrumb">
+        <?= view('partials/_breadcrumb', ['breadcrumbs' => $breadcrumbs]) ?>
     </nav>
 
     <div class="card">
@@ -16,13 +19,13 @@
             <h1 class="card-title fs-1"><?= $producto->nombre ?></h1>
         </div>
         <div class="card-body">
-            <form action="/dashboard/producto/update/<?= $producto->id ?>" method="POST" enctype="multipart/form-data">
+            <form action="<?= base_url('admin/producto/update/') ?><?= $producto->id ?>" method="POST" enctype="multipart/form-data">
                 <div class="row">
                     <div class="col-md-6">
                         <div id="carruselImagenes" class="carousel slide carousel-dark" data-bs-ride="carousel">
                             <div class="carousel-inner">
                                 <?php $active = 'active';
-                                foreach ($imagenes as $imagen): ?>
+                                foreach ($producto->imagenes as $imagen): ?>
                                     <div class="carousel-item <?= $active ?>">
                                         <img src="<?= base_url($imagen->ruta_imagen) ?>" class="d-block w-100 rounded" alt="Imagen del producto">
                                         <div class="carousel-caption d-none d-md-block">
@@ -79,11 +82,11 @@
                                 <label for="marca" class="form-label">Marca:</label>
                                 <select class="form-select" id="categoria" name="marca_id">
                                     <option value="<?= $producto->marca_id ?>" selected>
-                                        <?php echo $producto->nombre_marca; ?>
+                                        <?php echo $producto->marca_nombre; ?>
                                     </option>
 
                                     <?php foreach ($marcas as $marca) : ?>
-                                        <?php if ($producto->nombre_marca != $marca->nombre) : ?>
+                                        <?php if ($producto->marca_nombre != $marca->nombre) : ?>
                                             <option value="<?= $marca->id ?>">
                                                 <?php echo $marca->nombre; ?>
                                             </option>
@@ -120,11 +123,11 @@
                         <label for="categoria" class="form-label">Categoría:</label>
                         <select class="form-select" id="categoria" name="categoria_id">
                             <option value="<?= $producto->categoria_id ?>" selected>
-                                <?php echo $producto->nombre_categoria; ?>
+                                <?php echo $producto->categoria_nombre; ?>
                             </option>
 
                             <?php foreach ($categorias as $categoria) : ?>
-                                <?php if ($producto->nombre_categoria != $categoria->nombre) : ?>
+                                <?php if ($producto->categoria_nombre != $categoria->nombre) : ?>
                                     <option value="<?= $categoria->id ?>">
                                         <?php echo $categoria->nombre; ?>
                                     </option>

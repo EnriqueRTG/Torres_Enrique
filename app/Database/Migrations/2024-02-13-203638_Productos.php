@@ -78,12 +78,13 @@ class Productos extends Migration
                 'constraint' => ['activo', 'inactivo'],
                 'default'    => 'activo',
             ],
-            'fecha_registro' => [
+            'created_at' => [
                 'type' => 'DATETIME',
-                'null' => false,
+                'null' => true,
             ],
-            'fecha_actualizacion' => [
+            'updated_at' => [
                 'type' => 'DATETIME',
+                'null' => true,
             ],
         ]);
 

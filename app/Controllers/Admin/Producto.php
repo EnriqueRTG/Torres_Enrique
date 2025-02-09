@@ -20,47 +20,86 @@ use App\Models\ImagenProductoModel;
  */
 class Producto extends BaseController
 {
+    protected $productoModel;
+    protected $marcaModel;
+    protected $categoriaModel;
+
+
+    public function __construct()
+    {
+        // Instanciar los modelos de forma centralizada para su uso en los métodos
+        $this->productoModel = new ProductoModel();
+        $this->marcaModel    = new MarcaModel();
+        $this->categoriaModel = new CategoriaModel();
+    }
 
     public function index()
     {
-        $productoModel = new ProductoModel();
+        $estado = $this->request->getGet('estado') ?? 'todos';
+        $busqueda = $this->request->getGet('busqueda') ?? '';
+        $page = $this->request->getGet('page') ?? 1;
+        $perPage = 10;
 
-        $data = [
-            'titulo'        => 'Productos',
-            'productos'     => $productoModel->obtenerProductosActivosConDetalles(),
+        // Obtiene los productos filtrados y paginados
+        $productos = $this->productoModel->obtenerProductosFiltrados($estado, $busqueda, $perPage);
+
+        $breadcrumbs = [
+            ['label' => 'Dashboard', 'url' => base_url('admin/dashboard')],
+            ['label' => 'Gestión de productos', 'url' => ''],
         ];
 
-        echo view('admin/producto/index', $data);
+        $data = [
+            'titulo'      => 'Administrar Productos',
+            'productos'   => $productos,
+            'pager'       => $this->productoModel->pager,
+            'estado'      => $estado,
+            'busqueda'    => $busqueda,
+            'breadcrumbs' => $breadcrumbs,
+        ];
+
+        return view('admin/producto/index', $data);
     }
 
+    /**
+     * Muestra el detalle completo de un producto.
+     *
+     * @param int $id ID del producto.
+     */
     public function show($id)
     {
-        $productoModel = new ProductoModel();
+        $producto = $this->productoModel->obtenerProductoPorId($id);
 
-        $producto = $productoModel->obtenerProductoPorId($id);
-
-        $imagenes = $productoModel->obtenerImagenesProducto($id);
-
-        // Verificar si el producto tiene imágenes
-        if (empty($imagenes)) {
-            // Agregar la imagen por defecto
+        // Si el producto no tiene imágenes, asignar una imagen por defecto.
+        if (empty($producto->imagenes)) {
             $producto->imagenes[] = (object) ['ruta_imagen' => 'uploads/productos/no-image.png'];
-        } else {}
+        }
 
-        $data = [
-            'titulo'   => $producto->nombre,
-            'producto' => $producto,
-            'imagenes' => $imagenes,
+        $breadcrumbs = [
+            ['label' => 'Dashboard', 'url' => base_url('admin/dashboard')],
+            ['label' => 'Gestión de productos', 'url' => base_url('admin/productos')],
+            ['label' => $producto->nombre, 'url' => ''],
         ];
 
-        echo view("admin/producto/show", $data);
+        $data = [
+            'titulo'      => $producto->nombre,
+            'producto'    => $producto,
+            'breadcrumbs' => $breadcrumbs,
+        ];
+
+        return view("admin/producto/show", $data);
     }
 
     public function new()
     {
-        $productoModel = new ProductoModel();
-        $categoriaModel = new CategoriaModel();
-        $marcaModel = new MarcaModel();
+        $productoModel = $this->productoModel;
+        $categoriaModel = $this->categoriaModel;
+        $marcaModel = $this->marcaModel;
+
+        $breadcrumbs = [
+            ['label' => 'Dashboard', 'url' => base_url('admin/dashboard')],
+            ['label' => 'Gestión de productos', 'url' => base_url('admin/productos')],
+            ['label' => 'Crear Producto', 'url' => ''],
+        ];
 
         $data = [
             'titulo'        => "Crear Producto",
@@ -68,9 +107,10 @@ class Producto extends BaseController
             'categorias'    => $categoriaModel->find(),
             'marcas'        => $marcaModel->find(),
             'nombreBoton'   => 'Crear',
+            'breadcrumbs'   => $breadcrumbs,
         ];
 
-        echo view("producto/new", $data);
+        echo view("admin/producto/new", $data);
     }
 
     public function create()
@@ -124,92 +164,122 @@ class Producto extends BaseController
         return redirect()->to('/dashboard/producto')->with('mensaje', 'Alta de producto exitosa!');
     }
 
+    /**
+     * Muestra la vista para editar un producto.
+     *
+     * Se obtiene el producto por ID, se guarda el referer para luego poder regresar,
+     * se generan los breadcrumbs y se pasan a la vista junto con las marcas y categorías.
+     *
+     * @param int $id ID del producto a editar.
+     * @return \CodeIgniter\HTTP\RedirectResponse|string Vista de edición o redirección en caso de error.
+     */
     public function edit($id)
     {
-
-        // En el controlador (método edit)
+        // Obtener la URL referer para poder volver a la página anterior después de editar
         $referer = $this->request->getServer('HTTP_REFERER');
         session()->set('referer', $referer);
 
-        $productoModel = new ProductoModel();
-        $marcaModel = new MarcaModel();
-        $categoriaModel = new CategoriaModel();
-        $producto = $productoModel->obtenerProductoPorId($id); // Obtener el producto por ID
-
+        // Obtener el producto por ID utilizando el método del modelo
+        $producto = $this->productoModel->obtenerProductoPorId($id);
         if (!$producto) {
-            // Manejar el caso en que el producto no se encuentre
+            // Si no se encuentra el producto, redirigir con mensaje de error
             return redirect()->to('/admin/productos')->with('error', 'Producto no encontrado');
         }
 
-        $data = [
-            'titulo' => 'Editar Producto',
-            'producto' => $producto,
-            'marcas' => $marcaModel->find(),
-            'categorias' => $categoriaModel->find(),
-            'nombre_boton' => 'Editar',
-            'imagenes' => $productoModel->obtenerImagenesProducto($id),
-            'referer' => $referer
-            // ... otros datos que necesites para la vista ...
+        // Generar breadcrumbs dinámicos para la vista de edición
+        $breadcrumbs = [
+            ['label' => 'Dashboard', 'url' => base_url('admin/dashboard')],
+            ['label' => 'Gestión de productos', 'url' => base_url('admin/productos')],
+            ['label' => 'Edición: ' . $producto->nombre, 'url' => ''],
         ];
 
-        return view('admin/producto/edit', $data); // Mostrar la vista de edición
+        // Preparar los datos a enviar a la vista
+        $data = [
+            'titulo'        => 'Editar Producto',
+            'producto'      => $producto,
+            'marcas'        => $this->marcaModel->find(),
+            'categorias'    => $this->categoriaModel->find(),
+            'nombre_boton'  => 'Editar',
+            'referer'       => $referer,
+            'breadcrumbs'   => $breadcrumbs,
+        ];
+
+        return view('admin/producto/edit', $data);
     }
 
+    /**
+     * Procesa la actualización de un producto.
+     *
+     * Se reciben los datos del formulario, se intenta actualizar el producto mediante el modelo
+     * y, en función del resultado, se redirige a la vista de detalle o se vuelve al formulario con errores.
+     *
+     * @param int $id ID del producto a actualizar.
+     * @return \CodeIgniter\HTTP\RedirectResponse Redirección a la vista correspondiente.
+     */
     public function update($id)
     {
-        $productoModel = new ProductoModel();
+        // Obtener los datos enviados por POST
+        $data = $this->request->getPost();
 
-        if ($this->validate('productos_update')) {
-            $productoModel->update($id, [
-                'nombre'          => $this->request->getPost('nombre'),
-                'descripcion'     => $this->request->getPost('descripcion'),
-                'precio'          => $this->request->getPost('precio'),
-                'stock'           => $this->request->getPost('stock'),
-                'marca_id'        => $this->request->getPost('marca_id'),
-                'peso'            => $this->request->getPost('peso'),
-                'dimension'       => $this->request->getPost('dimension'),
-                'imagen'          => $this->request->getPost('imagen'),
-            ]);
+        // Obtener el producto actual desde la base de datos
+        $productoActual = $this->productoModel->find($id);
+
+        // Si el nombre no ha cambiado, elimina la regla is_unique
+        if ($data['nombre'] === $productoActual->nombre) {
+            // Clonar las reglas de validación actuales
+            $reglas = $this->productoModel->validationRules;
+            // Remover la parte de is_unique de la regla 'nombre'
+            // Por ejemplo, definir una nueva regla sin is_unique:
+            $reglas['nombre'] = 'required|min_length[3]|max_length[255]';
+            $this->productoModel->setValidationRules($reglas);
+        }
+
+        // Intentar actualizar el producto utilizando el método personalizado del modelo
+        if ($this->productoModel->actualizarProducto($id, $data)) {
+            // Redirigir a la vista de detalle del producto (incluyendo el ID) con mensaje de éxito
+            return redirect()->to('admin/producto/' . $id)->with('mensaje', 'Producto modificado exitosamente!');
         } else {
-            session()->setFlashdata([
-                'validation' => $this->validator
-            ]);
-
-            return redirect()->back()->withInput();
+            // Si hay errores, redirigir de vuelta al formulario conservando la información y los errores de validación
+            return redirect()->back()->withInput()->with('errors', $this->productoModel->errors());
         }
-
-        return redirect()->to('/dashboard/producto')->with('mensaje', 'Modificacion de producto exitosa!');
-    }
-
-    public function update2($id)
-    {
-        $imagenProductoModel = new ImagenProductoModel();
-        // ...
-
-        // Subir la imagen
-        $imagen = $this->request->getFile('imagen');
-        if ($imagen->isValid() && !$imagen->hasMoved()) {
-            $nombreImagen = $imagen->getRandomName();
-            $imagen->move(WRITEPATH . 'uploads', $nombreImagen);
-
-            // Guardar el nombre de la imagen en la base de datos
-            $imagenProductoModel->save([
-                'producto_id' => $id,
-                'ruta_imagen' => 'uploads/' . $nombreImagen,
-            ]);
-        }
-
-        // ...
     }
 
     public function delete($id)
     {
-        $productoModel = new ProductoModel();
 
-        $productoModel->update($id, [
-            'baja' => 1
-        ]);
+        $this->productoModel->eliminarProducto($id);
 
-        return redirect()->to('/dashboard/producto')->with('mensaje', 'Baja de producto exitosa!');
+        return redirect()->to('admin/producto')->with('mensaje', 'Eliminacion exitosa!');
+    }
+
+    public function buscarProducto()
+    {
+        // Se leen los parámetros enviados por GET
+        // Si no se envían, se asignan valores por defecto
+        $pagina = $this->request->getGet('pagina') ?? 1;
+        $texto  = $this->request->getGet('texto') ?? '';
+        $estado = $this->request->getGet('estado') ?? 'todos';
+
+        try {
+            // Utiliza el modelo para obtener los productos filtrados y paginados.
+            // Asegúrate de que el método filtrarProductos() en el modelo utilice el valor de $pagina.
+            $productos = $this->productoModel->filtrarProductos($texto, $estado, $pagina);
+
+            // Obtiene el total de páginas para la paginación, usando la misma búsqueda y filtro
+            $totalPaginas = $this->productoModel->obtenerTotalPaginas($texto, $estado);
+
+            // Se prepara un array con la información a retornar
+            return $this->response->setJSON([
+                'productos' => $productos,
+                'paginaActual' => $pagina,
+                'totalPaginas' => $totalPaginas
+            ]);
+        } catch (\Exception $e) {
+            // En caso de error, se registra el error (opcional) y se retorna un mensaje JSON con status 500
+            log_message('error', 'Error en buscarProductos: ' . $e->getMessage());
+            return $this->response->setStatusCode(500)->setJSON([
+                'error' => 'Error al cargar los productos. Por favor, inténtalo de nuevo más tarde.'
+            ]);
+        }
     }
 }

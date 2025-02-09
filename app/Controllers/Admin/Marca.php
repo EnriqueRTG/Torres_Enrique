@@ -35,15 +35,24 @@ class Marca extends BaseController
         // Ejecutar consulta con paginación y filtros
         $marcas = $this->marcaModel->obtenerMarcasFiltradas($estado, $busqueda, $perPage);
 
+        $breadcrumbs = [
+            [
+                'label' => 'Dashboard',
+                'url'   => base_url('admin/dashboard')
+            ],
+            [
+                'label' => 'Gestión de Marcas',
+                'url'   => ''
+            ],
+        ];
+
         $data = [
             'titulo' => 'Administrar Marcas',
             'marcas' => $marcas,
             'pager' => $this->marcaModel->pager,
             'estado' => $estado,
             'busqueda' => $busqueda,
-            'breadcrumbs' => [
-                ['label' => 'Gestión de Marcas'] // Último elemento sin URL
-            ],
+            'breadcrumbs' => $breadcrumbs,
         ];
 
         echo view('admin/marca/index', $data);

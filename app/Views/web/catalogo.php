@@ -42,7 +42,7 @@
                         <div class="card h-100 card-producto">
                             <!-- Imagen del Producto -->
                             <a href="<?= url_to('producto', $producto->id) ?>" class="position-relative">
-                                <img class="card-img-top" src="<?= base_url($producto->imagenes->ruta_imagen) ?>" alt="<?= $producto->nombre ?>" />
+                                <img class="card-img-top" src="<?= base_url($producto->imagen_principal) ?>" alt="<?= $producto->nombre ?>" />
                                 <div class="overlay d-flex justify-content-center align-items-center">
                                     <button class="btn btn-info">Ver Detalles</button>
                                 </div>
@@ -66,11 +66,13 @@
                                         <?php elseif ($producto->stock == 1) : ?>
                                             <span class="text-danger font-weight-bold">¡Última unidad!</span>
                                         <?php endif; ?>
-                                        <div class="mb-2">
-                                            <a href="<?= base_url('carrito/agregar/' . $producto->id) ?>" class="btn btn-warning">
-                                                Agregar al Carrito
-                                            </a>
-                                        </div>
+                                        <?php if (session()->get('usuario')->rol != 'administrador') : ?>
+                                            <div class="mb-2">
+                                                <a href="<?= base_url('carrito/agregar/' . $producto->id) ?>" class="btn btn-warning">
+                                                    Agregar al Carrito
+                                                </a>
+                                            </div>
+                                        <?php endif; ?>
                                     <?php endif; ?>
                                 </div>
                             </div>

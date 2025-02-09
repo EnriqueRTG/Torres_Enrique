@@ -136,16 +136,19 @@
 <div class="modal fade" id="eliminarMarcaModal" tabindex="-1" aria-labelledby="eliminarMarcaModalLabel" aria-hidden="true" data-bs-focus="false">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
-
+            <!-- Encabezado del modal -->
             <div class="modal-header">
                 <h5 class="modal-title" id="eliminarMarcaModalLabel">Confirmar Eliminación</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-
+            <!-- Cuerpo del modal: se completará dinámicamente con el nombre de la  categoría-->
             <div class="modal-body">
-                <p class="text-wrap">¿Estás seguro de que quieres eliminar la categoría <span class="fw-bolder" id="eliminarMarcaNombre"></span>?</p>
+                <p class="text-wrap">
+                    ¿Estás seguro de que quieres eliminar la categoría 
+                    <span class="fw-bolder" id="eliminarMarcaNombre"></span>?
+                </p>
             </div>
-
+            <!-- Pie del modal: formulario para confirmar eliminación -->
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                 <form action="" method="POST" id="eliminarMarcaForm">
