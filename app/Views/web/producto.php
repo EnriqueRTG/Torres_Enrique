@@ -9,7 +9,7 @@
             <div id="productCarousel" class="carousel slide" data-bs-ride="carousel">
                 <div class="carousel-inner">
                     <?php $active = 'active';
-                    foreach ($imagenes as $imagen) : ?>
+                    foreach ($producto->imagenes as $imagen) : ?>
                         <div class="carousel-item <?= $active ?>">
                             <img src="<?= base_url($imagen->ruta_imagen) ?>" class="d-block w-100 rounded" alt="<?= $producto->nombre ?>">
                         </div>
@@ -87,7 +87,7 @@
             </tr>
             <tr>
                 <td>Marca</td>
-                <td><?= $producto->nombre_marca ?></td>
+                <td><?= $producto->marca_nombre ?></td>
             </tr>
             <tr>
                 <td>Modelo</td>
@@ -111,7 +111,7 @@
             </tr>
             <tr>
                 <td>Categorias</td>
-                <td><?= $producto->nombre_categoria ?></td>
+                <td><?= $producto->categoria_nombre ?></td>
             </tr>
         </tbody>
     </table>

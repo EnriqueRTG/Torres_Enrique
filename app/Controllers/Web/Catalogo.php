@@ -127,15 +127,28 @@ class Catalogo extends BaseController
 
     public function show($id)
     {
-        $productoModel = new ProductoModel();
+        // Utilizamos el modelo inyectado en el constructor (si ya lo tienes instanciado)
+        // para obtener el producto completo, que incluye la información de marcas, categorías e imágenes.
+        $producto = $this->productoModel->obtenerProductoPorId($id);
 
+        // Verificar que se encontró el producto; de lo contrario, redirigir con un mensaje de error.
+        if (!$producto) {
+            return redirect()->to('/catalogo')->with('error', 'Producto no encontrado');
+        }
+
+        // Preparar los datos para la vista.
+        // Nota: No es necesario llamar nuevamente a find($id) para obtener el nombre,
+        // ya que $producto ya contiene esa información.
         $data = [
-            'producto'   => $productoModel->obtenerProductoPorId($id),
-            'imagenes'   => $productoModel->obtenerImagenesProducto($id),
-            'titulo'     => $productoModel->find($id)->nombre,
-            'cart'       => $this->cart,
+            'producto' => $producto,
+            'titulo'   => $producto->nombre,
+            'cart'     => $this->cart,  // Asumiendo que $this->cart está inicializado en el constructor
         ];
 
-        return view('layouts/header', $data) . view('web/producto', $data) . view('layouts/footer');
+        // Retornar la vista utilizando un layout (header, contenido y footer)
+        // Esto puede variar según tu forma de organizar las vistas.
+        return view('layouts/header', $data)
+            . view('web/producto', $data)
+            . view('layouts/footer');
     }
 }

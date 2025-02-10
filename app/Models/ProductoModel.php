@@ -267,22 +267,103 @@ class ProductoModel extends Model
     }
 
 
+    /**
+     * Obtiene el producto por su ID con todos los detalles necesarios para la vista de producto,
+     * incluyendo la marca, la categoría y todas las imágenes asociadas.
+     *
+     * Se realiza un JOIN con las tablas "marcas" y "categorias" para obtener los nombres correspondientes.
+     * Luego se consulta el modelo de imágenes para agregar un array con todas las imágenes vinculadas al producto.
+     * Se ordenan las imágenes por 'id' en orden ascendente para que la primera imagen aparezca primero.
+     *
+     * @param int $productoId El ID del producto a obtener.
+     * @return object|null Devuelve el objeto producto con propiedades adicionales:
+     *                     - marca_nombre: Nombre de la marca asociada.
+     *                     - categoria_nombre: Nombre de la categoría asociada.
+     *                     - imagenes: Array de objetos con las imágenes asociadas.
+     *                     Retorna null si no se encuentra el producto.
+     */
     public function obtenerProductoPorId(int $productoId)
     {
+        // Reiniciar el query builder para asegurarnos de que no queden configuraciones previas.
+        // (No existe resetSelect() en CI4, así que se utiliza el segundo parámetro "false" en select())
         $this->builder()->resetQuery();
 
-        $this->select('productos.*, marcas.nombre as marca_nombre, categorias.nombre as categoria_nombre')
+        // Definir la selección de campos: todos los campos de 'productos' y los alias para marca y categoría.
+        $this->select(
+            'productos.*, marcas.nombre as marca_nombre, categorias.nombre as categoria_nombre',
+            false
+        )
             ->join('marcas', 'marcas.id = productos.marca_id', 'left')
             ->join('categorias', 'categorias.id = productos.categoria_id', 'left')
             ->where('productos.id', $productoId);
 
+        // Ejecutar la consulta y obtener el producto
         $producto = $this->get()->getRow();
 
         if ($producto) {
+            // Instanciar el modelo de imágenes y obtener todas las imágenes asociadas,
+            // ordenándolas por 'id' de forma ascendente (la primera imagen aparecerá primero)
             $imagenModel = new \App\Models\ImagenProductoModel();
-            $producto->imagenes = $imagenModel->where('producto_id', $productoId)->findAll();
+            $producto->imagenes = $imagenModel->where('producto_id', $productoId)
+                ->orderBy('id', 'ASC')
+                ->findAll();
+
+            // Opcional: Si no hay imágenes, se puede asignar una imagen por defecto
+            if (empty($producto->imagenes)) {
+                $producto->imagenes[] = (object) ['ruta_imagen' => 'uploads/productos/no-image.png'];
+            }
         }
 
         return $producto;
+    }
+
+
+    /**
+     * Obtiene los productos activos junto con la primera imagen asociada,
+     * el nombre de la marca y el nombre de la categoría.
+     *
+     * Se filtra por productos con estado 'activo' y se ordenan por 'updated_at'
+     * en orden descendente (los más recientes primero). Además, se utiliza una subconsulta
+     * para traer la ruta de la primera imagen asociada a cada producto.
+     *
+     * @param \CodeIgniter\Database\BaseBuilder|null $builder (Opcional) Instancia del Query Builder con filtros previos.
+     * @return array Lista de productos activos (como objetos) con los campos adicionales:
+     *               - imagen_principal: ruta de la primera imagen.
+     *               - marca_nombre: nombre de la marca.
+     *               - categoria_nombre: nombre de la categoría.
+     */
+    public function getProductosActivos($builder = null)
+    {
+        // Si no se pasa un objeto builder, se obtiene uno nuevo desde el modelo.
+        if ($builder === null) {
+            $builder = $this->builder();
+        }
+
+        // Definir la cláusula SELECT de forma exclusiva (sin concatenar selects previos)
+        // El segundo parámetro "false" indica que se reemplaza cualquier selección previa.
+        $builder->select(
+            'productos.*, 
+         (SELECT ip.ruta_imagen 
+          FROM imagenes_productos ip 
+          WHERE ip.producto_id = productos.id 
+          ORDER BY ip.id ASC LIMIT 1) AS imagen_principal, 
+         marcas.nombre as marca_nombre, 
+         categorias.nombre as categoria_nombre',
+            false
+        );
+
+        // Realizar los joins para obtener los nombres de la marca y la categoría.
+        // Se usan LEFT JOIN para evitar excluir productos sin asignación.
+        $builder->join('marcas', 'marcas.id = productos.marca_id', 'left');
+        $builder->join('categorias', 'categorias.id = productos.categoria_id', 'left');
+
+        // Filtrar para obtener únicamente los productos con estado 'activo'
+        $builder->where('productos.estado', 'activo');
+
+        // Ordenar los resultados por la fecha de actualización, de forma descendente.
+        $builder->orderBy('productos.updated_at', 'DESC');
+
+        // Ejecutar la consulta y devolver el resultado como un array de objetos.
+        return $builder->get()->getResult();
     }
 }
