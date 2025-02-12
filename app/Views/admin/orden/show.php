@@ -1,6 +1,6 @@
 <?= view("layouts/header-admin", ['titulo' => $titulo]) ?>
 
-<section class="container py-5">
+<section class="container py-5 main-content">
 
     <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb" class="fs-4">
         <ol class="breadcrumb">

@@ -1,6 +1,6 @@
 <?= view("plantilla/header-admin", ['titulo' => $titulo]) ?>
 
-<section class="container ">
+<section class="container main-content">
     <h1><?= $cliente->apellido ?>, <?= $cliente->nombre ?></h1>
     <br>
 

@@ -95,6 +95,10 @@ class Producto extends BaseController
         $categoriaModel = $this->categoriaModel;
         $marcaModel = $this->marcaModel;
 
+        // Obtener la URL referer para poder volver a la página anterior después de editar
+        $referer = $this->request->getServer('HTTP_REFERER');
+        session()->set('referer', $referer);
+
         $breadcrumbs = [
             ['label' => 'Dashboard', 'url' => base_url('admin/dashboard')],
             ['label' => 'Gestión de productos', 'url' => base_url('admin/productos')],
@@ -108,6 +112,7 @@ class Producto extends BaseController
             'marcas'        => $marcaModel->find(),
             'nombreBoton'   => 'Crear',
             'breadcrumbs'   => $breadcrumbs,
+            'referer'       => $referer,
         ];
 
         echo view("admin/producto/new", $data);
@@ -115,54 +120,81 @@ class Producto extends BaseController
 
     public function create()
     {
-        $productoModel = new ProductoModel();
-        $imagenModel = new ImagenProductoModel();
+        // Instanciar los modelos necesarios
+        $productoModel = new \App\Models\ProductoModel();
+        $imagenModel   = new \App\Models\ImagenProductoModel();
 
-        if (empty($data['ruta_imagen'])) {
-            $data['ruta_imagen'] = 'uploads/productos/no_image.png';
-        }
+        // Obtener todos los datos enviados por POST
+        // Esto devuelve un array asociativo con todas las entradas del formulario.
+        $dataProducto = $this->request->getPost();
 
-        if ($this->validate('productos_create')) {
-            $productoModel->insert([
-                'nombre'          => $this->request->getPost('nombre'),
-                'descripcion'     => $this->request->getPost('descripcion'),
-                'precio'          => $this->request->getPost('precio'),
-                'stock'           => $this->request->getPost('stock'),
-                'marca_id'        => $this->request->getPost('marca_id'),
-                'presentacion'    => $this->request->getPost('presentacion'),
-            ]);
+        // Crear el producto mediante el método del modelo (validación y guardado se realizan en el modelo)
+        $productoId = $productoModel->crearProducto($dataProducto);
 
-            // 2. Obtener el ID del producto recién creado
-            $productoId = $productoModel->getInsertID();
-
-            // 3. Cargar las imágenes y asociarlas al producto
-            $imagenes = $this->request->getFiles();
-
-            foreach ($imagenes['imagenes'] as $imagen) {
-                if ($imagen->isValid() && !$imagen->hasMoved()) {
-                    $nuevoNombre = $imagen->getRandomName();
-                    $imagen->move(WRITEPATH . 'uploads/productos', $nuevoNombre);
-
-                    $imagenData = [
-                        'nombre' => $imagen->getClientName(),
-                        'ruta' => 'uploads/productos/' . $nuevoNombre,
-                    ];
-
-                    $imagenModel->save($imagenData); // Insertar en ImagenModel
-
-                    $productoModel->imagenes()->attach($productoId, ['imagen_id' => $imagenModel->getInsertID()]);
-                }
-            }
-        } else {
-            session()->setFlashdata([
-                'validation' => $this->validator
-            ]);
-
+        // Si la creación falla, redirigir hacia atrás con los errores y conservar los datos ingresados.
+        if (!$productoId) {
+            session()->setFlashdata('validation', $productoModel->errors());
             return redirect()->back()->withInput();
         }
 
-        return redirect()->to('/dashboard/producto')->with('mensaje', 'Alta de producto exitosa!');
+        // Procesar la subida de imágenes
+        $archivos = $this->request->getFiles();
+        $subioImagen = false; // Bandera para saber si se subió alguna imagen
+
+        // Procesar la imagen principal (campo "imagen")
+        if (isset($archivos['imagen'])) {
+            $imagenPrincipal = $archivos['imagen'];
+            if ($imagenPrincipal->isValid() && !$imagenPrincipal->hasMoved()) {
+                $nuevoNombre = $imagenPrincipal->getRandomName();
+                // Mover la imagen a la carpeta "public/uploads/productos"
+                if ($imagenPrincipal->move(FCPATH . 'uploads/productos', $nuevoNombre)) {
+                    $imagenData = [
+                        'nombre'       => $imagenPrincipal->getClientName(),
+                        'ruta_imagen'  => 'uploads/productos/' . $nuevoNombre,
+                        'producto_id'  => $productoId,
+                    ];
+                    $imagenModel->insert($imagenData);
+                    $subioImagen = true;
+                } else {
+                    log_message('error', 'Error al mover la imagen principal: ' . $imagenPrincipal->getErrorString());
+                }
+            }
+        }
+
+        // Procesar imágenes adicionales (campo "imagenes[]")
+        if (isset($archivos['imagenes'])) {
+            foreach ($archivos['imagenes'] as $imagen) {
+                if ($imagen->isValid() && !$imagen->hasMoved()) {
+                    $nuevoNombre = $imagen->getRandomName();
+                    if ($imagen->move(FCPATH . 'uploads/productos', $nuevoNombre)) {
+                        $imagenData = [
+                            'nombre'       => $imagen->getClientName(),
+                            'ruta_imagen'  => 'uploads/productos/' . $nuevoNombre,
+                            'producto_id'  => $productoId,
+                        ];
+                        $imagenModel->insert($imagenData);
+                        $subioImagen = true;
+                    } else {
+                        log_message('error', 'Error al mover imagen adicional: ' . $imagen->getErrorString());
+                    }
+                }
+            }
+        }
+
+        // Si no se subió ninguna imagen, asignar la imagen por defecto.
+        if (!$subioImagen) {
+            $imagenData = [
+                'nombre'       => 'No Image',
+                'ruta_imagen'  => 'uploads/productos/no-image.png',
+                'producto_id'  => $productoId,
+            ];
+            $imagenModel->insert($imagenData);
+        }
+
+        // Redirigir a la vista de listado de productos con un mensaje de éxito
+        return redirect()->to('/admin/producto')->with('mensaje', 'Alta de producto exitosa!');
     }
+
 
     /**
      * Muestra la vista para editar un producto.
@@ -186,6 +218,15 @@ class Producto extends BaseController
             return redirect()->to('/admin/productos')->with('error', 'Producto no encontrado');
         }
 
+        // Implementación robusta: Si no hay imágenes, asigna un objeto dummy con la imagen por defecto
+        if (empty($producto->imagenes)) {
+            $producto->imagenes[] = (object)[
+                'id'          => 0,  // Valor por defecto
+                'nombre'      => 'No Image',
+                'ruta_imagen' => 'uploads/productos/no-image.png'
+            ];
+        }
+
         // Generar breadcrumbs dinámicos para la vista de edición
         $breadcrumbs = [
             ['label' => 'Dashboard', 'url' => base_url('admin/dashboard')],
@@ -207,6 +248,7 @@ class Producto extends BaseController
         return view('admin/producto/edit', $data);
     }
 
+
     /**
      * Procesa la actualización de un producto.
      *
@@ -218,31 +260,62 @@ class Producto extends BaseController
      */
     public function update($id)
     {
-        // Obtener los datos enviados por POST
+        // 1. Obtener los datos enviados por POST.
         $data = $this->request->getPost();
 
-        // Obtener el producto actual desde la base de datos
+        // 2. Obtener el producto actual desde la base de datos.
         $productoActual = $this->productoModel->find($id);
 
-        // Si el nombre no ha cambiado, elimina la regla is_unique
+        // 3. Verificar si el nombre no ha cambiado para evitar la validación de unicidad.
         if ($data['nombre'] === $productoActual->nombre) {
-            // Clonar las reglas de validación actuales
+            // Clonar las reglas de validación actuales.
             $reglas = $this->productoModel->validationRules;
-            // Remover la parte de is_unique de la regla 'nombre'
-            // Por ejemplo, definir una nueva regla sin is_unique:
+            // Remover la regla is_unique para el campo 'nombre'.
             $reglas['nombre'] = 'required|min_length[3]|max_length[255]';
+            // Establecer las nuevas reglas de validación en el modelo.
             $this->productoModel->setValidationRules($reglas);
         }
 
-        // Intentar actualizar el producto utilizando el método personalizado del modelo
+        // 4. Intentar actualizar el producto utilizando el método personalizado del modelo.
         if ($this->productoModel->actualizarProducto($id, $data)) {
-            // Redirigir a la vista de detalle del producto (incluyendo el ID) con mensaje de éxito
+
+            // 5. Procesar las imágenes subidas, si existen.
+            $imagenes = $this->request->getFiles();
+            if (!empty($imagenes['imagenes'])) {
+                $imagenModel = new \App\Models\ImagenProductoModel();
+                foreach ($imagenes['imagenes'] as $imagen) {
+                    // Verificar que el archivo es válido y no ha sido movido previamente.
+                    if ($imagen->isValid() && !$imagen->hasMoved()) {
+                        // Generar un nombre aleatorio para evitar colisiones.
+                        $nuevoNombre = $imagen->getRandomName();
+
+                        // Mover la imagen a la carpeta de destino.
+                        // Usamos FCPATH para ubicar el archivo en la carpeta pública (por ejemplo, public/uploads/productos).
+                        if ($imagen->move(FCPATH . 'uploads/productos', $nuevoNombre)) {
+                            // Preparar los datos para insertar en la base de datos.
+                            $imagenData = [
+                                'nombre'       => $imagen->getClientName(),  // Nombre original de la imagen
+                                'ruta_imagen'  => 'uploads/productos/' . $nuevoNombre, // Ruta relativa para acceso público
+                                'producto_id'  => $id, // Asociar esta imagen al producto
+                            ];
+                            // Insertar el registro en la tabla de imágenes.
+                            $imagenModel->insert($imagenData);
+                        } else {
+                            // Si falla el movimiento de la imagen, registrar el error para depuración.
+                            log_message('error', 'Error al mover la imagen: ' . $imagen->getErrorString());
+                        }
+                    }
+                }
+            }
+
+            // 6. Redirigir a la vista de detalle del producto con un mensaje de éxito.
             return redirect()->to('admin/producto/' . $id)->with('mensaje', 'Producto modificado exitosamente!');
         } else {
-            // Si hay errores, redirigir de vuelta al formulario conservando la información y los errores de validación
+            // En caso de errores de validación, redirigir al formulario con los datos ingresados y los mensajes de error.
             return redirect()->back()->withInput()->with('errors', $this->productoModel->errors());
         }
     }
+
 
     public function delete($id)
     {

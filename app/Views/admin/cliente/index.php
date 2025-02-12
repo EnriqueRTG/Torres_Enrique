@@ -2,7 +2,7 @@
 <?= view("layouts/header-admin", ['titulo' => $titulo]) ?>
 
 <!-- Contenedor principal -->
-<section class="container py-5">
+<section class="container py-5 main-content">
 
     <!-- Mensajes de sesión -->
     <div class="alert-info text-center">
@@ -27,8 +27,6 @@
             </form>
         </div>
     </div>
-
-
 
     <div class="my-3 table-responsive">
         <table class="table table-dark table-striped table-hover my-5 ">
@@ -71,8 +69,6 @@
                                 <i class="bi bi-envelope-at-fill"></i>
                             </a>
                         </td>
-
-
                     </tr>
                 <?php endforeach ?>
             </tbody>

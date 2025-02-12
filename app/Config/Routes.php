@@ -68,15 +68,19 @@ $routes->group('admin', ['filter' => 'authAdmin'], function ($routes) {
 
     $routes->get('cliente/(:num)/ordenes', 'Admin\Orden::obtenerOrdenesCliente/$1', ['as' => 'cliente.ordenes']); // Ordenes
 
-    // Rutas Productos
-    $routes->get('productos', 'Admin\Producto::index'); // Lista de productos
-    $routes->get('producto/(:num)', 'Admin\Producto::show/$1'); // Detalle del producto
-    $routes->get('producto/editar/(:num)', 'Admin\Producto::edit/$1'); // Formulario de edición
-    $routes->post('producto/update/(:num)', 'Admin\Producto::update/$1'); // Procesa la actualización
-    $routes->post('producto/eliminar/(:num)', 'Admin\Producto::delete/$1'); // Elimina el producto
-    $routes->get('producto/crear', 'Admin\Producto::new'); // Vista Crear Producto
-    $routes->post('producto', 'Admin\Producto::create'); // Crea un producto
-    $routes->post('productos', 'Admin\Producto::buscarProducto'); // Filtra los productos
+    // Rutas para Productos
+    $routes->get('productos', 'Admin\Producto::index');
+    $routes->get('producto/(:num)', 'Admin\Producto::show/$1');
+    $routes->get('producto/editar/(:num)', 'Admin\Producto::edit/$1');
+    $routes->post('producto/update/(:num)', 'Admin\Producto::update/$1');
+    $routes->post('producto/eliminar/(:num)', 'Admin\Producto::delete/$1');
+    $routes->get('producto/crear', 'Admin\Producto::new');
+    $routes->post('producto', 'Admin\Producto::create');
+    $routes->post('productos', 'Admin\Producto::buscarProducto');
+
+    // Ruta para eliminar imágenes de producto
+    // Se utiliza GET para eliminar, pero también puedes usar POST si prefieres mayor seguridad.
+    $routes->get('producto/eliminarImagen/(:num)', 'Admin\ImagenProducto::eliminarImagen/$1');
 
 
     $routes->group('consultas', function ($routes) { // Consulta

@@ -2,7 +2,7 @@
 <?= view("layouts/header-admin", ['titulo' => $titulo]) ?>
 
 <!-- Contenedor principal -->
-<section class="container py-5">
+<section class="container py-5 main-content">
 
     <!-- Mensajes de sesión -->
     <div class="alert-info text-center">

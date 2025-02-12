@@ -1,9 +1,194 @@
+/* -------------------------------------------- */
+/* 🔹 FUENTES PERSONALIZADAS */
+/* -------------------------------------------- */
+
 @font-face {
     font-family: "Bootstrap Icons";
     src: url("bootstrap-icons.woff2") format("woff2"),
         url("bootstrap-icons.woff") format("woff");
 }
 
+/* -------------------------------------------- */
+/* 🔹 CONFIGURACIÓN GENERAL */
+/* -------------------------------------------- */
+
+/* Asegura que la página ocupe toda la altura de la pantalla */
+html,
+body {
+    height: 100%;
+    margin: 0;
+}
+
+/* Establece flexbox en el body para un footer sticky */
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Permite que el contenido principal ocupe el espacio disponible */
+.main-content {
+    flex: 1;
+}
+
+/* -------------------------------------------- */
+/* 🔹 TABLAS EN DISPOSITIVOS PEQUEÑOS */
+/* -------------------------------------------- */
+
+/* Reduce el padding y ajusta el tamaño del texto en móviles */
+@media (max-width: 576px) {
+
+    #tablaProductos th,
+    #tablaProductos td {
+        padding: 0.5rem;
+        font-size: 0.9rem;
+    }
+}
+
+/* -------------------------------------------- */
+/* 🔹 CAROUSEL PRINCIPAL - PROPORCIÓN CUADRADA */
+/* -------------------------------------------- */
+
+/* Mantiene el carrusel principal en un contenedor cuadrado */
+.square-carousel {
+    position: relative;
+    width: 100%;
+    height: 0;
+    padding-top: 100%;
+    /* La altura será igual al ancho (proporción 1:1) */
+    overflow: hidden;
+}
+
+/* Ajusta la posición y el tamaño de los elementos internos */
+.square-carousel .carousel-inner,
+.square-carousel .carousel-item {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* Evita que las imágenes distorsionen el diseño */
+.square-carousel .carousel-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Ajusta el tamaño en dispositivos móviles */
+@media (max-width: 576px) {
+    .square-carousel {
+        padding-top: 100%;
+    }
+}
+
+/* -------------------------------------------- */
+/* 🔹 MODAL DE IMÁGENES - ESTILO TRANSLÚCIDO */
+/* -------------------------------------------- */
+
+/* Fondo translúcido para el modal */
+.translucent-modal-content {
+    background-color: rgba(0, 0, 0, 0.9);
+}
+
+/* Ajusta las imágenes en el modal para que se vean correctamente */
+#fullscreenCarousel .carousel-item img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    /* Permite ver la imagen completa sin recortarla */
+}
+
+/* -------------------------------------------- */
+/* 🔹 MINI GALERÍA - SWIPER */
+/* -------------------------------------------- */
+
+/* Contenedor de la galería con scroll horizontal */
+.gallery-scroll {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    gap: 0.5rem;
+}
+
+/* Asegura que cada miniatura se alinee correctamente */
+.gallery-scroll .gallery-item {
+    flex: 0 0 auto;
+    width: 100px;
+    scroll-snap-align: start;
+}
+
+/* -------------------------------------------- */
+/* 🔹 SWIPER GALLERY - CONTROL DE TAMAÑO */
+/* -------------------------------------------- */
+
+/* Establece un tamaño máximo para la galería y evita desbordamientos */
+.mySwiper {
+    width: 100%;
+    max-height: 250px;
+    /* Evita que la galería crezca demasiado */
+    overflow: hidden;
+    position: relative;
+}
+
+/* Asegura que los slides ocupen toda la altura */
+.mySwiper .swiper-wrapper {
+    height: 100%;
+}
+
+/* Define el tamaño de los slides */
+.mySwiper .swiper-slide {
+    flex: 0 0 auto;
+    width: 100px;
+    height: 100%;
+    background-color: #f0f0f0;
+
+    /* O el color que prefieras */
+}
+
+/* Ajusta las imágenes dentro del Swiper */
+.mySwiper .swiper-slide img {
+    width: 100%;
+    height: auto;
+    max-height: 100%;
+    object-fit: contain;
+    object-position: center;
+}
+
+
+/* Ajusta los botones de navegación */
+.mySwiper .swiper-button-prev,
+.mySwiper .swiper-button-next {
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    color: #fff;
+    /* Color de los botones */
+    background: rgba(0, 0, 0, 0.5);
+    /* Fondo semi-transparente */
+    border-radius: 50%;
+    padding: 10px;
+    width: 40px;
+    height: 40px;
+}
+
+/* Ajuste en dispositivos móviles */
+@media (max-width: 576px) {
+    .mySwiper {
+        max-height: 100px;
+        /* Ajuste menor en móviles */
+    }
+
+    .mySwiper .swiper-slide {
+        width: 80px;
+    }
+}
+
+/* -------------------------------------------- */
+/* 🔹 NAVEGACIÓN Y ELEMENTOS DEL DASHBOARD */
+/* -------------------------------------------- */
+
+/* Ajusta el tamaño de la tipografía en la navegación */
 .nav-item-per {
     font-size: 1.25rem;
 }
@@ -12,21 +197,113 @@
     font-size: 1.25rem;
 }
 
-.nav-item-per :hover {
+/* Efecto hover en la navegación */
+.nav-item-per:hover {
     color: rgb(236, 217, 104);
 }
 
+/* Efecto hover en las tarjetas del dashboard */
 .card-dashboard:hover {
     background-color: rgb(236, 217, 104);
     transition: background-color 0.5s;
     font-weight: 600;
 }
 
+/* Elimina el subrayado en los enlaces */
 a {
     text-decoration: none;
 }
 
+/* -------------------------------------------- */
+/* 🔹 ESTILO GENERAL PARA EL FONDO DEL PRODUCTO */
+/* -------------------------------------------- */
+
+/* Color de fondo del contenedor de detalles del producto */
 #fondo-card-previsualizacion-producto {
     background-color: #f0f0f0;
     /* Color gris claro */
 }
+
+/* -------------------------------------------- */
+/* 🔹 ESTILO RESPONSIVO ADICIONAL */
+/* -------------------------------------------- */
+
+/* Ajusta el tamaño de los botones en móviles */
+@media (max-width: 768px) {
+    .btn {
+        font-size: 1rem;
+        padding: 10px;
+    }
+}
+
+/* Ajusta los encabezados en pantallas pequeñas */
+@media (max-width: 576px) {
+    h1 {
+        font-size: 1.5rem;
+    }
+
+    h2 {
+        font-size: 1.25rem;
+    }
+}
+
+
+/* Cambiar los nombres del boton de carga de imagenes */
+/* Para navegadores basados en WebKit (Chrome, Edge, Opera) */
+input[type="file"].form-control::-webkit-file-upload-button {
+    visibility: hidden;
+    /* Oculta el botón nativo */
+}
+
+input[type="file"].form-control::before {
+    content: "Seleccionar imagen";
+    /* Texto personalizado */
+    display: inline-block;
+    font-family: inherit;
+    font-size: 1rem;
+    color: inherit;
+    background-color: inherit;
+    border: none;
+    /* Se fuerza la apariencia de botón nativo */
+    -webkit-appearance: button;
+    appearance: button;
+    padding: 0.375rem 0.75rem;
+    margin-right: 0.5rem;
+    cursor: pointer;
+    /* Agrega un borde a la derecha para delimitar el botón */
+    border-right: 1px solid #ced4da;
+}
+
+/* Para navegadores que soporten el pseudo-elemento ::file-selector-button (por ejemplo, Firefox) */
+input[type="file"].form-control::file-selector-button {
+    content: "Seleccionar imagen";
+    display: inline-block;
+    font-family: inherit;
+    font-size: 1rem;
+    color: inherit;
+    background-color: inherit;
+    border: none;
+    -webkit-appearance: button;
+    appearance: button;
+    padding: 0.375rem 0.75rem;
+    margin-right: 0.5rem;
+    cursor: pointer;
+    border-right: 1px solid #ced4da;
+}
+
+
+/* hacer cliqueable a los botones de eliminar dentro de la galeria de imagenes -------------------------------------------- */
+.swiper-slide .btn-eliminar-imagen {
+    position: relative;
+    z-index: 10;
+}
+
+.swiper-pagination {
+    pointer-events: none;
+    visibility: hidden;
+}
+
+
+/* -------------------------------------------- */
+/* 🔹 FINAL DEL ARCHIVO */
+/* -------------------------------------------- */

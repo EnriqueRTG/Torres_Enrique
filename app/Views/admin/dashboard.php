@@ -1,11 +1,11 @@
 <?= view("layouts/header-admin", ['titulo' => $titulo]) ?>
 
-<!--Mensaje -->
-<section class="text-center">
-    <?= view('partials/_session') ?>
-</section>
+<section class="container py-5 main-content">
+    <!-- Mensajes de sesión -->
+    <div class="alert-info text-center">
+        <?= session()->has('errors') ? view('partials/_session-error') : view('partials/_session') ?>
+    </div>
 
-<section class="container py-5">
     <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-5">
         <div class="col">
             <a href="<?php echo base_url('admin/ordenes'); ?>">

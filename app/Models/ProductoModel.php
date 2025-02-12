@@ -134,9 +134,6 @@ class ProductoModel extends Model
             return false;
         }
 
-        // Forzar el estado a 'activo'
-        $data['estado'] = 'activo';
-
         // Actualiza el producto y retorna el resultado
         return $this->update($id, $data);
     }
@@ -365,5 +362,29 @@ class ProductoModel extends Model
 
         // Ejecutar la consulta y devolver el resultado como un array de objetos.
         return $builder->get()->getResult();
+    }
+
+    /**
+     * Crea un nuevo producto en la base de datos.
+     *
+     * Valida el conjunto de datos utilizando las reglas definidas (por ejemplo, 'productos_create').
+     * Si los datos son válidos, inserta el producto y devuelve su ID; de lo contrario, retorna false.
+     *
+     * @param array $data Datos del producto a insertar.
+     * @return int|false ID del producto insertado o false si la validación falla.
+     */
+    public function crearProducto(array $data)
+    {
+        // Valida los datos utilizando las reglas definidas en el modelo o en el grupo 'productos_create'
+        if (!$this->validate($data)) {
+            return false;
+        }
+
+        // Forzar el estado a 'activo' (o cualquier valor por defecto)
+        $data['estado'] = 'activo';
+
+        // Insertar el producto y retornar el ID
+        $this->insert($data);
+        return $this->getInsertID();
     }
 }
