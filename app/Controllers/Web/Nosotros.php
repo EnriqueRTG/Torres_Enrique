@@ -24,6 +24,6 @@ class Nosotros extends BaseController
             'cart'       => $cart = \Config\Services::cart(),
         ];
 
-        return view('layouts/header', $data) . view('web/nosotros') . view('layouts/footer');
+        return view('web/nosotros', $data);
     }
 }

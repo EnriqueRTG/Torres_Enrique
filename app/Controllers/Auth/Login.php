@@ -30,7 +30,7 @@ class Login extends BaseController
             }
         }
 
-        return view('layouts/header', $data) . view('auth/login') . view('layouts/footer'); // Muestra la vista del formulario de login
+        return  view('auth/login' , $data); // Muestra la vista del formulario de login
     }
 
     public function login_post()

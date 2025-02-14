@@ -1,114 +1,112 @@
-<!-- Sección de Registro -->
-<section class="container">
+<!-- Vista parcial header -->
+<?= view("layouts/header-cliente", ['titulo' => $titulo]) ?>
 
-    <div class="card container my-5" id="cardRegistroPersonalizado">
+<!-- Incluir el partial del Navbar -->
+<?= view("partials/_navbar") ?>
 
-        <div class="my-4 text-center" id="cabeceraFormRegistro">
-            <legend class="h2 mb-3">Crear Cuenta</legend>
+<!-- Contenedor principal del registro -->
+<main class="container my-5 d-flex justify-content-center align-items-center main-content">
+    <section class="card p-4 shadow-sm w-100" style="max-width: 500px;">
+        <!-- Formulario de Registro -->
+        <form action="<?= base_url('registro') ?>" method="POST" class="needs-validation" novalidate>
+            <!-- Token de seguridad -->
+            <?= csrf_field(); ?>
 
-            <div class="mb-2">
-                <span class="form-text" id="leyendaFormRegistro">
-                    Comprá más rápido y llevá el control de tus pedidos, ¡en un solo lugar!
-                </span>
-            </div>
-        </div>
+            <!-- Título -->
+            <header class="text-center mb-4">
+                <h2 class="text-uppercase">Crear Cuenta</h2>
+                <p class="text-muted">Comprá más rápido y llevá el control de tus pedidos en un solo lugar.</p>
+            </header>
 
-        <form class="my-3 px-0 px-lg-5" action="<?= base_url('registro') ?>" method="POST">
-            <?= csrf_field() ?>
-
-            <div class="mb-3 ">
-                <label for="nombre" class="form-label text-white">Nombre</label>
-                <input type="text" class="form-control <?= session('errors.nombre') ? 'is-invalid' : '' ?>" id="nombre" name="nombre" value="<?= old('nombre') ?>" placeholder="Nombre/s">
-                <?php if (session('errors.nombre')) : ?>
+            <!-- Campo: Nombre -->
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control <?= session('errors.nombre') ? 'is-invalid' : '' ?>" id="nombre" name="nombre" value="<?= old('nombre') ?>" placeholder="Nombre" required>
+                <label for="nombre">Nombre</label>
+                <?php if (session('errors.nombre')): ?>
                     <div class="invalid-feedback">
-                        <span class="text-sm">
-                            <?= session('errors.nombre') ?>
-                        </span>
+                        <?= session('errors.nombre') ?>
                     </div>
                 <?php endif; ?>
             </div>
 
-            <div class="mb-3 ">
-                <label for="apellido" class="form-label text-white">Apellido</label>
-                <input type="text" class="form-control <?= session('errors.apellido') ? 'is-invalid' : '' ?>" id="apellido" name="apellido" value="<?= old('apellido') ?>" placeholder="Apellido/s">
-                <?php if (session('errors.apellido')) : ?>
+            <!-- Campo: Apellido -->
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control <?= session('errors.apellido') ? 'is-invalid' : '' ?>" id="apellido" name="apellido" value="<?= old('apellido') ?>" placeholder="Apellido" required>
+                <label for="apellido">Apellido</label>
+                <?php if (session('errors.apellido')): ?>
                     <div class="invalid-feedback">
-                        <span class="text-sm">
-                            <?= session('errors.apellido') ?>
-                        </span>
+                        <?= session('errors.apellido') ?>
                     </div>
                 <?php endif; ?>
             </div>
 
-            <div class="mb-3">
-                <label for="email" class="form-label text-white">Correo Electrónico</label>
-                <input type="email" class="form-control <?= session('errors.email') ? 'is-invalid' : '' ?>" id="email" name="email" value="<?= old('email') ?>" placeholder="example@random.com">
-                <?php if (session('errors.email')) : ?>
+            <!-- Campo: Correo Electrónico -->
+            <div class="form-floating mb-3">
+                <input type="email" class="form-control <?= session('errors.email') ? 'is-invalid' : '' ?>" id="email" name="email" value="<?= old('email') ?>" placeholder="Correo Electrónico" required>
+                <label for="email">Correo Electrónico</label>
+                <?php if (session('errors.email')): ?>
                     <div class="invalid-feedback">
-                        <span class="text-sm">
-                            <?= session('errors.email') ?>
-                        </span>
+                        <?= session('errors.email') ?>
                     </div>
                 <?php endif; ?>
             </div>
 
-            <div class="mb-3">
-                <label for="password" class="form-label text-white">Contraseña</label>
-                <input type="password" class="form-control <?= session('errors.password') ? 'is-invalid' : '' ?>" id="password" name="password" placeholder="Contraseña">
-                <?php if (session('errors.password')) : ?>
+            <!-- Campo: Contraseña -->
+            <div class="form-floating mb-3">
+                <input type="password" class="form-control <?= session('errors.password') ? 'is-invalid' : '' ?>" id="password" name="password" placeholder="Contraseña" required>
+                <label for="password">Contraseña</label>
+                <?php if (session('errors.password')): ?>
                     <div class="invalid-feedback">
-                        <span class="text-sm">
-                            <?= session('errors.password') ?>
-                        </span>
+                        <?= session('errors.password') ?>
                     </div>
                 <?php endif; ?>
             </div>
 
-            <div class="mb-3">
-                <label for="confirm_password" class="form-label text-white">Confirmar Contraseña</label>
-                <input type="password" class="form-control <?= session('errors.confirm_password') ? 'is-invalid' : '' ?>" id="confirm_password" name="confirm_password" placeholder="Repetir Contraseña">
-                <?php if (session('errors.confirm_password')) : ?>
+            <!-- Campo: Confirmar Contraseña -->
+            <div class="form-floating mb-3">
+                <input type="password" class="form-control <?= session('errors.confirm_password') ? 'is-invalid' : '' ?>" id="confirm_password" name="confirm_password" placeholder="Confirmar Contraseña" required>
+                <label for="confirm_password">Confirmar Contraseña</label>
+                <?php if (session('errors.confirm_password')): ?>
                     <div class="invalid-feedback">
-                        <span class="text-sm">
-                            <?= session('errors.confirm_password') ?>
-                        </span>
+                        <?= session('errors.confirm_password') ?>
                     </div>
                 <?php endif; ?>
             </div>
 
-            <div class="mb-3">
-                <label for="direccion" class="form-label text-white">Dirección de Domicilio</label>
-                <input type="text" class="form-control <?= session('errors.direccion') ? 'is-invalid' : '' ?>" id="direccion" name="direccion" value="<?= old('direccion') ?>" placeholder="Ejemplo:Av. Siempre Viva 742">
-                <?php if (session('errors.direccion')) : ?>
+            <!-- Campo: Dirección -->
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control <?= session('errors.direccion') ? 'is-invalid' : '' ?>" id="direccion" name="direccion" value="<?= old('direccion') ?>" placeholder="Dirección" required>
+                <label for="direccion">Dirección</label>
+                <?php if (session('errors.direccion')): ?>
                     <div class="invalid-feedback">
-                        <span class="text-sm">
-                            <?= session('errors.direccion') ?>
-                        </span>
+                        <?= session('errors.direccion') ?>
                     </div>
                 <?php endif; ?>
             </div>
 
+            <!-- Términos y condiciones -->
             <div class="form-check my-3">
-                <input type="checkbox" name="terms" class="form-check-input" id="terms" value="1" >
-                <label class="form-check-label text-white" for="terms">Acepto los <a href="<?= site_url('terminos') ?>" target="_blank">términos y condiciones</a></label>
-                <?php if (session('errors.terms')) : ?>
-                    <div class="text-danger">
-                        <span class="small">
-                            <?= session('errors.terms') ?>
-                        </span>
+                <input type="checkbox" name="terms" class="form-check-input" id="terms" value="1" required>
+                <label class="form-check-label" for="terms">Acepto los <a href="<?= site_url('terminos') ?>" target="_blank">términos y condiciones</a></label>
+                <?php if (session('errors.terms')): ?>
+                    <div class="text-danger small">
+                        <?= session('errors.terms') ?>
                     </div>
                 <?php endif; ?>
             </div>
 
-            <div class="form-line my-3">
-                <p class="text-white">
-                    Ya tienes una cuenta? <a href="<?= site_url('login'); ?>">Ingresar</a>
-                </p>
+            <!-- Enlace para iniciar sesión -->
+            <div class="text-center my-3">
+                <p class="mb-0">¿Ya tienes una cuenta? <a href="<?= site_url('login'); ?>" class="text-accent">Inicia sesión aquí</a></p>
             </div>
 
-            <div class="text-center my-4">
-                <button type="submit" class="btn btn-lg btn-success ">Registrar</button>
+            <!-- Botón de Registro -->
+            <div class="text-center">
+                <button type="submit" class="btn btn-custom w-100">Registrar</button>
             </div>
         </form>
-    </div>
-</section>
+    </section>
+</main>
+
+<!-- Vista parcial footer -->
+<?= view("layouts/footer-cliente") ?>

@@ -1,115 +1,82 @@
-<section class="container">
+<!-- Vista parcial header -->
+<?= view("layouts/header-cliente", ['titulo' => $titulo]) ?>
 
-    <div class="card container user-select-none mt-2">
-        <p class="card-header mt-3 shadow-lg titulo-seccion banner-seccion">Garantía</p>
+<!-- Incluir el partial del Navbar -->
+<?= view("partials/_navbar") ?>
+
+<!-- Contenedor principal de garantía -->
+<main class="container my-3 main-content">
+    <!-- Mensajes de sesión: alertas de éxito o error -->
+    <div class="alert-info text-center container">
+        <?= session()->has('errors')
+            ? view('partials/_session-error')
+            : view('partials/_session') ?>
+    </div>
+
+    <!-- Tarjeta principal de "Garantía" -->
+    <section class="card shadow-sm my-3">
+        <!-- Encabezado de la tarjeta -->
+        <header class="card-header text-center bg-transparent border-0 mt-3">
+            <h2 class="text-uppercase">Garantía</h2>
+        </header>
 
         <div class="card-body">
-            <p class="card-title shadow-lg text-center card-principal-subtitulo">
-                <i class="bi bi-file-earmark-medical"></i>
-                CERTIFICADO DE GARANTÍA
-            </p>
+            <!-- Certificado de Garantía -->
+            <section class="mb-4">
+                <h3 class="card-title text-uppercase my-3 text-center">
+                    <i class="bi bi-file-earmark-medical"></i> Certificado de Garantía
+                </h3>
+                <div class="">
+                    <h4 class="fw-bold fs-5 my-2">¿Qué documentación necesito para iniciar el proceso de garantía?</h4>
+                    <p>
+                        Se requiere la factura de compra y el manual de instrucciones del producto. Estos documentos contienen información relevante
+                        sobre la identificación del producto, condiciones de uso y plazo de garantía.
+                    </p>
+                    <h4 class="fw-bold fs-5 my-2">¿Cuál es el plazo de garantía?</h4>
+                    <p>
+                        El período de garantía está indicado en la factura de compra y comienza a partir de la fecha de entrega del producto.
+                    </p>
+                    <h4 class="fw-bold fs-5 my-2">¿Cómo inicio el proceso de garantía?</h4>
+                    <p>
+                        El cliente debe comunicarse con el servicio de postventa mediante WhatsApp al <strong>1533007912</strong> y completar el formulario correspondiente.
+                        Una vez evaluado el caso, se indicará si el producto debe ser presentado en nuestras oficinas junto con su documentación.
+                    </p>
+                </div>
+            </section>
 
-            <div class="text-justify mx-4 card-text card-texto">
-                <p class="fw-bold fs-3 my-2">
-                    ¿Qué documentación necesito para poder iniciar el proceso de garantía?
-                </p>
-
+            <!-- Alcance de la Garantía -->
+            <section>
+                <h4 class="fw-bold fs-5 my-2">¿Cuál es el alcance de la cobertura de la garantía?</h4>
                 <p>
-                    Los datos contenidos en su factura de compra junto con el manual de instrucciones del producto adquirido en que constan la identificación del producto con sus
-                    especificaciones técnicas, las condiciones de uso, instalación y mantenimiento necesarias para su correcto funcionamiento, las condiciones de validez de la garantía
-                    y su plazo de extensión y las condiciones de reparación, constituyen el certificado de garantía en los términos del art. 14 de la Ley 24.240.
-                    Es requisito, para formular cualquier proceso de garantía, la presentación de los documentos antes mencionados. En caso de no contar con la documentación
-                    correspondiente el cliente no podrá reclamar por la garantía a la empresa.
-                    Todos los productos son entregados por Tattoo Supply Store con su identificación, rotulado, orígenes, procedencias y manuales de acuerdo a las normas
-                    legales que rigen en la materia. Es responsabilidad del consumidor conservar los mismos en condiciones mientras dure el plazo de garantía.
+                    La garantía cubre defectos de fabricación y fallas bajo un uso normal del equipo. No se incluyen daños por uso indebido o factores externos.
+                    Entre las exclusiones se encuentran:
                 </p>
-
-                <p class="fw-bold fs-3 my-2">
-                    ¿Cuál es el plazo de garantía de los productos adquiridos?
-                </p>
-
-                <p>
-                    El periodo de garantía está expresado en meses indicado junto a la descripción del artículo en su factura de compra, y rige a partir de la fecha de entrega
-                    del producto.
-                </p>
-
-                <p class="fw-bold fs-3 my-2">
-                    ¿Cómo inicio el proceso de garantía?
-                </p>
-
-                <p>
-                    Para el cumplimiento de la garantía, el cliente deberá comunicarse previamente con el servicio de POSTVENTA por mensaje de WhatsApp al teléfono 1533007912,
-                    llenando el formulario de POSTVENTA.
-                    El servicio de POSTVENTA evaluará el caso preliminarmente y confirmará al cliente si debe presentar el producto en nuestras oficinas. En ese caso, deberá
-                    presentarse el interesado con la documentación antes mencionada, y el producto en perfectas condiciones con envoltura original, manuales, etiquetas, y todos
-                    los accesorios correspondientes.
-                    Tattoo Supply Store no brinda garantía directa por aquellos productos que se encuentran garantizados particularmente por su fabricante o marca, debiendo en esos
-                    casos el cliente recurrir al agente técnico autorizado que la misma haya nombrado a tal fin. En caso de dudas, el cliente podrá consultar esta información con
-                    el servicio de POSTVENTA por los canales antes mencionados.
-                </p>
-
-                <p class="fw-bold fs-3 my-2">
-                    ¿Cuál es el alcance de la cobertura de la garantía?
-                </p>
-
-                <p>
-                    Se cubrirán todos los defectos que surjan del uso normal de los equipos, siempre y cuando se hayan respetado todas las especificaciones de trato y rangos
-                    establecidos que constan en los manuales que acompañan a cada unidad. Todo lo que se encuentre fuera de esta condición, será motivo suficiente de exclusión
-                    del producto del régimen de garantía. A modo de ejemplo, y sin que la enumeración implique limitación, se excluyen de garantía los siguientes desperfectos:
-
                 <ul>
-                    <li>
-                        roturas, golpes, caídas o rayaduras por cualquier causa.
-                    </li>
-
-                    <li>
-                        daños ocasionados por otros equipos interconectados al producto (internos o externos).
-                    </li>
-
-                    <li>
-                        circuitos o componentes quemados.
-                    </li>
-
-                    <li>
-                        fallas en equipos, discos duros o disquetes de drivers o de software adicional sean causadas por la Infección de virus informáticos, por parte del cliente y/o
-                        cualquier otra persona ajena a Tattoo Supply Store.
-                    </li>
+                    <li>Roturas, golpes o rayaduras.</li>
+                    <li>Daños ocasionados por otros equipos interconectados.</li>
+                    <li>Quemaduras de circuitos o componentes.</li>
+                    <li>Fallas causadas por virus informáticos.</li>
                 </ul>
-                </p>
-
                 <p>
-                    Cualquier intervención ajena, que a juicio del personal técnico de Tattoo Supply Store, haya perjudicado o pueda perjudicar el buen funcionamiento de un producto,
-                    como ser golpes, maltratos, rayones, falta de etiqueta de serialización o negligencia, será razón para la exclusión de la garantía.
-                    Todo producto expuesto a tensión excesiva será considerado fuera de garantía.
-                    Asimismo Tattoo Supply Store no se hace responsable por daño emergente ni lucro cesante, ya sea del propio cliente o de terceros, originado en la eventual falla
-                    de los productos entregados.
-                    No se dará soporte técnico por fallas ni entrenamiento de software que Tattoo Supply Store no haya comercializado.
+                    Intervenciones ajenas a Tattoo Supply Store pueden invalidar la garantía. Los productos expuestos a tensión excesiva también quedan fuera de cobertura.
                 </p>
+            </section>
 
-                <p class="fw-bold fs-3 my-2">
-                    ¿Puedo pedir directamente el cambio de producto en ejercicio de la garantía?
-                </p>
-
+            <!-- Procedimiento y Cambios -->
+            <section>
+                <h4 class="fw-bold fs-5 my-2">¿Puedo solicitar el cambio directo del producto?</h4>
                 <p>
-                    En los términos de la normativa aplicable, en ningún caso Tattoo Supply Store deberá reemplazar el producto presuntamente en falla por uno nuevo sin
-                    que éste sea revisado por sus técnicos y estos determinen el estado del mismo y verifique que no apliquen las exclusiones de garantía indicadas precedentemente y/o
-                    en el manual de uso del producto. El producto puede ser reparado o reemplazado según considere el fabricante del mismo. En el caso de que el producto en garantía
-                    estuviese discontinuado en el mercado y fuera imposible su reparación, Tattoo Supply Store podrá entregar su reemplazo más actualizado y cobrar la diferencia
-                    entre el producto original y el entregado.
+                    No. Todo producto en garantía debe ser evaluado por nuestros técnicos antes de determinar si se repara o se reemplaza.
                 </p>
-
-                <p class="fw-bolder fs-3 my-2">
-                    ¿Dónde debo presentar el producto para el ejercicio de la garantía?
-                </p>
-
+                <h4 class="fw-bold fs-5 my-2">¿Dónde debo presentar el producto?</h4>
                 <p>
-                    Según lo indique el servicio de POSTVENTA, el producto deberá ser presentado por el cliente en el local comercial de Tattoo Supply Store, sito en la calle Mendoza 1194, Corrientes - Corrientes - Argentina. O
-                    directamente al fabricante, en la dirección que le será proporcionada por éste según las instrucciones de contacto contenidas en el manual de uso que se entrega
-                    con todos los productos. Los gastos de traslado y de flete, desde y hacia nuestras instalaciones, son a cargo del cliente. En todos los casos, la mercadería viaja
-                    por cuenta y orden del comprador, y será enviada de acuerdo con las instrucciones del mismo. De no mediar instrucciones, Tattoo Supply Store determinará el medio y
-                    oportunidad del transporte.-
+                    Si se requiere su presentación, deberá entregarse en Tattoo Supply Store, <strong>Mendoza 1194, Corrientes - Argentina</strong> o en la dirección
+                    indicada por el fabricante según el manual del producto. Los gastos de envío corren por cuenta del cliente.
                 </p>
-            </div>
+            </section>
         </div>
-    </div>
-</section>
+    </section>
+</main>
+
+<!-- Vista parcial footer -->
+<?= view("layouts/footer-cliente") ?>

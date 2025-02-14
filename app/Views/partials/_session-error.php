@@ -1,12 +1,12 @@
 <?php if (session()->has('errors')): ?>
-    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+    <div class="alert alert-danger alert-dismissible fade show alert-fixed" role="alert">
         <style>
             ul {
                 list-style-type: none;
                 padding: 0;
             }
         </style>
-        <ul class="">
+        <ul>
             <?php foreach (session('errors') as $error): ?>
                 <li><?= $error ?></li>
             <?php endforeach; ?>

@@ -21,9 +21,8 @@ class ContactoModel extends Model
     protected $useSoftDeletes   = false;
     protected $allowedFields    = ['nombre', 'email', 'asunto', 'mensaje', 'leido'];
     protected $returnType       = 'object';
-    protected $useTimestamps    = true;
-    protected $createdField     = 'fecha';
-    protected $updatedField     = 'fecha_actualizacion';
+    protected $useTimestamps    = true; // Habilitar marcas de tiempo
+    protected $dateFormat       = 'datetime'; // Formato de fecha y hora
 
     // Validación de datos (opcional)
     protected $validationRules    = [
@@ -50,4 +49,24 @@ class ContactoModel extends Model
             'required' => 'El mensaje es obligatorio.',
         ]
     ];
+
+    /**
+     * Inserta un nuevo contacto en la base de datos.
+     *
+     * Este método recibe un arreglo con los datos del contacto y lo inserta en la tabla
+     * 'contactos'. Devuelve el ID del registro insertado o false en caso de error.
+     *
+     * @param array $data Arreglo asociativo con las claves: 'nombre', 'email', 'asunto', 'mensaje'
+     * @return int|false ID del contacto insertado o false si ocurre algún error.
+     */
+    public function crearContacto(array $data)
+    {
+        // Inserta el registro en la base de datos y obtiene el ID generado
+        $data['leido'] = 'no'; // Asignar estado 'activo' por defecto
+
+        if (!$this->validate($data)) {
+            return false;
+        }
+        return $this->save($data);
+    }
 }

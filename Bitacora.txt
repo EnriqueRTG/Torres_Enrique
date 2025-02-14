@@ -305,3 +305,14 @@ OPCIONALES:
     SE PUEDEN ALMACENAR HASTA 3 DIRECCIONES POR CLIENTE, PERO QUEDA PREDEFINIDO EL ULTIMO EN AGREGARSE O SELECCIONARSE
     QUE EL CAMBIO DE PASSWORD SEA CON VALIDACION DE CORREO
 GENERAR ERS
+
+14/02
+implementar paginacion
+implementar filtros por marcas
+implementar busqueda
+refactorizar y revisar responsabilidades del controlador y del modelo
+revisar todas las vistas del cliente para inspeccionar implementaciones, comentarios y RESPONSIVIDAD
+revisar rutas, controladores, vistas, y modelos, generar comentarios y documentacion
+tanto scripts implementadas directamente en las vistas como las que no, revisar y llegar a cabo las mejores practicas para sus manejos 
+similar a anterior pero con los archivos de estilos o css.
+empezar a probar altas de ordenes (primero correcto funcionamiento del carrito): alertas de modificaciones en el carrito y 3 vistas para la compra(1- carrito completo con productos agregados, 2- confirmacion de info personal de facturacion y direccion de envio, 3- confirmar todos los datos anteriores presentandolos).

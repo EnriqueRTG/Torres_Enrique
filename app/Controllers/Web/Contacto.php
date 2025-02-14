@@ -31,7 +31,7 @@ class Contacto extends BaseController
             'cart'       => $cart = \Config\Services::cart(),
         ];
 
-        return view('layouts/header', $data) . view('web/contacto') . view('layouts/footer');
+        return  view('web/contacto', $data);
     }
 
     public function obtener_ubicacion()
@@ -39,25 +39,14 @@ class Contacto extends BaseController
         return redirect()->to(base_url('contacto#ubicacion'));
     }
 
-    public function contacto_post()
+    public function create()
     {
-        if (!$this->validate('contactos')) {
-            return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
-        }
+        $data = $this->request->getPost();
 
-        $data = [
-            'nombre' => $this->request->getVar('nombre'),
-            'email' => $this->request->getVar('email'),
-            'asunto' => $this->request->getVar('asunto'),
-            'mensaje' => $this->request->getVar('mensaje'),
-        ];
-
-        try {
-            $this->contactoModel->insert($data);
-            return redirect()->to('contacto')->with('success', 'Mensaje enviado correctamente');
-        } catch (\Exception $e) {
-            log_message('error', $e->getMessage()); // Registra el error en el log
-            return redirect()->back()->withInput()->with('error', 'Ocurrió un error durante el registro. Por favor, inténtalo de nuevo.');
+        if ($this->contactoModel->crearContacto($data)) {
+            return redirect()->to('web/contacto')->with('mensaje', 'Mensaje de contacto realizado con exito!');
+        } else {
+            return redirect()->back()->withInput()->with('errors', $this->contactoModel->errors())->with('validation', $this->validator);;
         }
     }
 }

@@ -12,10 +12,9 @@ class Home extends BaseController
         $data = [
             'titulo'     => 'Home',
             'cart'       => $cart = \Config\Services::cart(),
+            'mensaje' => session('mensaje')
         ];
 
-        $mensaje = session('mensaje');
-
-        return view('layouts/header', $data) . view('web/home', ["mensaje" => $mensaje]) . view('layouts/footer');
+        return view('web/home', $data);
     }
 }

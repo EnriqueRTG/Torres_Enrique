@@ -24,7 +24,7 @@ class Comercializacion extends BaseController
             'cart'       => $cart = \Config\Services::cart(),
         ];
 
-        return view('layouts/header', $data) . view('web/comercializacion') . view('layouts/footer');
+        return view('web/comercializacion', $data);
     }
 
     public function obtener_metodos()

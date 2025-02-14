@@ -26,6 +26,6 @@ class Terminos extends BaseController
             'cart'       => $cart,
         ];
 
-        return view('layouts/header', $data) . view('web/terminos') . view('layouts/footer');
+        return view('web/terminos', $data);
     }
 }

@@ -31,15 +31,17 @@ class Consultas extends Migration
                 'null' => false
             ],
             'leido' => [
-                'type'    => 'BOOLEAN',
-                'default' => false
+                'type'       => 'ENUM',
+                'constraint' => ['si', 'no'],
+                'default'    => 'no',
             ],
-            'fecha' => [
+            'created_at' => [
                 'type' => 'DATETIME',
-                'null' => false,
+                'null' => true,
             ],
-            'fecha_actualizacion' => [
+            'updated_at' => [
                 'type' => 'DATETIME',
+                'null' => true,
             ],
         ]);
 

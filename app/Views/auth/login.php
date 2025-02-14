@@ -1,57 +1,57 @@
-<!-- Sección de Login -->
-<section class="container mb-5 pb-5">
+<!-- Vista parcial header -->
+<?= view("layouts/header-cliente", ['titulo' => $titulo]) ?>
 
-    <div class="card container my-5" id="cardRegistroPersonalizado">
+<!-- Incluir el partial del Navbar -->
+<?= view("partials/_navbar") ?>
 
-        <form class="my-3 px-0 px-lg-5" action="<?= base_url('login') ?>" method="POST">
-            <!-- Token -->
+<!-- Contenedor principal del login -->
+<main class="container my-5 d-flex justify-content-center align-items-center main-content">
+    <section class="card p-4 shadow-sm w-100" style="max-width: 500px;">
+        <!-- Formulario de Login -->
+        <form action="<?= base_url('login') ?>" method="POST" class="needs-validation" novalidate>
+            <!-- Token de seguridad -->
             <?= csrf_field(); ?>
 
-            <div class="my-4 text-center" id="cabeceraFormRegistro">
-                <legend class="h2 mb-3">Ingresar</legend>
+            <!-- Título -->
+            <header class="text-center mb-4">
+                <h2 class="text-uppercase">Ingresar</h2>
+                <p class="text-muted">Comprá más rápido y llevá el control de tus pedidos en un solo lugar.</p>
+            </header>
 
-                <div class="mb-3">
-                    <span class="form-text" id="leyendaFormRegistro">
-                        Comprá más rápido y llevá el control de tus pedidos, ¡en un solo lugar!
-                    </span>
-                </div>
-            </div>
-
-            <div class="form-floating my-5">
-                <input type="email" class="form-control <?= session('errors.email') ? 'is-invalid' : '' ?>" id="email" name="email" value="<?= old('email') ?>" placeholder="Correo electrónico aquí">
-                <label for="email">Correo electrónico</label>
-                <?php if (session('errors.email')) : ?>
+            <!-- Campo: Correo Electrónico -->
+            <div class="form-floating mb-3">
+                <input type="email" class="form-control <?= session('errors.email') ? 'is-invalid' : '' ?>" id="email" name="email" value="<?= old('email') ?>" placeholder="Correo electrónico" required>
+                <label for="email">Correo Electrónico</label>
+                <?php if (session('errors.email')): ?>
                     <div class="invalid-feedback">
-                        <span class="text-sm">
-                            <?= session('errors.email') ?>
-                        </span>
+                        <?= session('errors.email') ?>
                     </div>
                 <?php endif; ?>
             </div>
 
-            <div class="form-floating mb-5">
-                <input type="password" class="form-control <?= session('errors.password') ? 'is-invalid' : '' ?>" id="password" name="password" placeholder="Contraseña aquí">
+            <!-- Campo: Contraseña -->
+            <div class="form-floating mb-3">
+                <input type="password" class="form-control <?= session('errors.password') ? 'is-invalid' : '' ?>" id="password" name="password" placeholder="Contraseña" required>
                 <label for="password">Contraseña</label>
-                <?php if (session('errors.password')) : ?>
+                <?php if (session('errors.password')): ?>
                     <div class="invalid-feedback">
-                        <span class="text-sm">
-                            <?= session('errors.password') ?>
-                        </span>
+                        <?= session('errors.password') ?>
                     </div>
                 <?php endif; ?>
             </div>
 
-            <div class="form-line">
-                <p class="text-white my-5">
-                    ¿No tienes una cuenta? Registrarse<a href="<?= site_url('registro'); ?>"> aquí</a>
-                </p>
+            <!-- Enlace para registrarse -->
+            <div class="text-center my-3">
+                <p class="mb-0">¿No tienes una cuenta? <a href="<?= site_url('registro'); ?>" class="text-accent">Regístrate aquí</a></p>
             </div>
 
-            <div class="text-center my-4">
-                <button type="submit" class="btn btn-lg btn-success ">iniciar Sesión</button>
+            <!-- Botón de Ingreso -->
+            <div class="text-center">
+                <button type="submit" class="btn btn-custom w-100">Iniciar Sesión</button>
             </div>
-
         </form>
+    </section>
+</main>
 
-    </div>
-</section>
+<!-- Vista parcial footer -->
+<?= view("layouts/footer-cliente") ?>

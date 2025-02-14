@@ -34,14 +34,18 @@ class Contactos extends Migration
                 'type' => 'TEXT',
                 'null' => false
             ],
-            'fecha' => [
-                'type' => 'DATETIME',
-            ],
-            'fecha_actualizacion' => [
-                'type' => 'DATETIME',
-            ],
             'leido' => [
-                'type'    => 'BOOLEAN',
+                'type'       => 'ENUM',
+                'constraint' => ['si', 'no'],
+                'default'    => 'no',
+            ],
+            'created_at' => [
+                'type' => 'DATETIME',
+                'null' => true,
+            ],
+            'updated_at' => [
+                'type' => 'DATETIME',
+                'null' => true,
             ],
         ]);
 

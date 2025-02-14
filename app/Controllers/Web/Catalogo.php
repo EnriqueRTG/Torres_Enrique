@@ -101,17 +101,24 @@ class Catalogo extends BaseController
         // Obtener las categorías que tienen productos activos en stock
         $categorias = $this->obtenerCategoriasConProductosActivos();
 
+        $breadcrumbs = [
+            [
+                'label' => 'Catálogo',
+                'url'   => '',
+            ],
+        ];
+
         $data = [
-            'titulo'     => 'Catalogo',
+            'titulo'     => 'Catálogo',
             'productos'  => $productos,
             'categorias' => $categorias,
             'filtro'     => $filtro,
             'cart'       => $this->cart,
+            'breadcrumbs' => $breadcrumbs,
         ];
 
-        return view('layouts/header', $data)
-            . view('web/catalogo', $data)
-            . view('layouts/footer');
+        return
+            view('web/catalogo', $data);
     }
 
     // Método privado para obtener categorías con productos activos
@@ -136,6 +143,17 @@ class Catalogo extends BaseController
             return redirect()->to('/catalogo')->with('error', 'Producto no encontrado');
         }
 
+        $breadcrumbs = [
+            [
+                'label' => 'Catálogo',
+                'url'   => base_url('catalogo'),
+            ],
+            [
+                'label' => $producto->nombre,
+                'url'   => '',
+            ],
+        ];
+
         // Preparar los datos para la vista.
         // Nota: No es necesario llamar nuevamente a find($id) para obtener el nombre,
         // ya que $producto ya contiene esa información.
@@ -143,12 +161,11 @@ class Catalogo extends BaseController
             'producto' => $producto,
             'titulo'   => $producto->nombre,
             'cart'     => $this->cart,  // Asumiendo que $this->cart está inicializado en el constructor
+            'breadcrumbs' => $breadcrumbs,
         ];
 
         // Retornar la vista utilizando un layout (header, contenido y footer)
         // Esto puede variar según tu forma de organizar las vistas.
-        return view('layouts/header', $data)
-            . view('web/producto', $data)
-            . view('layouts/footer');
+        return view('web/producto', $data);
     }
 }

@@ -30,7 +30,7 @@ class Register extends BaseController
             'titulo'    => 'Registrar',
         ];
 
-        return view('layouts/header', $data) . view('auth/register') . view('layouts/footer');
+        return view('auth/register', $data);
     }
 
     /* 

@@ -1,159 +1,237 @@
+/* =========================
+   FONT-FACES: Montserrat & Roboto
+   ========================= */
+
+/* Montserrat Bold para encabezados y títulos */
+@font-face {
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 700;
+    src: local('Montserrat Bold'),
+        local('Montserrat-Bold'),
+        url('../fonts/Montserrat/montserrat-v25-latin-700.woff2') format('woff2'),
+        url('../fonts/Montserrat/montserrat-v25-latin-700.woff') format('woff');
+}
+
+/* Roboto Regular para el cuerpo del texto */
 @font-face {
     font-family: 'Roboto';
-    src: url(../fonts/Roboto/Roboto-Black.ttf);
-    src: url(../fonts/Roboto/Roboto-BlackItalic.ttf);
-    src: url(../fonts/Roboto/Roboto-Bold.ttf);
-    src: url(../fonts/Roboto/Roboto-BoldItalic.ttf);
-    src: url(../fonts/Roboto/Roboto-Italic.ttf);
-    src: url(../fonts/Roboto/Roboto-Light.ttf);
-    src: url(../fonts/Roboto/Roboto-LightItalic.ttf);
-    src: url(../fonts/Roboto/Roboto-Mediun.ttf);
-    src: url(../fonts/Roboto/Roboto-MediunItalic.ttf);
-    src: url(../fonts/Roboto/Roboto-Regular.ttf);
-    src: url(../fonts/Roboto/Roboto-Thin.ttf);
-    src: url(../fonts/Roboto/Roboto-ThinItalic.ttf);
-}
-
-@font-face {
-    font-family: 'Merriweather';
-    src: url(../fonts/Merriweather/Merriweather-Black.ttf);
-    src: url(../fonts/Merriweather/Merriweather-Regular.ttf);
-}
-
-@font-face {
-    font-family: 'Tourney';
-    src: url(../fonts/Tourney/static/Tourney_SemiExpanded-Regular.ttf);
-
-}
-
-@font-face {
-    font-family: "Bootstrap Icons";
-    src: url(../icons/bootstrap-icons.woff) format("woff2"),
-         url(../icons/bootstrap-icons.woff2) format("woff");
-}
-
-* {
-    font-family: 'Merriweather', sans-serif;
-    font-weight: normal;
     font-style: normal;
+    font-weight: 400;
+    src: local('Roboto'),
+        local('Roboto-Regular'),
+        url('../fonts/Roboto/roboto-v29-latin-regular.woff2') format('woff2'),
+        url('../fonts/Roboto/roboto-v29-latin-regular.woff') format('woff');
+}
+
+
+/* =========================
+   BASE TYPOGRAPHY
+   ========================= */
+
+/* Encabezados y títulos usan Montserrat */
+h1,
+h2,
+h3,
+.titulo-seccion,
+.card-title {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    color: var(--color-primario);
+}
+
+/* Cuerpo y párrafos usan Roboto */
+body,
+p,
+.card-text {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    color: var(--color-primario);
+}
+
+
+/* =========================
+   VARIABLES DE COLOR (PALETA)
+   ========================= */
+:root {
+    --color-primario: #212121;
+    /* Fondo oscuro / textos destacados */
+    --color-secundario: #ffffff;
+    /* Fondos claros / contraste */
+    --color-acento: #B71C1C;
+    /* Botones, acentos y hover */
+    --color-complementario: #757575;
+    /* Textos secundarios, detalles sutiles */
+    --fondo-suave: #FDF8F2;
+    /* Fondo neutro para secciones de contenido */
+}
+
+
+/* =========================
+   GLOBAL STYLES
+   ========================= */
+
+/* Configuración base del cuerpo y enlaces */
+html,
+body {
+    height: 100%;
+    margin: 0;
 }
 
 body {
-    background: #202536;
+    background-color: var(--color-primario);
+    color: var(--color-primario);
+    display: flex;
+    flex-direction: column;
 }
 
-#contenido {
-    background-image: url(../images/fondo/fondo-b_n.jpg);
-    background-repeat: repeat;
+/* Enlaces globales con transición */
+a {
+    color: var(--color-acento);
+    text-decoration: none;
+    transition: color 0.3s ease, text-shadow 0.3s ease;
 }
 
-#navbar-personalizacion {
-    background: #232328 !important;
+a:hover {
+    color: var(--color-complementario);
+    text-shadow: 1px 1px 2px var(--color-primario);
 }
 
-#logo-nav {
-    width: 5.5rem;
+/* Permite que el contenido principal ocupe el espacio disponible (para footer sticky) */
+.main-content {
+    flex: 1;
 }
 
-.nav-item-per :hover {
-    color: #ffa500;
-    text-decoration: underline;
-    text-decoration-skip: ink;
-    text-underline-offset: 1rem;
+/* =========================
+   BOTONES PERSONALIZADOS
+   ========================= */
+
+/* Botón principal (llamadas a la acción) */
+.btn-custom {
+    background-color: var(--color-acento);
+    color: var(--color-secundario);
+    border: none;
+    border-radius: 6px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 10px 20px;
+    transition: all 0.3s ease;
+    font-size: 1.1rem;
 }
 
+.btn-custom:hover {
+    background-color: #A31B1B;
+    transform: scale(1.05);
+}
+
+.btn-custom:active {
+    background-color: #8F1717;
+    transform: scale(0.98);
+}
+
+/* Reducir tamaño de los botones "Ingresar"/"Registrarse" en el navbar */
+.btn-nav-personalizado.btn-custom {
+    font-size: 0.8rem;
+    padding: 8px 16px;
+}
+
+/* =========================
+   NAVBAR Y LOGO
+   ========================= */
+
+/* Navbar personalizado con fondo semi-transparente y sombra */
+.navbar-custom {
+    background-color: rgba(0, 0, 0, 0.8);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilos para botones en el navbar */
 .btn-nav-personalizado {
-    background: black;
-    color: white;
-    padding: .75rem;
+    background-color: transparent;
+    border: 1px solid transparent;
+    color: #fff;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .btn-nav-personalizado:hover {
-    color: #ffa500;
-    border-color: #ffa500;
+    background-color: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.2);
+    color: var(--color-secundario);
 }
 
-.nav-item {
-    font-size: 1.25rem;
+/* Ajuste del logo en el navbar */
+.navbar-brand img {
+    max-height: 60px;
+    height: auto;
+    width: auto;
 }
 
-#modalContenidoIngresar {
-    background: #232328;
-    color: #EDE7DD;
+/* Aplica una transición suave al color y al tamaño de la fuente para los enlaces del navbar */
+.navbar-nav .nav-link {
+    transition: color 0.3s ease, font-size 0.3s ease;
+    font-size: 1.1rem;
 }
 
-#labelCorreo,
-#labelContrasenia {
-    color: #757575;
+/* Al pasar el mouse sobre un enlace del navbar, cambia el color a "acento" y agranda un poco la fuente */
+.navbar-nav .nav-link:hover {
+    color: var(--color-acento) !important;
+    /* Cambia el color al acento */
+
 }
 
-.banner-seccion {
-    background: #202536;
+/* =========================
+   ALERTAS (Mensajes de Sesión)
+   ========================= */
+
+/* Posición fija para alertas (overlay) debajo del navbar */
+.alert-fixed {
+    position: fixed;
+    top: 60px;
+    /* Ajustar si el navbar cambia de altura */
+    left: 0;
+    right: 0;
+    z-index: 1050;
+    width: 90%;
+    margin: 0 auto;
 }
 
-.card {
-    background: #EDE7DD;
-}
 
-.card-principal-per {
-    background: #232328;
-    padding: 0.25rem;
-    color: #EDE7DD;
-}
+/* =========================
+   COMPONENTES DE HOME Y CATÁLOGO
+   ========================= */
 
-.card-principal-subtitulo {
-    text-align: center;
-    font-family: 'Merriweather', sans-serif;
-    font-style: normal;
-    font-size: 2rem;
-    font-weight: bolder;
-    color: #232328;
-    background: #F0E7D5;
-}
-
-.card-texto {
-    font-family: 'Merriweather', sans-serif;
-    font-style: normal;
-    text-align: justify;
-    font-size: 1.5rem;
-    color: #232328;
-}
-
-#btn-catalogo-per {
-    font-size: 1.75rem;
-    background: #202536;
-    color: #EDE7DD;
-}
-
-#btn-catalogo-per:hover {
-    color: #ffa500;
-    border-color: #ffa500;
-}
-
-.titulo-seccion {
+/* Clase para el título de la marca con efecto blink utilizando la paleta definida */
+.titulo-nombre-empresa {
     font-size: 3.5rem;
     line-height: 5rem;
-    /*   text-shadow: 0 0 5px #f562ff, 0 0 15px #f562ff, 0 0 25px #f562ff,
-        0 0 20px #f562ff, 0 0 30px #890092, 0 0 80px #890092, 0 0 80px #890092;
-      color: #fccaff; */
-    text-shadow: 0 0 5px #ffa500, 0 0 15px #ffa500, 0 0 20px #ffa500, 0 0 40px #ffa500, 0 0 60px #ff0000, 0 0 10px #ff8d00, 0 0 98px #ff0000;
-    color: #fff6a9;
     font-family: "Tourney", sans-serif;
     text-align: center;
     text-transform: uppercase;
+    /* Color base: secundario (blanco) */
+    color: var(--color-secundario);
+    /* Aplicamos un sutil glow con el color acento */
+    text-shadow:
+        0 0 5px var(--color-acento),
+        0 0 15px var(--color-acento),
+        0 0 20px var(--color-acento);
+    /* Animación blink de 12 segundos en bucle */
     animation: blink 12s infinite;
     -webkit-animation: blink 12s infinite;
 }
 
+/* Keyframes para navegadores WebKit (Chrome, Safari) */
 @-webkit-keyframes blink {
 
+    /* Durante estos intervalos, el título se vuelve oscuro sin sombra */
     20%,
     24%,
     55% {
-        color: #111;
+        color: var(--color-primario);
+        /* tono oscuro */
         text-shadow: none;
     }
 
+    /* En el resto del ciclo, se muestra con el color secundario y glow */
     0%,
     19%,
     21%,
@@ -162,20 +240,23 @@ body {
     54%,
     56%,
     100% {
-        /*     color: #fccaff;
-            text-shadow: 0 0 5px #f562ff, 0 0 15px #f562ff, 0 0 25px #f562ff,
-              0 0 20px #f562ff, 0 0 30px #890092, 0 0 80px #890092, 0 0 80px #890092; */
-        text-shadow: 0 0 5px #ffa500, 0 0 15px #ffa500, 0 0 20px #ffa500, 0 0 40px #ffa500, 0 0 60px #ff0000, 0 0 10px #ff8d00, 0 0 98px #ff0000;
-        color: #fff6a9;
+        color: var(--color-secundario);
+        /* blanco */
+        text-shadow:
+            0 0 5px var(--color-acento),
+            0 0 15px var(--color-acento),
+            0 0 20px var(--color-acento);
     }
 }
 
+/* Keyframes para navegadores estándar */
 @keyframes blink {
 
     20%,
     24%,
     55% {
-        color: #111;
+        color: var(--color-primario);
+        /* tono oscuro */
         text-shadow: none;
     }
 
@@ -187,284 +268,432 @@ body {
     54%,
     56%,
     100% {
-        /*     color: #fccaff;
-            text-shadow: 0 0 5px #f562ff, 0 0 15px #f562ff, 0 0 25px #f562ff,
-              0 0 20px #f562ff, 0 0 30px #890092, 0 0 80px #890092, 0 0 80px #890092; */
-        text-shadow: 0 0 5px #ffa500, 0 0 15px #ffa500, 0 0 20px #ffa500, 0 0 40px #ffa500, 0 0 60px #ff0000, 0 0 10px #ff8d00, 0 0 98px #ff0000;
-        color: #fff6a9;
+        color: var(--color-secundario);
+        /* blanco */
+        text-shadow:
+            0 0 5px var(--color-acento),
+            0 0 15px var(--color-acento),
+            0 0 20px var(--color-acento);
     }
 }
 
-#footer-cliente {
-    background-color: #f0e7d5;
+
+/* Estilos para las tarjetas de productos en Home */
+.card-productos-home {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-#footer-cliente #contenedor-lista-enlaces li a {
-    color: white;
-    background: #111;
-    padding: 0.5rem;
-    font-size: 1rem;
+.card-productos-home:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
-#footer-cliente #contenedor-lista-enlaces li a:hover {
-    color: #ffa500;
-}
-
-#logo-footer {
-    width: 35rem;
-}
-
-#footer-cliente p {
-    color: #202536;
-    font-size: 1.25rem;
-}
-
-#footer-cliente i {
-    color: black;
-    font-size: 2rem;
-}
-
-.span-link-github {
-    color: #0028bd;
-    background: #8e8a8a;
-    padding: 0 10px;
-    font-family: "Roboto", sans-serif;
+.card-productos-home .card-title {
+    font-family: 'Montserrat', sans-serif;
     font-weight: 700;
-    font-style: normal;
-}
-
-#link-github {
-    text-decoration: none;
-    font-family: "Roboto", sans-serif;
-    font-weight: 700;
-    font-style: italic;
-    color: blue !important;
-}
-
-.boton-per {
-    padding: 1rem 1.5rem;
-    background: white;
-    color: #EDE7DD;
-    background: #202536;
-    border-radius: 5px;
-    outline: 0;
-    border: 0;
-    text-decoration: none;
+    color: var(--color-primario);
     text-transform: uppercase;
-    box-shadow: 4px 4px 0 #00A8E8;
+}
+
+/* Botón de Catálogo con efecto hover y contorno */
+#btn-catalogo-per {
+    font-size: 1.2rem;
+}
+
+#btn-catalogo-per:hover {
+    background-color: var(--color-acento);
+    border-color: var(--color-primario);
+    text-shadow:
+        -1px -1px 0 var(--color-primario),
+        1px -1px 0 var(--color-primario),
+        -1px 1px 0 var(--color-primario),
+        1px 1px 0 var(--color-primario);
+}
+
+
+/* =========================
+   CARDS DE PRODUCTOS (CATÁLOGO)
+   ========================= */
+
+/* Efecto hover en la tarjeta de producto */
+.card-producto:hover {
+    background-color: #f0f0f0 !important;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2) !important;
+    transform: scale(1.05);
+}
+
+/* Overlay en las tarjetas de producto */
+.card-producto .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.card-producto:hover .overlay {
+    opacity: 1;
+}
+
+.card-producto .overlay button {
+    display: none;
+}
+
+.card-producto:hover .overlay button {
+    display: block;
+}
+
+
+/* =========================
+   CAROUSEL CUADRADO
+   ========================= */
+
+/* Mantener proporción 1:1 en el carrusel */
+.square-carousel {
+    position: relative;
+    width: 100%;
+    height: 0;
+    padding-top: 100%;
+    overflow: hidden;
+}
+
+.square-carousel .carousel-inner,
+.square-carousel .carousel-item {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.square-carousel .carousel-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+@media (max-width: 576px) {
+    .square-carousel {
+        padding-top: 100%;
+    }
+}
+
+
+/* =========================
+   MODAL DE IMÁGENES
+   ========================= */
+
+/* Fondo translúcido para modal de imágenes */
+.translucent-modal-content {
+    background-color: rgba(0, 0, 0, 0.9);
+}
+
+#fullscreenCarousel .carousel-item img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+}
+
+
+/* =========================
+   MINI GALERÍA - SWIPER
+   ========================= */
+
+/* Contenedor para la mini galería con scroll horizontal */
+.gallery-scroll {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    gap: 0.5rem;
+}
+
+.gallery-scroll .gallery-item {
+    flex: 0 0 auto;
+    width: 100px;
+    scroll-snap-align: start;
+}
+
+/* Swiper para la mini galería */
+.mySwiper {
+    width: 100%;
+    max-height: 250px;
+    overflow: hidden;
+    position: relative;
+}
+
+.mySwiper .swiper-wrapper {
+    height: 100%;
+}
+
+.mySwiper .swiper-slide {
+    flex: 0 0 auto;
+    width: 100px;
+    height: 100%;
+    background-color: #f0f0f0;
+}
+
+.mySwiper .swiper-slide img {
+    width: 100%;
+    height: auto;
+    max-height: 100%;
+    object-fit: contain;
+    object-position: center;
+}
+
+.mySwiper .swiper-button-prev,
+.mySwiper .swiper-button-next {
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    color: #fff;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 50%;
+    padding: 10px;
+    width: 40px;
+    height: 40px;
+}
+
+@media (max-width: 576px) {
+    .mySwiper {
+        max-height: 100px;
+    }
+
+    .mySwiper .swiper-slide {
+        width: 80px;
+    }
+}
+
+
+/* =========================
+   MEDIA QUERIES (DISPOSITIVOS MÓVILES)
+   ========================= */
+@media (max-width: 576px) {
+
+    /* Reducir la altura del logo en móviles */
+    #logo-nav {
+        max-height: 40px;
+    }
+
+    /* Espaciado para el contenedor del logo */
+    .navbar-brand {
+        margin-right: 1rem;
+        padding-left: 1rem;
+    }
+}
+
+
+
+/* =========================
+   BOTONES DE FILTRO Y ACCIONES
+   ========================= */
+
+/* Clase base para botones de acciones como Mostrar Filtro, Limpiar, Filtrar y Ver Detalle */
+.btn-accion {
+    /* Fondo en estado normal: usa el color primario */
+    background-color: var(--color-primario);
+    /* Texto en estado normal: color secundario (blanco) */
+    color: var(--color-secundario);
+    /* Sin borde o un borde transparente para mantener la limpieza */
+    border: 1px solid transparent;
+    /* Bordes redondeados para un look moderno */
+    border-radius: 4px;
+    /* Espaciado interno: ajusta según el tamaño deseado */
+    padding: 0.5rem 1rem;
+    /* Texto en mayúsculas para consistencia */
+    text-transform: uppercase;
+    /* Espaciado entre letras (opcional) */
+    letter-spacing: 0.5px;
+    /* Transición para un efecto suave al hacer hover */
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    /* Asegura que el cursor se muestre como puntero */
     cursor: pointer;
-    transition: 0.3s;
 }
 
-.boton-per:active {
-    transform: translate(4px, 4px);
-    box-shadow: none;
+/* Estado hover: cambia a fondo acento, aumenta un poco el tamaño y puede aplicarse un sutil text-shadow */
+.btn-accion:hover {
+    background-color: var(--color-acento);
+    transform: scale(1.05);
+    /* Opcional: un sutil contorno de sombra para el texto */
+    text-shadow: 1px 1px 2px var(--color-primario);
 }
 
-.tbody-per td {
-    background: #202536;
-    color: #F0E7D5;
+/* Opcional: estado activo para feedback inmediato */
+.btn-accion:active {
+    transform: scale(0.98);
 }
 
-.img-logo-comer {
-    width: 20rem;
+
+/*Buscador de Catalogo*/
+/* Estilos para el buscador en el catálogo */
+.search-container {
+    width: 33.33%;
+    /* Ocupa un tercio del ancho de la pantalla */
+    margin: 0 auto;
+    /* Centrado horizontalmente */
 }
 
-.link-comercializacion {
+/* Estilos para el input (campo de búsqueda) */
+.search-container .input-group .form-control {
+    border: 2px solid var(--color-primario);
+    /* Contorno en color primario */
+}
+
+/* Estilos para el botón del buscador */
+.search-container .input-group .btn {
+    background-color: #000;
+    /* Fondo negro */
+    border: 2px solid var(--color-primario);
+    /* Borde en color primario */
+    color: var(--color-secundario);
+    /* Texto e ícono en color secundario (blanco) */
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+/* Estado hover para el botón */
+.search-container .input-group .btn:hover {
+    background-color: var(--color-acento);
+    /* Cambia al color acento */
+    transform: scale(1.05);
+}
+
+/* Asegurar que el icono (lupa) se muestre en blanco */
+.search-container .input-group .btn i {
+    color: var(--color-secundario);
+}
+
+
+/* =========================
+   Botones de acción en Producto - Tamaño Reducido en Escritorio
+   ========================= */
+
+/* ===========================================
+   Botones de Compra y Agregar al Carrito
+   ===========================================
+   Estos botones se basan en la apariencia de btn-secondary, 
+   pero con colores personalizados según la paleta del proyecto.
+*/
+
+/* Botón para "Comprar Ahora" */
+.btn-producto-mensaje {
+    /* Fondo: usamos el color de acento para destacar la acción de compra */
+    background-color: var(--color-acento);
+    /* Borde con el mismo color para mantener la coherencia */
+    border: 1px solid var(--color-acento);
+    /* Texto en color secundario (blanco) */
+    color: var(--color-secundario);
+    /* Espaciado interno (puedes ajustar según sea necesario) */
+    padding: 0.5rem 1rem;
+    /* Texto en mayúsculas para destacar */
+    text-transform: uppercase;
+    /* Transición suave para cambios en hover */
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+/* Hover para "Comprar Ahora": se oscurece un poco y se escala ligeramente */
+.btn-producto-mensaje:hover {
+    background-color: #A31B1B;
+    /* Valor ligeramente más oscuro que var(--color-acento) */
+    border-color: #A31B1B;
+    transform: scale(1.01);
+    color: var(--color-secundario);
+}
+
+/* Botón para "Agregar al Carrito" */
+.btn-producto-agregar {
+    /* Fondo: usamos el color complementario para un tono grisáceo */
+    background-color: var(--color-complementario);
+    /* Borde con el mismo tono */
+    border: 1px solid var(--color-complementario);
+    /* Texto en blanco para contraste */
+    color: var(--color-secundario);
+    padding: 0.5rem 1rem;
+    text-transform: uppercase;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+/* Hover para "Agregar al Carrito": se oscurece un poco y se escala ligeramente */
+.btn-producto-agregar:hover {
+    background-color: #666666;
+    /* Un tono más oscuro que var(--color-complementario) */
+    border-color: #666666;
+    transform: scale(1.01);
+    color: var(--color-secundario);
+}
+
+/* ============================================
+   Botón para "Consultar" o "Contacto"
+   ============================================
+   Se usa el color primario como fondo y se aclara en hover.
+   El botón tiene texto en color secundario (blanco) y una
+   transición suave para cambios en fondo y escala.
+*/
+.btn-producto-compra {
+    background-color: var(--color-primario);
+    /* Fondo oscuro (color primario) */
+    border: 1px solid var(--color-primario);
+    /* Borde del mismo color */
+    color: var(--color-secundario);
+    /* Texto en blanco (color secundario) */
+    padding: 0.5rem 1rem;
+    /* Espaciado interno */
+    text-transform: uppercase;
+    /* Texto en mayúsculas */
+    letter-spacing: 0.5px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    cursor: pointer;
+}
+
+/* Estado hover: se aclara el fondo y se escala ligeramente */
+.btn-producto-compra:hover {
+    background-color: #3a3a3a;
+    /* Una versión ligeramente más clara del color primario */
+    border-color: #3a3a3a;
+    transform: scale(1.03);
+    color: var(--color-secundario);
+}
+
+/* Estilos para el Breadcrumb en Catálogo */
+
+/* Estilo para los enlaces dentro del breadcrumb */
+.breadcrumb-item a {
+    color: var(--color-complementario) !important;
+    /* Gris oscuro */
     text-decoration: none;
+    transition: color 0.3s ease;
+    text-transform: uppercase;
 }
 
+/* Opcional: Al pasar el mouse sobre un enlace */
+.breadcrumb-item a:hover {
+    text-decoration: underline;
+}
+
+/* Estilo para el elemento activo del breadcrumb */
+.breadcrumb-item.active {
+    color: var(--color-acento) !important;
+    /* Rojo de la paleta */
+    text-transform: uppercase;
+}
+
+/*
+estilo para comercializacion
+*/
+
+/* Ajustar el tamaño de las imágenes de las empresas de envío */
+.img-logo {
+    width: 63px;
+    /* Aumentar el tamaño */
+    max-width: 100%;
+    height: auto;
+}
+
+/* Ajustar el tamaño de la imagen de formas de pago */
 .img-formas-pagos {
-    width: 70rem;
+    width: 600px;
+    /* Aumentar el tamaño */
+    max-width: 100%;
+    height: auto;
 }
-
-#img-contacto-horarios {
-    width: 500px;
-}
-
-#cardRegistroPersonalizado {
-    background: #232328 !important;
-    width: 50%;
-}
-
-#cabeceraFormRegistro {
-    color: #EDE7DD;
-}
-
-#leyendaFormRegistro {
-    color: #EDE7DD;
-}
-
-
-
-/* RESPONSIVE
-   ========================================================================= */
-/* escritorios normales
-   ------------------------------------------------------------------------- */
-/* @media (min-width: 981px) and (max-width: 1025px) {
-    .nav-item {
-        font-size: 1rem;
-    }
-
-    #card-principal{
-        top: 7rem;
-        margin-bottom: 8rem;
-    }
-
-    .card-principal-subtitulo{
-        font-size: 2rem;
-    }
-
-    .card-texto{
-        font-size: 1.3rem;
-    }
-
-    .titulo-seccion{
-        font-size: 5rem;
-    }
-
-    #footer-cliente li a{
-        font-size: 1rem;
-    }
-
-    #footer-cliente p{
-        font-size: 1rem;
-    }
-
-    #footer-cliente i {
-        font-size: 1rem;
-    }
-} */
-
-
-/* Tablets en horizonal
-   ------------------------------------------------------------------------- */
-/* @media (min-width: 768px) and (max-width: 980px) {
-    .nav-item {
-        font-size: 2rem;
-    }
-
-    #card-principal{
-        top: 3rem;
-        margin-bottom: 4rem;
-    }
-
-    .card-principal-subtitulo{
-        font-size: 2rem;
-    }
-
-    .card-texto{
-        font-size: 1.3rem;
-    }
-
-    .titulo-seccion{
-        font-size: 5rem;
-    }
-
-    #footer-cliente li a{
-        font-size: 1rem;
-    }
-
-    #footer-cliente p{
-        font-size: 1rem;
-    }
-
-    #footer-cliente i {
-        font-size: 1rem;
-    }
-}
- */
-/* Móviles en horizontal o tablets en vertical
-   ------------------------------------------------------------------------- */
-/* @media (max-width: 767px) {
-    .titulo-seccion{
-        font-size: 3rem;
-        line-height: 1.2;
-    }
-
-    .card-principal-subtitulo{
-        font-size: 1.75rem;
-    }
-
-    .card-texto{
-        font-size: 1.2rem;
-    }
-
-    #footer-cliente li a{
-        font-size: 1rem;
-    }
-
-    #footer-cliente p{
-        font-size: 1.2rem;
-    }
-
-    #footer-cliente i {
-        font-size: 1.2rem;
-    }
-
-    .boton-per{
-        margin: 0.5rem;
-        padding: 0.5rem;
-        font-size: 1.5rem;
-    }
-
-    .img-logo-comer{
-        width: 10rem;
-    }
-
-    .img-formas-pagos{
-        width: 70rem;
-    }
-}
- */
-/* Móviles en vertical
-   ------------------------------------------------------------------------- */
-/* @media (max-width: 480px) {
-    .titulo-seccion{
-        font-size: 3rem;
-        line-height: 1.2;
-    }
-
-    .card-principal-subtitulo{
-        font-size: 1.75rem;
-    }
-
-    .card-texto{
-        font-size: 1.2rem;
-    }
-
-    #footer-cliente li a{
-        font-size: 1rem;
-    }
-
-    #footer-cliente p{
-        font-size: 1.2rem;
-    }
-
-    #footer-cliente i {
-        font-size: 1.2rem;
-    }
-
-    .boton-per{
-        margin: 0.5rem;
-        padding: 0.5rem;
-        font-size: 1.5rem;
-    }
-
-    .img-logo-comer{
-        width: 10rem;
-    }
-
-    .img-formas-pagos{
-        width: 70rem;
-    }
-
-} */
-
-/* Estilo Retro y Artístico
-
-    Negro (#000000): Fondo o texto principal.
-    Blanco (#FFFFFF): Texto o elementos de fondo.
-    Rojo Carmesí (#DC143C): Para acentos y botones de llamada a la acción.
-    Azul Petróleo (#2E8B57): Para elementos de fondo y secciones.
-    Amarillo Mostaza (#FFDD57): Para destacar elementos importantes. */

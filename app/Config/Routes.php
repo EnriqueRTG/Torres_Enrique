@@ -18,13 +18,13 @@ $routes->group('', function ($routes) {
 
     $routes->group('contacto', function ($routes) { // Contacto
         $routes->get('', 'Web\Contacto::index');
-        $routes->post('', 'Web\Contacto::contacto_post'); // Registro de Contacto
+        $routes->post('', 'Web\Contacto::create'); // Registro de Contacto
         $routes->get('ubicacion', 'Web\Contacto::obtener_ubicacion'); // Contacto-Ubicacion
     });
 
     $routes->group('consulta', ['filter' => 'authCliente'], function ($routes) { // Consulta
         $routes->get('', 'Web\Consulta::index');
-        $routes->post('', 'Web\Consulta::consulta_post'); // Registro de Consulta
+        $routes->post('', 'Web\Consulta::create'); // Registro de Consulta
     });
 
     $routes->get('terminos', 'Web\Terminos::index'); // Terminos y usos
