@@ -7,6 +7,13 @@
 <!-- Contenedor principal del login -->
 <main class="container my-5 d-flex justify-content-center align-items-center main-content">
     <section class="card p-4 shadow-sm w-100" style="max-width: 500px;">
+        <!-- Mensajes de sesión: alertas de éxito -->
+        <div class="alert-info text-center container">
+            <?= session()->has('mensaje')
+                ? view('partials/_session')
+                : '' ?>
+        </div>
+        
         <!-- Formulario de Login -->
         <form action="<?= base_url('login') ?>" method="POST" class="needs-validation" novalidate>
             <!-- Token de seguridad -->

@@ -58,7 +58,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="btn btn-nav-personalizado btn-custom" href="<?= route_to('logout'); ?>">Salir</a>
+                            <a class="btn btn-nav-personalizado btn-custom" href="<?= base_url() ?><?= route_to('logout'); ?>">Salir</a>
                         </li>
                     </ul>
                 <?php elseif (session()->get('usuario')->rol == ROL_ADMIN): ?>

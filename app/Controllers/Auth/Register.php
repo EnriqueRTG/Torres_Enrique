@@ -55,7 +55,7 @@ class Register extends BaseController
 
         try {
             $this->usuarioModel->insert($data);
-            return redirect()->route('login')->with('success', 'Registro exitoso. Ahora puedes iniciar sesión.');
+            return redirect()->route('login')->with('mensaje', 'Registro exitoso. Ahora puedes iniciar sesión.');
         } catch (\Exception $e) {
             log_message('error', $e->getMessage()); // Registra el error en el log
             return redirect()->back()->withInput()->with('error', 'Ocurrió un error durante el registro. Por favor, inténtalo de nuevo.');

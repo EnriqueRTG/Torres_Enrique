@@ -6,11 +6,11 @@
 
 <!-- Contenedor principal: contenido de la página de Contacto -->
 <main class="container my-3 main-content" tabindex="0">
-    <!-- Mensajes de sesión: alertas de éxito o error -->
+    <!-- Mensajes de sesión: alertas de éxito -->
     <div class="alert-info text-center container">
-        <?= session()->has('errors')
-            ? view('partials/_session-error')
-            : view('partials/_session') ?>
+        <?= session()->has('mensaje')
+            ? view('partials/_session')
+            : '' ?>
     </div>
 
     <!-- Tarjeta principal de "Info. de Contacto" -->

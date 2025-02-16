@@ -65,6 +65,7 @@ $routes->group('admin', ['filter' => 'authAdmin'], function ($routes) {
     $routes->get('ordenes', ['controller' => 'Admin\Orden']); // Ordenes
 
     $routes->get('clientes', 'Admin\Cliente::index'); // Cliente
+    $routes->get('clientes', 'Admin\Cliente::buscarCliente'); // Cliente
 
     $routes->get('cliente/(:num)/ordenes', 'Admin\Orden::obtenerOrdenesCliente/$1', ['as' => 'cliente.ordenes']); // Ordenes
 
