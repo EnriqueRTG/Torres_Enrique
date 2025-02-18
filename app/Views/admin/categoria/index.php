@@ -1,15 +1,17 @@
 <!-- Vista parcial header -->
 <?= view("layouts/header-admin", ['titulo' => $titulo]) ?>
 
-<!-- Contenedor principal -->
-<section class="container py-5 main-content">
+<!-- Se incluye la barra de navegación -->
+<?= view('partials/_navbar-admin') ?>
 
-    <!-- Mensajes de sesión -->
+<!-- Contenido principal -->
+<main class="container my-3 main-content">
+    <!-- Mensajes de sesión: errores o confirmaciones -->
     <div class="alert-info text-center">
         <?= session()->has('errors') ? view('partials/_session-error') : view('partials/_session') ?>
     </div>
 
-    <!-- Breadcrumb -->
+    <!-- Breadcrumb para la navegación interna -->
     <nav aria-label="breadcrumb">
         <?= view('partials/_breadcrumb', ['breadcrumbs' => $breadcrumbs]) ?>
     </nav>
@@ -33,7 +35,7 @@
 
     <!-- Filtro -->
     <div class="row">
-        <div class="col-md-2 offset-md-10">
+        <div class="col-md-2 offset-md-10 mb-3">
             <select id="filtroEstado" class="form-select">
                 <option value="todos">Todas</option>
                 <option value="activo">Activas</option>
@@ -42,41 +44,36 @@
         </div>
     </div>
 
+    <!-- Spinner de carga -->
+    <div class="text-center d-none m-5" id="spinner">
+        <div class="spinner-border" role="status">
+            <span class="visually-hidden">Cargando...</span>
+        </div>
+    </div>
 
     <!-- Tabla de categorias -->
-    <div class="row my-4">
-
-        <!-- Spinner de carga -->
-        <div class="text-center d-none m-5" id="spinner">
-            <div class="spinner-border" role="status">
-                <span class="visually-hidden">Cargando...</span>
-            </div>
-        </div>
-        
+    <div class="table-responsive">
         <!-- Tabla -->
-        <table class="table table-dark table-striped table-hover table-responsive" id="tablaCategorias">
+        <table class="table table-striped table-hover table-dark" id="tablaCategorias">
             <!-- Cabecera de la tabla -->
             <thead>
-                <tr class="text-capitalize text-center">
+                <tr class="text-capitalize text-center align-middle">
                     <th scope="col">Nombre</th>
                     <th scope="col">Estado</th>
                     <th scope="col">Opciones</th>
                 </tr>
             </thead>
             <!-- Cuerpo de la tabla -->
-            <tbody class="text-center">
+            <tbody class="text-center align-middle">
                 <!-- Se carga dinamicamente con JS y AJAX -->
-                <tr>
-                </tr>
             </tbody>
         </table>
 
         <!-- Paginación -->
         <div class="text-center" id="paginacion">
-            <?= $pager->links('default', 'default_full') ?>
         </div>
     </div>
-</section>
+</main>
 
 <!-- Modal Crear -->
 <div class="modal fade" id="crearCategoriaModal" tabindex="-1" aria-labelledby="crearCategoriaModalLabel" aria-hidden="true">
@@ -258,6 +255,11 @@
         const tbody = document.querySelector('#tablaCategorias tbody');
         tbody.innerHTML = '';
 
+        if (categorias.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="6" class="text-center">No se encontraron categorías.</td></tr>';
+            return;
+        }
+
         categorias.forEach(categoria => {
             const tr = document.createElement('tr');
 
@@ -268,15 +270,15 @@
                     ${categoria.estado.charAt(0).toUpperCase() + categoria.estado.slice(1)}
                 </span>
             </td>
-            <td class="text-center g-2">
-                <a href="#" class="btn btn-outline-warning border-3 fw-bolder mx-1 btn-editar"
+            <td class="text-center">
+                <a href="#" class="btn btn-outline-warning border-3 fw-bolder m-1 btn-editar"
                    data-bs-id="${categoria.id}"
                    data-bs-nombre="${categoria.nombre}"
                    data-bs-descripcion="${categoria.descripcion}"
                    title="Editar" data-bs-toggle="modal">
                    <i class="bi bi-pencil-square"></i>
                 </a>
-                <a href="#" class="btn btn-outline-danger border-3 fw-bolder mx-1 btn-eliminar"
+                <a href="#" class="btn btn-outline-danger border-3 fw-bolder m-1 btn-eliminar"
                    data-bs-id="${categoria.id}"
                    data-bs-nombre="${categoria.nombre}"
                    title="Eliminar" data-bs-toggle="modal">

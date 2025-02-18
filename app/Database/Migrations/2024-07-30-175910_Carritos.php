@@ -21,14 +21,18 @@ class Carritos extends Migration
                 'unsigned' => true,
                 'null' => false,
             ],
-            'fecha_creacion' => [
-                'type' => 'DATETIME',
-                'null' => false,
-            ],
             'estado' => [
                 'type'       => 'ENUM',
                 'constraint' => ['activo', 'finalizado'],
                 'default'    => 'activo',
+            ],
+            'created_at' => [
+                'type' => 'DATETIME',
+                'null' => true,
+            ],
+            'updated_at' => [
+                'type' => 'DATETIME',
+                'null' => true,
             ],
         ]);
 

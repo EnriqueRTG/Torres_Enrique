@@ -31,6 +31,14 @@ class ImagenesProductos extends Migration
                 'constraint' => 255,
                 'null' => false,
             ],
+            'created_at' => [
+                'type' => 'DATETIME',
+                'null' => true,
+            ],
+            'updated_at' => [
+                'type' => 'DATETIME',
+                'null' => true,
+            ],
         ]);
 
         $this->forge->addKey('id', true);

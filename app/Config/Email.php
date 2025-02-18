@@ -6,116 +6,146 @@ use CodeIgniter\Config\BaseConfig;
 
 class Email extends BaseConfig
 {
-    public string $fromEmail  = '';
-    public string $fromName   = '';
+    /**
+     * Dirección de correo del remitente por defecto.
+     * Debe coincidir con la cuenta autenticada en el servidor SMTP.
+     */
+    public string $fromEmail  = 'tattoosupplystoreok@gmail.com';
+
+    /**
+     * Nombre del remitente que aparecerá en los correos enviados.
+     */
+    public string $fromName   = 'Tattoo Supply Store';
+
+    /**
+     * Destinatarios adicionales (opcional).
+     */
     public string $recipients = '';
 
     /**
-     * The "user agent"
+     * "User agent" que se utiliza en el encabezado del correo.
      */
     public string $userAgent = 'CodeIgniter';
 
     /**
-     * The mail sending protocol: mail, sendmail, smtp
+     * Protocolo para enviar el correo.
+     * Opciones: 'mail', 'sendmail' o 'smtp'
      */
-    public string $protocol = 'mail';
+    public string $protocol = 'smtp';
 
     /**
-     * The server path to Sendmail.
+     * Ruta del ejecutable de Sendmail.
+     * (No se utiliza si el protocolo es SMTP)
      */
     public string $mailPath = '/usr/sbin/sendmail';
 
     /**
-     * SMTP Server Hostname
+     * Host del servidor SMTP.
+     * Para Gmail se utiliza: smtp.gmail.com
      */
-    public string $SMTPHost = '';
+    public string $SMTPHost = 'smtp.gmail.com';
 
     /**
-     * SMTP Username
+     * Nombre de usuario SMTP.
+     * Normalmente, la dirección de correo que usas para enviar mensajes.
      */
-    public string $SMTPUser = '';
+    public string $SMTPUser = 'tattoosupplystoreok@gmail.com';
 
     /**
-     * SMTP Password
+     * Contraseña del servidor SMTP.
+     * IMPORTANTE: Se obtiene desde la variable de entorno SMTP_PASS para protegerla.
      */
     public string $SMTPPass = '';
 
     /**
-     * SMTP Port
+     * Puerto SMTP.
+     * Para Gmail con TLS se utiliza el puerto 587.
      */
-    public int $SMTPPort = 25;
+    public int $SMTPPort = 587;
 
     /**
-     * SMTP Timeout (in seconds)
+     * Tiempo de espera para la conexión SMTP (en segundos).
      */
     public int $SMTPTimeout = 5;
 
     /**
-     * Enable persistent SMTP connections
+     * Indica si se deben mantener conexiones SMTP persistentes.
      */
     public bool $SMTPKeepAlive = false;
 
     /**
-     * SMTP Encryption.
-     *
-     * @var string '', 'tls' or 'ssl'. 'tls' will issue a STARTTLS command
-     *             to the server. 'ssl' means implicit SSL. Connection on port
-     *             465 should set this to ''.
+     * Tipo de cifrado para la conexión SMTP.
+     * Gmail requiere 'tls' para conexiones seguras.
      */
     public string $SMTPCrypto = 'tls';
 
     /**
-     * Enable word-wrap
+     * Habilita el ajuste de palabras en el correo.
      */
     public bool $wordWrap = true;
 
     /**
-     * Character count to wrap at
+     * Número de caracteres al que se ajusta la línea.
      */
     public int $wrapChars = 76;
 
     /**
-     * Type of mail, either 'text' or 'html'
+     * Tipo de correo que se enviará: 'text' o 'html'.
      */
-    public string $mailType = 'text';
+    public string $mailType = 'html';
 
     /**
-     * Character set (utf-8, iso-8859-1, etc.)
+     * Conjunto de caracteres utilizado en el correo.
      */
     public string $charset = 'UTF-8';
 
     /**
-     * Whether to validate the email address
+     * Valida las direcciones de correo.
      */
-    public bool $validate = false;
+    public bool $validate = true;
 
     /**
-     * Email Priority. 1 = highest. 5 = lowest. 3 = normal
+     * Prioridad del correo (1 = mayor, 5 = menor; 3 = normal).
      */
     public int $priority = 3;
 
     /**
-     * Newline character. (Use “\r\n” to comply with RFC 822)
+     * Carácter de nueva línea, para cumplir con RFC 822.
      */
     public string $CRLF = "\r\n";
 
     /**
-     * Newline character. (Use “\r\n” to comply with RFC 822)
+     * Carácter de nueva línea.
      */
     public string $newline = "\r\n";
 
     /**
-     * Enable BCC Batch Mode.
+     * Habilita el envío de correos en modo BCC Batch.
      */
     public bool $BCCBatchMode = false;
 
     /**
-     * Number of emails in each BCC batch
+     * Cantidad de correos en cada lote BCC.
      */
     public int $BCCBatchSize = 200;
 
     /**
-     * Enable notify message from server
+     * Habilita la notificación de mensajes desde el servidor (Delivery Status Notification).
      */
     public bool $DSN = false;
+
+    /**
+     * Constructor.
+     *
+     * Aquí se asigna la contraseña SMTP a partir de la variable de entorno SMTP_PASS,
+     * lo que permite proteger la contraseña y no dejarla codificada directamente en el archivo.
+     */
+    public function __construct()
+    {
+        parent::__construct();
+
+        // Obtiene la contraseña SMTP de la variable de entorno SMTP_PASS.
+        // Asegúrate de tener definida SMTP_PASS en tu archivo .env.
+        $this->SMTPPass = env('SMTP_PASS', '');
+    }
 }

@@ -21,9 +21,8 @@ class OrdenModel extends Model
     protected $useSoftDeletes   = false;
     protected $allowedFields    = ['usuario_id', 'estado', 'total', 'direccion_envio_id'];
     protected $returnType       = 'object';
-    protected $useTimestamps = true;
-    protected $createdField  = 'fecha';
-    protected $updatedField  = null;
+    protected $useTimestamps    = true; // Habilitar marcas de tiempo
+    protected $dateFormat       = 'datetime'; // Formato de fecha y hora
 
     // Validación de datos (opcional) - Puedes ajustar las reglas según tus necesidades
     protected $validationRules    = [

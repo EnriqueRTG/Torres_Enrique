@@ -1,19 +1,22 @@
 <!-- Vista parcial header -->
 <?= view("layouts/header-admin", ['titulo' => $titulo]) ?>
 
-<!-- Contenedor principal: se utiliza <main> para definir el contenido principal -->
+<!-- Se incluye la barra de navegación -->
+<?= view('partials/_navbar-admin') ?>
+
+<!-- Contenido principal -->
+<!-- Se utiliza el elemento <main> para marcar el contenido principal de la página -->
 <main class="container py-5 main-content">
 
-    <!-- Sección de mensajes de sesión (errores o notificaciones) -->
+    <!-- Mensajes de sesión (errores o notificaciones) -->
     <div class="alert-info text-center">
         <?= session()->has('errors') ? view('partials/_session-error') : view('partials/_session') ?>
     </div>
 
-    <!-- Breadcrumb: muestra la navegación jerárquica -->
+    <!-- Breadcrumb: navegación jerárquica -->
     <nav aria-label="breadcrumb">
         <?= view('partials/_breadcrumb', ['breadcrumbs' => $breadcrumbs]) ?>
     </nav>
-
     <!-- Sección del formulario para crear un nuevo producto -->
     <section class="py-3">
         <!-- El formulario utiliza "multipart/form-data" para permitir la subida de archivos -->

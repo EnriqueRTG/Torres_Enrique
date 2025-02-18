@@ -1,31 +1,56 @@
+<!-- Vista parcial header -->
 <?= view("layouts/header-admin", ['titulo' => $titulo]) ?>
 
-<?= view('partials/_session') ?>
+<!-- Se incluye la barra de navegación -->
+<?= view('partials/_navbar-admin') ?>
 
-<section class="container py-5 main-content">
+<!-- Contenido principal -->
+<main class="container my-3 main-content">
 
-    <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb" class="fs-4">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="<?php echo base_url('admin/dashboard'); ?>">Dashboard</a></li>
-            <li class="breadcrumb-item active" aria-current="page"><?= $titulo ?></li>
-        </ol>
-
-    </nav>
-
-    <div class="text-end">
-        <form class="d-inline-flex mt-5" role="search">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-primary border-3 fw-bold " type="submit">Buscar</button>
-        </form>
+    <!-- Mensajes de sesión: errores o confirmaciones -->
+    <div class="alert-info text-center">
+        <?= session()->has('errors') ? view('partials/_session-error') : view('partials/_session') ?>
     </div>
 
+    <!-- Breadcrumb para la navegación interna -->
+    <nav aria-label="breadcrumb">
+        <?= view('partials/_breadcrumb', ['breadcrumbs' => $breadcrumbs]) ?>
+    </nav>
 
+    <!-- Botón Búsqueda -->
+    <div class="row my-4">
+        <!-- Búsqueda -->
+        <div class="col-auto ms-auto">
+            <form class="d-inline-flex" role="search">
+                <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Buscar">
+                <button class="btn btn-outline-primary border-3 fw-bold" type="submit">Buscar</button>
+            </form>
+        </div>
 
-    <div class="my-3 table-responsive">
-        <table class="table table-dark table-striped table-hover my-5 ">
+        <!-- Filtro por estado -->
+        <div class="col-md-2 offset-md-10">
+            <select id="filtroEstado" class="form-select">
+                <option value="pendiente">Pendiente</option>
+                <option value="procesanda">Procesanda</option>
+                <option value="enviada">Enviada</option>
+                <option value="completada">Completada</option>
+                <option value="cancelada">Cancelada</option>
+            </select>
+        </div>
+    </div>
 
+    <!-- Tabla de marcas -->
+    <div class="my-4">
+        <!-- Spinner de carga -->
+        <div class="text-center d-none m-5" id="spinner">
+            <div class="spinner-border" role="status">
+                <span class="visually-hidden">Cargando...</span>
+            </div>
+        </div>
+
+        <table class="table table-dark table-striped table-hover table-responsive" id="tablaOrdenes">
             <thead>
-                <tr class="text-capitalize text-center">
+                <tr class="text-capitalize text-center align-middle">
                     <th scope="col">Nro Usuario</td>
                     <th scope="col">Fecha</td>
                     <th scope="col">Estado</td>
@@ -35,7 +60,7 @@
                 </tr>
             </thead>
 
-            <tbody class="text-center">
+            <tbody class="text-center align-middle">
                 <?php foreach ($ordenes as $key => $orden) : ?>
                     <tr>
                         <td>
@@ -69,8 +94,12 @@
             </tbody>
 
         </table>
+
+        <!-- Paginación -->
+        <div class="text-center" id="paginacion">
+        </div>
     </div>
-</section>
+</main>
 
 <nav class="mb-5" aria-label="Page navigation example">
     <ul class="pagination justify-content-center">

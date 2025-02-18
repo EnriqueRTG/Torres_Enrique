@@ -11,7 +11,8 @@ class DetalleCarritoModel extends Model
     protected $useSoftDeletes   = false;
     protected $allowedFields    = ['carrito_id', 'producto_id', 'cantidad'];
     protected $returnType       = 'object';
-    protected $useTimestamps = false;
+    protected $useTimestamps    = true; // Habilitar marcas de tiempo
+    protected $dateFormat       = 'datetime'; // Formato de fecha y hora
 
     // Validación de datos (opcional) - Puedes ajustar las reglas según tus necesidades
     protected $validationRules    = [

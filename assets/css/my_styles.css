@@ -24,6 +24,23 @@
         url('../fonts/Roboto/roboto-v29-latin-regular.woff') format('woff');
 }
 
+/* =========================
+   VARIABLES DE COLOR (PALETA)
+   ========================= */
+   :root {
+    --color-primario: #212121;
+    /* Fondo oscuro / textos destacados */
+    --color-secundario: #ffffff;
+    /* Fondos claros / contraste */
+    --color-acento: #B71C1C;
+    /* Botones, acentos y hover */
+    --color-complementario: #757575;
+    /* Textos secundarios, detalles sutiles */
+    --fondo-suave: #FDF8F2;
+    /* Fondo neutro para secciones de contenido */
+}
+
+
 
 /* =========================
    BASE TYPOGRAPHY
@@ -50,21 +67,6 @@ p,
 }
 
 
-/* =========================
-   VARIABLES DE COLOR (PALETA)
-   ========================= */
-:root {
-    --color-primario: #212121;
-    /* Fondo oscuro / textos destacados */
-    --color-secundario: #ffffff;
-    /* Fondos claros / contraste */
-    --color-acento: #B71C1C;
-    /* Botones, acentos y hover */
-    --color-complementario: #757575;
-    /* Textos secundarios, detalles sutiles */
-    --fondo-suave: #FDF8F2;
-    /* Fondo neutro para secciones de contenido */
-}
 
 
 /* =========================
@@ -100,6 +102,10 @@ a:hover {
 /* Permite que el contenido principal ocupe el espacio disponible (para footer sticky) */
 .main-content {
     flex: 1;
+}
+
+.card {
+    background: rgb(255, 255, 255);
 }
 
 /* =========================

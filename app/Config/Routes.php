@@ -16,10 +16,10 @@ $routes->group('', function ($routes) {
         $routes->get('formas_de_pago', 'Web\Comercializacion::obtener_metodos'); // Comercializacion-Metodos de Pago
     });
 
-    $routes->group('contacto', function ($routes) { // Contacto
+    $routes->group('contacto', function ($routes) {
         $routes->get('', 'Web\Contacto::index');
-        $routes->post('', 'Web\Contacto::create'); // Registro de Contacto
-        $routes->get('ubicacion', 'Web\Contacto::obtener_ubicacion'); // Contacto-Ubicacion
+        $routes->post('', 'Web\Contacto::create'); // Para enviar el formulario de contacto
+        $routes->get('ubicacion', 'Web\Contacto::obtener_ubicacion');
     });
 
     $routes->group('consulta', ['filter' => 'authCliente'], function ($routes) { // Consulta
@@ -32,10 +32,6 @@ $routes->group('', function ($routes) {
 
     $routes->get('catalogo', 'Web\Catalogo::index', ['as' => 'web.catalogo']); // Catalogo
     $routes->get('producto/(:num)', 'Web\Catalogo::show/$1', ['as' => 'producto']); // Producto del catalogo
-
-    $routes->get('visitas', 'Web\Visitas::index');
-    $routes->get('visitas/obtener_visitas', 'Web\Visitas::obtener_visitas');
-    $routes->post('visitas/incrementar_visita', 'Web\Visitas::incrementar_visita');
 
     $routes->group('carrito', ['filter' => 'authCliente'], function ($routes) { // Carrito
         $routes->get('', 'Web\Carrito::index');
@@ -54,6 +50,11 @@ $routes->group('', function ($routes) {
         $routes->get('descargar_factura/(:num)', 'Web\Compras::descargar_factura/$1');
     });
 
+    $routes->group('mensajes', ['filter' => 'authCliente'], function ($routes) {
+        // Ruta para responder a una conversación:
+        $routes->post('conversacion/(:num)/responder', 'Cliente\MensajesCliente::responderConversacion/$1', ['as' => 'cliente.mensajes.responder']);
+    });
+
     // Venta
     $routes->get('finalizar', 'Web\Carrito::finalizarCompra', ['as' => 'carrito.borrar']);
     $routes->get('/carrito-comprar', 'Ventascontroller::registrar_venta', ['filter' => 'auth']);
@@ -66,8 +67,6 @@ $routes->group('admin', ['filter' => 'authAdmin'], function ($routes) {
 
     $routes->get('clientes', 'Admin\Cliente::index'); // Cliente
     $routes->get('clientes', 'Admin\Cliente::buscarCliente'); // Cliente
-
-    $routes->get('cliente/(:num)/ordenes', 'Admin\Orden::obtenerOrdenesCliente/$1', ['as' => 'cliente.ordenes']); // Ordenes
 
     // Rutas para Productos
     $routes->get('productos', 'Admin\Producto::index');
@@ -83,15 +82,18 @@ $routes->group('admin', ['filter' => 'authAdmin'], function ($routes) {
     // Se utiliza GET para eliminar, pero también puedes usar POST si prefieres mayor seguridad.
     $routes->get('producto/eliminarImagen/(:num)', 'Admin\ImagenProducto::eliminarImagen/$1');
 
+    $routes->group('conversaciones', function ($routes) {
+        // Rutas para Consultas:
+        $routes->get('consultas', 'Admin\Conversacion::consultas'); // Listado de consultas
+        $routes->get('consultas/(:num)', 'Admin\Conversacion::mostrar_consulta/$1'); // Ver detalle de consulta
+        $routes->post('consultas/(:num)/responder', 'Admin\Conversacion::responder_consulta/$1'); // Ruta para enviar respuesta a una consulta
+        $routes->get('consultas/buscar', 'Admin\Conversacion::buscar_consultas', ['as' => 'admin.buscarConsultas']); // Ruta para filtrar las consultas
 
-    $routes->group('consultas', function ($routes) { // Consulta
-        $routes->get('', 'Admin\Consulta::index');
-        $routes->get('(:num)', 'Admin\Consulta::view/$1');
-    });
-
-    $routes->group('contactos', function ($routes) { // Contacto
-        $routes->get('', 'Admin\Contacto::index');
-        $routes->get('(:num)', 'Admin\Contacto::view/$1');
+        // Rutas para Contactos:
+        $routes->get('contactos', 'Admin\Conversacion::contactos'); // Listado de contactos
+        $routes->get('contactos/(:num)', 'Admin\Conversacion::mostrar_contacto/$1'); // Ver detalle de contacto
+        $routes->post('contactos/(:num)/responder', 'Admin\Conversacion::responder_contacto/$1'); // Ruta para enviar respuesta a un contacto
+        $routes->get('contactos/buscar', 'Admin\Conversacion::buscar_contactos', ['as' => 'admin.buscarContactos']);
     });
 
     //Rutas Categorias
@@ -99,7 +101,7 @@ $routes->group('admin', ['filter' => 'authAdmin'], function ($routes) {
     $routes->get('categorias', 'Admin\Categoria::update/$1'); // Editar la categoria
     $routes->post('categorias', 'Admin\Categoria::delete/$1'); // Eliminar la categoria
     $routes->post('categoria', 'Admin\Categoria::create'); // Crear la categoria
-    $routes->post('categorias', 'Admin\Categoria::buscarCategoria'); // Filtrar las categorias por estado
+    $routes->get('categorias', 'Admin\Categoria::buscarCategoria'); // Filtrar las categorias por estado
 
     // Rutas Marcas
     $routes->get('marcas', 'Admin\Marca::index'); // Listado de Marcas

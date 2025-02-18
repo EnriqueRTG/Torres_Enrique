@@ -1,10 +1,14 @@
 <!-- Vista parcial header -->
 <?= view("layouts/header-admin", ['titulo' => $titulo]) ?>
 
-<!-- Contenedor principal: se utiliza <main> para delimitar el contenido principal -->
-<main class="container py-5 main-content" tabindex="0">
+<!-- Se incluye la barra de navegación -->
+<?= view('partials/_navbar-admin') ?>
 
-    <!-- Mensajes de sesión: se muestran errores o mensajes informativos -->
+<!-- Contenido principal -->
+<!-- Se utiliza el elemento <main> para marcar el contenido principal de la página -->
+<main class="container py-5 main-content">
+
+    <!-- Mensajes de sesión (errores o notificaciones) -->
     <div class="alert-info text-center">
         <?= session()->has('errors') ? view('partials/_session-error') : view('partials/_session') ?>
     </div>

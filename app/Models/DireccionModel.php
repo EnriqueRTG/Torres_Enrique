@@ -11,7 +11,8 @@ class DireccionModel extends Model
     protected $useSoftDeletes   = false;
     protected $allowedFields    = ['usuario_id', 'nombre_destinatario', 'calle', 'numero', 'piso', 'departamento', 'ciudad', 'provincia', 'codigo_postal', 'telefono'];
     protected $returnType       = 'object';
-    protected $useTimestamps = false; // No necesitamos timestamps en este modelo
+    protected $useTimestamps    = true; // Habilitar marcas de tiempo
+    protected $dateFormat       = 'datetime'; // Formato de fecha y hora
 
     // Validación de datos (opcional)
     protected $validationRules    = [

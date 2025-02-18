@@ -21,10 +21,8 @@ class UsuarioModel extends Model
     protected $useSoftDeletes   = false;
     protected $allowedFields    = ['nombre', 'apellido', 'email', 'password', 'rol', 'estado'];
     protected $returnType       = 'object';
-    protected $useTimestamps    = true;
-    protected $dateFormat       = 'datetime';
-
-
+    protected $useTimestamps    = true; // Habilitar marcas de tiempo
+    protected $dateFormat       = 'datetime'; // Formato de fecha y hora
 
     // Métodos personalizados
 

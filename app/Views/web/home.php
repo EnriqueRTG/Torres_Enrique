@@ -70,7 +70,7 @@
     <!-- Sección: Principales productos ofrecidos -->
     <section class="container">
         <header class="text-center mb-4">
-            <h2 class="text-uppercase fw-bold" style="font-family: 'Montserrat', sans-serif; color: var(--color-primario);">
+            <h2 class="text-uppercase fw-bold" style="font-family: 'Montserrat', sans-serif; color: var(--color-secundario);">
                 Principales Productos
             </h2>
         </header>

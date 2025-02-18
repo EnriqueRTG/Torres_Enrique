@@ -37,12 +37,13 @@ class Usuarios extends Migration
                 'constraint' => ['administrador', 'cliente'],
                 'default'    => 'cliente',
             ],
-            'fecha_registro' => [
+            'created_at' => [
                 'type' => 'DATETIME',
-                'null' => false,
+                'null' => true,
             ],
-            'fecha_actualizacion' => [
+            'updated_at' => [
                 'type' => 'DATETIME',
+                'null' => true,
             ],
             'estado' => [
                 'type'       => 'ENUM',

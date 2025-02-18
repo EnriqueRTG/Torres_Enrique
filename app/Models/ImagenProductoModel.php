@@ -11,7 +11,8 @@ class ImagenProductoModel extends Model
     protected $useSoftDeletes   = false;
     protected $allowedFields    = ['nombre', 'producto_id', 'ruta_imagen'];
     protected $returnType       = 'object';
-    protected $useTimestamps = false;
+    protected $useTimestamps    = true; // Habilitar marcas de tiempo
+    protected $dateFormat       = 'datetime'; // Formato de fecha y hora
 
     protected $validationRules    = [
         'nombre'        => 'required|max_length[255]',

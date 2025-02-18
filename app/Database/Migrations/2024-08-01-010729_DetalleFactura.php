@@ -19,33 +19,41 @@ class DetalleFactura extends Migration
                 'type' => 'INT',
                 'constraint' => 11,
                 'unsigned' => true,
-                'null' => false, 
+                'null' => false,
             ],
-            'producto_id' => [ 
+            'producto_id' => [
                 'type' => 'INT',
                 'constraint' => 11,
                 'unsigned' => true,
-                'null' => false, 
+                'null' => false,
             ],
             'cantidad' => [
                 'type' => 'INT',
                 'constraint' => 11,
                 'unsigned' => true,
-                'null' => false, 
+                'null' => false,
             ],
-            'precio_unitario' => [ 
+            'precio_unitario' => [
                 'type' => 'DECIMAL',
                 'constraint' => '10,2',
                 'unsigned' => true,
-                'null' => false, 
+                'null' => false,
+            ],
+            'created_at' => [
+                'type' => 'DATETIME',
+                'null' => true,
+            ],
+            'updated_at' => [
+                'type' => 'DATETIME',
+                'null' => true,
             ],
         ]);
 
         $this->forge->addKey('id', true);
 
-        $this->forge->addForeignKey('factura_id', 'facturas', 'id', 'CASCADE', 'CASCADE'); 
+        $this->forge->addForeignKey('factura_id', 'facturas', 'id', 'CASCADE', 'CASCADE');
 
-        $this->forge->addForeignKey('producto_id', 'productos', 'id', 'CASCADE', 'CASCADE'); 
+        $this->forge->addForeignKey('producto_id', 'productos', 'id', 'CASCADE', 'CASCADE');
 
         $this->forge->createTable('detalle_factura');
     }

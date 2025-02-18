@@ -29,8 +29,8 @@ class ProductoModel extends Model
         'estado'
     ];
     protected $returnType       = 'object';
-    protected $useTimestamps    = true;
-    protected $dateFormat       = 'datetime';
+    protected $useTimestamps    = true; // Habilitar marcas de tiempo
+    protected $dateFormat       = 'datetime'; // Formato de fecha y hora
 
     protected $validationRules = [
         'nombre' => 'required|min_length[3]|max_length[255]|is_unique[productos.nombre,id,{id}]',

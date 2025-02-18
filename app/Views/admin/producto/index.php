@@ -1,16 +1,18 @@
 <!-- Vista parcial header -->
 <?= view("layouts/header-admin", ['titulo' => $titulo]) ?>
 
-<!-- Contenido principal -->
-<!-- Se utiliza el elemento <main> para marcar el contenido principal de la página -->
-<main class="container py-5 main-content">
+<!-- Se incluye la barra de navegación -->
+<?= view('partials/_navbar-admin') ?>
 
-    <!-- Mensajes de sesión (errores o notificaciones) -->
+<!-- Contenido principal -->
+<main class="container my-3 main-content">
+
+    <!-- Mensajes de sesión: errores o confirmaciones -->
     <div class="alert-info text-center">
         <?= session()->has('errors') ? view('partials/_session-error') : view('partials/_session') ?>
     </div>
 
-    <!-- Breadcrumb: navegación jerárquica -->
+    <!-- Breadcrumb para la navegación interna -->
     <nav aria-label="breadcrumb">
         <?= view('partials/_breadcrumb', ['breadcrumbs' => $breadcrumbs]) ?>
     </nav>
@@ -58,20 +60,20 @@
             <table class="table table-dark table-striped table-hover" id="tablaProductos">
                 <!-- Cabecera de la tabla -->
                 <thead>
-                    <tr class="text-capitalize text-center">
+                    <tr class="text-capitalize text-center align-middle">
                         <th scope="col">Nombre</th>
                         <th scope="col">Precio</th>
                         <th scope="col">Stock</th>
                         <th scope="col">Marca</th>
                         <th scope="col">Categoría</th>
-                        <th scope="col">Fecha de Alta</th>
+                        <th scope="col">Fecha Alta</th>
                         <th scope="col">Última Modificación</th>
                         <th scope="col">Estado</th>
                         <th scope="col">Acciones</th>
                     </tr>
                 </thead>
                 <!-- Cuerpo de la tabla (se carga dinámicamente vía JS y AJAX) -->
-                <tbody class="text-center">
+                <tbody class="text-center align-middle">
                     <!-- Se insertarán las filas mediante JavaScript -->
                     <tr></tr>
                 </tbody>
@@ -80,7 +82,6 @@
 
         <!-- Paginación -->
         <div class="text-center" id="paginacion">
-            <?= $pager->links('default', 'default_full') ?>
         </div>
     </div>
 </main>
@@ -214,6 +215,11 @@
     function actualizarTablaProductos(productos) {
         const tbody = document.querySelector('#tablaProductos tbody');
         tbody.innerHTML = '';
+
+        if (productos.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="12" class="text-center">No se encontraron productos.</td></tr>';
+            return;
+        }
 
         productos.forEach(producto => {
             const tr = document.createElement('tr');

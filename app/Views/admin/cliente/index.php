@@ -1,17 +1,18 @@
 <!-- Vista parcial header -->
 <?= view("layouts/header-admin", ['titulo' => $titulo]) ?>
 
-<!-- Contenedor principal -->
-<main class="container py-5 main-content" tabindex="0">
-    <!-- Mensajes de sesión: alertas de error o éxito -->
+<!-- Se incluye la barra de navegación -->
+<?= view('partials/_navbar-admin') ?>
+
+<!-- Contenido principal -->
+<main class="container my-3 main-content">
+    <!-- Mensajes de sesión: errores o confirmaciones -->
     <div class="alert-info text-center">
-        <?= session()->has('errors')
-            ? view('partials/_session-error')
-            : view('partials/_session') ?>
+        <?= session()->has('errors') ? view('partials/_session-error') : view('partials/_session') ?>
     </div>
 
-    <!-- Breadcrumb para navegación jerárquica -->
-    <nav aria-label="breadcrumb" class="my-3">
+    <!-- Breadcrumb para la navegación interna -->
+    <nav aria-label="breadcrumb">
         <?= view('partials/_breadcrumb', ['breadcrumbs' => $breadcrumbs]) ?>
     </nav>
 
@@ -45,7 +46,7 @@
         <div class="table-responsive">
             <table class="table table-dark table-striped table-hover" id="tablaClientes">
                 <thead>
-                    <tr class="text-capitalize text-center">
+                    <tr class="text-capitalize text-center align-middle">
                         <th scope="col">Nombre</th>
                         <th scope="col">Correo</th>
                         <th scope="col">Estado</th>
@@ -54,14 +55,13 @@
                         <th scope="col">Opciones</th>
                     </tr>
                 </thead>
-                <tbody class="text-center">
+                <tbody class="text-center align-middle">
                     <!-- Las filas se cargarán dinámicamente vía AJAX -->
                 </tbody>
             </table>
         </div>
         <!-- Paginación -->
         <div class="text-center" id="paginacion">
-            <?= $pager->links('default', 'default_full') ?>
         </div>
     </div>
 </main>
@@ -149,6 +149,11 @@
         const tbody = document.querySelector('#tablaClientes tbody');
         tbody.innerHTML = '';
 
+        if (clientes.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="6" class="text-center">No se encontraron clientes.</td></tr>';
+            return;
+        }
+
         clientes.forEach(cliente => {
             const tr = document.createElement('tr');
             tr.innerHTML = `
@@ -163,11 +168,11 @@
             <td>${new Date(cliente.updated_at).toLocaleString()}</td>
             <td class="text-center">
                 <!-- Opciones de consulta: Historial de mensajes y pedidos -->
-                <a href="<?= base_url('admin/cliente/mensajes/') ?>${cliente.id}" class="btn btn-outline-info btn-sm mx-1" title="Historial de Mensajes"
+                <a href="<?= base_url('admin/cliente/mensajes/') ?>${cliente.id}" class="btn btn-outline-info btn-sm m-1" title="Historial de Mensajes"
                 data-bs-toggle="tooltip">
                     <i class="bi bi-chat-left-text"></i>
                 </a>
-                <a href="<?= base_url('admin/cliente/pedidos/') ?>${cliente.id}" class="btn btn-outline-primary btn-sm mx-1" title="Historial de Pedidos"
+                <a href="<?= base_url('admin/cliente/pedidos/') ?>${cliente.id}" class="btn btn-outline-primary btn-sm m-1" title="Historial de Pedidos"
                 data-bs-toggle="tooltip">
                     <i class="bi bi-basket"></i>
                 </a>

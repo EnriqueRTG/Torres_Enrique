@@ -36,6 +36,7 @@
                     <hr>
                     <!-- Formulario de Contacto -->
                     <form method="POST" action="<?= base_url('contacto') ?>">
+    
                         <?= csrf_field() ?>
                         <fieldset>
                             <legend class="visually-hidden">Formulario de Contacto</legend>
@@ -218,6 +219,8 @@
                     form.reset(); // Resetea el formulario a su estado inicial
 
                     // Borrar manualmente los campos autocompletados desde PHP
+                    document.getElementById('nombre').value = "";
+                    document.getElementById('email').value = "";
                     document.getElementById('asunto').value = "";
                     document.getElementById('mensaje').value = "";
                 }
