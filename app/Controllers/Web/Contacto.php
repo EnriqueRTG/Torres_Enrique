@@ -51,7 +51,7 @@ class Contacto extends BaseController
             'email'             => $this->request->getPost('email'),   // Valor del campo "email" del formulario.
             'asunto'            => $this->request->getPost('asunto'),  // Valor del campo "asunto" del formulario.
             'tipo_conversacion' => 'contacto', // Se fija el tipo de conversación.
-            'estado'            => 'abierto',  // Estado inicial de la conversación.
+            'estado'            => 'abierta',  // Estado inicial de la conversación.
         ];
 
         // Preparar los datos para el mensaje.
@@ -93,7 +93,7 @@ class Contacto extends BaseController
         $dataMensaje['conversacion_id'] = $conversacionId;
 
         // Insertamos el mensaje inicial en la base de datos.
-        $mensajeId = $this->mensajeModel->crearMensaje($dataMensaje);
+        $mensajeId = $this->mensajeModel->crearMensaje($dataMensaje, $dataConversacion['tipo_conversacion']);
         if (!$mensajeId) {
             // En caso de error en la inserción del mensaje, retornamos los errores del modelo de mensaje.
             return redirect()->back()->withInput()->with('errors', $this->mensajeModel->errors());

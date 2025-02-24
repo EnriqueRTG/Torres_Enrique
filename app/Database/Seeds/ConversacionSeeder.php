@@ -9,29 +9,56 @@ class ConversacionSeeder extends Seeder
 {
     public function run()
     {
-        // Inicializar Faker para generar datos falsos
         $faker = Factory::create();
 
-        // Obtener los IDs de usuarios que sean clientes (si deseas que las conversaciones pertenezcan a clientes registrados)
+        // Obtener IDs de usuarios registrados (clientes) si existen.
         $usuarioModel = new \App\Models\UsuarioModel();
-        // Se asume que el rol de cliente es 'cliente'
         $usuarios = $usuarioModel->where('rol', 'cliente')->findAll();
-        $usuarioIds = array_column($usuarios, 'id');
+        $usuarioIds = [];
+        if (!empty($usuarios)) {
+            foreach ($usuarios as $usuario) {
+                $usuarioIds[] = $usuario->id;
+            }
+        }
 
         $conversaciones = [];
 
-        // Generar 10 conversaciones de ejemplo
-        for ($i = 0; $i < 10; $i++) {
+        // Generar 20 conversaciones: 10 de tipo "contacto" y 10 de tipo "consulta"
+        for ($i = 0; $i < 20; $i++) {
+            // Los primeros 10 serán de tipo 'contacto', los siguientes 10 de tipo 'consulta'
+            $tipo_conversacion = $i < 10 ? 'contacto' : 'consulta';
+
+            if ($tipo_conversacion === 'contacto') {
+                // Estado inicial: "cerrada"
+                $estado = $i < 5 ? 'cerrada' : 'abierta';
+                // Asignar usuario_id igual a NULL (para visitantes)
+                $usuario_id = null;
+            } else {
+                // Estado inicial: "abierta"
+                $estado = 'abierta';
+                // Asignar usuario_id si existen; de lo contrario NULL
+                $usuario_id = !empty($usuarioIds) ? $faker->randomElement($usuarioIds) : null;
+            }
+
+            // Generar datos para nombre y email (si es visitante se generan datos falsos)
+            $nombre = $faker->name;
+            $email  = $faker->unique()->safeEmail;
+            // Generar un asunto con 3 palabras (primeras en mayúscula)
+            $asunto = ucfirst($faker->words(3, true));
+
             $conversaciones[] = [
-                // Si no hay usuario registrado para la conversación, puedes dejar este campo NULL
-                'usuario_id' => $faker->boolean(80) ? $faker->randomElement($usuarioIds) : null,
-                'asunto'     => $faker->sentence(3),
-                'created_at' => date('Y-m-d H:i:s'),
-                'updated_at' => date('Y-m-d H:i:s'),
+                'usuario_id'        => $usuario_id,
+                'nombre'            => $nombre,
+                'email'             => $email,
+                'asunto'            => $asunto,
+                'tipo_conversacion' => $tipo_conversacion,
+                'estado'            => $estado,
+                'created_at'        => date('Y-m-d H:i:s'),
+                'updated_at'        => date('Y-m-d H:i:s'),
             ];
         }
 
-        // Insertar todas las conversaciones en la tabla "conversaciones"
+        // Inserción en lote de las conversaciones
         $this->db->table('conversaciones')->insertBatch($conversaciones);
     }
 }

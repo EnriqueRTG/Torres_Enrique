@@ -1,50 +1,50 @@
-<!-- Vista parcial header -->
+<!-- Vista parcial: Header -->
 <?= view("layouts/header-admin", ['titulo' => $titulo]) ?>
 
 <!-- Se incluye la barra de navegación -->
 <?= view('partials/_navbar-admin') ?>
 
-<!-- Contenido principal -->
-<!-- Se utiliza el elemento <main> para marcar el contenido principal de la página -->
+<!-- Contenido principal: Se utiliza <main> para delimitar el contenido principal de la página -->
 <main class="container py-5 main-content">
 
     <!-- Mensajes de sesión (errores o notificaciones) -->
-    <div class="alert-info text-center">
+    <div class="alert-info text-center" role="alert">
         <?= session()->has('errors') ? view('partials/_session-error') : view('partials/_session') ?>
     </div>
 
-    <!-- Breadcrumb: navegación jerárquica -->
+    <!-- Breadcrumb: Navegación jerárquica para una mejor experiencia de usuario -->
     <nav aria-label="breadcrumb">
         <?= view('partials/_breadcrumb', ['breadcrumbs' => $breadcrumbs]) ?>
     </nav>
 
     <!-- Tarjeta de presentación del producto -->
     <section class="card mt-2 p-4" id="fondo-card-previsualizacion-producto">
-        <!-- Encabezado: Título del producto -->
+        <!-- Encabezado del producto -->
         <header class="mb-4">
             <h1 class="fs-1"><?= esc($producto->nombre) ?></h1>
         </header>
 
-        <!-- Sección principal: Carrusel de imágenes y detalles básicos -->
+        <!-- Contenido principal de la tarjeta: Carrusel de imágenes y detalles básicos -->
         <div class="row">
             <!-- Columna izquierda: Carrusel de imágenes principal -->
             <div class="col-12 col-lg-7 mb-4 mb-lg-0">
-                <!-- Carrusel principal: se aplica la clase "square-carousel" para mantener proporción cuadrada -->
-                <div id="productCarousel" class="carousel slide carousel-dark square-carousel" data-bs-ride="carousel">
+                <!-- Carrusel principal con proporción cuadrada -->
+                <div id="productCarousel" class="carousel slide carousel-dark square-carousel" data-bs-ride="carousel" aria-label="Carrusel de imágenes del producto">
                     <div class="carousel-inner">
                         <?php
-                        // Se marca el primer item como activo
+                        // Se marca el primer ítem como activo
                         $active = 'active';
                         foreach ($producto->imagenes as $index => $imagen): ?>
                             <div class="carousel-item <?= $active ?>">
-                                <!-- La imagen se adapta al contenedor con object-fit: cover -->
+                                <!-- Imagen del producto: se adapta al contenedor y permite vista fullscreen -->
                                 <img src="<?= base_url($imagen->ruta_imagen) ?>"
                                     class="d-block w-100 rounded view-fullscreen"
                                     alt="<?= esc($producto->nombre) ?>"
                                     data-index="<?= $index ?>"
                                     style="cursor: pointer;">
                             </div>
-                        <?php $active = '';
+                        <?php
+                            $active = '';
                         endforeach; ?>
                     </div>
                     <!-- Controles del carrusel -->
@@ -59,7 +59,7 @@
                 </div>
             </div>
 
-            <!-- Columna derecha: Detalles básicos y acciones -->
+            <!-- Columna derecha: Información básica, acciones y galería de miniaturas -->
             <div class="col-12 col-lg-5">
                 <div class="d-flex flex-column h-100 justify-content-between">
                     <!-- Información básica del producto -->
@@ -100,12 +100,12 @@
                         </div>
                     <?php endif; ?>
 
-                    <!-- Sección: Galería de miniaturas con Swiper -->
+                    <!-- Galería de miniaturas utilizando Swiper -->
                     <div id="galeria" class="mt-4">
                         <h5>Galería:</h5>
-                        <!-- Contenedor del Swiper (la clase "mySwiper" es utilizada en la inicialización JS) -->
+                        <!-- Contenedor del Swiper -->
                         <div class="swiper-container mySwiper">
-                            <div class="swiper-wrapper ">
+                            <div class="swiper-wrapper">
                                 <?php foreach ($producto->imagenes as $index => $imagen): ?>
                                     <div class="swiper-slide">
                                         <img src="<?= base_url($imagen->ruta_imagen) ?>"
@@ -115,10 +115,9 @@
                                     </div>
                                 <?php endforeach; ?>
                             </div>
-                            <!-- Botones de navegación dentro del Swiper -->
+                            <!-- Botones de navegación y paginación para Swiper -->
                             <div class="swiper-button-prev"></div>
                             <div class="swiper-button-next"></div>
-                            <!-- Paginación del Swiper -->
                             <div class="swiper-pagination"></div>
                         </div>
                     </div>
@@ -126,7 +125,7 @@
             </div>
         </div>
 
-        <!-- Sección de detalles extendidos -->
+        <!-- Sección de detalles extendidos del producto -->
         <section class="mt-5">
             <h2 class="fs-2">Detalles</h2>
             <div class="table-responsive">
@@ -174,15 +173,15 @@
         </section>
     </section>
 
-    <!-- Botones de acciones principales -->
+    <!-- Botones de acciones principales (Volver, Editar, Eliminar) -->
     <div class="text-center pt-5 d-flex justify-content-evenly">
-        <a href="<?= base_url('admin/productos') ?>" class="btn btn-outline-secondary border-3 fw-bolder fw-bold fs-4" title="Volver">
+        <a href="<?= base_url('admin/productos') ?>" class="btn btn-outline-secondary btn-lg border-3 fw-bolder" title="Volver">
             Volver <i class="bi bi-arrow-return-left"></i>
         </a>
-        <a href="<?= base_url('admin/producto/editar/' . $producto->id) ?>" class="btn btn-outline-warning border-3 fw-bolder fw-bold fs-4" title="Editar">
+        <a href="<?= base_url('admin/productos/editar/' . $producto->id) ?>" class="btn btn-outline-warning btn-lg border-3 fw-bolder fw-bold" title="Editar">
             Editar <i class="bi bi-pencil-square"></i>
         </a>
-        <a href="#" class="btn btn-outline-danger border-3 fw-bolder fw-bold fs-4" data-bs-toggle="modal" data-bs-target="#confirmarEliminacionModal" title="Eliminar">
+        <a href="#" class="btn btn-outline-danger btn-lg border-3 fw-bolder fw-bold" data-bs-toggle="modal" data-bs-target="#confirmarEliminacionModal" title="Eliminar">
             Eliminar <i class="bi bi-trash"></i>
         </a>
     </div>
@@ -206,7 +205,7 @@
                 <!-- Pie del modal -->
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <form action="<?= base_url('admin/producto/delete/' . $producto->id) ?>" method="POST" id="eliminarProductoForm">
+                    <form action="<?= base_url('admin/productos/eliminar/' . $producto->id) ?>" method="POST" id="eliminarProductoForm">
                         <button type="submit" class="btn btn-danger">Eliminar</button>
                     </form>
                 </div>
@@ -216,9 +215,8 @@
 
     <!-- Modal para vista detallada de imágenes (no fullscreen) -->
     <div class="modal fade" id="fullscreenImageModal" tabindex="-1" aria-labelledby="fullscreenImageModalLabel" aria-hidden="true" data-bs-focus="false">
-        <!-- Usamos modal-dialog-centered y modal-lg para que el modal no ocupe el 100% de la pantalla -->
         <div class="modal-dialog modal-dialog-centered modal-lg">
-            <!-- Modal con fondo translúcido -->
+            <!-- Modal con fondo translúcido para mejorar la visualización -->
             <div class="modal-content translucent-modal-content">
                 <!-- Encabezado del modal -->
                 <div class="modal-header border-0">
@@ -227,7 +225,7 @@
                 </div>
                 <!-- Cuerpo del modal: Carrusel de imágenes -->
                 <div class="modal-body p-0">
-                    <div id="fullscreenCarousel" class="carousel slide" data-bs-ride="carousel">
+                    <div id="fullscreenCarousel" class="carousel slide" data-bs-ride="carousel" aria-label="Carrusel de vista fullscreen">
                         <div class="carousel-inner">
                             <?php
                             $active = 'active';
@@ -235,8 +233,9 @@
                                 <div class="carousel-item <?= $active ?>" data-index="<?= $index ?>">
                                     <img src="<?= base_url($imagen->ruta_imagen) ?>" class="d-block w-100" alt="<?= esc($producto->nombre) ?>">
                                 </div>
-                                <?php $active = ''; ?>
-                            <?php endforeach; ?>
+                            <?php
+                                $active = '';
+                            endforeach; ?>
                         </div>
                         <!-- Controles del carrusel en el modal -->
                         <button class="carousel-control-prev" type="button" data-bs-target="#fullscreenCarousel" data-bs-slide="prev">
@@ -254,10 +253,10 @@
     </div>
 </main>
 
-<!-- Vista parcial footer -->
+<!-- Vista parcial: Footer -->
 <?= view("layouts/footer-admin") ?>
 
-<!-- Scripts: Funciones para el modal fullscreen y la inicialización de Swiper -->
+<!-- Scripts: Inicialización de funciones para modal fullscreen y Swiper -->
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         // Evento para vista fullscreen: al hacer clic en cualquier imagen con la clase "view-fullscreen"
@@ -293,7 +292,7 @@
             }
         });
 
-        // Inicialización de Swiper para la galería de miniaturas
+        // Inicialización de Swiper para la galería de miniaturas con breakpoints para responsividad
         var swiper = new Swiper(".mySwiper", {
             slidesPerView: 3,
             spaceBetween: 10,

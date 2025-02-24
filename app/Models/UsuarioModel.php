@@ -24,6 +24,48 @@ class UsuarioModel extends Model
     protected $useTimestamps    = true; // Habilitar marcas de tiempo
     protected $dateFormat       = 'datetime'; // Formato de fecha y hora
 
+    // Reglas de validación para los campos del usuario
+    protected $validationRules = [
+        'nombre'   => 'required|min_length[2]|max_length[255]',
+        'apellido' => 'required|min_length[2]|max_length[255]',
+        'email'    => 'required|valid_email|max_length[255]',
+        'password' => 'required|min_length[6]|max_length[255]',
+        'rol'      => 'required|in_list[cliente,administrador]',
+        'estado'   => 'required|in_list[activo,inactivo]',
+    ];
+
+    // Mensajes personalizados para cada regla de validación
+    protected $validationMessages = [
+        'nombre' => [
+            'required'   => 'El nombre es obligatorio.',
+            'min_length' => 'El nombre debe tener al menos 2 caracteres.',
+            'max_length' => 'El nombre no puede superar los 255 caracteres.',
+        ],
+        'apellido' => [
+            'required'   => 'El apellido es obligatorio.',
+            'min_length' => 'El apellido debe tener al menos 2 caracteres.',
+            'max_length' => 'El apellido no puede superar los 255 caracteres.',
+        ],
+        'email' => [
+            'required'    => 'El email es obligatorio.',
+            'valid_email' => 'Debes ingresar un email válido.',
+            'max_length'  => 'El email no puede superar los 255 caracteres.',
+        ],
+        'password' => [
+            'required'   => 'La contraseña es obligatoria.',
+            'min_length' => 'La contraseña debe tener al menos 6 caracteres.',
+            'max_length' => 'La contraseña no puede superar los 255 caracteres.',
+        ],
+        'rol' => [
+            'required' => 'El rol es obligatorio.',
+            'in_list'  => 'El rol debe ser "cliente" o "administrador".',
+        ],
+        'estado' => [
+            'required' => 'El estado es obligatorio.',
+            'in_list'  => 'El estado debe ser "activo" o "inactivo".',
+        ],
+    ];
+
     // Métodos personalizados
 
     // Buscar usuario por email
@@ -171,5 +213,35 @@ class UsuarioModel extends Model
         // Ordenar por fecha de actualización descendente y aplicar la paginación
         return $this->orderBy('updated_at', 'DESC')
             ->paginate($perPage);
+    }
+
+    /**
+     * Actualiza los datos del usuario con rol cliente.
+     *
+     * Este método actualiza únicamente los campos "nombre" y "apellido" del usuario,
+     * ignorando cualquier otro dato que se reciba. Se espera que se haya filtrado
+     * previamente la información del usuario para evitar cambios en campos sensibles
+     * como id, correo, contraseña o rol.
+     *
+     * @param int   $id   ID del usuario a actualizar.
+     * @param array $data Array asociativo con los datos a actualizar (se esperan las claves "nombre" y "apellido").
+     * @return bool       Retorna true si la actualización se realiza con éxito, o false en caso de fallo.
+     */
+    public function actualizarCliente(int $id, array $data): bool
+    {
+        // Extraemos únicamente los campos permitidos: "nombre" y "apellido"
+        $updateData = [
+            'nombre'   => isset($data['nombre']) ? trim($data['nombre']) : '',
+            'apellido' => isset($data['apellido']) ? trim($data['apellido']) : '',
+        ];
+
+        // Validamos utilizando las reglas y mensajes configurados.
+        if (!$this->validate($updateData)) {
+            // Los errores se pueden obtener con $this->errors()
+            return false;
+        }
+
+        // Actualiza los datos permitidos
+        return $this->update($id, $updateData);
     }
 }

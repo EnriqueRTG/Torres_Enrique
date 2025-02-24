@@ -5,13 +5,12 @@
 <?= view('partials/_navbar-admin') ?>
 
 <!-- Contenido principal del Dashboard -->
-<main class="container py-5 main-content">
-    <!-- Sección de mensajes de sesión (errores o confirmaciones) -->
-    <section class="mb-4">
-        <div class="alert-info text-center">
-            <?= session()->has('errors') ? view('partials/_session-error') : view('partials/_session') ?>
-        </div>
-    </section>
+<main class="container my-3 main-content">
+    
+    <!-- Mensajes de sesión: errores o confirmaciones -->
+    <div class="alert-info text-center">
+        <?= session()->has('errors') ? view('partials/_session-error') : view('partials/_session') ?>
+    </div>
 
     <!-- Encabezado principal del Dashboard -->
     <header class="mb-4">
@@ -20,7 +19,7 @@
     </header>
 
     <!-- Sección con tarjetas de acceso rápido -->
-    <section class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-5">
+    <section class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
         <!-- Tarjeta: Órdenes -->
         <article class="col">
             <a href="<?= base_url('admin/ordenes'); ?>" class="text-decoration-none">

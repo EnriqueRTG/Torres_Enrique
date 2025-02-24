@@ -65,7 +65,7 @@
         <!-- Segunda fila: Logo y créditos -->
         <div class="row border-top pt-3">
             <div class="col text-center">
-                <p class="mb-0 small">
+                <p class="mb-0 small text-white">
                     Tattoo Supply Store &middot; &copy; <?= date('Y') ?> &middot; by
                     <a href="https://github.com/EnriqueRTG" class="text-white text-decoration-none" target="_blank">
                         EnriqueRTG

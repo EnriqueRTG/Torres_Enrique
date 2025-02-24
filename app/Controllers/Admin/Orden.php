@@ -22,9 +22,14 @@ class Orden extends BaseController
 
         $ordenModel = new OrdenModel();
 
+        $conteos = $this->getConteoPendientes();
+
         $data = [
             'titulo' => 'Ordenes',
             'ordenes' => $ordenModel->find(),
+            'totalPendientes'     => $conteos['totalPendientes'],
+            'consultasPendientes' => $conteos['consultasPendientes'],
+            'contactosPendientes' => $conteos['contactosPendientes'],
         ];
 
         echo view('admin/orden/index', $data);

@@ -8,7 +8,7 @@ class Conversaciones extends Migration
 {
     public function up()
     {
-        // Agregar campos a la tabla "conversaciones"
+        // Definición de campos para la tabla "conversaciones"
         $this->forge->addField([
             'id' => [
                 'type'           => 'INT',
@@ -16,23 +16,24 @@ class Conversaciones extends Migration
                 'unsigned'       => true,
                 'auto_increment' => true,
             ],
-            // Si el mensaje es de un usuario registrado, se almacena su ID; en caso contrario, se dejará NULL.
+            // Si la conversación pertenece a un usuario registrado, se almacena su ID; en caso contrario, se deja NULL.
             'usuario_id' => [
                 'type'       => 'INT',
                 'constraint' => 11,
                 'unsigned'   => true,
                 'null'       => true,
             ],
-            // Para visitantes o snapshot de los datos del usuario
+            // Nombre del remitente. Se define como NOT NULL para cumplir con la validación del modelo.
             'nombre' => [
                 'type'       => 'VARCHAR',
                 'constraint' => '255',
-                'null'       => true,
+                'null'       => false,
             ],
+            // Email del remitente. Se define como NOT NULL para cumplir con la validación del modelo.
             'email' => [
                 'type'       => 'VARCHAR',
                 'constraint' => '255',
-                'null'       => true,
+                'null'       => false,
             ],
             // Asunto del hilo; este campo es obligatorio.
             'asunto' => [
@@ -46,32 +47,36 @@ class Conversaciones extends Migration
                 'constraint' => ['consulta', 'contacto'],
                 'default'    => 'consulta',
             ],
-            // Estado del hilo: "abierto" o "cerrado"
+            // Estado de la conversación: "abierta" o "cerrada"
             'estado' => [
                 'type'       => 'ENUM',
-                'constraint' => ['abierto', 'cerrado'],
-                'default'    => 'abierto',
+                'constraint' => ['abierta', 'cerrada'],
+                'default'    => 'abierta',
             ],
-            // Fecha de creación
+            // Timestamps: se utilizan para registrar la fecha de creación y la última actualización.
             'created_at' => [
                 'type' => 'DATETIME',
                 'null' => true,
             ],
-            // Fecha de última actualización
             'updated_at' => [
                 'type' => 'DATETIME',
                 'null' => true,
             ],
         ]);
-        // Clave primaria
+
+        // Definir la clave primaria
         $this->forge->addKey('id', true);
-        // Crear la tabla
-        $this->forge->createTable('conversaciones');
+
+        // Agregar un índice adicional en "usuario_id" para acelerar búsquedas relacionadas
+        $this->forge->addKey('usuario_id');
+
+        // Crear la tabla "conversaciones" (el segundo parámetro "true" evita errores si la tabla ya existe)
+        $this->forge->createTable('conversaciones', true);
     }
 
     public function down()
     {
-        // Eliminar la tabla
-        $this->forge->dropTable('conversaciones');
+        // Eliminar la tabla "conversaciones" si existe
+        $this->forge->dropTable('conversaciones', true);
     }
 }

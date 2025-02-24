@@ -4,10 +4,16 @@ namespace App\Database\Seeds;
 
 use CodeIgniter\Database\Seeder;
 
+/**
+ * Seeder para la tabla "marcas".
+ *
+ * Inserta un conjunto de marcas de ejemplo en la base de datos.
+ */
 class MarcaSeeder extends Seeder
 {
     public function run()
     {
+        // Definir un array con marcas de ejemplo
         $marcas = [
             ['nombre' => 'Cheyenne Professional Tattoo Equipment', 'estado' => 'activo'],
             ['nombre' => 'Hurricane', 'estado' => 'activo'],
@@ -24,8 +30,10 @@ class MarcaSeeder extends Seeder
             ['nombre' => 'Bronc', 'estado' => 'activo'],
         ];
 
+        // Instanciar el modelo de Marca
         $marcaModel = new \App\Models\MarcaModel();
 
+        // Insertar los datos de forma masiva
         $marcaModel->insertBatch($marcas);
     }
 }

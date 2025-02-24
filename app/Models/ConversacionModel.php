@@ -7,23 +7,25 @@ use App\Models\MensajeModel;
 
 class ConversacionModel extends Model
 {
+    // Configuración básica del modelo
     protected $table         = 'conversaciones';
     protected $primaryKey    = 'id';
     protected $allowedFields = ['usuario_id', 'nombre', 'email', 'asunto', 'tipo_conversacion', 'estado'];
     protected $returnType    = 'object';
-    protected $useTimestamps = true; // Habilita created_at y updated_at
+    protected $useTimestamps = true; // Se encargará de 'created_at' y 'updated_at'
     protected $dateFormat    = 'datetime';
 
     // Reglas de validación para la conversación
     protected $validationRules = [
-        'usuario_id'           => 'permit_empty|integer',
-        'nombre'               => 'required|min_length[3]|max_length[255]',
-        'email'                => 'required|valid_email|max_length[255]',
-        'asunto'               => 'required|max_length[255]',
-        'tipo_conversacion'    => 'required|in_list[consulta,contacto]',
-        'estado'               => 'required|in_list[abierto,cerrado]',
+        'usuario_id'        => 'permit_empty|integer',
+        'nombre'            => 'required|min_length[3]|max_length[255]',
+        'email'             => 'required|valid_email|max_length[255]',
+        'asunto'            => 'required|max_length[255]',
+        'tipo_conversacion' => 'required|in_list[consulta,contacto]',
+        'estado'            => 'required|in_list[abierta,cerrada]',
     ];
 
+    // Mensajes personalizados para las validaciones
     protected $validationMessages = [
         'nombre' => [
             'required'   => 'El nombre es obligatorio.',
@@ -45,9 +47,25 @@ class ConversacionModel extends Model
         ],
         'estado' => [
             'required' => 'El estado es obligatorio.',
-            'in_list'  => 'El estado debe ser "abierto" o "cerrado".',
+            'in_list'  => 'El estado debe ser "abierta" o "cerrada".',
         ],
     ];
+
+    /**
+     * Instancia del modelo de mensajes para evitar múltiples instanciaciones.
+     *
+     * @var MensajeModel
+     */
+    protected $mensajeModel;
+
+    /**
+     * Constructor: se inicializa la instancia del MensajeModel.
+     */
+    public function __construct()
+    {
+        parent::__construct();
+        $this->mensajeModel = new MensajeModel();
+    }
 
     /**
      * Crea una nueva conversación.
@@ -58,11 +76,10 @@ class ConversacionModel extends Model
     public function crearConversacion(array $data)
     {
         if (!$this->validate($data)) {
+            // Opcional: Puedes registrar o retornar los errores para depurar.
             return false;
         }
-
         $this->insert($data);
-
         return $this->getInsertID();
     }
 
@@ -72,13 +89,12 @@ class ConversacionModel extends Model
      * @param int $conversacionId ID de la conversación.
      * @return object|null Objeto conversación con atributo "mensajes" o null si no se encuentra.
      */
-    public function obtenerConversacionConMensajes($conversacionId)
+    public function obtenerConversacionConMensajes(int $conversacionId)
     {
         $conversacion = $this->find($conversacionId);
         if ($conversacion) {
-            // Instanciamos el modelo de mensajes para recuperar los mensajes de la conversación
-            $mensajeModel = new MensajeModel();
-            $conversacion->mensajes = $mensajeModel->where('conversacion_id', $conversacionId)
+            $conversacion->mensajes = $this->mensajeModel
+                ->where('conversacion_id', $conversacionId)
                 ->orderBy('created_at', 'ASC')
                 ->findAll();
         }
@@ -86,25 +102,42 @@ class ConversacionModel extends Model
     }
 
     /**
-     * Obtiene las conversaciones asociadas a un cliente específico.
+     * Obtiene las conversaciones asociadas a un cliente y carga sus mensajes.
+     *
+     * Para cada conversación se realiza una consulta al modelo de mensajes, de modo
+     * que cada objeto conversación contendrá una propiedad "mensajes" con un array
+     * de todos los mensajes ordenados por fecha de creación (ascendente).
      *
      * @param int $clienteId ID del cliente.
-     * @return array Arreglo de objetos conversación.
+     * @return array Lista de objetos conversación con la propiedad "mensajes".
      */
-    public function obtenerConversacionesCliente($clienteId)
+    public function obtenerConversacionesClienteConMensajes(int $clienteId): array
     {
-        return $this->where('usuario_id', $clienteId)
+        // Obtener todas las conversaciones del cliente ordenadas por fecha de actualización
+        $conversaciones = $this->where('usuario_id', $clienteId)
             ->orderBy('updated_at', 'DESC')
             ->findAll();
+
+        // Instanciar el modelo de mensajes
+        $mensajeModel = new \App\Models\MensajeModel();
+
+        // Para cada conversación, agregar la propiedad 'mensajes'
+        foreach ($conversaciones as $conversacion) {
+            $conversacion->mensajes = $mensajeModel->where('conversacion_id', $conversacion->id)
+                ->orderBy('created_at', 'ASC')
+                ->findAll();
+        }
+
+        return $conversaciones;
     }
 
     /**
      * Trae las conversaciones filtradas según el tipo de conversación.
      *
-     * @param string $tipo El tipo de conversación a filtrar (por ejemplo, 'consulta' o 'contacto').
-     * @return array Arreglo de objetos conversación filtrados por el tipo indicado.
+     * @param string $tipo Tipo de conversación ('consulta' o 'contacto').
+     * @return array Lista de objetos conversación.
      */
-    public function traerConversacionesSegunTipo($tipo)
+    public function traerConversacionesSegunTipo(string $tipo): array
     {
         return $this->where('tipo_conversacion', $tipo)
             ->orderBy('created_at', 'DESC')
@@ -112,58 +145,51 @@ class ConversacionModel extends Model
     }
 
     /**
-     * Actualiza el estado de una conversación en la base de datos.
+     * Actualiza el estado de una conversación.
      *
-     * Este método recibe el identificador de la conversación y el nuevo estado,
-     * y utiliza el método update del modelo para modificar el campo "estado" del registro correspondiente.
-     *
-     * @param int|string $conversacionId El ID de la conversación a actualizar.
-     * @param string $nuevoEstado El nuevo estado que se asignará a la conversación.
-     *                            Por ejemplo: 'abierto' o 'cerrado'.
-     * @return bool|int Retorna el resultado de la operación update:
-     *                  - Retorna true/1 si la actualización se realizó correctamente.
-     *                  - Retorna false/0 si ocurrió algún error.
+     * @param int|string $conversacionId ID de la conversación a actualizar.
+     * @param string $nuevoEstado Nuevo estado ('abierta' o 'cerrada').
+     * @return bool|int Resultado de la operación update.
      */
-    public function actualizarEstadoConversacion($conversacionId, $nuevoEstado)
+    public function actualizarEstadoConversacion($conversacionId, string $nuevoEstado)
     {
-        // Actualiza el campo 'estado' de la conversación identificada por $conversacionId.
+        // Validamos que el nuevo estado esté entre los permitidos.
+        if (!in_array($nuevoEstado, ['abierta', 'cerrada'])) {
+            return false;
+        }
         return $this->update($conversacionId, ['estado' => $nuevoEstado]);
     }
 
-
     /**
-     * Filtra las conversaciones según el texto de búsqueda, estado, página y tipo de conversación.
+     * Filtra las conversaciones de tipo "contacto" según texto, estado y página.
      *
-     * @param string $texto  Texto a buscar en el nombre y asunto.
-     * @param string $estado Estado a filtrar ('todos', 'pendiente' o 'respondido').
-     * @param int $pagina    Número de página actual (para la paginación).
-     * @param string $tipo   Tipo de conversación ('consulta' o 'contacto').
-     * @return array         Arreglo de objetos con las conversaciones filtradas.
+     * Parámetros para $estado:
+     * - 'todas': sin filtro por estado.
+     * - 'pendiente': conversaciones abiertas.
+     * - 'cerrada': conversaciones cerradas.
+     *
+     * @param string $texto Texto a buscar en nombre o asunto.
+     * @param string $estado Estado ('todas', 'pendiente' o 'cerrada').
+     * @param int $pagina Número de página.
+     * @return array Lista de conversaciones de tipo "contacto".
      */
-    public function filtrarConversaciones(string $texto, string $estado, int $pagina, string $tipo)
+    public function filtrarConversacionesContacto(string $texto, string $estado, int $pagina): array
     {
-        // Obtener el objeto query builder para la tabla actual.
         $builder = $this->builder();
 
-        // Filtrar por tipo de conversación.
-        if (!empty($tipo)) {
-            $builder->where('tipo_conversacion', $tipo);
-        }
+        // Filtro por tipo de conversación (contacto)
+        $builder->where('tipo_conversacion', 'contacto');
 
-        // Filtrar por estado, solo si se especifica algo distinto de 'todos'.
-        // Convertimos el filtro visual:
-        // 'pendiente' se corresponde con 'abierto'
-        // 'respondido' se corresponde con 'cerrado'
-        if ($estado !== 'todos') {
+        // Filtrado por estado
+        if ($estado !== 'todas') {
             if ($estado === 'pendiente') {
-                $estado = 'abierto';
-            } elseif ($estado === 'respondido') {
-                $estado = 'cerrado';
+                $builder->where('estado', 'abierta');
+            } elseif ($estado === 'cerrada') {
+                $builder->where('estado', 'cerrada');
             }
-            $builder->where('estado', $estado);
         }
 
-        // Filtrar por búsqueda en los campos "nombre" y "asunto".
+        // Filtro por texto en nombre o asunto
         if (!empty($texto)) {
             $builder->groupStart();
             $builder->like('nombre', $texto);
@@ -171,15 +197,12 @@ class ConversacionModel extends Model
             $builder->groupEnd();
         }
 
-        // Ordenar los resultados de forma descendente por fecha de creación.
+        // Orden y paginación
         $builder->orderBy('created_at', 'DESC');
-
-        // Aplicar paginación.
-        $porPagina = 10; // Número de registros por página.
+        $porPagina = 10;
         $offset = ($pagina - 1) * $porPagina;
         $builder->limit($porPagina, $offset);
 
-        // Ejecutar la consulta y retornar los resultados.
         $query = $builder->get();
         return $query->getResult();
     }
@@ -187,36 +210,28 @@ class ConversacionModel extends Model
     /**
      * Obtiene el número total de páginas para las conversaciones filtradas.
      *
-     * Se cuenta el total de registros que cumplen con los filtros y se divide entre
-     * la cantidad de registros por página.
-     *
-     * @param string $texto     Texto a buscar en el nombre y asunto.
-     * @param string $estado    Estado a filtrar ('todos', 'pendiente' o 'respondido').
-     * @param int $porPagina    Número de registros por página.
-     * @param string $tipo      Tipo de conversación ('consulta' o 'contacto').
-     * @return int              Número total de páginas.
+     * @param string $texto Texto a buscar en nombre o asunto.
+     * @param string $estado Estado del filtro ('todas', 'pendiente', 'respondida' o 'cerrada').
+     * @param int $porPagina Número de registros por página.
+     * @param string $tipo Tipo de conversación ('consulta' o 'contacto').
+     * @return int Número total de páginas.
      */
-    public function obtenerTotalPaginasConversaciones(string $texto, string $estado, int $porPagina, string $tipo)
+    public function obtenerTotalPaginasConversacionesContacto(string $texto, string $estado, int $porPagina): int
     {
-        // Obtener el objeto query builder para la tabla actual.
         $builder = $this->builder();
 
-        // Filtrar por tipo de conversación.
-        if (!empty($tipo)) {
-            $builder->where('tipo_conversacion', $tipo);
-        }
+        // Filtro por tipo de conversación (contacto)
+        $builder->where('tipo_conversacion', 'contacto');
 
-        // Filtrar por estado, solo si no es 'todos'.
-        if ($estado !== 'todos') {
+        if ($estado !== 'todas') {
             if ($estado === 'pendiente') {
-                $estado = 'abierto';
-            } elseif ($estado === 'respondido') {
-                $estado = 'cerrado';
+                $estado = 'abierta';
+            } elseif ($estado === 'cerrada') {
+                $estado = 'cerrada';
             }
             $builder->where('estado', $estado);
         }
 
-        // Filtrar por búsqueda en "nombre" y "asunto".
         if (!empty($texto)) {
             $builder->groupStart();
             $builder->like('nombre', $texto);
@@ -224,11 +239,194 @@ class ConversacionModel extends Model
             $builder->groupEnd();
         }
 
-        // Contar todos los registros que cumplen con las condiciones.
         $total = $builder->countAllResults();
+        return (int) ceil($total / $porPagina);
+    }
 
-        // Calcular el total de páginas (redondeando hacia arriba).
-        $totalPaginas = (int) ceil($total / $porPagina);
-        return $totalPaginas;
+    /**
+     * Filtra las conversaciones de tipo "consulta" según texto, estado y página.
+     *
+     * Parámetros para $estado:
+     * - "todas": Devuelve todas las conversaciones de tipo "consulta" sin filtrar por último mensaje.
+     * - "pendiente": Conversaciones abiertas (estado "abierta") cuyo último mensaje es del cliente.
+     * - "respondida": Conversaciones abiertas (estado "abierta") cuyo último mensaje es del administrador.
+     * - "cerrada" o "eliminada": Conversaciones con estado "cerrada".
+     *
+     * Además, se aplica un filtro de búsqueda en los campos "nombre" y "asunto".
+     *
+     * @param string $texto     Término de búsqueda para "nombre" o "asunto".
+     * @param string $estado    Filtro de estado ("todas", "pendiente", "respondida", "cerrada" o "eliminada").
+     * @param int $pagina       Número de página.
+     * @param int $porPagina    Número de registros por página (por defecto 10).
+     * @return array            Lista de conversaciones de tipo "consulta" que cumplen los filtros.
+     */
+    public function filtrarConversacionesConsulta(string $texto, string $estado, int $pagina): array
+    {
+        $builder = $this->builder();
+
+        // Filtro por tipo de conversación (contacto)
+        $builder->where('tipo_conversacion', 'consulta');
+
+        // Filtrado por estado
+        if ($estado !== 'todas') {
+            if ($estado === 'pendiente' || $estado === 'respondida') {
+                $builder->where('estado', 'abierta');
+            } elseif ($estado === 'eliminada') {
+                $builder->where('estado', 'cerrada');
+            }
+        }
+
+        // Filtro por texto en nombre o asunto
+        if (!empty($texto)) {
+            $builder->groupStart();
+            $builder->like('nombre', $texto);
+            $builder->orLike('asunto', $texto);
+            $builder->groupEnd();
+        }
+
+        // Orden y paginación
+        $builder->orderBy('updated_at', 'DESC');
+        $porPagina = 10;
+        $offset = ($pagina - 1) * $porPagina;
+        $builder->limit($porPagina, $offset);
+
+        $query = $builder->get();
+        return $query->getResult();
+    }
+
+    /**
+     * Obtiene el número total de páginas para las conversaciones filtradas.
+     *
+     * @param string $texto Texto a buscar en nombre o asunto.
+     * @param string $estado Estado del filtro ('todas', 'pendiente', 'respondida' o 'cerrada').
+     * @param int $porPagina Número de registros por página.
+     * @param string $tipo Tipo de conversación ('consulta' o 'contacto').
+     * @return int Número total de páginas.
+     */
+    public function obtenerTotalPaginasConversacionesConsulta(string $texto, string $estado, int $porPagina): int
+    {
+        $builder = $this->builder();
+
+        // Filtro por tipo de conversación (contacto)
+        $builder->where('tipo_conversacion', 'consulta');
+
+        if ($estado !== 'todas') {
+            if ($estado === 'pendiente' || $estado === 'respondida') {
+                $estado = 'abierta';
+            } elseif ($estado === 'cerrada') {
+                $estado = 'cerrada';
+            }
+            $builder->where('estado', $estado);
+        }
+
+        if (!empty($texto)) {
+            $builder->groupStart();
+            $builder->like('nombre', $texto);
+            $builder->orLike('asunto', $texto);
+            $builder->groupEnd();
+        }
+
+        $total = $builder->countAllResults();
+        return (int) ceil($total / $porPagina);
+    }
+
+    /**
+     * Cuenta la cantidad de conversaciones para un tipo y estado específico.
+     *
+     * @param string $tipo Tipo de conversación ('consulta' o 'contacto').
+     * @param string $estado Estado ('abierta' o 'cerrada').
+     * @return int Total de conversaciones que cumplen los criterios.
+     */
+    public function contarConversacionesPorTipoYEstado(string $tipo, string $estado): int
+    {
+        return $this->where('tipo_conversacion', $tipo)
+            ->where('estado', $estado)
+            ->countAllResults();
+    }
+
+    /**
+     * Filtra las conversaciones de tipo "consulta" para un cliente específico, 
+     * aplicando un filtro por texto, estado y paginación.
+     *
+     * @param string $textoBusqueda Término de búsqueda para "asunto" o "nombre".
+     * @param string $estado        Filtro de estado ("todas", "activa" o "inactiva").
+     * @param int    $pagina        Número de página.
+     * @param int    $clienteId     ID del cliente.
+     * @return array                Lista de conversaciones (con sus mensajes) que cumplen los filtros.
+     */
+    public function filtrarConversacionesClienteConMensajes(string $textoBusqueda, string $estado, int $pagina, int $clienteId): array
+    {
+        $builder = $this->builder();
+
+        // Filtrar por cliente y por tipo de conversación "consulta"
+        $builder->where('usuario_id', $clienteId)
+            ->where('tipo_conversacion', 'consulta');
+
+        // Filtrado por estado: si no es "todas", filtrar por el valor exacto ("activa" o "inactiva")
+        if ($estado !== 'todas') {
+            $builder->where('estado', $estado);
+        }
+
+        // Filtro por texto en campos "asunto" o "nombre"
+        if (!empty($textoBusqueda)) {
+            $builder->groupStart();
+            $builder->like('asunto', $textoBusqueda);
+            $builder->orLike('nombre', $textoBusqueda);
+            $builder->groupEnd();
+        }
+
+        // Ordenar por fecha de actualización (más recientes primero)
+        $builder->orderBy('updated_at', 'DESC');
+
+        // Configuración de paginación (fijamos 10 registros por página)
+        $porPagina = 10;
+        $offset = ($pagina - 1) * $porPagina;
+        $builder->limit($porPagina, $offset);
+
+        $query = $builder->get();
+        $conversaciones = $query->getResult();
+
+        // Para cada conversación, cargar sus mensajes ordenados por fecha de creación (ascendente)
+        $mensajeModel = new \App\Models\MensajeModel();
+        foreach ($conversaciones as $conv) {
+            $conv->mensajes = $mensajeModel->where('conversacion_id', $conv->id)
+                ->orderBy('created_at', 'ASC')
+                ->findAll();
+        }
+
+        return $conversaciones;
+    }
+
+    /**
+     * Obtiene el número total de páginas para las conversaciones de tipo "consulta"
+     * de un cliente específico, filtradas según un texto y estado.
+     *
+     * @param string $textoBusqueda Término de búsqueda en "asunto" o "nombre".
+     * @param string $estado        Filtro de estado ("todas", "activa" o "inactiva").
+     * @param int    $porPagina     Número de registros por página.
+     * @param int    $clienteId     ID del cliente.
+     * @return int                  Número total de páginas.
+     */
+    public function obtenerTotalPaginasConversacionesClienteConMensajes(string $textoBusqueda, string $estado, int $porPagina, int $clienteId): int
+    {
+        $builder = $this->builder();
+
+        // Filtrar por cliente y tipo de conversación "consulta"
+        $builder->where('usuario_id', $clienteId)
+            ->where('tipo_conversacion', 'consulta');
+
+        if ($estado !== 'todas') {
+            $builder->where('estado', $estado);
+        }
+
+        if (!empty($textoBusqueda)) {
+            $builder->groupStart();
+            $builder->like('asunto', $textoBusqueda);
+            $builder->orLike('nombre', $textoBusqueda);
+            $builder->groupEnd();
+        }
+
+        $total = $builder->countAllResults();
+        return (int) ceil($total / $porPagina);
     }
 }

@@ -1,64 +1,75 @@
 <!-- Vista parcial header -->
 <?= view("layouts/header-admin", ['titulo' => $titulo]) ?>
 
-<!-- Se incluye la barra de navegación -->
+<!-- Barra de navegación -->
 <?= view('partials/_navbar-admin') ?>
 
 <!-- Contenido principal -->
 <main class="container my-3 main-content">
 
     <!-- Mensajes de sesión: errores o confirmaciones -->
-    <div class="alert-info text-center">
+    <div class="alert-info text-center" role="alert">
         <?= session()->has('errors') ? view('partials/_session-error') : view('partials/_session') ?>
     </div>
 
-    <!-- Breadcrumb para la navegación interna -->
+    <!-- Breadcrumb de navegación -->
     <nav aria-label="breadcrumb">
         <?= view('partials/_breadcrumb', ['breadcrumbs' => $breadcrumbs]) ?>
     </nav>
 
-    <!-- Fila con el botón "Crear" y el formulario de búsqueda -->
+    <!-- Encabezado de la sección -->
+    <header class="mb-4">
+        <h1 class="mb-2">Productos</h1>
+        <p class="lead">Listado de <strong>productos</strong> registrados.</p>
+    </header>
+
+    <!-- Botón "Crear" -->
     <div class="row my-4">
-        <!-- Botón "Crear": redirige a la página de creación de producto -->
         <div class="col-auto">
-            <a class="btn btn-success" href="<?= base_url('admin/producto/crear') ?>"
+            <a class="btn btn-success" href="<?= base_url('admin/productos/crear') ?>"
                 data-bs-toggle="tooltip" title="Crear producto" id="crearProductoBtn">
                 Crear
             </a>
         </div>
-        <!-- Formulario de búsqueda -->
-        <div class="col-auto ms-auto">
-            <form class="d-inline-flex" role="search">
-                <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Buscar">
-                <button class="btn btn-outline-primary border-3 fw-bold" type="submit">Buscar</button>
-            </form>
-        </div>
     </div>
 
-    <!-- Filtro: seleccionar estado (todos / activos / inactivos) -->
-    <div class="row mb-4">
-        <div class="col-md-2 offset-md-10">
-            <select id="filtroEstado" class="form-select" aria-label="Filtrar por estado">
-                <option value="todos">Todos</option>
-                <option value="activo">Activos</option>
-                <option value="inactivo">Inactivos</option>
+    <!-- Formulario de filtros y buscador -->
+    <form method="get" action="<?= current_url() ?>" class="row g-3 mb-4" role="search">
+        <!-- Filtro por estado -->
+        <div class="col-12 col-md-4">
+            <label for="filtroEstadoProducto" class="form-label">Filtrar por estado:</label>
+            <select class="form-select" id="filtroEstadoProducto" name="estado" aria-label="Filtrar por estado">
+                <option value="todos" <?= (isset($_GET['estado']) && $_GET['estado'] == 'todos') ? 'selected' : '' ?>>Todos</option>
+                <option value="activo" <?= (isset($_GET['estado']) && $_GET['estado'] == 'activo') ? 'selected' : '' ?>>Activos</option>
+                <option value="inactivo" <?= (isset($_GET['estado']) && $_GET['estado'] == 'inactivo') ? 'selected' : '' ?>>Inactivos</option>
             </select>
         </div>
-    </div>
+        <!-- Buscador por nombre o descripción -->
+        <div class="col-12 col-md-6">
+            <label for="busqueda" class="form-label">Buscar por nombre o descripción:</label>
+            <input type="search" class="form-control" id="busqueda" name="busqueda" placeholder="Ingrese nombre o descripción"
+                value="<?= isset($_GET['busqueda']) ? esc($_GET['busqueda']) : '' ?>">
+        </div>
+        <!-- Botón de búsqueda -->
+        <div class="col-12 col-md-2 d-flex align-items-end">
+            <button type="submit" class="btn btn-primary w-100">
+                <i class="bi bi-search"></i> Buscar
+            </button>
+        </div>
+    </form>
 
-    <!-- Tabla de productos -->
-    <div class="row">
-        <!-- Spinner de carga (oculto por defecto) -->
-        <div class="text-center d-none m-5" id="spinner">
+    <!-- Sección: Tabla de productos y paginación -->
+    <section class="my-4">
+        <!-- Spinner de carga (inicialmente oculto) -->
+        <div id="spinner" class="text-center d-none m-5" aria-live="polite">
             <div class="spinner-border" role="status">
                 <span class="visually-hidden">Cargando...</span>
             </div>
         </div>
 
-        <!-- Contenedor responsive de la tabla -->
+        <!-- Contenedor responsive para la tabla de productos -->
         <div class="table-responsive">
             <table class="table table-dark table-striped table-hover" id="tablaProductos">
-                <!-- Cabecera de la tabla -->
                 <thead>
                     <tr class="text-capitalize text-center align-middle">
                         <th scope="col">Nombre</th>
@@ -72,23 +83,20 @@
                         <th scope="col">Acciones</th>
                     </tr>
                 </thead>
-                <!-- Cuerpo de la tabla (se carga dinámicamente vía JS y AJAX) -->
                 <tbody class="text-center align-middle">
-                    <!-- Se insertarán las filas mediante JavaScript -->
+                    <!-- Las filas se insertarán dinámicamente mediante JavaScript -->
                     <tr></tr>
                 </tbody>
             </table>
         </div>
 
-        <!-- Paginación -->
-        <div class="text-center" id="paginacion">
-        </div>
-    </div>
+        <!-- Controles de paginación -->
+        <div class="text-center" id="paginacion"></div>
+    </section>
 </main>
 
-<!-- Modal de confirmación global para eliminar un producto -->
-<div class="modal fade" id="eliminarProductoModal" tabindex="-1"
-    aria-labelledby="eliminarProductoModalLabel" aria-hidden="true" data-bs-focus="false">
+<!-- Modal global para eliminar un producto -->
+<div class="modal fade" id="eliminarProductoModal" tabindex="-1" aria-labelledby="eliminarProductoModalLabel" aria-hidden="true" data-bs-focus="false">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <!-- Encabezado del modal -->
@@ -96,14 +104,14 @@
                 <h5 class="modal-title" id="eliminarProductoModalLabel">Confirmar Eliminación</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
             </div>
-            <!-- Cuerpo del modal: se completará dinámicamente con el nombre del producto -->
+            <!-- Cuerpo del modal -->
             <div class="modal-body">
                 <p class="text-wrap">
                     ¿Estás seguro de que quieres eliminar el producto
                     <span class="fw-bolder" id="modalProductoNombre"></span>?
                 </p>
             </div>
-            <!-- Pie del modal: formulario para confirmar eliminación -->
+            <!-- Pie del modal: Formulario para confirmar la eliminación -->
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                 <form action="" method="POST" id="eliminarProductoForm">
@@ -117,9 +125,8 @@
 <!-- Vista parcial footer -->
 <?= view("layouts/footer-admin") ?>
 
-<!-- Scripts -->
+<!-- Scripts: Funciones para inicializar tooltips, manejo de modales y carga dinámica de productos -->
 <script>
-    // Se ejecuta una vez que el DOM esté completamente cargado
     document.addEventListener('DOMContentLoaded', function() {
         inicializarTooltips();
         delegarEventosModales();
@@ -127,18 +134,16 @@
     });
 
     /**
-     * Inicializa los tooltips de Bootstrap en los elementos que tengan el atributo data-bs-toggle="tooltip".
+     * Inicializa los tooltips de Bootstrap para elementos que los requieran.
      */
     function inicializarTooltips() {
-        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
-        tooltipTriggerList.forEach(function(tooltipTriggerEl) {
-            new bootstrap.Tooltip(tooltipTriggerEl);
-        });
+        const tooltipElements = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+        tooltipElements.forEach(el => new bootstrap.Tooltip(el));
     }
 
     /**
-     * Delegar eventos para los modales.
-     * En particular, se captura el clic en los botones de eliminación para configurar el modal global.
+     * Delegar eventos para modales.
+     * Captura clics en botones de eliminación para configurar el modal global.
      */
     function delegarEventosModales() {
         document.addEventListener('click', function(event) {
@@ -152,39 +157,37 @@
 
     /**
      * Abre el modal de confirmación para eliminar un producto.
-     * @param {HTMLElement} btn - Botón que activa la eliminación.
+     * Extrae el ID y nombre del producto del botón y actualiza el contenido del modal.
+     *
+     * @param {HTMLElement} btn - Botón que dispara la eliminación.
      */
     function abrirModalEliminar(btn) {
-        // Obtener atributos data-bs-id y data-bs-nombre del botón
         const productoId = btn.getAttribute('data-bs-id');
         const productoNombre = btn.getAttribute('data-bs-nombre');
 
-        // Actualizar el contenido del modal: nombre del producto
-        document.querySelector('#modalProductoNombre').textContent = productoNombre;
-        // Actualizar la acción del formulario para eliminar el producto
-        document.querySelector('#eliminarProductoForm').action = "<?= base_url('admin/producto/delete/') ?>" + productoId;
+        document.getElementById('modalProductoNombre').textContent = productoNombre;
+        document.getElementById('eliminarProductoForm').action = "<?= base_url('admin/producto/delete/') ?>" + productoId;
 
-        // Mostrar el modal (getOrCreateInstance se encarga de mostrarlo)
-        const modalEl = document.querySelector('#eliminarProductoModal');
+        const modalEl = document.getElementById('eliminarProductoModal');
         bootstrap.Modal.getOrCreateInstance(modalEl).show();
     }
 
     /**
-     * Realiza la solicitud AJAX para obtener los productos según los filtros aplicados,
-     * actualiza la tabla y genera la paginación.
-     * @param {number} pagina - Página actual a cargar.
+     * Realiza una solicitud AJAX para obtener los productos filtrados según los parámetros.
+     * Actualiza la tabla y la paginación en la vista.
+     *
+     * @param {number} pagina - Número de página a cargar.
      * @param {string} textoBusqueda - Texto de búsqueda ingresado.
-     * @param {string} estado - Estado del producto a filtrar.
+     * @param {string} estado - Filtro de estado aplicado.
      */
     function aplicarFiltro(pagina = 1, textoBusqueda = '', estado = 'todos') {
         const url = '<?= base_url("admin/producto/buscarProducto") ?>';
         const params = new URLSearchParams({
             pagina,
-            texto: textoBusqueda,
+            textoBusqueda,
             estado
         });
 
-        // Mostrar el spinner antes de cargar
         document.getElementById('spinner').classList.remove('d-none');
 
         fetch(`${url}?${params.toString()}`, {
@@ -203,21 +206,21 @@
                 alert('Error al cargar los productos. Inténtalo de nuevo.');
             })
             .finally(() => {
-                // Ocultar el spinner cuando termine la carga
                 document.getElementById('spinner').classList.add('d-none');
             });
     }
 
     /**
-     * Actualiza el cuerpo de la tabla de productos con los datos obtenidos vía AJAX.
-     * @param {Array} productos - Array de productos.
+     * Actualiza la tabla de productos con los datos recibidos vía AJAX.
+     *
+     * @param {Array} productos - Array de objetos producto.
      */
     function actualizarTablaProductos(productos) {
         const tbody = document.querySelector('#tablaProductos tbody');
         tbody.innerHTML = '';
 
         if (productos.length === 0) {
-            tbody.innerHTML = '<tr><td colspan="12" class="text-center">No se encontraron productos.</td></tr>';
+            tbody.innerHTML = '<tr><td colspan="9" class="text-center">No se encontraron productos.</td></tr>';
             return;
         }
 
@@ -238,12 +241,12 @@
                 </td>
                 <td class="text-center align-middle">
                     <div class="d-flex flex-wrap flex-lg-nowrap justify-content-center align-items-center">
-                        <a href="<?= base_url('admin/producto/') ?>${producto.id}" 
+                        <a href="<?= base_url('admin/productos/') ?>${producto.id}" 
                            class="btn btn-sm btn-outline-info border-3 fw-bolder m-1" 
                            data-bs-toggle="tooltip" data-bs-placement="top" title="Ver">
                             <i class="bi bi-eye-fill"></i>
                         </a>
-                        <a href="<?= base_url('admin/producto/editar/') ?>${producto.id}" 
+                        <a href="<?= base_url('admin/productos/editar/') ?>${producto.id}" 
                            class="btn btn-sm btn-outline-warning border-3 fw-bolder m-1" 
                            data-bs-toggle="tooltip" data-bs-placement="top" title="Editar">
                             <i class="bi bi-pencil-square"></i>
@@ -260,16 +263,17 @@
             tbody.appendChild(tr);
         });
 
-        // Re-inicializar tooltips en los nuevos elementos creados dinámicamente
+        // Re-inicializar tooltips en caso de que se hayan añadido nuevos elementos
         inicializarTooltips();
     }
 
     /**
-     * Genera la paginación según los datos recibidos del servidor.
+     * Genera controles de paginación basados en la página actual y el total de páginas.
+     *
      * @param {number} paginaActual - Página actual.
      * @param {number} totalPaginas - Total de páginas.
-     * @param {string} textoBusqueda - Texto de búsqueda.
-     * @param {string} estado - Estado a filtrar.
+     * @param {string} textoBusqueda - Texto de búsqueda aplicado.
+     * @param {string} estado - Filtro de estado aplicado.
      */
     function generarPaginacion(paginaActual, totalPaginas, textoBusqueda, estado) {
         const paginacionContainer = document.getElementById('paginacion');
@@ -303,12 +307,13 @@
 
     /**
      * Crea un botón de paginación.
-     * @param {string|number} texto - Texto del botón.
-     * @param {number} pagina - Número de la página a la que apunta.
-     * @param {string} textoBusqueda - Texto de búsqueda actual.
-     * @param {string} estado - Estado a filtrar.
+     *
+     * @param {string|number} texto - Texto o número a mostrar en el botón.
+     * @param {number} pagina - Página a la que redirige el botón.
+     * @param {string} textoBusqueda - Texto de búsqueda a conservar.
+     * @param {string} estado - Filtro de estado a conservar.
      * @param {boolean} activo - Indica si el botón corresponde a la página actual.
-     * @returns {HTMLElement} - Botón de paginación.
+     * @returns {HTMLElement} Botón de paginación.
      */
     function crearBotonPaginacion(texto, pagina, textoBusqueda, estado, activo = false) {
         const btn = document.createElement('a');
@@ -326,22 +331,23 @@
     }
 
     /**
-     * Carga los productos de manera dinámica al cargar la página.
-     * Recupera el filtro de estado guardado (si existe) y aplica el filtro.
+     * Carga los productos dinámicamente al iniciar la página.
+     * Utiliza la clave "estado_producto" en localStorage para preservar la selección del filtro.
      */
     function cargarProductosDinamicos() {
-        const estadoGuardado = localStorage.getItem('estado') || 'todos';
-        document.getElementById('filtroEstado').value = estadoGuardado;
+        const estadoGuardado = localStorage.getItem('estado_producto') || 'todos';
+        document.getElementById('filtroEstadoProducto').value = estadoGuardado;
         aplicarFiltro(1, '', estadoGuardado);
     }
 
-    // Actualiza los productos cuando se cambia el filtro de estado
-    document.getElementById('filtroEstado').addEventListener('change', function() {
+    // Actualizar productos al cambiar el filtro de estado (guardando la selección en localStorage)
+    document.getElementById('filtroEstadoProducto').addEventListener('change', function() {
+        localStorage.setItem('estado_producto', this.value);
         aplicarFiltro(1, document.querySelector('input[type="search"]').value, this.value);
     });
 
-    // Actualiza los productos en tiempo real al escribir en el campo de búsqueda
+    // Actualizar productos en tiempo real al escribir en el campo de búsqueda
     document.querySelector('input[type="search"]').addEventListener('input', function() {
-        aplicarFiltro(1, this.value, document.getElementById('filtroEstado').value);
+        aplicarFiltro(1, this.value, document.getElementById('filtroEstadoProducto').value);
     });
 </script>

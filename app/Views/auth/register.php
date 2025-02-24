@@ -72,18 +72,7 @@
                     </div>
                 <?php endif; ?>
             </div>
-
-            <!-- Campo: Dirección -->
-            <div class="form-floating mb-3">
-                <input type="text" class="form-control <?= session('errors.direccion') ? 'is-invalid' : '' ?>" id="direccion" name="direccion" value="<?= old('direccion') ?>" placeholder="Dirección" required>
-                <label for="direccion">Dirección</label>
-                <?php if (session('errors.direccion')): ?>
-                    <div class="invalid-feedback">
-                        <?= session('errors.direccion') ?>
-                    </div>
-                <?php endif; ?>
-            </div>
-
+            
             <!-- Términos y condiciones -->
             <div class="form-check my-3">
                 <input type="checkbox" name="terms" class="form-check-input" id="terms" value="1" required>

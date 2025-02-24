@@ -27,9 +27,8 @@ class Carrito extends BaseController
             'cart'  => $this->cart,
         ];
 
-        return view('layouts/header', $data)
-            . view('web/carrito', $data)
-            . view('layouts/footer');
+        return view('web/carrito', $data);
+            
     }
 
     public function agregar($idProducto = null) // Recibe el ID del producto como parámetro

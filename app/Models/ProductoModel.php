@@ -1,14 +1,17 @@
 <?php
 
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/PHPClass.php to edit this template
- */
-
 namespace App\Models;
 
 use CodeIgniter\Model;
 
+/**
+ * Modelo para la gestión de productos.
+ *
+ * Este modelo administra las operaciones CRUD para los productos, incluyendo
+ * validación de datos, filtrado, paginación y relaciones con marcas, categorías e imágenes.
+ *
+ * @package App\Models
+ */
 class ProductoModel extends Model
 {
     protected $table            = 'productos';
@@ -29,11 +32,12 @@ class ProductoModel extends Model
         'estado'
     ];
     protected $returnType       = 'object';
-    protected $useTimestamps    = true; // Habilitar marcas de tiempo
-    protected $dateFormat       = 'datetime'; // Formato de fecha y hora
+    protected $useTimestamps    = true;
+    protected $dateFormat       = 'datetime';
 
+    // Reglas de validación para cada campo
     protected $validationRules = [
-        'nombre' => 'required|min_length[3]|max_length[255]|is_unique[productos.nombre,id,{id}]',
+        'nombre'       => 'required|min_length[3]|max_length[255]|is_unique[productos.nombre,id,{id}]',
         'descripcion'  => 'permit_empty',
         'precio'       => 'required|decimal|greater_than[0]',
         'stock'        => 'required|integer|is_natural_no_zero',
@@ -44,9 +48,10 @@ class ProductoModel extends Model
         'dimensiones'  => 'permit_empty|max_length[255]',
         'material'     => 'permit_empty|max_length[255]',
         'color'        => 'permit_empty|max_length[255]',
-        'estado'       => 'required|in_list[activo,inactivo]',
+        'estado'       => 'required|in_list[activo,inactivo]'
     ];
 
+    // Mensajes personalizados para la validación
     protected $validationMessages = [
         'nombre' => [
             'required'   => 'El nombre del producto es obligatorio.',
@@ -90,11 +95,19 @@ class ProductoModel extends Model
         'estado' => [
             'required' => 'El estado es obligatorio.',
             'in_list'  => 'El estado debe ser "activo" o "inactivo".'
-        ],
+        ]
     ];
 
-    // Métodos para relaciones
+    // --------------------------------------------------------------------------------
+    // Métodos de Relaciones
+    // --------------------------------------------------------------------------------
 
+    /**
+     * Obtiene la categoría asociada a un producto.
+     *
+     * @param int $productoId ID del producto.
+     * @return object|null Objeto con la categoría o null si no se encuentra.
+     */
     public function getCategoriaByProducto(int $productoId)
     {
         return $this->select('categorias.*')
@@ -103,6 +116,12 @@ class ProductoModel extends Model
             ->first();
     }
 
+    /**
+     * Obtiene la marca asociada a un producto.
+     *
+     * @param int $productoId ID del producto.
+     * @return object|null Objeto con la marca o null si no se encuentra.
+     */
     public function getMarcaByProducto(int $productoId)
     {
         return $this->select('marcas.*')
@@ -111,158 +130,21 @@ class ProductoModel extends Model
             ->first();
     }
 
+    /**
+     * Obtiene las imágenes asociadas a un producto.
+     *
+     * @param int $productoId ID del producto.
+     * @return array Array de imágenes asociadas.
+     */
     public function getImagenesByProducto(int $productoId): array
     {
         $imagenModel = new \App\Models\ImagenProductoModel();
         return $imagenModel->where('producto_id', $productoId)->findAll();
     }
 
-    /**
-     * Actualiza los datos de un producto.
-     *
-     * Valida los datos ingresados y, si son válidos, actualiza el producto con el ID especificado.
-     * Se forza el estado a 'activo' antes de la actualización.
-     *
-     * @param int   $id   ID del producto.
-     * @param array $data Datos a actualizar.
-     * @return bool Resultado de la actualización (true si se actualizó, false en caso de error).
-     */
-    public function actualizarProducto($id, $data)
-    {
-        // Valida los datos según las reglas definidas
-        if (!$this->validate($data)) {
-            return false;
-        }
-
-        // Actualiza el producto y retorna el resultado
-        return $this->update($id, $data);
-    }
-
-    // Eliminar Producto (dar de baja -> estado == 'inactivo')
-    public function eliminarProducto($id)
-    {
-        $data['estado'] = 'inactivo';
-
-        return $this->update($id, $data);
-    }
-
-    // Métodos para consultas personalizadas
-
-    /**
-     * Filtra los productos aplicando los parámetros de búsqueda y estado,
-     * y devuelve los resultados paginados en un array asociativo.
-     *
-     * Se aplica la búsqueda en 'nombre' y 'descripcion' y se filtra por estado (salvo que sea 'todos').
-     * Se utilizan joins para incluir los nombres de la categoría y de la marca (alias: categoria_nombre y marca_nombre).
-     *
-     * @param string $texto Término de búsqueda.
-     * @param string $estado Valor del estado ('activo', 'inactivo' o 'todos').
-     * @param int $pagina Número de página (para el offset).
-     * @param int $porPagina Cantidad de registros por página.
-     * @return array Lista de productos filtrados (como array asociativo) con los campos adicionales.
-     */
-    public function filtrarProductos($texto = '', $estado = 'todos', $pagina = 1, $porPagina = 10)
-    {
-        // Iniciar la consulta utilizando el Query Builder del modelo.
-        $builder = $this->builder();
-
-        // Para evitar que se concatenen campos de un select previo, definimos la cláusula SELECT de forma exclusiva.
-        $builder->select('productos.*, categorias.nombre as categoria_nombre, marcas.nombre as marca_nombre', false);
-
-        // Realizar los joins para traer los datos de categoría y marca.
-        $builder->join('categorias', 'categorias.id = productos.categoria_id', 'left');
-        $builder->join('marcas', 'marcas.id = productos.marca_id', 'left');
-
-        // Aplicar filtro de texto (búsqueda) en 'nombre' y 'descripcion'
-        if (!empty($texto)) {
-            $builder->groupStart()
-                ->like('productos.nombre', $texto)
-                ->orLike('productos.descripcion', $texto)
-                ->groupEnd();
-        }
-
-        // Aplicar filtro de estado, salvo que sea 'todos'
-        if ($estado !== 'todos') {
-            $builder->where('productos.estado', $estado);
-        }
-
-        // Ordenar por 'updated_at' en orden descendente (los más recientes primero)
-        $builder->orderBy('productos.updated_at', 'DESC');
-
-        // Calcular el offset para la paginación
-        $offset = ($pagina - 1) * $porPagina;
-        $builder->limit($porPagina, $offset);
-
-        // Ejecutar la consulta y devolver los resultados como un array asociativo
-        return $builder->get()->getResultArray();
-    }
-
-
-    public function obtenerTotalPaginas(string $texto = '', string $estado = 'todos', int $porPagina = 10): int
-    {
-        $builder = $this->builder();
-
-        if (!empty($texto)) {
-            $builder->groupStart()
-                ->like('nombre', $texto)
-                ->orLike('descripcion', $texto)
-                ->groupEnd();
-        }
-
-        if ($estado !== 'todos') {
-            $builder->where('estado', $estado);
-        }
-
-        $totalRegistros = $builder->countAllResults();
-        return (int) ceil($totalRegistros / $porPagina);
-    }
-
-    /**
-     * Obtiene los productos filtrados y paginados, incluyendo los nombres de la marca y la categoría.
-     *
-     * Se filtran según el término de búsqueda (aplicado a 'productos.nombre' y 'productos.descripcion')
-     * y el estado (si no es 'todos'). Los resultados se ordenan por 'productos.updated_at' en orden descendente.
-     * Se utilizan joins para traer los nombres de la categoría y la marca.
-     *
-     * @param string $estado Valor del estado a filtrar (por ejemplo, 'activo' o 'inactivo'). Si es 'todos', no filtra.
-     * @param string $busqueda Término de búsqueda para los campos 'nombre' y 'descripcion'.
-     * @param int $perPage Número de registros por página.
-     * @return array Lista de productos filtrados (como objetos) con los campos adicionales:
-     *               - marca_nombre: nombre de la marca.
-     *               - categoria_nombre: nombre de la categoría.
-     */
-    public function obtenerProductosFiltrados($estado = 'todos', $busqueda = '', $perPage = 10)
-    {
-        // Reinicia el query builder para evitar condiciones heredadas.
-        $this->builder()->resetQuery();
-
-        // Definir la selección de campos: todos los de productos y los alias para marca y categoría.
-        $this->select('productos.*, categorias.nombre as categoria_nombre, marcas.nombre as marca_nombre');
-
-        // Realizar los joins necesarios para traer los nombres de categoría y marca.
-        $this->join('categorias', 'categorias.id = productos.categoria_id', 'left');
-        $this->join('marcas', 'marcas.id = productos.marca_id', 'left');
-
-        // Aplicar filtro de búsqueda si se define.
-        if (!empty($busqueda)) {
-            $this->groupStart()
-                ->like('productos.nombre', $busqueda)
-                ->orLike('productos.descripcion', $busqueda)
-                ->groupEnd();
-        }
-
-        // Aplicar filtro por estado si éste no es 'todos'
-        if ($estado !== 'todos') {
-            $this->where('productos.estado', $estado);
-        }
-
-        // Ordenar los resultados por la fecha de actualización (los más recientes primero)
-        $this->orderBy('productos.updated_at', 'DESC');
-
-        // Devolver la paginación con el número de registros indicado
-        return $this->paginate($perPage);
-    }
-
+    // --------------------------------------------------------------------------------
+    // Métodos CRUD
+    // --------------------------------------------------------------------------------
 
     /**
      * Obtiene el producto por su ID con todos los detalles necesarios para la vista de producto,
@@ -316,75 +198,185 @@ class ProductoModel extends Model
 
 
     /**
+     * Actualiza los datos de un producto.
+     *
+     * Valida los datos ingresados y, si son correctos, actualiza el producto.
+     *
+     * @param int $id ID del producto.
+     * @param array $data Datos a actualizar.
+     * @return bool True si se actualizó correctamente, false en caso de error.
+     */
+    public function actualizarProducto($id, $data)
+    {
+        if (!$this->validate($data)) {
+            return false;
+        }
+
+        return $this->update($id, $data);
+    }
+
+    /**
+     * Da de baja un producto cambiando su estado a "inactivo".
+     *
+     * @param int $id ID del producto.
+     * @return bool True si se actualizó correctamente, false en caso de error.
+     */
+    public function eliminarProducto($id)
+    {
+        $data['estado'] = 'inactivo';
+
+        return $this->update($id, $data);
+    }
+
+    /**
      * Obtiene los productos activos junto con la primera imagen asociada,
      * el nombre de la marca y el nombre de la categoría.
      *
      * Se filtra por productos con estado 'activo' y se ordenan por 'updated_at'
-     * en orden descendente (los más recientes primero). Además, se utiliza una subconsulta
-     * para traer la ruta de la primera imagen asociada a cada producto.
+     * en orden descendente (los más recientes primero). Además, se utiliza una
+     * subconsulta con COALESCE para obtener la ruta de la primera imagen asociada,
+     * o devolver una ruta por defecto ('uploads/productos/no-image.png') si no existe.
      *
      * @param \CodeIgniter\Database\BaseBuilder|null $builder (Opcional) Instancia del Query Builder con filtros previos.
      * @return array Lista de productos activos (como objetos) con los campos adicionales:
-     *               - imagen_principal: ruta de la primera imagen.
+     *               - imagen_principal: ruta de la primera imagen (o la imagen por defecto si no existe).
      *               - marca_nombre: nombre de la marca.
      *               - categoria_nombre: nombre de la categoría.
      */
     public function getProductosActivos($builder = null)
     {
-        // Si no se pasa un objeto builder, se obtiene uno nuevo desde el modelo.
         if ($builder === null) {
             $builder = $this->builder();
         }
 
-        // Definir la cláusula SELECT de forma exclusiva (sin concatenar selects previos)
-        // El segundo parámetro "false" indica que se reemplaza cualquier selección previa.
+        // Utilizar COALESCE para devolver una imagen por defecto si no se encuentra ninguna imagen asociada.
         $builder->select(
-            'productos.*, 
-         (SELECT ip.ruta_imagen 
-          FROM imagenes_productos ip 
-          WHERE ip.producto_id = productos.id 
-          ORDER BY ip.id ASC LIMIT 1) AS imagen_principal, 
+            "productos.*, 
+         COALESCE(
+             (SELECT ip.ruta_imagen 
+              FROM imagenes_productos ip 
+              WHERE ip.producto_id = productos.id 
+              ORDER BY ip.id ASC LIMIT 1),
+             'uploads/productos/no-image.png'
+         ) AS imagen_principal, 
          marcas.nombre as marca_nombre, 
-         categorias.nombre as categoria_nombre',
+         categorias.nombre as categoria_nombre",
             false
         );
 
-        // Realizar los joins para obtener los nombres de la marca y la categoría.
-        // Se usan LEFT JOIN para evitar excluir productos sin asignación.
+        // Realizar los LEFT JOIN para traer los nombres de la marca y la categoría.
         $builder->join('marcas', 'marcas.id = productos.marca_id', 'left');
         $builder->join('categorias', 'categorias.id = productos.categoria_id', 'left');
 
         // Filtrar para obtener únicamente los productos con estado 'activo'
         $builder->where('productos.estado', 'activo');
 
-        // Ordenar los resultados por la fecha de actualización, de forma descendente.
+        // Ordenar los resultados por 'updated_at' de forma descendente.
         $builder->orderBy('productos.updated_at', 'DESC');
 
-        // Ejecutar la consulta y devolver el resultado como un array de objetos.
         return $builder->get()->getResult();
     }
 
+
     /**
-     * Crea un nuevo producto en la base de datos.
+     * Crea un nuevo producto.
      *
-     * Valida el conjunto de datos utilizando las reglas definidas (por ejemplo, 'productos_create').
-     * Si los datos son válidos, inserta el producto y devuelve su ID; de lo contrario, retorna false.
+     * Valida los datos del producto utilizando las reglas definidas en el modelo. Si los datos son válidos,
+     * inserta el producto y retorna su ID. En caso contrario, retorna false.
      *
      * @param array $data Datos del producto a insertar.
      * @return int|false ID del producto insertado o false si la validación falla.
      */
     public function crearProducto(array $data)
     {
-        // Valida los datos utilizando las reglas definidas en el modelo o en el grupo 'productos_create'
         if (!$this->validate($data)) {
             return false;
         }
 
-        // Forzar el estado a 'activo' (o cualquier valor por defecto)
-        $data['estado'] = 'activo';
-
-        // Insertar el producto y retornar el ID
         $this->insert($data);
+
         return $this->getInsertID();
+    }
+
+    // --------------------------------------------------------------------------------
+    // Métodos para Filtrado y Paginación
+    // --------------------------------------------------------------------------------
+
+    /**
+     * Obtiene los productos filtrados y paginados, incluyendo los nombres de la marca y la categoría.
+     *
+     * Aplica filtros de búsqueda en los campos "productos.nombre" y "productos.descripcion", y filtra por el
+     * estado de los productos (si no es "todos"). Se realizan joins con las tablas "categorias" y "marcas" para
+     * traer los nombres correspondientes. Los resultados se ordenan por "productos.updated_at" en orden descendente.
+     *
+     * La paginación se realiza utilizando el método paginate(), que toma el número de registros por página,
+     * el grupo (por defecto "default") y la página actual ($pagina).
+     *
+     * @param string $estado   Estado a filtrar ("activo", "inactivo" o "todos").
+     * @param string $busqueda Término de búsqueda para los campos "nombre" y "descripcion".
+     * @param int $pagina      Página actual a mostrar.
+     * @param int $perPage     Número de registros por página.
+     * @return mixed           Array de productos filtrados; el pager se configura automáticamente.
+     */
+    public function obtenerProductosFiltrados(string $estado = 'todos', string $busqueda = '', int $pagina = 1, int $perPage = 10)
+    {
+        // Reiniciar el query builder para evitar interferencias de consultas previas
+        $this->builder()->resetQuery();
+
+        // Seleccionar los campos de productos y agregar alias para el nombre de la categoría y la marca
+        $this->select('productos.*, categorias.nombre as categoria_nombre, marcas.nombre as marca_nombre');
+
+        // Realizar los joins con las tablas de categorías y marcas (LEFT JOIN para incluir productos sin asignación)
+        $this->join('categorias', 'categorias.id = productos.categoria_id', 'left');
+        $this->join('marcas', 'marcas.id = productos.marca_id', 'left');
+
+        // Aplicar filtro de búsqueda si se proporciona
+        if (!empty($busqueda)) {
+            $this->groupStart()
+                ->like('productos.nombre', $busqueda)
+                ->orLike('productos.descripcion', $busqueda)
+                ->groupEnd();
+        }
+
+        // Aplicar filtro por estado si no es "todos"
+        if ($estado !== 'todos') {
+            $this->where('productos.estado', $estado);
+        }
+
+        // Ordenar los resultados por "productos.updated_at" de forma descendente
+        $this->orderBy('productos.updated_at', 'DESC');
+
+        // Retornar los resultados paginados, pasando el número de registros por página y la página actual
+        return $this->paginate($perPage, 'default', $pagina);
+    }
+
+    /**
+     * Obtiene el total de páginas para la paginación de productos según los filtros aplicados.
+     *
+     * Cuenta los registros que coinciden con el término de búsqueda y el estado (si no es "todos"),
+     * y calcula el total de páginas basado en el número de registros por página.
+     *
+     * @param string $texto   Texto de búsqueda.
+     * @param string $estado  Estado a filtrar ("activo", "inactivo" o "todos").
+     * @param int $porPagina  Número de registros por página.
+     * @return int Total de páginas.
+     */
+    public function obtenerTotalPaginas(string $texto = '', string $estado = 'todos', int $porPagina = 10): int
+    {
+        $builder = $this->builder();
+
+        if (!empty($texto)) {
+            $builder->groupStart()
+                ->like('nombre', $texto)
+                ->orLike('descripcion', $texto)
+                ->groupEnd();
+        }
+
+        if ($estado !== 'todos') {
+            $builder->where('estado', $estado);
+        }
+
+        $totalRegistros = $builder->countAllResults();
+        return (int) ceil($totalRegistros / $porPagina);
     }
 }

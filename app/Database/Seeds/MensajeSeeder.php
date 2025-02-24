@@ -9,32 +9,97 @@ class MensajeSeeder extends Seeder
 {
     public function run()
     {
-        // Inicializar Faker
-        $faker = Factory::create();
+        $faker       = Factory::create();
+        $currentDate = date('Y-m-d H:i:s');
 
         // Obtener todas las conversaciones insertadas
         $conversaciones = $this->db->table('conversaciones')->get()->getResult();
 
-        // Extraer los IDs de las conversaciones
-        $conversacionIds = array_map(function ($conv) {
-            return $conv->id;
-        }, $conversaciones);
+        // Separar las conversaciones según su tipo
+        $contactoConvs = array_filter($conversaciones, function ($conv) {
+            return $conv->tipo_conversacion === 'contacto';
+        });
+        $consultaConvs = array_filter($conversaciones, function ($conv) {
+            return $conv->tipo_conversacion === 'consulta';
+        });
+
+        // Reindexamos los arrays para trabajar de forma secuencial
+        $contactoConvs = array_values($contactoConvs);
+        $consultaConvs = array_values($consultaConvs);
 
         $mensajes = [];
 
-        // Generar 50 mensajes de ejemplo, distribuidos aleatoriamente entre las conversaciones
-        for ($i = 0; $i < 50; $i++) {
+        // ---------------------------------------
+        // Procesar Conversaciones de tipo CONTACTO
+        // Queremos 10 conversaciones de contacto
+        $numContactos = min(10, count($contactoConvs));
+        for ($i = 0; $i < $numContactos; $i++) {
+            $conv = $contactoConvs[$i];
+
+            // Agregar siempre un mensaje inicial del visitante
             $mensajes[] = [
-                'conversacion_id' => $faker->randomElement($conversacionIds),
-                // Definir el remitente de forma aleatoria: 'cliente' o 'admin'
-                'sender'          => $faker->boolean(70) ? 'cliente' : 'admin',
+                'conversacion_id' => $conv->id,
+                'tipo_remitente'  => 'visitante',
                 'mensaje'         => $faker->paragraph,
-                'created_at'      => date('Y-m-d H:i:s'),
-                'updated_at'      => date('Y-m-d H:i:s'),
+                'leido'           => 'si',
+                'created_at'      => $currentDate,
+                'updated_at'      => $currentDate,
             ];
         }
 
-        // Insertar los mensajes en la tabla "mensajes"
-        $this->db->table('mensajes')->insertBatch($mensajes);
+        $numContactos = min(5, count($contactoConvs));
+        for ($i = 0; $i < $numContactos; $i++) {
+            $conv = $contactoConvs[$i];
+
+            $mensajes[] = [
+                'conversacion_id' => $conv->id,
+                'tipo_remitente'  => 'administrador',
+                'mensaje'         => $faker->paragraph,
+                'leido'           => 'si',
+                'created_at'      => $currentDate,
+                'updated_at'      => $currentDate,
+            ];
+        }
+
+
+        // ---------------------------------------
+        // Procesar Conversaciones de tipo CONSULTA
+        // Queremos 10 conversaciones de consulta
+        $numConsultas = min(10, count($consultaConvs));
+
+        // En 6 conversaciones se genera un diálogo completo: mensaje del cliente + respuesta del admin
+        for ($i = 0; $i < $numConsultas; $i++) {
+            $conv = $consultaConvs[$i];
+            // Mensaje inicial del cliente
+            $mensajes[] = [
+                'conversacion_id' => $conv->id,
+                'tipo_remitente'  => 'cliente',
+                'mensaje'         => $faker->paragraph,
+                'leido'           => 'no',
+                'created_at'      => $currentDate,
+                'updated_at'      => $currentDate,
+            ];
+        }
+
+        $numConsultas = min(6, count($consultaConvs));
+
+        // En 6 conversaciones se genera un diálogo completo: mensaje del cliente + respuesta del admin
+        for ($i = 0; $i <  $numConsultas; $i++) {
+            $conv = $consultaConvs[$i];
+            // Respuesta del administrador
+            $mensajes[] = [
+                'conversacion_id' => $conv->id,
+                'tipo_remitente'  => 'administrador',
+                'mensaje'         => $faker->paragraph,
+                'leido'           => 'no',
+                'created_at'      => $currentDate,
+                'updated_at'      => $currentDate,
+            ];
+        }
+
+        // Inserción de todos los mensajes en lote
+        if (!empty($mensajes)) {
+            $this->db->table('mensajes')->insertBatch($mensajes);
+        }
     }
 }

@@ -5,6 +5,8 @@ namespace App\Controllers\Admin;
 use App\Controllers\BaseController;
 use App\Models\UsuarioModel;
 use App\Models\ConversacionModel;
+use App\Models\MensajeModel;
+use App\Models\OrdenModel;
 
 /**
  * Controlador para la administración de clientes.
@@ -17,14 +19,19 @@ class Cliente extends BaseController
 {
     protected $clienteModel;
     protected $conversacionModel;
+    protected $mensajeModel;
+    protected $ordenModel;
 
     /**
      * Constructor: se instancian los modelos necesarios.
      */
     public function __construct()
     {
-        $this->clienteModel = new UsuarioModel();
-        $this->conversacionModel = new ConversacionModel();
+        // Instanciar los modelos necesarios
+        $this->clienteModel       = new UsuarioModel();
+        $this->conversacionModel  = new ConversacionModel();
+        $this->mensajeModel       = new MensajeModel();
+        $this->ordenModel         = new OrdenModel();
     }
 
     /**
@@ -47,6 +54,8 @@ class Cliente extends BaseController
             ['label' => 'Gestión de clientes', 'url' => ''],
         ];
 
+        $conteos = $this->getConteoPendientes();
+
         $data = [
             'titulo'      => 'Administrar Clientes',
             'clientes'    => $clientes,
@@ -54,24 +63,45 @@ class Cliente extends BaseController
             'estado'      => $estado,
             'busqueda'    => $busqueda,
             'breadcrumbs' => $breadcrumbs,
+            'totalPendientes'     => $conteos['totalPendientes'],
+            'consultasPendientes' => $conteos['consultasPendientes'],
+            'contactosPendientes' => $conteos['contactosPendientes'],
         ];
 
         echo view('admin/cliente/index', $data);
     }
 
     /**
-     * Muestra los detalles de un cliente específico.
+     * Muestra el perfil completo de un cliente.
      *
-     * @param int $id Identificador del cliente.
+     * @param int $id ID del cliente.
      */
     public function show($id)
     {
         $cliente = $this->clienteModel->find($id);
-        $data = [
-            'cliente' => $cliente,
+        if (!$cliente) {
+            return redirect()->to('/admin/clientes')->with('error', 'Cliente no encontrado.');
+        }
+
+        // Breadcrumbs para la navegación en la interfaz de administración
+        $breadcrumbs = [
+            ['label' => 'Dashboard', 'url' => base_url('admin/dashboard')],
+            ['label' => 'Clientes', 'url' => base_url('admin/clientes')],
+            ['label' => 'Perfil: ' . $cliente->nombre, 'url' => '']
         ];
 
-        echo view("cliente/show", $data);
+        $conteos = $this->getConteoPendientes();
+
+        $data = [
+            'titulo'      => 'Perfil del Cliente',
+            'cliente'     => $cliente,
+            'breadcrumbs' => $breadcrumbs,
+            'totalPendientes'     => $conteos['totalPendientes'],
+            'consultasPendientes' => $conteos['consultasPendientes'],
+            'contactosPendientes' => $conteos['contactosPendientes'],
+        ];
+
+        return view('admin/cliente/show', $data);
     }
 
     /**
@@ -81,7 +111,7 @@ class Cliente extends BaseController
     public function buscarCliente()
     {
         $pagina = $this->request->getGet('pagina') ?? 1;
-        $texto  = $this->request->getGet('busqueda') ?? '';
+        $texto  = $this->request->getGet('textoBusqueda') ?? '';
         $estado = $this->request->getGet('estado') ?? 'activo';
         $porPagina = 10;
 
@@ -104,38 +134,90 @@ class Cliente extends BaseController
     }
 
     /**
-     * Muestra el historial de conversaciones (mensajes) de un cliente.
+     * Muestra el listado de conversaciones de un cliente.
      *
-     * Se obtienen todas las conversaciones iniciadas por el cliente (o a las que ha participado)
-     * utilizando el modelo ConversacionModel.
-     *
-     * @param int $id Identificador del cliente.
-     * @return string Vista con el historial de conversaciones.
+     * @param int $clienteId ID del cliente.
      */
-    public function mensajes($id)
+    public function conversaciones($clienteId)
     {
-        // Obtener los datos del cliente
-        $cliente = $this->clienteModel->find($id);
+        // Aquí podrías usar un método en el modelo de conversaciones que filtre por cliente.
+        $conversaciones = $this->conversacionModel->obtenerConversacionesClienteConMensajes($clienteId);
 
-        // Obtener las conversaciones asociadas al cliente (método personalizado en ConversacionModel)
-        $conversaciones = $this->conversacionModel->obtenerConversacionesCliente($id);
+        $cliente = $this->clienteModel->find($clienteId);
 
-        // Definir el breadcrumb para la navegación en el panel de administración
+        // Breadcrumbs para la navegación en la interfaz de administración
         $breadcrumbs = [
             ['label' => 'Dashboard', 'url' => base_url('admin/dashboard')],
-            ['label' => 'Gestión de clientes', 'url' => base_url('admin/cliente')],
-            ['label' => 'Historial de Mensajes', 'url' => ''],
+            ['label' => 'Clientes', 'url' => base_url('admin/clientes')],
+            ['label' => 'Conversaciones', 'url' => '']
         ];
+
+        $conteos = $this->getConteoPendientes();
+
 
         $data = [
-            'titulo'         => 'Historial de Mensajes',
-            'cliente'        => $cliente,
+            'titulo'         => 'Conversaciones del Cliente',
+            'clienteId'      => $clienteId,
             'conversaciones' => $conversaciones,
             'breadcrumbs'    => $breadcrumbs,
+            'cliente'        => $cliente,
+            'totalPendientes'     => $conteos['totalPendientes'],
+            'consultasPendientes' => $conteos['consultasPendientes'],
+            'contactosPendientes' => $conteos['contactosPendientes'],
         ];
 
-        return view('admin/cliente/mensajes', $data);
+        return view('admin/cliente/conversaciones/index', $data);
     }
+
+    /**
+     * Filtra y busca conversaciones de tipo "consulta" para un cliente específico mediante AJAX.
+     *
+     * Recoge los parámetros GET (página, texto de búsqueda y estado) y utiliza el modelo para obtener
+     * las conversaciones filtradas y el total de páginas. Retorna los datos en formato JSON.
+     *
+     * Se asume que el ID del cliente se obtiene de la sesión (por ejemplo, 'cliente_id').
+     *
+     * @return \CodeIgniter\HTTP\Response JSON con las conversaciones, la página actual y el total de páginas.
+     */
+    public function buscarConversacion()
+    {
+        // Recoger parámetros GET con valores por defecto.
+        $pagina        = $this->request->getGet('pagina') ?? 1;
+        $textoBusqueda = $this->request->getGet('textoBusqueda') ?? '';
+        // Usamos "todas", "activa" o "inactiva"
+        $estado        = $this->request->getGet('estado') ?? 'todas';
+        $perPage       = 10;
+
+        // En lugar de obtener el ID del cliente de la sesión, lo obtenemos de un parámetro GET (o de la ruta)
+        $clienteId = $this->request->getGet('clienteId');
+        if (!$clienteId) {
+            return $this->response->setStatusCode(400)->setJSON([
+                'error' => 'ID de cliente no definido.'
+            ]);
+        }
+
+        try {
+            // Obtener las conversaciones filtradas y paginadas para el cliente.
+            $conversaciones = $this->conversacionModel
+                ->filtrarConversacionesClienteConMensajes($textoBusqueda, $estado, $pagina, $clienteId);
+
+            // Obtener el total de páginas.
+            $totalPaginas = $this->conversacionModel
+                ->obtenerTotalPaginasConversacionesClienteConMensajes($textoBusqueda, $estado, $perPage, $clienteId);
+
+            return $this->response->setJSON([
+                'conversaciones' => $conversaciones,
+                'paginaActual'   => $pagina,
+                'totalPaginas'   => $totalPaginas
+            ]);
+        } catch (\Exception $e) {
+            log_message('error', $e->getMessage());
+            return $this->response->setStatusCode(500)->setJSON([
+                'error' => 'Error al cargar las conversaciones. Por favor, inténtalo de nuevo más tarde.'
+            ]);
+        }
+    }
+
 
     /**
      * Muestra el historial de pedidos de un cliente.

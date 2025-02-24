@@ -15,6 +15,18 @@
     <link href="<?= base_url('assets/css/my_styles.css'); ?>" rel="stylesheet" type="text/css" />
     <!-- Swiper CSS local -->
     <link rel="stylesheet" href="<?= base_url('assets/swiper/swiper-bundle.min.css'); ?>">
+
+    <style>
+        @media (min-width: 992px) {
+
+            /* Cuando el mouse pase sobre el enlace del dropdown, se muestre el menú */
+            .navbar-nav .nav-item.dropdown:hover>.dropdown-menu {
+                display: block;
+                margin-top: 0.1rem;
+                /* Ajusta el espacio si es necesario */
+            }
+        }
+    </style>
 </head>
 
 <body class="container-fluid p-0 m-0">

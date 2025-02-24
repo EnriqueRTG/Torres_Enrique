@@ -16,9 +16,9 @@ class MensajeModel extends Model
     // Reglas de validación para un mensaje
     protected $validationRules = [
         'conversacion_id' => 'required|integer',
-        'tipo_remitente'  => 'required|in_list[cliente,admin,visitante]',
+        'tipo_remitente'  => 'required|in_list[cliente,administrador,visitante]',
         'mensaje'         => 'required|min_length[3]',
-        'leido'           => 'required|in_list[si,no]', // Corregido
+        'leido'           => 'required|in_list[si,no]',
     ];
 
     protected $validationMessages = [
@@ -28,7 +28,7 @@ class MensajeModel extends Model
         ],
         'tipo_remitente' => [
             'required' => 'El remitente es obligatorio.',
-            'in_list'  => 'El remitente debe ser "cliente", "admin" o "visitante".',
+            'in_list'  => 'El remitente debe ser "cliente", "administrador" o "visitante".',
         ],
         'mensaje' => [
             'required' => 'El mensaje es obligatorio.',
@@ -43,20 +43,81 @@ class MensajeModel extends Model
     /**
      * Crea un nuevo mensaje en una conversación.
      *
-     * @param array $data Datos del mensaje a insertar.
-     * @return int|false El ID del mensaje insertado o false si falla la validación.
+     * Valida los datos recibidos según las reglas definidas en el modelo y,
+     * si son válidos, inserta el mensaje en la base de datos.
+     *
+     * @param array $data Array asociativo con los datos del mensaje. Se espera que incluya:
+     *                    - 'conversacion_id': ID de la conversación a la que pertenece el mensaje.
+     *                    - 'tipo_remitente': 'cliente', 'admin' o 'visitante' (según la lógica de la aplicación).
+     *                    - 'mensaje': El contenido del mensaje.
+     * @return int|false Retorna el ID del mensaje insertado si la operación es exitosa,
+     *                  o false si falla la validación.
      */
-    public function crearMensaje(array $data)
+    public function crearMensaje(array $data, $tipo_conversacion)
     {
-        // Establecer el valor de 'leido' como 0 (no leído) por defecto
-        $data['leido'] = 'no';
+        // si el remitente no es el administrador y la conversacion no es de tipo contacto
+        if (!($data['tipo_remitente'] == 'administrador' &&  $tipo_conversacion == 'contacto')) {
+            // Por defecto, marca el mensaje como "no leído"
+            $data['leido'] = 'no';
+        }
 
+        // Validar los datos según las reglas definidas en el modelo.
+        // Si la validación falla, se pueden obtener los errores con $this->errors()
         if (!$this->validate($data)) {
             return false;
         }
 
+        // Inserta el mensaje en la base de datos
         $this->insert($data);
 
+        // Retorna el ID del mensaje insertado
         return $this->getInsertID();
+    }
+
+    /**
+     * Marca como leídos todos los mensajes enviados por el cliente en una conversación.
+     *
+     * @param int $conversacionId El ID de la conversación.
+     * @return bool Resultado de la operación de actualización.
+     */
+    public function marcarMensajesClienteComoLeidos(int $conversacionId): bool
+    {
+        return $this->where('conversacion_id', $conversacionId)
+            ->where('tipo_remitente', 'cliente')
+            ->where('leido', 'no')
+            ->set(['leido' => 'si'])
+            ->update();
+    }
+
+    /**
+     * Marca como leído el mensaje enviado por el visitante en una conversación.
+     *
+     * @param int $conversacionId El ID de la conversación.
+     * @return bool Resultado de la operación de actualización.
+     */
+    public function marcarMensajeVisitanteComoLeido(int $conversacionId): bool
+    {
+        return $this->where('conversacion_id', $conversacionId)
+            ->where('tipo_remitente', 'visitante')
+            ->where('leido', 'no')
+            ->set(['leido' => 'si'])
+            ->update();
+    }
+
+    /**
+     * Obtiene el último mensaje asociado a una conversación.
+     *
+     * Este método consulta la tabla de mensajes para encontrar el mensaje más reciente
+     * perteneciente a la conversación identificada por $conversacionId. Lo hace ordenando
+     * los mensajes por la fecha de creación en orden descendente y devolviendo el primer registro.
+     *
+     * @param int $conversacionId El ID de la conversación.
+     * @return object|null Retorna el objeto mensaje encontrado o null si no hay mensajes.
+     */
+    public function obtenerUltimoMensaje(int $conversacionId)
+    {
+        return $this->where('conversacion_id', $conversacionId)
+            ->orderBy('created_at', 'DESC')
+            ->first();
     }
 }

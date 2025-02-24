@@ -36,12 +36,12 @@
                 <?php foreach ($conversacion->mensajes as $mensaje): ?>
                     <!-- Contenedor para cada mensaje -->
                     <div class="message-container">
-                        <!-- Se aplica la clase 'admin' o 'visitor' según el remitente -->
-                        <div class="message <?= ($mensaje->tipo_remitente == 'admin') ? 'admin' : 'visitor' ?>">
+                        <!-- Se aplica la clase 'administrador' o 'visitante' según el remitente -->
+                        <div class="message <?= ($mensaje->tipo_remitente == 'administrador') ? 'administrador' : 'visitante' ?>">
                             <!-- Muestra información del remitente y la fecha -->
                             <small class="text-muted">
-                                <?php if ($mensaje->tipo_remitente == 'admin'): ?>
-                                    <i class="bi bi-person-check"></i> Admin
+                                <?php if ($mensaje->tipo_remitente == 'administrador'): ?>
+                                    <i class="bi bi-person-check"></i> Administrador
                                 <?php else: ?>
                                     <i class="bi bi-person"></i> <?= esc($conversacion->nombre) ?>
                                 <?php endif; ?>
@@ -56,19 +56,36 @@
                 <p class="text-center">No se han registrado mensajes en esta conversación.</p>
             <?php endif; ?>
         </div>
-        <!-- Pie de la tarjeta: Formulario para responder -->
+        <!-- Pie de la tarjeta: Formulario para responder y botón para cerrar la conversación -->
         <div class="card-footer">
-            <form action="<?= base_url('admin/conversaciones/contactos/' . $conversacion->id . '/responder') ?>" method="post">
-                <?= csrf_field() ?>
-                <div class="mb-3">
-                    <label for="respuesta" class="form-label"><strong>Responder</strong></label>
-                    <textarea name="respuesta" id="respuesta" rows="5" class="form-control" placeholder="Escribe tu respuesta aquí..."></textarea>
+            <?php if ($conversacion->estado !== 'cerrada'): ?>
+                <!-- Formulario para responder -->
+                <form action="<?= base_url('admin/conversaciones/contactos/' . $conversacion->id . '/responder') ?>" method="post" class="mb-3">
+                    <?= csrf_field() ?>
+                    <div class="mb-3">
+                        <label for="respuesta" class="form-label"><strong>Responder</strong></label>
+                        <textarea name="respuesta" id="respuesta" rows="5" class="form-control" placeholder="Escribe tu respuesta aquí..."></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="bi bi-send"></i> Enviar
+                    </button>
+                </form>
+
+                <!-- Botón para marcar la conversación como cerrada -->
+                <form action="<?= base_url('admin/conversaciones/contactos/' . $conversacion->id . '/cerrar') ?>" method="post" class="d-inline">
+                    <?= csrf_field() ?>
+                    <button type="submit" class="btn btn-warning">
+                        <i class="bi bi-check-circle"></i> Marcar como Cerrada
+                    </button>
+                </form>
+            <?php else: ?>
+                <!-- Mensaje informativo cuando la conversación está cerrada -->
+                <div class="alert alert-secondary" role="alert">
+                    Esta conversación está cerrada. No se pueden enviar respuestas.
                 </div>
-                <button type="submit" class="btn btn-primary">
-                    <i class="bi bi-send"></i> Enviar Respuesta
-                </button>
-            </form>
+            <?php endif; ?>
         </div>
+
     </div>
 </main>
 

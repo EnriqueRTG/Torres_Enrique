@@ -1,13 +1,13 @@
-<!-- Vista parcial header -->
+<!-- Vista parcial: Header -->
 <?= view("layouts/header-admin", ['titulo' => $titulo]) ?>
 
-<!-- Se incluye la barra de navegación -->
+<!-- Barra de navegación -->
 <?= view('partials/_navbar-admin') ?>
 
 <!-- Contenido principal -->
 <main class="container my-3 main-content">
     <!-- Mensajes de sesión: errores o confirmaciones -->
-    <div class="alert-info text-center">
+    <div class="alert-info text-center" role="alert">
         <?= session()->has('errors') ? view('partials/_session-error') : view('partials/_session') ?>
     </div>
 
@@ -16,33 +16,46 @@
         <?= view('partials/_breadcrumb', ['breadcrumbs' => $breadcrumbs]) ?>
     </nav>
 
-    <!-- Filtros y Buscador -->
-    <div class="row my-4">
-        <!-- Buscador: Filtra clientes por nombre, apellido o email -->
-        <div class="col-md-6 mt-md-0 mt-3">
-            <form class="d-inline-flex" role="search" id="buscadorClienteForm">
-                <input type="search" class="form-control me-2" name="search" placeholder="Buscar por nombre, apellido o email" aria-label="Buscar">
-                <button type="submit" class="btn btn-outline-primary fw-bold">Buscar</button>
-            </form>
-        </div>
-        <!-- Filtro de Estado: Por defecto activos -->
-        <div class="col-md-3 offset-md-3 mt-md-0 mt-3">
-            <select id="filtroEstado" class="form-select">
-                <option value="activo" selected>Activos</option>
-                <option value="inactivo">Inactivos</option>
-                <option value="todos">Todos</option>
+    <!-- Encabezado de la sección -->
+    <header class="mb-4">
+        <h1 class="mb-2">Clientes</h1>
+        <p class="lead">Listado de <strong>clientes</strong> registradas.</p>
+    </header>
+
+    <!-- Formulario de filtros y buscador -->
+    <form method="get" action="<?= current_url() ?>" class="row g-3 mb-4" role="search">
+        <!-- Filtro por estado -->
+        <div class="col-12 col-md-4">
+            <label for="filtroEstadoCliente" class="form-label">Filtrar por estado:</label>
+            <select class="form-select" id="filtroEstadoCliente" name="estado" aria-label="Filtrar por estado">
+                <option value="activo" <?= (isset($_GET['estado']) && $_GET['estado'] == 'activo') ? 'selected' : '' ?>>Activos</option>
+                <option value="inactivo" <?= (isset($_GET['estado']) && $_GET['estado'] == 'inactivo') ? 'selected' : '' ?>>Inactivos</option>
+                <option value="todos" <?= (isset($_GET['estado']) && $_GET['estado'] == 'todos') ? 'selected' : '' ?>>Todos</option>
             </select>
         </div>
-    </div>
+        <!-- Buscador por nombre o descripción -->
+        <div class="col-12 col-md-6">
+            <label for="busqueda" class="form-label">Buscar por nombre o email:</label>
+            <input type="search" class="form-control" id="busqueda" name="textoBusqueda" placeholder="Ingrese nombre o email" value="<?= isset($_GET['textoBusqueda']) ? esc($_GET['textoBusqueda']) : '' ?>">
+        </div>
+        <!-- Botón de búsqueda -->
+        <div class="col-12 col-md-2 d-flex align-items-end">
+            <button type="submit" class="btn btn-primary w-100">
+                <i class="bi bi-search"></i> Buscar
+            </button>
+        </div>
+    </form>
 
-    <!-- Tabla de Clientes -->
-    <div class="my-4">
+    <!-- Tabla de Clientes y Paginación -->
+    <section class="mb-4">
         <!-- Spinner de carga (oculto por defecto) -->
-        <div id="spinner" class="text-center d-none my-5">
+        <div id="spinner" class="text-center d-none my-5" aria-live="polite">
             <div class="spinner-border" role="status">
                 <span class="visually-hidden">Cargando...</span>
             </div>
         </div>
+
+        <!-- Tabla de Clientes -->
         <div class="table-responsive">
             <table class="table table-dark table-striped table-hover" id="tablaClientes">
                 <thead>
@@ -60,10 +73,10 @@
                 </tbody>
             </table>
         </div>
-        <!-- Paginación -->
-        <div class="text-center" id="paginacion">
-        </div>
-    </div>
+
+        <!-- Controles de paginación -->
+        <div class="text-center" id="paginacion"></div>
+    </section>
 </main>
 
 <?= view("layouts/footer-admin") ?>
@@ -71,52 +84,36 @@
 <!-- Scripts: Funciones para filtrar, buscar y paginar clientes -->
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        // Inicializa tooltips si es necesario
+        // Inicializa tooltips (si se utilizan)
         inicializarTooltips();
-        // Carga inicial de clientes con el filtro por defecto (activos)
-        cargarClientesDinamicos();
-        // Delegar eventos en el buscador y el filtro
-        delegarEventosFiltros();
+        // Carga inicial de clientes usando el filtro por defecto (activos)
+        cargarClientesDinamicamente();
     });
 
     /**
-     * Inicializa los tooltips de Bootstrap.
+     * Inicializa los tooltips de Bootstrap para elementos con data-bs-toggle.
      */
     function inicializarTooltips() {
-        const tooltipElements = Array.from(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+        const tooltipElements = document.querySelectorAll('[data-bs-toggle="tooltip"]');
         tooltipElements.forEach(el => new bootstrap.Tooltip(el));
-    }
-
-    /**
-     * Configura los eventos para el buscador y el filtro de estado.
-     */
-    function delegarEventosFiltros() {
-        // Evento para el filtro de estado
-        document.getElementById('filtroEstado').addEventListener('change', function() {
-            aplicarFiltro(1, document.querySelector('input[name="search"]').value, this.value);
-        });
-
-        document.querySelector('input[type="search"]').addEventListener('input', function() {
-            aplicarFiltro(1, this.value, document.getElementById('filtroEstado').value);
-        });
     }
 
     /**
      * Envía una solicitud AJAX para aplicar los filtros y actualizar la tabla de clientes.
      * 
      * @param {number} pagina Número de página actual.
-     * @param {string} busqueda Texto de búsqueda.
+     * @param {string} textoBusqueda Texto de búsqueda.
      * @param {string} estado Filtro de estado ("activo", "inactivo" o "todos").
      */
-    function aplicarFiltro(pagina = 1, busqueda = '', estado = 'activo') {
+    function aplicarFiltro(pagina = 1, textoBusqueda = '', estado = 'activo') {
         const url = '<?= base_url("admin/cliente/buscarCliente") ?>';
         const params = new URLSearchParams({
             pagina,
-            busqueda,
+            textoBusqueda: textoBusqueda,
             estado
         });
 
-        // Muestra el spinner mientras carga
+        // Mostrar el spinner
         document.getElementById('spinner').classList.remove('d-none');
 
         fetch(`${url}?${params.toString()}`, {
@@ -128,14 +125,14 @@
             .then(response => response.json())
             .then(data => {
                 actualizarTablaClientes(data.clientes);
-                generarPaginacion(data.paginaActual, data.totalPaginas, busqueda, estado);
+                generarPaginacion(data.paginaActual, data.totalPaginas, textoBusqueda, estado);
             })
             .catch(error => {
                 console.error('Error al cargar clientes:', error);
                 alert('Error al cargar los clientes. Inténtalo de nuevo.');
             })
             .finally(() => {
-                // Oculta el spinner al finalizar
+                // Ocultar el spinner
                 document.getElementById('spinner').classList.add('d-none');
             });
     }
@@ -157,38 +154,40 @@
         clientes.forEach(cliente => {
             const tr = document.createElement('tr');
             tr.innerHTML = `
-            <td>${cliente.nombre} ${cliente.apellido}</td>
-            <td>${cliente.email}</td>
-            <td>
-                <span class="badge ${cliente.estado === 'activo' ? 'bg-success' : 'bg-danger'}">
-                    ${cliente.estado.charAt(0).toUpperCase() + cliente.estado.slice(1)}
-                </span>
-            </td>
-            <td>${new Date(cliente.created_at).toLocaleString()}</td>
-            <td>${new Date(cliente.updated_at).toLocaleString()}</td>
-            <td class="text-center">
-                <!-- Opciones de consulta: Historial de mensajes y pedidos -->
-                <a href="<?= base_url('admin/cliente/mensajes/') ?>${cliente.id}" class="btn btn-outline-info btn-sm m-1" title="Historial de Mensajes"
-                data-bs-toggle="tooltip">
-                    <i class="bi bi-chat-left-text"></i>
-                </a>
-                <a href="<?= base_url('admin/cliente/pedidos/') ?>${cliente.id}" class="btn btn-outline-primary btn-sm m-1" title="Historial de Pedidos"
-                data-bs-toggle="tooltip">
-                    <i class="bi bi-basket"></i>
-                </a>
-            </td>
-        `;
+                <td>${cliente.nombre} ${cliente.apellido}</td>
+                <td>${cliente.email}</td>
+                <td>
+                    <span class="badge ${cliente.estado === 'activo' ? 'bg-success' : 'bg-danger'}">
+                        ${cliente.estado.charAt(0).toUpperCase() + cliente.estado.slice(1)}
+                    </span>
+                </td>
+                <td>${new Date(cliente.created_at).toLocaleString()}</td>
+                <td>${new Date(cliente.updated_at).toLocaleString()}</td>
+                <td class="text-center">
+                    <!-- Opciones: Informacion de perfil, historial de conversaciones y pedidos -->
+                    <a href="<?= base_url('admin/cliente/show/') ?>${cliente.id}" class="btn btn-outline-primary btn-sm m-1" title="Info. de Perfil" data-bs-toggle="tooltip">
+                        <i class="bi bi-person-circle"></i>
+                    </a>
+                    <a href="<?= base_url('admin/cliente/conversaciones/') ?>${cliente.id}" class="btn btn-outline-info btn-sm m-1" title="Historial de Conversaciones" data-bs-toggle="tooltip">
+                        <i class="bi bi-chat-left-text"></i>
+                    </a>
+                    <a href="<?= base_url('admin/cliente/pedidos/') ?>${cliente.id}" class="btn btn-outline-warning btn-sm m-1" title="Historial de Ordenes" data-bs-toggle="tooltip">
+                        <i class="bi bi-basket"></i>
+                    </a>
+                </td>
+            `;
             tbody.appendChild(tr);
         });
 
+        // Re-inicializa los tooltips para los nuevos elementos de la tabla
         inicializarTooltips();
     }
 
     /**
-     * Genera los botones de paginación y los inserta en el contenedor.
+     * Genera y actualiza la paginación según la página actual y el total de páginas.
      * 
      * @param {number} paginaActual Página actual.
-     * @param {number} totalPaginas Total de páginas.
+     * @param {number} totalPaginas Total de páginas disponibles.
      * @param {string} busqueda Texto de búsqueda.
      * @param {string} estado Filtro de estado.
      */
@@ -223,14 +222,14 @@
     }
 
     /**
-     * Crea un botón de paginación con el texto y la acción correspondiente.
+     * Crea un botón de paginación con el texto, la página destino y la acción correspondiente.
      * 
-     * @param {string|number} texto Texto o número del botón.
-     * @param {number} pagina Página a la que se dirigirá el botón.
+     * @param {string|number} texto Texto o número a mostrar en el botón.
+     * @param {number} pagina Página a la que redirige el botón.
      * @param {string} busqueda Texto de búsqueda actual.
      * @param {string} estado Filtro de estado actual.
-     * @param {boolean} activo Indica si el botón representa la página actual.
-     * @returns {HTMLElement} Botón de paginación.
+     * @param {boolean} activo Indica si es la página actual.
+     * @returns {HTMLElement} El botón de paginación.
      */
     function crearBotonPaginacion(texto, pagina, busqueda, estado, activo = false) {
         const btn = document.createElement('a');
@@ -248,11 +247,24 @@
     }
 
     /**
-     * Carga la lista inicial de clientes usando el filtro por defecto (activos).
+     * Carga los clientes de forma dinámica utilizando filtros almacenados en localStorage.
+     * Se utiliza la clave 'estado_cliente' para preservar el filtro de esta vista.
      */
-    function cargarClientesDinamicos() {
-        const estadoGuardado = localStorage.getItem('estadoCliente') || 'activo';
-        document.getElementById('filtroEstado').value = estadoGuardado;
+
+    function cargarClientesDinamicamente() {
+        const estadoGuardado = localStorage.getItem('estado_cliente') || 'activo';
+        document.getElementById('filtroEstadoCliente').value = estadoGuardado;
         aplicarFiltro(1, '', estadoGuardado);
     }
+
+    // Al cambiar el select de estado, se guarda la selección y se actualiza el filtro.
+    document.getElementById('filtroEstadoCliente').addEventListener('change', function() {
+        localStorage.setItem('estado_cliente', this.value);
+        aplicarFiltro(1, document.querySelector('input[type="search"]').value, this.value);
+    });
+
+    // Al escribir en el campo de búsqueda, actualiza la tabla en tiempo real
+    document.querySelector('input[type="search"]').addEventListener('input', function() {
+        aplicarFiltro(1, this.value, document.getElementById('filtroEstadoCliente').value);
+    });
 </script>

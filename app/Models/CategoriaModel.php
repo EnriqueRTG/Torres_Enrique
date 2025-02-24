@@ -3,97 +3,168 @@
 namespace App\Models;
 
 use CodeIgniter\Model;
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/PHPClass.php to edit this template
- */
 
 /**
- * Description of CategoriaModel
+ * Modelo para gestionar las Categorías de productos.
  *
- * @author Torres Gamarra Enrique Ramon
+ * Este modelo permite crear, actualizar, dar de baja (eliminar) y filtrar categorías.
+ * Además, define las reglas de validación, mensajes personalizados y una relación (ilustrativa)
+ * con los productos.
+ *
+ * @package App\Models
  */
 class CategoriaModel extends Model
 {
+    // Configuración básica del modelo
     protected $table            = 'categorias';
     protected $primaryKey       = 'id';
     protected $useSoftDeletes   = false;
     protected $allowedFields    = ['nombre', 'descripcion', 'estado'];
     protected $returnType       = 'object';
-    protected $useTimestamps    = true; // Habilitar marcas de tiempo
-    protected $dateFormat       = 'datetime'; // Formato de fecha y hora
+    protected $useTimestamps    = true;
+    protected $dateFormat       = 'datetime';
 
-    // Validación de datos (opcional)
-    protected $validationRules    = [
+    // Reglas de validación
+    protected $validationRules = [
         'nombre'      => 'required|min_length[3]|max_length[255]',
         'descripcion' => 'permit_empty',
         'estado'      => 'in_list[activo,inactivo]',
     ];
 
+    // Mensajes personalizados para la validación
     protected $validationMessages = [
         'nombre' => [
-            'required' => 'El nombre de la categoría es obligatorio.',
+            'required'   => 'El nombre de la categoría es obligatorio.',
             'min_length' => 'El nombre de la categoría debe tener al menos 3 caracteres.',
             'max_length' => 'El nombre de la categoría no puede superar los 255 caracteres.',
         ],
         'estado' => [
-            'in_list' => 'El estado de la categoría debe ser "activo" o "inactivo".',
+            'in_list'    => 'El estado de la categoría debe ser "activo" o "inactivo".',
         ],
     ];
 
-    // Relación con productos
+    /**
+     * Relación con productos.
+     *
+     * Retorna los productos asociados a esta categoría.
+     * Nota: CodeIgniter 4 no implementa relaciones nativas; este método es ilustrativo.
+     *
+     * @return mixed
+     */
     public function productos()
     {
         return $this->hasMany(ProductoModel::class, 'categoria_id');
     }
 
-    // Crear una categoria
-    public function crearCategoria($data)
+    /**
+     * Crea una nueva categoría.
+     *
+     * Establece el estado por defecto en "activo" y valida los datos.
+     * Retorna el ID de la categoría creada o false si falla la validación.
+     *
+     * @param array $data Datos de la categoría.
+     * @return bool|int
+     */
+    public function crearCategoria(array $data)
     {
-        $data['estado'] = 'activo'; // Asignar estado 'activo' por defecto
+        // Asigna estado activo por defecto
+        $data['estado'] = 'activo';
 
         if (!$this->validate($data)) {
             return false;
         }
 
+        // Save inserta el registro y retorna el ID
         return $this->save($data);
     }
 
-    // Actualizar datos de categoria
-    public function actualizarCategoria($id, $data)
+    /**
+     * Actualiza una categoría existente.
+     *
+     * Valida los datos y, de ser válidos, actualiza la categoría. Se fuerza el estado "activo".
+     *
+     * @param int|string $id ID de la categoría.
+     * @param array $data Datos actualizados.
+     * @return bool
+     */
+    public function actualizarCategoria($id, array $data)
     {
         if (!$this->validate($data)) {
             return false;
         }
 
+        // Forzar estado activo en la actualización
         $data['estado'] = 'activo';
 
         return $this->update($id, $data);
     }
 
-    // Eliminar Categoria (dar de baja -> estado == 'inactivo')
+    /**
+     * Elimina (da de baja) una categoría.
+     *
+     * En lugar de eliminar físicamente el registro, se actualiza su estado a "inactivo".
+     *
+     * @param int|string $id ID de la categoría.
+     * @return bool
+     */
     public function eliminarCategoria($id)
     {
         $data['estado'] = 'inactivo';
-
         return $this->update($id, $data);
     }
 
     /**
-     * Filtra las categorías según texto de búsqueda, estado y página.
+     * Obtiene las categorías filtradas y paginadas utilizando la paginación nativa de CodeIgniter.
+     *
+     * Aplica filtros de búsqueda en los campos 'nombre' y 'descripcion', y filtra por estado
+     * (si no es "todos"). La paginación se realiza utilizando paginate(), que toma el número de registros
+     * por página, el grupo (por defecto 'default') y la página actual ($pagina).
+     *
+     * @param string $estado Estado a filtrar ("activo", "inactivo" o "todos").
+     * @param string $busqueda Texto de búsqueda.
+     * @param int $pagina Página actual.
+     * @param int $perPage Número de registros por página.
+     * @return mixed Array de categorías paginadas; el pager se configura automáticamente.
+     */
+    public function obtenerCategoriasFiltradas(string $estado = 'todos', string $busqueda = '', int $pagina = 1, int $perPage = 10)
+    {
+        // Reiniciar el query builder para evitar interferencias de consultas previas
+        $this->builder()->resetQuery();
+
+        // Aplicar filtro de búsqueda si se proporciona
+        if (!empty($busqueda)) {
+            $this->groupStart()
+                ->like('nombre', $busqueda)
+                ->orLike('descripcion', $busqueda)
+                ->groupEnd();
+        }
+
+        // Aplicar filtro de estado si no es "todos"
+        if ($estado !== 'todos') {
+            $this->where('estado', $estado);
+        }
+
+        // Ordenar por 'updated_at' en orden descendente y paginar,
+        // pasando $pagina como la página actual a mostrar.
+        return $this->orderBy('updated_at', 'DESC')
+            ->paginate($perPage, 'default', $pagina);
+    }
+
+    /**
+     * Calcula el total de páginas para los filtros aplicados.
+     *
+     * Cuenta los registros que coinciden con el texto de búsqueda y el estado, y
+     * divide el total entre el número de registros por página.
      *
      * @param string $texto Texto de búsqueda.
-     * @param string $estado Estado de las categorías ('activo', 'inactivo' o 'todos').
-     * @param int $pagina Número de página.
+     * @param string $estado Estado ("activo", "inactivo" o "todos").
      * @param int $porPagina Cantidad de registros por página.
-     * @return array Lista de categorías filtradas y paginadas.
+     * @return int Total de páginas.
      */
-    public function filtrarCategorias($texto = '', $estado = 'todos', $pagina = 1, $porPagina = 10)
+    public function obtenerTotalPaginas(string $texto = '', string $estado = 'todos', int $porPagina = 10): int
     {
-        // Iniciar la consulta
         $builder = $this->db->table($this->table);
 
-        // Aplicar filtro de texto (búsqueda)
         if (!empty($texto)) {
             $builder->groupStart()
                 ->like('nombre', $texto)
@@ -101,77 +172,11 @@ class CategoriaModel extends Model
                 ->groupEnd();
         }
 
-        // Aplicar filtro de estado
         if ($estado !== 'todos') {
             $builder->where('estado', $estado);
         }
 
-        // Ordenar por 'updated_at' en orden descendente
-        $builder->orderBy('updated_at', 'DESC');
-
-        // Paginación
-        $offset = ($pagina - 1) * $porPagina; // Calcular el offset
-        $builder->limit($porPagina, $offset);
-
-        // Ejecutar la consulta y obtener los resultados
-        $query = $builder->get();
-        return $query->getResultArray();
-    }
-
-    /**
-     * Obtiene el total de páginas para los filtros aplicados.
-     *
-     * @param string $texto Texto de búsqueda.
-     * @param string $estado Estado de las categorías ('activo', 'inactivo' o 'todos').
-     * @param int $porPagina Cantidad de registros por página.
-     * @return int Total de páginas.
-     */
-    public function obtenerTotalPaginas($texto = '', $estado = 'todos', $porPagina = 10)
-    {
-        // Iniciar la consulta
-        $builder = $this->db->table($this->table);
-
-        // Aplicar filtro de texto (búsqueda)
-        if (!empty($texto)) {
-            $builder->groupStart()
-                ->like('nombre', $texto) // Buscar en el campo 'nombre'
-                ->orLike('descripcion', $texto) // Buscar en el campo 'descripcion'
-                ->groupEnd();
-        }
-
-        // Aplicar filtro de estado
-        if ($estado !== 'todos') {
-            $builder->where('estado', $estado); // Filtrar por estado
-        }
-
-        // Obtener el total de registros que coinciden con los filtros
         $totalRegistros = $builder->countAllResults();
-
-        // Calcular el total de páginas
         return ceil($totalRegistros / $porPagina);
-    }
-
-    // Obtener marcas con paginación y filtros
-    public function obtenerCategoriasFiltradas($estado = 'todos', $busqueda = '', $perPage = 10)
-    {
-        // Limpiar cualquier consulta anterior
-        $this->builder()->resetQuery();
-
-        // Si hay término de búsqueda, aplicar la búsqueda primero
-        if (!empty($busqueda)) {
-            $this->groupStart()
-                ->like('nombre', '%' . $busqueda . '%')
-                ->orLike('descripcion', '%' . $busqueda . '%')
-                ->groupEnd();
-        }
-
-        // Aplicar el filtro de estado después de la búsqueda
-        if ($estado !== 'todos') {
-            $this->where('estado', $estado);
-        }
-
-        // Aplicar el ordenamiento al final
-        return $this->orderBy('updated_at', 'DESC')
-            ->paginate($perPage);
     }
 }

@@ -4,113 +4,136 @@ namespace App\Controllers\Admin;
 
 use App\Controllers\BaseController;
 use App\Models\ConversacionModel;
+use App\Models\MensajeModel;
 
+/**
+ * Controlador para la gestión de Conversaciones.
+ *
+ * Este controlador administra la visualización, filtrado, respuesta y cierre de
+ * conversaciones de tipo "consulta" y "contacto" desde la interfaz de administración.
+ */
 class Conversacion extends BaseController
 {
+    /**
+     * @var ConversacionModel
+     */
     protected $conversacionModel;
 
+    /**
+     * @var MensajeModel
+     */
+    protected $mensajeModel;
+
+    /**
+     * Constructor: se instancian los modelos necesarios.
+     */
     public function __construct()
     {
-        // Instanciar el modelo para acceder a la tabla de conversaciones
         $this->conversacionModel = new ConversacionModel();
+        $this->mensajeModel      = new MensajeModel();
     }
 
     /**
      * Muestra el listado de conversaciones de tipo "consulta".
      *
-     * @return string Vista renderizada con los datos de las conversaciones tipo consulta.
+     * Recoge parámetros de búsqueda, estado y página, obtiene las conversaciones
+     * filtradas (y les asigna el último mensaje) y carga la vista con los datos necesarios.
+     *
+     * @return string Vista renderizada.
      */
     public function consultas()
     {
-        // Tipo de conversación a filtrar
-        $tipo = 'consulta';
+        $pagina = $this->request->getGet('pagina') ?? 1;
+        $textoBusqueda = $this->request->getGet('textoBusqueda') ?? '';
+        $estado = $this->request->getGet('estado') ?? 'todas';
 
-        // Filtra las conversaciones donde el campo "tipo_conversacion" es "consulta"
-        $conversaciones = $this->conversacionModel->traerConversacionesSegunTipo($tipo);
+        // Filtrar las conversaciones de tipo "consulta"
+        $conversacionesConsultas = $this->conversacionModel->filtrarConversacionesConsulta($textoBusqueda, $estado, $pagina);
 
+        // Asignar el último mensaje a cada conversación
+        foreach ($conversacionesConsultas as $consulta) {
+            $consulta->ultimoMensaje = $this->mensajeModel->obtenerUltimoMensaje($consulta->id);
+        }
+
+        // Configurar breadcrumbs y conteos (método conteoPendientes())
         $breadcrumbs = [
             ['label' => 'Dashboard', 'url' => base_url('admin/dashboard')],
             ['label' => 'Consultas', 'url' => ''],
         ];
 
-        // Datos que se enviarán a la vista
+        $conteos = $this->getConteoPendientes();
+
         $data = [
-            'titulo' => 'Consultas - Administrador',
-            'conversaciones' => $conversaciones,
-            'breadcrumbs' => $breadcrumbs,
+            'titulo'              => 'Consultas - Administrador',
+            'consultas'           => $conversacionesConsultas,
+            'pager'               => $this->conversacionModel->pager,
+            'breadcrumbs'         => $breadcrumbs,
+            'totalPendientes'     => $conteos['totalPendientes']     ?? 0,
+            'consultasPendientes' => $conteos['consultasPendientes'] ?? 0,
+            'contactosPendientes' => $conteos['contactosPendientes'] ?? 0,
         ];
 
-        // Retorna la vista correspondiente (por ejemplo, admin/consultas.php)
         return view('admin/consulta/index', $data);
     }
 
     /**
      * Muestra el listado de conversaciones de tipo "contacto".
      *
-     * Este método recupera los parámetros de búsqueda, estado y página de la solicitud GET,
-     * luego utiliza el método del modelo para filtrar las conversaciones según dichos parámetros
-     * y el tipo de conversación ("contacto"). Finalmente, prepara los datos (incluyendo la paginación
-     * y el breadcrumb) para renderizar la vista.
+     * Recoge parámetros de búsqueda, estado y página, obtiene las conversaciones
+     * de tipo "contacto", asigna el último mensaje a cada una y carga la vista.
      *
-     * @return string Vista renderizada con los datos de las conversaciones de tipo contacto.
+     * @return string Vista renderizada.
      */
     public function contactos()
     {
-        // Recupera la página actual desde GET; si no se especifica, se usa 1.
         $pagina = $this->request->getGet('pagina') ?? 1;
+        $textoBusqueda = $this->request->getGet('textoBusqueda') ?? '';
+        $estado = $this->request->getGet('estado') ?? 'todas';
 
-        // Recupera el texto de búsqueda desde GET; si no se especifica, se usa una cadena vacía.
-        $busqueda = $this->request->getGet('busqueda') ?? '';
+        // Filtrar conversaciones de tipo "contacto"
+        $conversacionesContacto = $this->conversacionModel->filtrarConversacionesContacto($textoBusqueda, $estado, $pagina);
 
-        // Recupera el filtro de estado desde GET; si no se especifica, se usa 'todos'
-        // Esto permite que, de forma predeterminada, se muestren todas las conversaciones.
-        $estado = $this->request->getGet('estado') ?? 'todos';
+        // Asignar el último mensaje a cada conversación
+        foreach ($conversacionesContacto as $consulta) {
+            $consulta->ultimoMensaje = $this->mensajeModel->obtenerUltimoMensaje($consulta->id);
+        }
 
-        // Define la cantidad de registros por página (para la paginación).
-        $porPagina = 10;
-
-        // Establece el tipo de conversación a filtrar, en este caso "contacto".
-        $tipo = 'contacto';
-
-        // Llama al método del modelo para filtrar las conversaciones.
-        // Se asume que el modelo tiene implementado el método 'filtrarConversaciones' que acepta:
-        // - $busqueda: texto para buscar en campos como "nombre" o "asunto"
-        // - $estado: filtro de estado (por ejemplo, 'todos', 'pendiente' o 'respondido')
-        // - $pagina: número de página actual
-        // - $tipo: tipo de conversación (en este caso "contacto")
-        $conversaciones = $this->conversacionModel->filtrarConversaciones($busqueda, $estado, $pagina, $tipo);
-
-        // Configuración del breadcrumb para la navegación interna.
         $breadcrumbs = [
             ['label' => 'Dashboard', 'url' => base_url('admin/dashboard')],
-            ['label' => 'Contactos', 'url' => ''],
+            ['label' => 'Contactos', 'url' => base_url('admin/conversaciones/contactos')],
         ];
 
-        // Empaqueta los datos que se enviarán a la vista.
-        // Se incluye:
-        // - El título de la página.
-        // - Las conversaciones filtradas.
-        // - La instancia del pager para la paginación (asumiendo que se utiliza la paginación integrada de CodeIgniter).
-        // - Los filtros actuales (estado y búsqueda) para que la vista pueda mostrarlos o usarlos.
-        // - El breadcrumb para la navegación.
+        $conteos = $this->getConteoPendientes();
+
         $data = [
-            'titulo'         => 'Contactos - Administrador',
-            'conversaciones' => $conversaciones,
-            'pager'          => $this->conversacionModel->pager,
-            'estado'         => $estado,
-            'busqueda'       => $busqueda,
-            'breadcrumbs'    => $breadcrumbs,
+            'titulo'              => 'Contactos - Administrador',
+            'contactos'           => $conversacionesContacto,
+            'pager'               => $this->conversacionModel->pager,
+            'estado'              => $estado,
+            'busqueda'            => $textoBusqueda,
+            'breadcrumbs'         => $breadcrumbs,
+            'totalPendientes'     => $conteos['totalPendientes']     ?? 0,
+            'consultasPendientes' => $conteos['consultasPendientes'] ?? 0,
+            'contactosPendientes' => $conteos['contactosPendientes'] ?? 0,
         ];
 
-        // Retorna la vista 'admin/contacto/index' con los datos preparados.
         return view('admin/contacto/index', $data);
     }
 
-
+    /**
+     * Muestra el detalle de una conversación de tipo "consulta".
+     *
+     * Marca como leídos los mensajes del cliente, obtiene la conversación con todos sus mensajes,
+     * configura los breadcrumbs y pasa los datos a la vista.
+     *
+     * @param int $id ID de la conversación.
+     * @return string Vista renderizada.
+     */
     public function mostrar_consulta($id)
     {
-        // Obtiene la conversación y sus mensajes asociados
-        $mensajes = $this->conversacionModel->traerMensajesPorConversacion($id);
+        // Marcar mensajes del cliente como leídos
+        $this->mensajeModel->marcarMensajesClienteComoLeidos($id);
+        $conversacion = $this->conversacionModel->obtenerConversacionConMensajes($id);
 
         $breadcrumbs = [
             ['label' => 'Dashboard', 'url' => base_url('admin/dashboard')],
@@ -118,20 +141,32 @@ class Conversacion extends BaseController
             ['label' => 'Detalle de Consulta', 'url' => ''],
         ];
 
-        // Datos que se enviarán a la vista
+        $conteos = $this->getConteoPendientes();
+
         $data = [
-            'titulo' => 'Contacto - ' . $mensajes->asunto,
-            'mensajes' => $mensajes,
+            'titulo'      => 'Consulta - ' . $conversacion->asunto,
+            'conversacion' => $conversacion,
             'breadcrumbs' => $breadcrumbs,
+            'totalPendientes'     => $conteos['totalPendientes']     ?? 0,
+            'consultasPendientes' => $conteos['consultasPendientes'] ?? 0,
+            'contactosPendientes' => $conteos['contactosPendientes'] ?? 0,
         ];
 
-        // Retorna la vista correspondiente (por ejemplo, admin/consultas.php)
-        return view('admin/contacto/show', $data);
+        return view('admin/consulta/show', $data);
     }
 
+    /**
+     * Muestra el detalle de una conversación de tipo "contacto".
+     *
+     * Marca como leído el mensaje del visitante, obtiene la conversación con sus mensajes,
+     * configura el breadcrumb y pasa los datos a la vista.
+     *
+     * @param int $id ID de la conversación.
+     * @return string Vista renderizada.
+     */
     public function mostrar_contacto($id)
     {
-        // Obtiene la conversación y sus mensajes asociados
+        $this->mensajeModel->marcarMensajeVisitanteComoLeido($id);
         $conversacion = $this->conversacionModel->obtenerConversacionConMensajes($id);
 
         $breadcrumbs = [
@@ -140,242 +175,302 @@ class Conversacion extends BaseController
             ['label' => 'Detalle de Contacto', 'url' => ''],
         ];
 
-        // Datos que se enviarán a la vista
+        $conteos = $this->getConteoPendientes();
+
         $data = [
-            'titulo' => 'Contacto - ' . $conversacion->asunto,
+            'titulo'      => 'Contacto - ' . $conversacion->asunto,
             'conversacion' => $conversacion,
             'breadcrumbs' => $breadcrumbs,
+            'totalPendientes'     => $conteos['totalPendientes']     ?? 0,
+            'consultasPendientes' => $conteos['consultasPendientes'] ?? 0,
+            'contactosPendientes' => $conteos['contactosPendientes'] ?? 0,
         ];
 
-        // Retorna la vista correspondiente (por ejemplo, admin/consultas.php)
         return view('admin/contacto/show', $data);
     }
 
-
     /**
-     * Responde a una conversación de tipo consulta.
+     * Responde a una conversación de tipo "consulta".
      *
-     * Este método recibe el ID de la conversación, valida la respuesta,
-     * guarda el mensaje de respuesta en la base de datos y envía un correo
-     * tanto al usuario que realizó la consulta como a la cuenta de la empresa.
+     * Valida la respuesta enviada, guarda el mensaje en la base de datos y envía un correo
+     * al usuario y a la empresa. Si ocurre un error en el envío del correo, se registra.
      *
-     * @param int $id El ID de la conversación a la que se responde.
+     * @param int $id ID de la conversación.
      * @return \CodeIgniter\HTTP\RedirectResponse
      */
     public function responder_consulta($id)
     {
-        // Obtener la respuesta enviada desde el formulario
         $respuesta = $this->request->getPost('respuesta');
-
-        // Validar que la respuesta no esté vacía
-        if (empty($respuesta)) {
-            return redirect()->back()
-                ->withInput()
-                ->with('errors', ['respuesta' => 'La respuesta no puede estar vacía.']);
-        }
-
-        // Recuperar la conversación mediante el modelo
         $conversacion = $this->conversacionModel->find($id);
+
         if (!$conversacion) {
             return redirect()->back()
                 ->withInput()
                 ->with('errors', ['error' => 'No se encontró la conversación.']);
         }
 
-        // Preparar los datos para guardar el mensaje de respuesta
         $dataMensaje = [
             'conversacion_id' => $id,
-            'tipo_remitente'  => 'admin',  // La respuesta proviene del administrador
+            'tipo_remitente'  => 'administrador',
             'mensaje'         => $respuesta,
-            'leido'           => 'si',     // Se marca el mensaje como leído
+            'leido'           => 'no',
         ];
 
-        // Instanciar el modelo de mensajes y guardar la respuesta
-        $mensajeModel = new \App\Models\MensajeModel();
-        if (!$mensajeModel->insert($dataMensaje)) {
+        if (!$this->mensajeModel->crearMensaje($dataMensaje, $conversacion->tipo_conversacion)) {
             return redirect()->back()
                 ->withInput()
-                ->with('errors', $mensajeModel->errors());
+                ->with('errors', $this->mensajeModel->errors());
         }
 
-        // Configurar el servicio de correo para enviar la respuesta
-        $emailService = \Config\Services::email();
-        $emailService->setFrom('no-reply@tudominio.com', 'Tattoo Supply Store');
-
-        // Establecer el destinatario principal: el correo del usuario que realizó la consulta
-        $emailService->setTo($conversacion->email);
-        // Agregar una copia oculta a la cuenta de la empresa para registro
-        $emailService->setBCC('tattoosupplystoreok@gmail.com');
-
-        // Configurar el asunto del correo
-        $emailService->setSubject('Respuesta a su consulta: ' . $conversacion->asunto);
-
-        // Construir el cuerpo del mensaje en formato HTML
+        // Configuración del correo
+        $subject = 'Respuesta a su consulta: ' . $conversacion->asunto;
         $mensajeEmail  = "Estimado/a " . esc($conversacion->nombre) . ",<br><br>";
         $mensajeEmail .= "Hemos respondido a su consulta. A continuación, encontrará nuestra respuesta:<br><br>";
         $mensajeEmail .= "<strong>Respuesta:</strong><br>" . nl2br(esc($respuesta)) . "<br><br>";
-        $mensajeEmail .= "Gracias por contactarnos.<br>";
-        $mensajeEmail .= "Saludos cordiales,<br>";
-        $mensajeEmail .= "Tattoo Supply Store";
+        $mensajeEmail .= "Gracias por contactarnos.<br>Saludos cordiales,<br>Tattoo Supply Store";
 
-        $emailService->setMessage($mensajeEmail);
-
-        // Intentar enviar el correo
-        if (!$emailService->send()) {
-            // Registrar el error en los logs y notificar al administrador
-            log_message('error', 'Error al enviar correo de respuesta: ' . $emailService->printDebugger(['headers']));
+        // Envío del correo con BCC para la empresa.
+        if (!$this->enviarCorreoRespuesta($conversacion->email, $subject, $mensajeEmail, 'tattoosupplystoreok@gmail.com')) {
             return redirect()->to("admin/conversaciones/consultas/$id")
                 ->with('mensaje', 'Respuesta registrada, pero hubo un error al enviar el correo.');
         }
 
-        // Redirigir a la vista de detalle de la conversación con un mensaje de éxito
         return redirect()->to("admin/conversaciones/consultas/$id")
             ->with('mensaje', 'Respuesta enviada y registrada correctamente.');
     }
 
-
     /**
-     * Responde a una conversación de tipo contacto.
+     * Responde a una conversación de tipo "contacto".
      *
-     * Este método recibe el ID de la conversación, valida la respuesta,
-     * guarda el mensaje en la base de datos y envía la respuesta por email al contacto.
+     * Valida y guarda la respuesta del administrador, cambia el estado de la conversación a "cerrada"
+     * y envía un correo al contacto. En caso de error en el envío del correo, se registra el error.
      *
-     * @param int $id El ID de la conversación a la que se responde.
+     * @param int $id ID de la conversación.
      * @return \CodeIgniter\HTTP\RedirectResponse
      */
     public function responder_contacto($id)
     {
-        // Obtener la respuesta enviada desde el formulario
         $respuesta = $this->request->getPost('respuesta');
-
-        // Validar que la respuesta no esté vacía
-        if (empty($respuesta)) {
-            return redirect()->back()
-                ->withInput()
-                ->with('errors', ['respuesta' => 'La respuesta no puede estar vacía.']);
-        }
-
-        // Recuperar la conversación utilizando el modelo (asegúrate de tenerla instanciada en el controlador)
         $conversacion = $this->conversacionModel->find($id);
+
         if (!$conversacion) {
             return redirect()->back()
                 ->withInput()
                 ->with('errors', ['error' => 'No se encontró la conversación.']);
         }
 
-        // Preparar los datos para guardar el mensaje de respuesta en la base de datos
         $dataMensaje = [
             'conversacion_id' => $id,
-            'tipo_remitente'  => 'admin',   // Indica que la respuesta es del administrador
+            'tipo_remitente'  => 'administrador',
             'mensaje'         => $respuesta,
-            'leido'           => 'si',      // Marcamos el mensaje como leído (puedes ajustar según la lógica)
+            'leido'           => 'si',
         ];
 
-        // Instanciar el modelo de mensajes (si no lo tienes ya instanciado)
-        $mensajeModel = new \App\Models\MensajeModel();
-        if (!$mensajeModel->insert($dataMensaje)) {
+        if (!$this->mensajeModel->crearMensaje($dataMensaje, $conversacion->tipo_conversacion)) {
             return redirect()->back()
                 ->withInput()
-                ->with('errors', $mensajeModel->errors());
+                ->with('errors', $this->mensajeModel->errors());
         }
 
-        // Cambiar el estado de la conversación a "cerrado"
-        $nuevoEstado = 'cerrado';
+        // Cambiar el estado de la conversación a "cerrada"
+        $this->conversacionModel->actualizarEstadoConversacion($id, 'cerrado');
 
-        // Actualizar el estado de la conversación a "cerrado"
-        $this->conversacionModel->actualizarEstadoConversacion($id, $nuevoEstado);
-
-        // Enviar la respuesta por correo electrónico al contacto
-        $emailService = \Config\Services::email();
-
-        // Configurar el correo (ajusta el remitente y otros parámetros según tu configuración)
-        $emailService->setFrom('no-reply@tudominio.com', 'Tattoo Supply Store');
-        $emailService->setTo($conversacion->email);
-        $emailService->setSubject('Respuesta a su consulta de contacto');
-
-        // Construir el cuerpo del mensaje en formato HTML
+        $subject = 'Respuesta a su consulta de contacto';
         $mensajeEmail  = "Estimado/a " . esc($conversacion->nombre) . ",<br><br>";
         $mensajeEmail .= "Gracias por contactarnos. A continuación, nuestra respuesta a su consulta:<br><br>";
         $mensajeEmail .= "<strong>Asunto:</strong> " . esc($conversacion->asunto) . "<br>";
         $mensajeEmail .= "<strong>Respuesta:</strong> " . esc($respuesta) . "<br><br>";
-        $mensajeEmail .= "Saludos cordiales,<br>";
-        $mensajeEmail .= "Tattoo Supply Store";
+        $mensajeEmail .= "Saludos cordiales,<br>Tattoo Supply Store";
 
-        $emailService->setMessage($mensajeEmail);
-
-        // Intentar enviar el correo
-        if (!$emailService->send()) {
-            // Si falla el envío, se puede registrar el error en los logs
-            log_message('error', 'Error al enviar correo de respuesta: ' . $emailService->printDebugger(['headers']));
+        if (!$this->enviarCorreoRespuesta($conversacion->email, $subject, $mensajeEmail)) {
             return redirect()->to("admin/conversaciones/contactos/$id")
                 ->with('mensaje', 'La respuesta se registró, pero hubo un error al enviar el correo.');
         }
 
-        // Si todo sale bien, redirigir mostrando un mensaje de éxito
         return redirect()->to("admin/conversaciones/contactos/$id")
             ->with('mensaje', 'Respuesta enviada y registrada correctamente.');
     }
 
     /**
-     * Busca y devuelve las conversaciones de tipo "consulta" filtradas por estado y búsqueda.
+     * Envía un correo de respuesta utilizando el servicio de correo de CodeIgniter.
      *
-     * @return \CodeIgniter\HTTP\ResponseInterface JSON con las conversaciones, página actual y total de páginas.
+     * Este método privado centraliza la lógica de envío de correos, permitiendo que
+     * pueda ser reutilizado tanto por responder consultas como por responder contactos.
+     *
+     * @param string $destinatario Dirección de correo del destinatario.
+     * @param string $subject Asunto del correo.
+     * @param string $mensajeEmail Cuerpo del mensaje en formato HTML.
+     * @param string|null $bcc (Opcional) Dirección de correo para copia oculta.
+     * @return bool True si el correo se envió correctamente, false en caso contrario.
+     */
+    private function enviarCorreoRespuesta(string $destinatario, string $subject, string $mensajeEmail, string $bcc = null): bool
+    {
+        $emailService = \Config\Services::email();
+        $emailService->setFrom('no-reply@tudominio.com', 'Tattoo Supply Store');
+        $emailService->setTo($destinatario);
+
+        if (!is_null($bcc)) {
+            $emailService->setBCC($bcc);
+        }
+
+        $emailService->setSubject($subject);
+        $emailService->setMessage($mensajeEmail);
+
+        if (!$emailService->send()) {
+            log_message('error', 'Error al enviar correo de respuesta: ' . $emailService->printDebugger(['headers']));
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Busca y devuelve las conversaciones de tipo "consulta" filtradas según texto, estado y página.
+     *
+     * Parámetros para $estado:
+     * - "todas": Devuelve todas las conversaciones de tipo "consulta" sin filtrar por último mensaje.
+     * - "pendiente": Conversaciones abiertas (estado "abierta") que NO tengan como último mensaje uno del administrador.
+     * - "respondida": Conversaciones abiertas (estado "abierta") cuyo último mensaje fue enviado por el administrador.
+     * - "cerrada" o "eliminada": Conversaciones con estado "cerrada".
+     *
+     * Además, se aplica un filtro de búsqueda en los campos "nombre" y "asunto".
+     *
+     * @return \CodeIgniter\HTTP\ResponseInterface JSON con las conversaciones, la página actual y el total de páginas.
      */
     public function buscar_consultas()
     {
-        // Llamamos al método privado para filtrar conversaciones, indicando el tipo 'consulta'
-        return $this->buscarConversacionesPorTipo('consulta');
+        $textoBusqueda = $this->request->getGet('textoBusqueda') ?? '';
+        $estadoFiltro  = $this->request->getGet('estado') ?? 'todas';
+        $pagina        = $this->request->getGet('pagina') ?? 1;
+        $porPagina     = 10;
+
+        try {
+            // Obtener las conversaciones de tipo "consulta" filtradas y paginadas
+            $conversacionesConsulta = $this->conversacionModel->filtrarConversacionesConsulta($textoBusqueda, $estadoFiltro, $pagina, $porPagina);
+
+            // Asignar el último mensaje a cada conversación (orden descendente para obtener el más reciente)
+            foreach ($conversacionesConsulta as $consulta) {
+                $ultimoMensaje = $this->mensajeModel->where('conversacion_id', $consulta->id)
+                    ->orderBy('updated_at', 'asc')
+                    ->first();
+                $consulta->ultimoMensaje = $ultimoMensaje;
+            }
+
+            // Refinar filtrado para "respondida": conservar solo conversaciones abiertas cuyo último mensaje sea del administrador.
+            if ($estadoFiltro === 'respondida') {
+                $filtradas = [];
+                foreach ($conversacionesConsulta as $consulta) {
+                    if (
+                        $consulta->estado === 'abierta' &&
+                        isset($consulta->ultimoMensaje) &&
+                        $consulta->ultimoMensaje->tipo_remitente === 'administrador'
+                    ) {
+                        $filtradas[] = $consulta;
+                    }
+                }
+                $conversacionesConsulta = $filtradas;
+            }
+
+            // Refinar filtrado para "pendiente": conservar solo conversaciones abiertas sin respuesta de administrador.
+            if ($estadoFiltro === 'pendiente') {
+                $filtradas = [];
+                foreach ($conversacionesConsulta as $consulta) {
+                    if (
+                        $consulta->estado === 'abierta' &&
+                        (!isset($consulta->ultimoMensaje) ||
+                            $consulta->ultimoMensaje->tipo_remitente !== 'administrador')
+                    ) {
+                        $filtradas[] = $consulta;
+                    }
+                }
+                $conversacionesConsulta = $filtradas;
+            }
+
+            // Obtener el total de páginas para la paginación
+            $totalPaginas = $this->conversacionModel->obtenerTotalPaginasConversacionesConsulta($textoBusqueda, $estadoFiltro, $porPagina);
+
+            return $this->response->setJSON([
+                'consultas'    => $conversacionesConsulta,
+                'paginaActual' => $pagina,
+                'totalPaginas' => $totalPaginas
+            ]);
+        } catch (\Exception $e) {
+            log_message('error', $e->getMessage());
+            return $this->response->setStatusCode(500)->setJSON([
+                'error' => 'Error al cargar las conversaciones de consultas. Por favor, inténtalo de nuevo más tarde.'
+            ]);
+        }
     }
 
     /**
      * Busca y devuelve las conversaciones de tipo "contacto" filtradas por estado y búsqueda.
      *
-     * @return \CodeIgniter\HTTP\ResponseInterface JSON con las conversaciones, página actual y total de páginas.
+     * @return \CodeIgniter\HTTP\ResponseInterface JSON con las conversaciones, la página actual y el total de páginas.
      */
     public function buscar_contactos()
     {
-        // Llamamos al método privado para filtrar conversaciones, indicando el tipo 'contacto'
-        return $this->buscarConversacionesPorTipo('contacto');
+        $pagina        = $this->request->getGet('pagina') ?? 1;
+        $textoBusqueda = $this->request->getGet('textoBusqueda') ?? '';
+        $estadoFiltro  = $this->request->getGet('estado') ?? 'todas';
+        $porPagina     = 10;
+
+        try {
+            $conversacionesContacto = $this->conversacionModel->filtrarConversacionesContacto($textoBusqueda, $estadoFiltro, $pagina);
+            $totalPaginas = $this->conversacionModel->obtenerTotalPaginasConversacionesContacto($textoBusqueda, $estadoFiltro, $porPagina);
+
+            // Asignar el último mensaje a cada conversación
+            foreach ($conversacionesContacto as $consulta) {
+                $ultimoMensaje = $this->mensajeModel->where('conversacion_id', $consulta->id)
+                    ->orderBy('created_at', 'DESC')
+                    ->first();
+                $consulta->ultimoMensaje = $ultimoMensaje;
+            }
+
+            return $this->response->setJSON([
+                'contactos'    => $conversacionesContacto,
+                'paginaActual' => $pagina,
+                'totalPaginas' => $totalPaginas
+            ]);
+        } catch (\Exception $e) {
+            log_message('error', $e->getMessage());
+            return $this->response->setStatusCode(500)->setJSON([
+                'error' => 'Error al cargar las conversaciones de contactos. Por favor, inténtalo de nuevo más tarde.'
+            ]);
+        }
     }
 
     /**
-     * Método privado que encapsula la lógica de filtrado de conversaciones.
-     * Recibe el tipo de conversación (por ejemplo, 'consulta' o 'contacto'),
-     * además de los parámetros de búsqueda y estado.
+     * Marca una conversación como cerrada.
      *
-     * @param string $tipo Tipo de conversación a filtrar.
-     * @return \CodeIgniter\HTTP\ResponseInterface JSON con el resultado del filtrado.
+     * Actualiza el estado de la conversación a "cerrado". Si la actualización es exitosa,
+     * redirige al listado de conversaciones con un mensaje de éxito; de lo contrario, muestra un error.
+     *
+     * @param int $id ID de la conversación a cerrar.
+     * @return \CodeIgniter\HTTP\RedirectResponse
      */
-    private function buscarConversacionesPorTipo(string $tipo)
+    public function cerrar($id)
     {
-        // Recupera la página actual, la cadena de búsqueda y el estado desde los parámetros GET.
-        // Se asigna 'todos' como valor por defecto en el estado para no filtrar si no se especifica.
-        $pagina    = $this->request->getGet('pagina') ?? 1;
-        $texto     = $this->request->getGet('busqueda') ?? '';
-        $estado    = $this->request->getGet('estado') ?? 'todos';
-        $porPagina = 10;
-
-        try {
-            // Se llama al método del modelo para filtrar las conversaciones según:
-            // - Texto: que se buscará en campos como nombre o asunto.
-            // - Estado: 'todos', 'abierto' o 'cerrado'.
-            // - Página: para la paginación.
-            // - Tipo: 'consulta' o 'contacto'.
-            $conversaciones = $this->conversacionModel->filtrarConversaciones($texto, $estado, $pagina, $tipo);
-            $totalPaginas   = $this->conversacionModel->obtenerTotalPaginasConversaciones($texto, $estado, $porPagina, $tipo);
-
-            // Se devuelve una respuesta en formato JSON con los datos obtenidos.
-            return $this->response->setJSON([
-                'conversaciones' => $conversaciones,
-                'paginaActual'   => $pagina,
-                'totalPaginas'   => $totalPaginas
-            ]);
-        } catch (\Exception $e) {
-            // En caso de error, se registra en el log y se retorna un error 500 en formato JSON.
-            log_message('error', $e->getMessage());
-            return $this->response->setStatusCode(500)->setJSON([
-                'error' => 'Error al cargar las conversaciones. Por favor, inténtalo de nuevo más tarde.'
-            ]);
+        if ($this->conversacionModel->actualizarEstadoConversacion($id, 'cerrado')) {
+            return redirect()->to(base_url('admin/conversaciones/contactos'))
+                ->with('mensaje', 'La conversación se ha marcado como cerrada.');
+        } else {
+            return redirect()->back()->with('errors', ['error' => 'No se pudo actualizar el estado de la conversación.']);
         }
+    }
+
+    /**
+     * Retorna los conteos de mensajes pendientes en formato JSON.
+     *
+     * Este método expone la funcionalidad de getConteoPendientes() definida en el BaseController,
+     * permitiendo que los scripts de frontend (como badges.js) obtengan los conteos actualizados.
+     *
+     * @return \CodeIgniter\HTTP\ResponseInterface JSON con los conteos de:
+     *         - consultasPendientes
+     *         - contactosPendientes
+     *         - totalPendientes
+     */
+    public function conteoPendientes()
+    {
+        $conteo = $this->getConteoPendientes();
+        return $this->response->setJSON($conteo);
     }
 }

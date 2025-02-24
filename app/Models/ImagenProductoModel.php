@@ -46,4 +46,6 @@ class ImagenProductoModel extends Model
     {
         return $this->where('producto_id', $productoId)->findAll();
     }
+
+    
 }

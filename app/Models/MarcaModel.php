@@ -1,100 +1,170 @@
 <?php
 
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/PHPClass.php to edit this template
- */
-
 namespace App\Models;
 
 use CodeIgniter\Model;
 
 /**
- * Description of MarcaModel
+ * Modelo para gestionar las marcas de productos.
  *
- * @author Torres Gamarra Enrique Ramon
+ * Este modelo administra la creación, actualización, eliminación (dar de baja)
+ * y filtrado de marcas. Además, define las reglas de validación y las relaciones (por ejemplo,
+ * la relación con productos, si se utiliza).
+ *
+ * @package App\Models
  */
 class MarcaModel extends Model
 {
+    // Configuración básica del modelo
     protected $table            = 'marcas';
     protected $primaryKey       = 'id';
     protected $useSoftDeletes   = false;
     protected $allowedFields    = ['nombre', 'descripcion', 'estado'];
     protected $returnType       = 'object';
-    protected $useTimestamps    = true; // Habilitar marcas de tiempo
-    protected $dateFormat       = 'datetime'; // Formato de fecha y hora
+    protected $useTimestamps    = true;
+    protected $dateFormat       = 'datetime';
 
-    // Validación de datos
+    // Reglas de validación
     protected $validationRules = [
-        'nombre' => 'required|min_length[3]|max_length[255]',
-        'descripcion' => 'permit_empty', // La descripción es opcional
-        'estado' => 'in_list[activo,inactivo]', // Estado como ENUM
+        'nombre'      => 'required|min_length[3]|max_length[255]',
+        'descripcion' => 'permit_empty', // Campo opcional
+        'estado'      => 'in_list[activo,inactivo]',
     ];
 
+    // Mensajes personalizados para validaciones
     protected $validationMessages = [
         'nombre' => [
-            'required' => 'El nombre de la marca es obligatorio.',
-            'min_length' => 'El nombre debe tener al menos 3 caracteres.',
-            'max_length' => 'El nombre no puede tener más de 255 caracteres.',
+            'required'    => 'El nombre de la marca es obligatorio.',
+            'min_length'  => 'El nombre debe tener al menos 3 caracteres.',
+            'max_length'  => 'El nombre no puede tener más de 255 caracteres.',
         ],
         'estado' => [
-            'in_list' => 'El estado debe ser "activo" o "inactivo".',
+            'in_list'     => 'El estado debe ser "activo" o "inactivo".',
         ],
     ];
 
-    // Relación con productos
+    /**
+     * Relación con productos.
+     * (Requiere que exista el modelo ProductoModel y la columna "marca_id" en la tabla de productos)
+     *
+     * @return \CodeIgniter\Model
+     */
     public function productos()
     {
+        // Nota: CodeIgniter 4 no tiene relaciones nativas; este método es ilustrativo si utilizas algún ORM adicional.
         return $this->hasMany(ProductoModel::class, 'marca_id');
     }
 
-    // Crear Marca
-    public function crearMarca($data)
+    /**
+     * Crea una nueva marca.
+     *
+     * Asigna por defecto el estado "activo" y valida los datos. Si la validación falla,
+     * retorna false.
+     *
+     * @param array $data Datos de la marca.
+     * @return bool|int ID de la marca creada o false en caso de error.
+     */
+    public function crearMarca(array $data)
     {
-        $data['estado'] = 'activo'; // Asignar estado 'activo' por defecto
+        // Asigna estado activo por defecto
+        $data['estado'] = 'activo';
 
         if (!$this->validate($data)) {
             return false;
         }
 
+        // Se utiliza save() que inserta o actualiza según corresponda.
         return $this->save($data);
     }
 
-    // Actualizar datos de la marca
-    public function actualizarMarca($id, $data)
+    /**
+     * Actualiza los datos de una marca existente.
+     *
+     * Valida los datos y, de ser válidos, actualiza la marca con el estado "activo" por defecto.
+     *
+     * @param int|string $id Identificador de la marca.
+     * @param array $data Datos a actualizar.
+     * @return bool True si la actualización fue exitosa, false de lo contrario.
+     */
+    public function actualizarMarca($id, array $data)
     {
         if (!$this->validate($data)) {
             return false;
         }
 
+        // Se fuerza el estado activo al actualizar (puedes modificar esta lógica si es necesario)
         $data['estado'] = 'activo';
 
         return $this->update($id, $data);
     }
 
-    // Eliminar Marca (dar de baja -> estado == 'inactivo')
+    /**
+     * Elimina (da de baja) una marca.
+     *
+     * Se actualiza el estado a "inactivo", en lugar de eliminar físicamente el registro.
+     *
+     * @param int|string $id Identificador de la marca.
+     * @return bool True si la operación fue exitosa, false de lo contrario.
+     */
     public function eliminarMarca($id)
     {
         $data['estado'] = 'inactivo';
-
         return $this->update($id, $data);
     }
 
     /**
-     * Filtra las marcas según texto de búsqueda, estado y página.
+     * Obtiene las marcas filtradas y paginadas utilizando la paginación nativa de CodeIgniter.
+     *
+     * Este método aplica filtros de búsqueda en los campos "nombre" y "descripcion", y filtra
+     * por el estado de la marca (si no es "todos"). Luego, ordena los resultados por "updated_at"
+     * en forma descendente y utiliza el método paginate() para retornar los resultados paginados.
+     *
+     * @param string $estado   Estado a filtrar ("activo", "inactivo" o "todos").
+     * @param string $busqueda Texto de búsqueda.
+     * @param int $pagina      Página actual a mostrar.
+     * @param int $perPage     Número de registros por página.
+     * @return mixed           Array de marcas paginadas; el pager se configura automáticamente.
+     */
+    public function obtenerMarcasFiltradas(string $estado = 'todos', string $busqueda = '', int $pagina = 1, int $perPage = 10)
+    {
+        // Reinicia el query builder para evitar interferencias de consultas previas
+        $this->builder()->resetQuery();
+
+        // Aplica filtro de búsqueda si se proporciona
+        if (!empty($busqueda)) {
+            $this->groupStart()
+                ->like('nombre', $busqueda)
+                ->orLike('descripcion', $busqueda)
+                ->groupEnd();
+        }
+
+        // Aplica filtro de estado si no es "todos"
+        if ($estado !== 'todos') {
+            $this->where('estado', $estado);
+        }
+
+        // Ordena por 'updated_at' en forma descendente y pagina,
+        // pasando $pagina como la página actual; el grupo de paginación se deja por defecto ("default").
+        return $this->orderBy('updated_at', 'DESC')
+            ->paginate($perPage, 'default', $pagina);
+    }
+
+
+    /**
+     * Obtiene el total de páginas para los filtros aplicados.
+     *
+     * Calcula el total de registros que coinciden con los filtros y divide entre $porPagina.
      *
      * @param string $texto Texto de búsqueda.
-     * @param string $estado Estado de las marcas ('activo', 'inactivo' o 'todos').
-     * @param int $pagina Número de página.
+     * @param string $estado Estado ("activo", "inactivo" o "todos").
      * @param int $porPagina Cantidad de registros por página.
-     * @return array Lista de categorías filtradas y paginadas.
+     * @return int Total de páginas.
      */
-    public function filtrarMarcas($texto = '', $estado = 'todos', $pagina = 1, $porPagina = 10)
+    public function obtenerTotalPaginas(string $texto = '', string $estado = 'todos', int $porPagina = 10): int
     {
-        // Iniciar la consulta
         $builder = $this->db->table($this->table);
 
-        // Aplicar filtro de texto (búsqueda)
+        // Aplicar búsqueda en "nombre" y "descripcion"
         if (!empty($texto)) {
             $builder->groupStart()
                 ->like('nombre', $texto)
@@ -107,72 +177,7 @@ class MarcaModel extends Model
             $builder->where('estado', $estado);
         }
 
-        // Ordenar por 'updated_at' en orden descendente
-        $builder->orderBy('updated_at', 'DESC');
-
-        // Paginación
-        $offset = ($pagina - 1) * $porPagina; // Calcular el offset
-        $builder->limit($porPagina, $offset);
-
-        // Ejecutar la consulta y obtener los resultados
-        $query = $builder->get();
-        return $query->getResultArray();
-    }
-
-    /**
-     * Obtiene el total de páginas para los filtros aplicados.
-     *
-     * @param string $texto Texto de búsqueda.
-     * @param string $estado Estado de las categorías ('activo', 'inactivo' o 'todos').
-     * @param int $porPagina Cantidad de registros por página.
-     * @return int Total de páginas.
-     */
-    public function obtenerTotalPaginas($texto = '', $estado = 'todos', $porPagina = 10)
-    {
-        // Iniciar la consulta
-        $builder = $this->db->table($this->table);
-
-        // Aplicar filtro de texto (búsqueda)
-        if (!empty($texto)) {
-            $builder->groupStart()
-                ->like('nombre', $texto) // Buscar en el campo 'nombre'
-                ->orLike('descripcion', $texto) // Buscar en el campo 'descripcion'
-                ->groupEnd();
-        }
-
-        // Aplicar filtro de estado
-        if ($estado !== 'todos') {
-            $builder->where('estado', $estado); // Filtrar por estado
-        }
-
-        // Obtener el total de registros que coinciden con los filtros
         $totalRegistros = $builder->countAllResults();
-
-        // Calcular el total de páginas
         return ceil($totalRegistros / $porPagina);
-    }
-
-    // Obtener marcas con paginación y filtros
-    public function obtenerMarcasFiltradas($estado = 'todos', $busqueda = '', $perPage = 10)
-    {
-        // Limpiar cualquier consulta anterior
-        $this->builder()->resetQuery();
-
-        // Si hay término de búsqueda, aplicar la búsqueda primero
-        if (!empty($busqueda)) {
-            $this->groupStart()
-                ->like('nombre', '%' . $busqueda . '%')
-                ->orLike('descripcion', '%' . $busqueda . '%')
-                ->groupEnd();
-        }
-
-        // Aplicar el filtro de estado después de la búsqueda
-        if ($estado !== 'todos') {
-            $this->where('estado', $estado);
-        }
-
-        // Aplicar el ordenamiento al final
-        return $this->orderBy('updated_at', 'DESC')
-            ->paginate($perPage);
     }
 }

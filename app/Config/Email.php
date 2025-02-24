@@ -61,7 +61,7 @@ class Email extends BaseConfig
      * Puerto SMTP.
      * Para Gmail con TLS se utiliza el puerto 587.
      */
-    public int $SMTPPort = 587;
+    public int $SMTPPort = 465; // modificado por problemas
 
     /**
      * Tiempo de espera para la conexión SMTP (en segundos).
@@ -77,7 +77,7 @@ class Email extends BaseConfig
      * Tipo de cifrado para la conexión SMTP.
      * Gmail requiere 'tls' para conexiones seguras.
      */
-    public string $SMTPCrypto = 'tls';
+    public string $SMTPCrypto = 'ssl'; // modificado por problemas
 
     /**
      * Habilita el ajuste de palabras en el correo.

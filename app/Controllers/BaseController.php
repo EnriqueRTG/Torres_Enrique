@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Controllers\Admin\Conversacion;
 use CodeIgniter\Controller;
 use CodeIgniter\HTTP\CLIRequest;
 use CodeIgniter\HTTP\IncomingRequest;
@@ -54,5 +55,66 @@ abstract class BaseController extends Controller
         // Preload any models, libraries, etc, here.
 
         // E.g.: $this->session = \Config\Services::session();
+
+        // Carga el modelo de conversaciones
+        $this->conversacionModel = new \App\Models\ConversacionModel();
+        $this->mensajeModel = new \App\Models\MensajeModel();
+    }
+
+    /**
+     * @var ConversacionModel
+     */
+    protected $conversacionModel;
+
+    protected $mensajeModel;
+
+    /**
+     * Retorna un arreglo con los conteos de mensajes pendientes.
+     *
+     * - "consultasPendientes": Se consideran pendientes aquellas conversaciones de tipo "consulta"
+     *   en estado "abierta" cuyo último mensaje registrado sea de un remitente "cliente" (o no exista).
+     * - "contactosPendientes": Se cuentan las conversaciones de tipo "contacto" en estado "abierta".
+     * - "totalPendientes": Suma total de ambos conteos.
+     *
+     * @return array Arreglo asociativo con:
+     *               - 'consultasPendientes': (int) Número de consultas pendientes.
+     *               - 'contactosPendientes': (int) Número de contactos pendientes.
+     *               - 'totalPendientes': (int) Suma total de ambos.
+     */
+    protected function getConteoPendientes()
+    {
+        // Obtener todas las conversaciones de tipo "consulta" en estado "abierta"
+        // Se usa un límite alto para abarcar la mayoría de registros.
+        $conversacionesConsulta = $this->conversacionModel->filtrarConversacionesConsulta('', 'todas', 1, 1000);
+        $consultasPendientes = 0;
+
+
+        // Asignar el último mensaje a cada conversación (orden ascendente para obtener el más reciente)
+        foreach ($conversacionesConsulta as $consulta) {
+            $ultimoMensaje = $this->mensajeModel->where('conversacion_id', $consulta->id)
+                ->orderBy('updated_at', 'ASC')
+                ->first();
+            $consulta->ultimoMensaje = $ultimoMensaje;
+        }
+
+        // Iterar cada conversación de consulta
+        foreach ($conversacionesConsulta as $conversacion) {
+            if ($conversacion->estado === 'abierta') {
+                if ($conversacion->ultimoMensaje && $conversacion->ultimoMensaje->tipo_remitente === 'cliente') {
+                    $consultasPendientes += 1;
+                }
+            }
+        }
+
+        // Para las conversaciones de tipo "contacto", se utiliza el método existente
+        $contactosPendientes = $this->conversacionModel->contarConversacionesPorTipoYEstado('contacto', 'abierta');
+
+        $totalPendientes = $consultasPendientes + $contactosPendientes;
+
+        return [
+            'consultasPendientes' => $consultasPendientes,
+            'contactosPendientes' => $contactosPendientes,
+            'totalPendientes'     => $totalPendientes,
+        ];
     }
 }

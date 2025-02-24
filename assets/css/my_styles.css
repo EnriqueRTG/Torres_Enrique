@@ -1,3 +1,4 @@
+
 /* =========================
    FONT-FACES: Montserrat & Roboto
    ========================= */
@@ -9,8 +10,8 @@
     font-weight: 700;
     src: local('Montserrat Bold'),
         local('Montserrat-Bold'),
-        url('../fonts/Montserrat/montserrat-v25-latin-700.woff2') format('woff2'),
-        url('../fonts/Montserrat/montserrat-v25-latin-700.woff') format('woff');
+        url('../fonts/Montserrat/montserrat-v29-latin-700.woff2') format('woff2'),
+        url('../fonts/Montserrat/montserrat-v29-latin-700.woff') format('woff');
 }
 
 /* Roboto Regular para el cuerpo del texto */
@@ -20,8 +21,8 @@
     font-weight: 400;
     src: local('Roboto'),
         local('Roboto-Regular'),
-        url('../fonts/Roboto/roboto-v29-latin-regular.woff2') format('woff2'),
-        url('../fonts/Roboto/roboto-v29-latin-regular.woff') format('woff');
+        url('../fonts/Roboto/roboto-v47-latin-regular.woff2') format('woff2'),
+        url('../fonts/Roboto/roboto-v47-latin-regular.woff') format('woff');
 }
 
 /* =========================

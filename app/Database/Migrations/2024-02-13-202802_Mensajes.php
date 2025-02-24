@@ -8,7 +8,7 @@ class Mensajes extends Migration
 {
     public function up()
     {
-        // Agregar campos a la tabla "mensajes"
+        // Definir los campos para la tabla "mensajes"
         $this->forge->addField([
             'id' => [
                 'type'           => 'INT',
@@ -16,51 +16,54 @@ class Mensajes extends Migration
                 'unsigned'       => true,
                 'auto_increment' => true,
             ],
-            // Relación con la conversación
+            // Clave foránea: ID de la conversación asociada. Se establece como NOT NULL.
             'conversacion_id' => [
                 'type'       => 'INT',
                 'constraint' => 11,
                 'unsigned'   => true,
+                'null'       => false,
             ],
-            // Indica quién envía el mensaje: "cliente", "admin" o "visitante"
+            // Indica quién envía el mensaje: "cliente", "administrador" o "visitante"
             'tipo_remitente' => [
                 'type'       => 'ENUM',
-                'constraint' => ['cliente', 'admin', 'visitante'],
+                'constraint' => ['cliente', 'administrador', 'visitante'],
                 'default'    => 'visitante',
             ],
-            // Contenido del mensaje
+            // Contenido del mensaje (no puede ser nulo)
             'mensaje' => [
                 'type' => 'TEXT',
                 'null' => false,
             ],
-            // Indicador de lectura: 0 (no leído) o 1 (leído)
+            // Indicador de lectura: 'si' o 'no'
             'leido' => [
                 'type'       => 'ENUM',
                 'constraint' => ['si', 'no'],
                 'default'    => 'no',
             ],
-            // Fechas de creación
+            // Timestamp de creación (se asigna automáticamente si se usa Timestamps en el modelo)
             'created_at' => [
                 'type' => 'DATETIME',
                 'null' => true,
             ],
-            // Fecha de última actualización
+            // Timestamp de última actualización
             'updated_at' => [
                 'type' => 'DATETIME',
                 'null' => true,
             ],
         ]);
-        // Clave primaria
+
+        // Definir la clave primaria
         $this->forge->addKey('id', true);
-        // Clave foránea con la tabla de conversaciones
+        // Agregar la clave foránea en 'conversacion_id' que referencia la tabla "conversaciones"
         $this->forge->addForeignKey('conversacion_id', 'conversaciones', 'id', 'CASCADE', 'CASCADE');
-        // Crear la tabla
-        $this->forge->createTable('mensajes');
+
+        // Crear la tabla "mensajes". El segundo parámetro true evita errores si ya existe.
+        $this->forge->createTable('mensajes', true);
     }
 
     public function down()
     {
-        // Eliminar la tabla
-        $this->forge->dropTable('mensajes');
+        // Eliminar la tabla "mensajes" si existe.
+        $this->forge->dropTable('mensajes', true);
     }
 }

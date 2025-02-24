@@ -9,7 +9,7 @@
 
         <!-- Menú colapsable centrado -->
         <div class="collapse navbar-collapse justify-content-center" id="navbarMenu">
-            <ul class="navbar-nav mb-2 mb-lg-0 gap-3">
+            <ul class="navbar-nav mb-2 mb-lg-0 gap-3 my-md-0 my-4">
                 <!-- Enlace al Dashboard -->
                 <li class="nav-item">
                     <a class="nav-link" href="<?= base_url('admin/dashboard'); ?>">Dashboard</a>
@@ -18,28 +18,42 @@
                 <li class="nav-item">
                     <a class="nav-link" href="<?= base_url(); ?>">Tienda</a>
                 </li>
+
                 <!-- Dropdown para mensajes -->
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Mensajes
-                        <!-- Badge para mostrar cantidad de mensajes no leídos -->
-                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                            99+ <span class="visually-hidden">unread messages</span>
-                        </span>
+                        <!-- Badge principal: solo se muestra si hay mensajes pendientes -->
+                        <?php if ($totalPendientes > 0): ?>
+                            <span id="badgeTotalPendientes" class="top-0 start-100 translate-middle badge rounded-pill bg-danger ms-2">
+                                <?= $totalPendientes ?>
+                                <span class="visually-hidden">mensajes pendientes</span>
+                            </span>
+                        <?php endif; ?>
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="messagesDropdown">
                         <li>
                             <a class="dropdown-item" href="<?= base_url('admin/conversaciones/consultas'); ?>">
-                                Consultas <span class="badge text-bg-warning">4</span>
+                                Consultas
+                                <!-- Badge interno: solo se muestra si hay pendientes -->
+                                <?php if ($consultasPendientes > 0): ?>
+                                    <span id="badgeConsultas" class="badge text-bg-warning"><?= $consultasPendientes ?></span>
+                                <?php endif; ?>
                             </a>
                         </li>
                         <li>
                             <a class="dropdown-item" href="<?= base_url('admin/conversaciones/contactos'); ?>">
-                                Contactos <span class="badge text-bg-warning">4</span>
+                                Contactos
+                                <!-- Badge interno: solo se muestra si hay pendientes -->
+                                <?php if ($contactosPendientes > 0): ?>
+                                    <span id="badgeContactos" class="badge text-bg-warning"><?= $contactosPendientes ?></span>
+                                <?php endif; ?>
                             </a>
                         </li>
                     </ul>
                 </li>
+
+
                 <!-- Dropdown para opciones del administrador -->
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="adminDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">

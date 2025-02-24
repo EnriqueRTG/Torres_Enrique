@@ -30,7 +30,7 @@ class Login extends BaseController
             }
         }
 
-        return  view('auth/login' , $data); // Muestra la vista del formulario de login
+        return  view('auth/login', $data); // Muestra la vista del formulario de login
     }
 
     public function login_post()
@@ -51,7 +51,7 @@ class Login extends BaseController
         if ($usuario && $this->usuarioModel->verificarPassword($password, $usuario->password)) {
             unset($usuario->password); // elimino la password del conjunto de datos traidos del usuario
             $this->setUsuarioSesion($usuario); // guardo los datos del usuario en la sesion
-            return $this->redirigirEnBaseAlRol($usuario->rol); // redirijo a algun modulo de la aplicion en funcion al rol del usuario
+            return $this->redirigirEnBaseAlRol($usuario->rol, $usuario->nombre, $usuario->apellido); // redirijo a algun modulo de la aplicion en funcion al rol del usuario
         } else {
             return redirect()->back()
                 ->withInput()
@@ -64,12 +64,12 @@ class Login extends BaseController
         session()->set('usuario', $usuario);
     }
 
-    private function redirigirEnBaseAlRol($rol)
+    private function redirigirEnBaseAlRol($rol, $nombre, $apellido)
     {
         if ($rol === 'administrador') {
-            return redirect()->route('admin.dashboard');
+            return redirect()->route('admin.dashboard')->with('mensaje', 'Bienvenido al Dashboard, Usuario Administrador');
         } else {
-            return redirect()->route('web.catalogo');
+            return redirect()->route('web.catalogo')->with('mensaje', 'Bienvenido ' . $nombre . ' ' . $apellido );
         }
     }
 

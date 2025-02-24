@@ -1,81 +1,113 @@
-<div class="container mt-3">
+<!-- Vista: app/Views/web/carrito.php -->
 
-    <div class="text-center bg-body">
-        <p class="fs-1">Productos de tu Carrito</p>
+<?= view("layouts/header-cliente", ['titulo' => $titulo]) ?>
+
+<!-- Se incluye el partial del Navbar (para la parte pública del sitio) -->
+<?= view("partials/_navbar") ?>
+
+<!-- Contenedor principal: Catálogo del Carrito -->
+<main class="container my-3 main-content">
+    <!-- Mensajes de sesión: alertas de error o confirmación -->
+    <div class="alert-info text-center">
+        <?= session()->has('errors') ? view('partials/_session-error') : view('partials/_session') ?>
     </div>
 
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>Producto</th>
-                <th>Cantidad</th>
-                <th>Precio Unitario</th>
-                <th>Subtotal</th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php if ($cartItems != null): ?>
-                <?php foreach ($cartItems as $item): ?>
-                    <tr data-rowid="<?= $item['rowid'] ?>">
-                        <td><?= $item['name'] ?></td>
-                        <td>
-                            <div class="input-group input-group-sm">
-                                <div class="input-group-prepend">
-                                    <button class="btn btn-outline-secondary" type="button" onclick="actualizarCantidad('<?= $item['rowid'] ?>', -1)">
+    <!-- Título principal -->
+    <header class="text-center bg-body py-3 mb-4">
+        <h1 class="fs-1">Productos de tu Carrito</h1>
+    </header>
+
+    <!-- Tabla de productos del carrito -->
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <!-- Cabecera de la tabla -->
+            <thead>
+                <tr class="text-center align-middle">
+                    <th scope="col">Producto</th>
+                    <th scope="col">Cantidad</th>
+                    <th scope="col">Precio Unitario</th>
+                    <th scope="col">Subtotal</th>
+                    <th scope="col">Acciones</th>
+                </tr>
+            </thead>
+            <!-- Cuerpo de la tabla -->
+            <tbody>
+                <?php if (!empty($cartItems)): ?>
+                    <?php foreach ($cartItems as $item): ?>
+                        <tr data-rowid="<?= esc($item['rowid']) ?>">
+                            <!-- Nombre del producto -->
+                            <td><?= esc($item['name']) ?></td>
+                            <!-- Cantidad con controles de incremento y decremento -->
+                            <td>
+                                <div class="input-group input-group-sm">
+                                    <button class="btn btn-outline-secondary" type="button" onclick="actualizarCantidad('<?= esc($item['rowid']) ?>', -1)">
                                         -
                                     </button>
-                                </div>
-                                <input type="text" class="form-control text-center" value="<?= $item['qty'] ?>" min="1" onchange="actualizarCantidad('<?= $item['rowid'] ?>', this.value)">
-                                <div class="input-group-append">
-                                    <button class="btn btn-outline-secondary" type="button" onclick="actualizarCantidad('<?= $item['rowid'] ?>', 1)">
+                                    <input type="text" class="form-control text-center" value="<?= esc($item['qty']) ?>" min="1" onchange="actualizarCantidad('<?= esc($item['rowid']) ?>', this.value)">
+                                    <button class="btn btn-outline-secondary" type="button" onclick="actualizarCantidad('<?= esc($item['rowid']) ?>', 1)">
                                         +
                                     </button>
                                 </div>
-                            </div>
-                            <span class="stock-message text-danger"></span>
-                        </td>
-                        <td>$<?= number_format($item['price'], 2) ?></td>
-                        <td>$<?= number_format($item['subtotal'], 2) ?></td>
-                        <td>
-                            <a href="<?= base_url('carrito/quitar/' . $item['rowid']) ?>" class="btn btn-danger btn-sm">
-                                Eliminar
-                            </a>
-                        </td>
+                                <!-- Mensaje de stock (si existe) -->
+                                <span class="stock-message text-danger"></span>
+                            </td>
+                            <!-- Precio Unitario -->
+                            <td>$<?= number_format($item['price'], 2) ?></td>
+                            <!-- Subtotal -->
+                            <td>$<?= number_format($item['subtotal'], 2) ?></td>
+                            <!-- Acciones: botón para eliminar el producto del carrito -->
+                            <td>
+                                <a href="<?= base_url('carrito/quitar/' . esc($item['rowid'])) ?>" class="btn btn-danger btn-sm">
+                                    Eliminar
+                                </a>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <tr>
+                        <td colspan="5" class="text-center fs-3">El carrito está vacío.</td>
                     </tr>
-                <?php endforeach; ?>
-            <?php else: ?>
+                <?php endif; ?>
+            </tbody>
+            <!-- Pie de la tabla con el total -->
+            <tfoot>
                 <tr>
-                    <td class="text-center fs-3" colspan="5">El carrito está vacío.</td>
+                    <td colspan="3" class="text-end"><strong>Total:</strong></td>
+                    <td><strong id="carrito-total">$<?= number_format($total, 2) ?></strong></td>
+                    <td></td>
                 </tr>
-            <?php endif; ?>
-        </tbody>
-        <tfoot>
-            <tr>
-                <td colspan="3" class="text-end"><strong>Total:</strong></td>
-                <td><strong id="carrito-total">$<?= number_format($total, 2) ?></strong></td>
-                <td></td>
-            </tr>
-        </tfoot>
-    </table>
+            </tfoot>
+        </table>
+    </div>
 
-    <?php if ($cartItems != null): ?>
+    <!-- Controles adicionales (acciones para el carrito) -->
+    <?php if (!empty($cartItems)): ?>
         <div class="d-flex justify-content-between mt-3">
             <a href="<?= base_url('carrito/borrar') ?>" class="btn btn-secondary">Limpiar Carrito</a>
             <a href="<?= base_url('carrito/comprar') ?>" class="btn btn-success">Realizar Compra</a>
         </div>
     <?php endif; ?>
+</main>
 
-</div>
+<?= view("layouts/footer-cliente", ['titulo' => $titulo]) ?>
 
+<!-- Scripts -->
 <script>
+    /**
+     * Función para actualizar la cantidad de un producto en el carrito.
+     * Recibe el identificador de la fila y el cambio en la cantidad.
+     * Realiza una solicitud AJAX para actualizar el backend y, de ser exitosa, actualiza la vista.
+     * 
+     * @param {string} rowid - Identificador único de la fila en el carrito.
+     * @param {number|string} cambioCantidad - Cambio en la cantidad (puede ser un número o el valor del input).
+     */
     function actualizarCantidad(rowid, cambioCantidad) {
         // 1. Obtener la fila y el input de cantidad
         const fila = document.querySelector(`tr[data-rowid="${rowid}"]`);
         const inputCantidad = fila.querySelector('input[type="text"]');
 
         // 2. Calcular la nueva cantidad
-        let nuevaCantidad = parseInt(inputCantidad.value) + cambioCantidad;
+        let nuevaCantidad = parseInt(inputCantidad.value) + parseInt(cambioCantidad);
 
         // 3. Validar la nueva cantidad
         if (isNaN(nuevaCantidad) || nuevaCantidad < 1) {
@@ -102,29 +134,16 @@
             .then(data => {
                 if (data.success) {
                     console.log("Carrito actualizado con éxito");
-
                     // 6. Actualizar la vista del carrito
-                    // Actualizar el subtotal de la fila
                     const subtotalElement = fila.querySelector('td:nth-child(4)');
                     subtotalElement.textContent = '$' + data.subtotal;
-
-                    // Actualizar el total del carrito
                     const totalElement = document.querySelector('#carrito-total');
                     totalElement.textContent = '$' + data.total;
-
-                    // Actualizar el valor del input de cantidad
                     inputCantidad.value = nuevaCantidad;
-
-                    // Verificar y mostrar mensaje de stock
+                    // Mostrar mensaje de stock si existe
                     const stockMessageElement = fila.querySelector('.stock-message');
-                    if (data.hasOwnProperty('stockMessage')) {
-                        stockMessageElement.textContent = data.stockMessage;
-                    } else {
-                        stockMessageElement.textContent = '';
-                    }
-
+                    stockMessageElement.textContent = data.stockMessage || '';
                 } else {
-                    // Manejar errores si la actualización falla
                     console.error("Error al actualizar el carrito:", data.message || "Error desconocido");
                     alert("Hubo un error al actualizar el carrito. " + (data.message ? data.message : "Por favor, inténtalo de nuevo."));
                 }
@@ -135,6 +154,12 @@
             });
     }
 
+    /**
+     * Función para mostrar un mensaje temporal en el carrito.
+     * 
+     * @param {string} mensaje - Mensaje a mostrar.
+     * @param {string} tipo - Tipo de alerta (por ejemplo, 'success' o 'danger').
+     */
     function mostrarMensajeCarrito(mensaje, tipo) {
         const mensajeCarrito = document.getElementById('mensaje-carrito');
         mensajeCarrito.textContent = mensaje;

@@ -19,8 +19,8 @@ class DireccionSeeder extends Seeder
         // 2. Crear array para almacenar datos de direcciones
         $direccines = [];
 
-        // 3. Generar 10 direcciones de ejemplo
-        for ($i = 0; $i < 10; $i++) {
+        // 3. Generar 20 direcciones de ejemplo
+        for ($i = 0; $i < 20; $i++) {
             $direccines[] = [
                 // 4. Generar datos falsos con Faker
                 'usuario_id'         => $faker->randomElement($usuarios_id),
