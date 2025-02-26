@@ -2,7 +2,7 @@
 
 use CodeIgniter\Router\RouteCollection;
 
-/**
+/** LISTO
  * @var RouteCollection $routes
  */
 
@@ -58,6 +58,16 @@ $routes->group('', function ($routes) {
         $routes->get('comprar', 'Web\Carrito::comprar');
         $routes->post('finalizarCompra', 'Web\Carrito::finalizarCompra');
     });
+
+    // Rutas para el proceso de Checkout
+    $routes->group('checkout', ['filter' => 'authCliente'], function ($routes) {
+        $routes->get('seleccionarDireccion', 'Web\Checkout::seleccionarDireccion', ['as' => 'checkout.seleccionarDireccion']);
+        $routes->get('nuevaDireccion', 'Web\Checkout::nuevaDireccion', ['as' => 'checkout.nuevaDireccion']);
+        $routes->post('crearNuevaDireccion', 'Web\Checkout::crearNuevaDireccion', ['as' => 'checkout.crearNuevaDireccion']);
+        $routes->get('confirmarPedido', 'Web\Checkout::confirmarPedido', ['as' => 'checkout.confirmarPedido']);
+        $routes->post('finalizarCompra', 'Web\Checkout::finalizarCompra', ['as' => 'checkout.finalizarCompra']);
+    });
+
     $routes->group('compras', ['filter' => 'authCliente'], function ($routes) {
         $routes->get('', 'Web\Compras::index');
         $routes->get('detalle/(:num)', 'Web\Compras::detalle_compra/$1');
@@ -213,5 +223,13 @@ $routes->group('cliente', ['filter' => 'authCliente'], function ($routes) {
         $routes->get('ver/(:num)', 'Cliente\Mensaje::ver/$1', ['as' => 'cliente.mensajes.ver']);
         $routes->post('responder/(:num)', 'Cliente\Mensaje::responder/$1', ['as' => 'cliente.mensajes.responder']);
         $routes->post('cerrar/(:num)', 'Cliente\Mensaje::cerrar/$1', ['as' => 'cliente.mensajes.cerrar']);
+    });
+
+    // Perfil del cliente
+    $routes->group('pedidos', function ($routes) {
+        $routes->get('', 'Cliente\Pedidos::index', ['as' => 'cliente.pedidos.index']);
+        $routes->get('show/(:num)', 'Cliente\Pedidos::show/$1', ['as' => 'cliente.pedidos.show']);
+        $routes->get('descargarPdf/(:num)', 'Cliente\Pedidos::descargarPdf/$1', ['as' => 'cliente.pedidos.descargarPdf']);
+        $routes->get('cancelar/(:num)', 'Cliente\Pedidos::cancelar/$1', ['as' => 'cliente.pedidos.cancelar']);
     });
 });

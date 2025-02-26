@@ -31,7 +31,7 @@
         <!-- Cuerpo de la tarjeta: Formulario de nueva conversación -->
         <div class="card-body">
             <!-- El formulario envía los datos a la ruta que procesa la creación de la conversación -->
-            <form action="<?= site_url('cliente/mensaje/create') ?>" method="post">
+            <form action="<?= site_url('cliente/mensajes/enviar') ?>" method="post">
                 <?= csrf_field() ?>
                 <div class="row g-3">
                     <!-- Campo Asunto -->

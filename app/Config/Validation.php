@@ -100,12 +100,6 @@ class Validation extends BaseConfig
                 'max_length' => 'El campo {field} no puede exceder los {param} caracteres.',
             ],
         ],
-        'telefono' => [
-            'rules' => 'permit_empty|max_length[20]',
-            'errors' => [
-                'max_length' => 'El campo {field} no puede exceder los {param} caracteres.',
-            ],
-        ],
         'rol_id' => [
             'rules' => 'required|is_natural_no_zero',
             'errors' => [
@@ -115,46 +109,46 @@ class Validation extends BaseConfig
         ],
     ];
 
+    // utilizado y probado
     public array $registros = [
         'nombre' => [
             'label' => 'Nombre/s',
             'rules' => 'required|min_length[2]|max_length[125]|alpha_space',
             'errors' => [
-                'required'        => 'Por favor, ingrese Nombre.',
-                'min_length[2]'   => 'El Nombre debe tener al menos 2 caracteres.',
-                'max_length[125]' => 'El Nombre no debe superar los 125 caracteres.',
-                'alpha_space'     => 'El Nombre no debe contener otros caracteres que no sean los del alfabeto y/o espacios.',
+                'required'    => 'Por favor, ingrese Nombre.',
+                'min_length'  => 'El Nombre debe tener al menos 2 caracteres.',
+                'max_length'  => 'El Nombre no debe superar los 125 caracteres.',
+                'alpha_space' => 'El Nombre solo debe contener letras y espacios.',
             ],
         ],
         'apellido' => [
             'label' => 'Apellido/s',
             'rules' => 'required|min_length[2]|max_length[125]|alpha_space',
             'errors' => [
-                'required'        => 'Por favor, ingrese Apellido.',
-                'min_length[2]'   => 'El Apellido debe tener al menos 2 caracteres.',
-                'max_length[125]' => 'El Apellido no debe superar los 125 caracteres.',
-                'alpha_space'     => 'El Apellido no debe contener otros caracteres que no sean los del alfabeto y/o espacios.',
+                'required'    => 'Por favor, ingrese Apellido.',
+                'min_length'  => 'El Apellido debe tener al menos 2 caracteres.',
+                'max_length'  => 'El Apellido no debe superar los 125 caracteres.',
+                'alpha_space' => 'El Apellido solo debe contener letras y espacios.',
             ],
         ],
         'email' =>  [
             'label' => 'Correo electrónico',
-            'rules' => 'required|min_length[12]|max_length[125]|valid_email|is_unique[usuarios.email, id, {id}]',
+            'rules' => 'required|valid_email|max_length[125]|is_unique[usuarios.email]',
             'errors' => [
-                'required'        => 'Por favor, ingresa un correo electrónico.',
-                'min_length[12]'  => 'El correo electrónico debe tener al menos 12 caracteres.',
-                'max_length[125]' => 'El correo electrónico no debe superar los 125 caracteres.',
-                'valid_email'     => 'El correo electrónico ingresado debe ser válido.',
-                'is_unique'       => 'Este correo electrónico ya está registrado.',
+                'required'    => 'El correo electrónico es obligatorio.',
+                'valid_email' => 'Debes ingresar un correo electrónico válido.',
+                'max_length'  => 'El correo electrónico no debe superar los 125 caracteres.',
+                'is_unique'   => 'Este correo electrónico ya está registrado.',
             ],
         ],
         'password' => [
             'label' => 'Contraseña',
             'rules' => 'required|min_length[8]|max_length[20]|alpha_dash',
             'errors' => [
-                'required'        => 'Por favor, ingresa una contraseña.',
-                'min_length[8]'   => 'La contraseña debe tener al menos 8 caracteres.',
-                'max_length[20]'  => 'La contraseña no debe superar los 20 caracteres.',
-                'alpha_dash'      => 'La contraseña solo admite caracteres alfanuméricos, guiones y/o guiones bajos.',
+                'required'   => 'La contraseña es obligatoria.',
+                'min_length' => 'La contraseña debe tener al menos 8 caracteres.',
+                'max_length' => 'La contraseña no debe superar los 20 caracteres.',
+                'alpha_dash' => 'La contraseña solo admite caracteres alfanuméricos, guiones y/o guiones bajos.',
             ],
         ],
         'confirm_password' => [
@@ -321,20 +315,21 @@ class Validation extends BaseConfig
         //'imagen'          => 'required|min_length[4]|max_length[125]|alpha_space',
     ];
 
+    // utilizado y probado 
     public array $login = [
         'email' =>  [
             'label' => 'Correo electrónico',
             'rules' => 'required|valid_email',
             'errors' => [
-                'required'        => 'Por favor, ingresa un correo electrónico.',
-                'valid_email'     => 'El correo electrónico ingresado debe ser válido',
+                'required'    => 'Por favor, ingresa un correo electrónico.',
+                'valid_email' => 'El correo electrónico ingresado debe ser válido',
             ],
         ],
         'password' => [
             'label' => 'Contraseña',
             'rules' => 'required',
             'errors' => [
-                'required'        => 'Por favor, ingresa la contraseña.',
+                'required' => 'Por favor, ingresa la contraseña.',
             ],
         ],
     ];

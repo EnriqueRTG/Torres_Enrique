@@ -1,4 +1,9 @@
 <section class="container mt-3 p-2">
+    <!-- Mensajes de sesión: errores o confirmaciones -->
+    <div class="alert-info text-center" role="alert">
+        <?= session()->has('errors') ? view('partials/_session-error') : view('partials/_session') ?>
+    </div>
+
     <div class="bg-white text-center">
         <p class="fs-1">Mis Compras</p>
     </div>

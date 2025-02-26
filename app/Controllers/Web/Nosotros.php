@@ -1,27 +1,31 @@
 <?php
 
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/PHPClass.php to edit this template
- */
-
 namespace App\Controllers\Web;
 
 use App\Controllers\BaseController;
 
-/**
- * Description of Nosotros
+/** LISTO
+ * Controlador para la página "Nosotros".
  *
- * @author Torres Gamarra Enrique Ramon
+ * Este controlador se encarga de mostrar la información sobre la empresa o el equipo.
+ * 
+  * @package App\Controllers\Web
  */
 class Nosotros extends BaseController
 {
-
+    /**
+     * Muestra la vista "Nosotros".
+     *
+     * @return string Vista renderizada de "Nosotros".
+     */
     public function index()
     {
+        // Obtener la instancia del carrito de compras
+        $cart = \Config\Services::cart();
+
         $data = [
             'titulo' => 'Nosotros',
-            'cart'       => $cart = \Config\Services::cart(),
+            'cart'   => $cart,
         ];
 
         return view('web/nosotros', $data);

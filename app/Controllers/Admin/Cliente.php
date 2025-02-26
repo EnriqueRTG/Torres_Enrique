@@ -8,18 +8,41 @@ use App\Models\ConversacionModel;
 use App\Models\MensajeModel;
 use App\Models\OrdenModel;
 
-/**
+/** PENDIENTE
  * Controlador para la administración de clientes.
  * Permite listar, filtrar y ver detalles (incluyendo historial de conversaciones)
  * de clientes registrados.
- *
- * @author 
+ * 
+ * @package App\Controllers\Admin
  */
 class Cliente extends BaseController
 {
+    /**
+     * Instancia del modelo de Categorías.
+     *
+     * @var UsuarioModel
+     */
     protected $clienteModel;
+
+    /**
+     * Instancia del modelo de Categorías.
+     *
+     * @var ConversacionModel
+     */
     protected $conversacionModel;
+
+    /**
+     * Instancia del modelo de Categorías.
+     *
+     * @var MensajeModel
+     */
     protected $mensajeModel;
+
+    /**
+     * Instancia del modelo de Categorías.
+     *
+     * @var OrdenModel
+     */
     protected $ordenModel;
 
     /**

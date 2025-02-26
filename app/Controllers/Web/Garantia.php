@@ -1,27 +1,32 @@
 <?php
 
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/PHPClass.php to edit this template
- */
-
 namespace App\Controllers\Web;
 
 use App\Controllers\BaseController;
 
-/**
- * Description of Garantia
+/** LISTO
+ * Controlador para la página de Garantía.
  *
- * @author Torres Gamarra Enrique Ramon
+ * Este controlador muestra la vista de Garantía para el usuario final, 
+ * incluyendo el título y el estado del carrito de compras.
+ *
+ * @package App\Controllers\Web
  */
 class Garantia extends BaseController
 {
-
+    /**
+     * Muestra la vista de Garantía.
+     *
+     * @return string Vista renderizada de Garantía.
+     */
     public function index()
     {
+        // Obtener la instancia del carrito de compras
+        $cart = \Config\Services::cart();
+
         $data = [
-            'titulo' => 'Garantia',
-            'cart'       => $cart = \Config\Services::cart(),
+            'titulo' => 'Garantía',
+            'cart'   => $cart,
         ];
 
         return view('web/garantia', $data);

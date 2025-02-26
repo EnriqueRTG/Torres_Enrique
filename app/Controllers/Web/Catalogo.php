@@ -1,29 +1,47 @@
 <?php
 
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/PHPClass.php to edit this template
- */
-
 namespace App\Controllers\Web;
 
 use App\Controllers\BaseController;
-
 use App\Models\ProductoModel;
 use App\Models\CategoriaModel;
 
-/**
- * Description of Comercializacion
+/** LISTO
+ * Controlador para el Catálogo de Productos.
  *
- * @author Torres Gamarra Enrique Ramon
+ * Este controlador gestiona la visualización del catálogo, incluyendo la aplicación de filtros 
+ * (por categoría, precio y orden), la carga de productos activos y la obtención de categorías con stock.
+ *
+ * @package App\Controllers\Web
  */
 class Catalogo extends BaseController
 {
-
+    /**
+     * Instancia del modelo de Productos.
+     *
+     * @var ProductoModel
+     */
     protected $productoModel;
+
+    /**
+     * Instancia del modelo de Categorías.
+     *
+     * @var CategoriaModel
+     */
     protected $categoriaModel;
+
+    /**
+     * Instancia del servicio de Carrito de Compras.
+     *
+     * @var Cart
+     */
     protected $cart;
 
+    /**
+     * Constructor.
+     *
+     * Inicializa los modelos y el servicio del carrito.
+     */
     public function __construct()
     {
         helper(['form', 'url', 'cart']);
@@ -32,22 +50,31 @@ class Catalogo extends BaseController
         $this->cart = \Config\Services::cart();
     }
 
+    /**
+     * Muestra la vista del catálogo.
+     *
+     * Aplica filtros basados en categoría, precio y orden. Los filtros se guardan en sesión para persistir
+     * la selección del usuario.
+     *
+     * @return string Vista renderizada del catálogo.
+     */
     public function index()
     {
         $filtro = $this->request->getGet();
         $session = session();
 
+        // Si se solicita limpiar filtros, se remueven de la sesión y se redirige.
         if ($this->request->getGet('limpiar_filtros')) {
             $session->remove(['filtro_categoria', 'filtro_precio_min', 'filtro_precio_max', 'filtro_orden']);
             return redirect()->to(route_to('web.catalogo'));
         }
 
-        // Construir la consulta utilizando el Query Builder
-        $builder = $this->productoModel->builder(); // Usar el builder del modelo para aprovechar las relaciones
+        // Construir la consulta utilizando el Query Builder del modelo
+        $builder = $this->productoModel->builder();
 
-        // Aplicar filtros (leer de la sesión si existen)
+        // Aplicar filtros según categoría, precio mínimo y máximo, usando la sesión si es necesario
         if (!empty($filtro['categoria'])) {
-            $builder->whereIn('productos.categoria_id', $filtro['categoria']); // Filtrar por 'categoria_id' en la tabla 'productos'
+            $builder->whereIn('productos.categoria_id', $filtro['categoria']);
             $session->set('filtro_categoria', $filtro['categoria']);
         } elseif ($session->has('filtro_categoria')) {
             $filtro['categoria'] = $session->get('filtro_categoria');
@@ -68,20 +95,18 @@ class Catalogo extends BaseController
             $builder->where('productos.precio <=', $session->get('filtro_precio_max'));
         }
 
-        // Ordenar por
+        // Ordenamiento: se guarda en la sesión o se establece un valor por defecto
         if (!empty($filtro['orden'])) {
-            $session->set('filtro_orden', $filtro['orden']); // Guardar el orden en la sesión
+            $session->set('filtro_orden', $filtro['orden']);
         } else {
-            // Si no hay filtro de orden en la petición, verificar si existe en la sesión
             if ($session->has('filtro_orden')) {
-                $filtro['orden'] = $session->get('filtro_orden'); // Leer el orden de la sesión
+                $filtro['orden'] = $session->get('filtro_orden');
             } else {
-                // Si no hay filtro en la petición ni en la sesión, ordenar por defecto por 'fecha_creacion' DESC
                 $filtro['orden'] = 'fecha_registro';
             }
         }
 
-        // Aplicar ordenamiento basado en el valor de $filtro['orden']
+        // Aplicar ordenamiento basado en el valor de 'orden'
         switch ($filtro['orden']) {
             case 'precio_asc':
                 $builder->orderBy('productos.precio', 'ASC');
@@ -89,16 +114,16 @@ class Catalogo extends BaseController
             case 'precio_desc':
                 $builder->orderBy('productos.precio', 'DESC');
                 break;
-            case 'novedades': // Asegúrate de usar 'novedades' si es el valor correcto en tu vista
-            default: // Ordenar por 'fecha_creacion' DESC por defecto si el valor no es válido
+            case 'novedades':
+            default:
                 $builder->orderBy('productos.created_at', 'DESC');
                 break;
         }
 
-        // Obtener los productos después de aplicar los filtros
+        // Obtener los productos activos utilizando un método del modelo que reciba el builder
         $productos = $this->productoModel->getProductosActivos($builder);
 
-        // Obtener las categorías que tienen productos activos en stock
+        // Obtener categorías con productos activos en stock
         $categorias = $this->obtenerCategoriasConProductosActivos();
 
         $breadcrumbs = [
@@ -109,19 +134,22 @@ class Catalogo extends BaseController
         ];
 
         $data = [
-            'titulo'     => 'Catálogo',
-            'productos'  => $productos,
-            'categorias' => $categorias,
-            'filtro'     => $filtro,
-            'cart'       => $this->cart,
+            'titulo'      => 'Catálogo',
+            'productos'   => $productos,
+            'categorias'  => $categorias,
+            'filtro'      => $filtro,
+            'cart'        => $this->cart,
             'breadcrumbs' => $breadcrumbs,
         ];
 
-        return
-            view('web/catalogo', $data);
+        return view('web/catalogo', $data);
     }
 
-    // Método privado para obtener categorías con productos activos
+    /**
+     * Método privado para obtener las categorías con productos activos en stock.
+     *
+     * @return array Lista de categorías.
+     */
     private function obtenerCategoriasConProductosActivos()
     {
         return $this->categoriaModel->select('categorias.*')
@@ -132,13 +160,18 @@ class Catalogo extends BaseController
             ->findAll();
     }
 
+    /**
+     * Muestra el detalle de un producto.
+     *
+     * Obtiene el producto completo, incluyendo sus relaciones (marcas, categorías, imágenes).
+     *
+     * @param int $id ID del producto.
+     * @return string Vista renderizada del producto.
+     */
     public function show($id)
     {
-        // Utilizamos el modelo inyectado en el constructor (si ya lo tienes instanciado)
-        // para obtener el producto completo, que incluye la información de marcas, categorías e imágenes.
         $producto = $this->productoModel->obtenerProductoPorId($id);
 
-        // Verificar que se encontró el producto; de lo contrario, redirigir con un mensaje de error.
         if (!$producto) {
             return redirect()->to('/catalogo')->with('error', 'Producto no encontrado');
         }
@@ -154,18 +187,13 @@ class Catalogo extends BaseController
             ],
         ];
 
-        // Preparar los datos para la vista.
-        // Nota: No es necesario llamar nuevamente a find($id) para obtener el nombre,
-        // ya que $producto ya contiene esa información.
         $data = [
-            'producto' => $producto,
-            'titulo'   => $producto->nombre,
-            'cart'     => $this->cart,  // Asumiendo que $this->cart está inicializado en el constructor
+            'producto'    => $producto,
+            'titulo'      => $producto->nombre,
+            'cart'        => $this->cart,
             'breadcrumbs' => $breadcrumbs,
         ];
 
-        // Retornar la vista utilizando un layout (header, contenido y footer)
-        // Esto puede variar según tu forma de organizar las vistas.
         return view('web/producto', $data);
     }
 }

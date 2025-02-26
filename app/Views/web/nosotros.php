@@ -6,6 +6,12 @@
 
 <!-- Contenedor principal -->
 <main class="container my-3 main-content">
+
+    <!-- Mensajes de sesión: errores o confirmaciones -->
+    <div class="alert-info text-center" role="alert">
+        <?= session()->has('errors') ? view('partials/_session-error') : view('partials/_session') ?>
+    </div>
+
     <section class="card p-4 shadow-sm">
         <header class="card-header text-center bg-transparent border-0 mt-3">
             <h2 class="text-uppercase">Sobre Nosotros</h2>

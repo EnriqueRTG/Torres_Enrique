@@ -17,13 +17,11 @@
     <link rel="stylesheet" href="<?= base_url('assets/swiper/swiper-bundle.min.css'); ?>">
 
     <style>
+        /* Dropdown se despliega al pasar el cursor (solo en pantallas grandes) */
         @media (min-width: 992px) {
-
-            /* Cuando el mouse pase sobre el enlace del dropdown, se muestre el menú */
             .navbar-nav .nav-item.dropdown:hover>.dropdown-menu {
                 display: block;
-                margin-top: 0.1rem;
-                /* Ajusta el espacio si es necesario */
+                margin-top: 0;
             }
         }
     </style>

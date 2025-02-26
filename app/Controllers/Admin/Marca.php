@@ -5,7 +5,7 @@ namespace App\Controllers\Admin;
 use App\Controllers\BaseController;
 use App\Models\MarcaModel;
 
-/**
+/** LISTO
  * Controlador para la gestión de Marcas.
  *
  * Este controlador administra la visualización, creación, actualización, eliminación y

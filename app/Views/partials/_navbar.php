@@ -44,8 +44,15 @@
                     <!-- Opciones adicionales para clientes -->
                     <ul class="navbar-nav d-flex align-content-md-center align-content-start gap-3 justify-content-start justify-content-lg-end">
                         <!-- Carrito -->
-                        <li class="nav-item mx-3">
-                            <a class="btn btn-nav-personalizado position-relative p-0" href="<?= base_url('carrito'); ?>" aria-label="Ver carrito">
+                        <li class="nav-item dropdown mx-3">
+                            <!-- Botón del carrito con dropdown-toggle -->
+                            <a class="btn btn-nav-personalizado position-relative p-0"
+                                href="#"
+                                id="cartDropdown"
+                                role="button"
+                                data-bs-toggle="dropdown"
+                                aria-expanded="false"
+                                aria-label="Ver carrito">
                                 <i class="bi bi-cart3 fs-4"></i>
                                 <?php if ($cart->totalItems() > 0): ?>
                                     <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
@@ -53,7 +60,37 @@
                                     </span>
                                 <?php endif; ?>
                             </a>
+                            <!-- Dropdown que muestra el resumen del carrito -->
+                            <ul class="dropdown-menu dropdown-menu-end p-3" aria-labelledby="cartDropdown" style="min-width: 300px;">
+                                <?php if ($cart->totalItems() > 0): ?>
+                                    <?php foreach ($cart->contents() as $item): ?>
+                                        <li class="dropdown-item">
+                                            <div class="d-flex align-items-center">
+                                                <!-- Imagen del producto -->
+                                                <img src="<?= base_url($item['image'] ?? 'uploads/productos/no-image.png') ?>"
+                                                    alt="<?= esc($item['name']) ?>"
+                                                    class="img-thumbnail me-2"
+                                                    style="width: 50px; height: auto;">
+                                                <div class="flex-grow-1">
+                                                    <strong><?= esc($item['name']) ?></strong>
+                                                    <div class="small text-muted">x <?= $item['qty'] ?> - $<?= number_format($item['qty'] * $item['price'], 2) ?></div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    <?php endforeach; ?>
+                                    <li>
+                                        <hr class="dropdown-divider">
+                                    </li>
+                                    <li class="dropdown-item text-center">
+                                        <a href="<?= base_url('carrito'); ?>" class="btn btn-primary btn-sm me-2">Ver Carrito</a>
+                                        <a href="<?= base_url('checkout/seleccionarDireccion') ?>" class="btn btn-success btn-sm">Finalizar Compra</a>
+                                    </li>
+                                <?php else: ?>
+                                    <li class="dropdown-item text-center">Carrito vacío</li>
+                                <?php endif; ?>
+                            </ul>
                         </li>
+
 
                         <!-- Dropdown para el usuario cliente -->
                         <li class="nav-item dropdown mx-3">
@@ -160,26 +197,3 @@
         </div>
     </div>
 </nav>
-
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        // Solo aplicar hover si la ventana es mayor a 992px (por ejemplo, desktop)
-        if (window.innerWidth >= 992) {
-            const dropdownContainer = document.getElementById("clienteDropdown").parentElement;
-            let timeout;
-
-            dropdownContainer.addEventListener("mouseenter", function() {
-                clearTimeout(timeout);
-                const dd = new bootstrap.Dropdown(document.getElementById("clienteDropdown"));
-                dd.show();
-            });
-
-            dropdownContainer.addEventListener("mouseleave", function() {
-                timeout = setTimeout(function() {
-                    const dd = new bootstrap.Dropdown(document.getElementById("clienteDropdown"));
-                    dd.hide();
-                }, 300);
-            });
-        }
-    });
-</script>

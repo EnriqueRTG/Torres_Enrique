@@ -8,11 +8,13 @@ use App\Models\MarcaModel;
 use App\Models\CategoriaModel;
 use App\Models\ImagenProductoModel;
 
-/**
+/** LISTO
  * Controlador para la gestión de productos.
  *
  * Este controlador administra la visualización, creación, actualización, eliminación y filtrado
  * de productos, incluyendo la integración con las marcas y categorías asociadas.
+ * 
+ * @package App\Controllers\Admin
  */
 class Producto extends BaseController
 {
@@ -299,7 +301,7 @@ class Producto extends BaseController
         $data = $this->request->getPost();
 
         // Obtener el producto actual para comparar el nombre y evitar la validación is_unique
-        $productoActual = $this->productoModel->find($id);
+        $productoActual = $this->productoModel->obtenerProductoPorId($id);
 
         if ($data['nombre'] === $productoActual->nombre) {
             // Remover la regla de unicidad para el campo 'nombre'

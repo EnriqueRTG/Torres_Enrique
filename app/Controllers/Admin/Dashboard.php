@@ -5,7 +5,7 @@ namespace App\Controllers\Admin;
 use App\Controllers\BaseController;
 use App\Models\ConversacionModel;
 
-/**
+/** LISTO
  * Dashboard Controller
  *
  * Este controlador se encarga de presentar la vista del Dashboard del Administrador.

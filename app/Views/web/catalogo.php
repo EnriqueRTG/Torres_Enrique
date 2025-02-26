@@ -107,18 +107,3 @@
         </div>
     <?php endif; ?>
 </main>
-
-<!-- Offcanvas para el Carrito de Compras (lado derecho) -->
-<div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel">
-    <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="offcanvasWithBothOptionsLabel">Carrito de Compras</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Cerrar"></button>
-    </div>
-    <div class="offcanvas-body">
-        <p>Try scrolling the rest of the page to see this option in action.</p>
-        <p>Subtotal (sin envío):</p>
-    </div>
-</div>
-
-<!-- Vista parcial footer -->
-<?= view("layouts/footer-cliente", ['titulo' => $titulo]) ?>

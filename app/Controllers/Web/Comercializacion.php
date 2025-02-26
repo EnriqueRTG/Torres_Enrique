@@ -1,32 +1,38 @@
 <?php
 
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/PHPClass.php to edit this template
- */
-
 namespace App\Controllers\Web;
 
 use App\Controllers\BaseController;
 
-/**
- * Description of Comercializacion
+/** LISTO
+ * Controlador para la sección de Comercialización.
  *
- * @author Torres Gamarra Enrique Ramon
+ * Este controlador muestra la vista de comercialización y redirige a la sección de métodos de pago.
+ *
+ * @package App\Controllers\Web
  */
 class Comercializacion extends BaseController
 {
-
+    /**
+     * Muestra la vista de Comercialización.
+     *
+     * @return string Vista renderizada de Comercialización.
+     */
     public function index()
     {
         $data = [
-            'titulo' => 'Comercializacion',
-            'cart'       => $cart = \Config\Services::cart(),
+            'titulo' => 'Comercialización',
+            'cart'   => \Config\Services::cart(),
         ];
 
         return view('web/comercializacion', $data);
     }
 
+    /**
+     * Redirige a la sección de métodos de pago dentro de la vista de Comercialización.
+     *
+     * @return \CodeIgniter\HTTP\RedirectResponse Redirección a "formas de pago".
+     */
     public function obtener_metodos()
     {
         return redirect()->to(base_url('comercializacion#formas-de-pago'));

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 24-02-2025 a las 18:28:25
+-- Tiempo de generación: 26-02-2025 a las 03:36:42
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -97,7 +97,10 @@ INSERT INTO `conversaciones` (`id`, `usuario_id`, `nombre`, `email`, `asunto`, `
 (18, 10, 'Dr. Avis Kling', 'kaleb73@example.org', 'Ab modi nobis', 'consulta', 'abierta', '2025-02-21 01:29:29', '2025-02-21 01:29:29'),
 (19, 11, 'Hoyt Orn', 'gschumm@example.org', 'Neque nihil quidem', 'consulta', 'abierta', '2025-02-21 01:29:29', '2025-02-21 01:29:29'),
 (20, 2, 'Harrison Franecki I', 'luciano.ruecker@example.net', 'Ea ratione in', 'consulta', 'abierta', '2025-02-21 01:29:29', '2025-02-21 01:29:29'),
-(21, NULL, 'Enrique Ramon', 'enriqueramontg@gmail.com', 'Probado', 'contacto', 'cerrada', '2025-02-21 01:44:12', '2025-02-21 01:55:59');
+(21, NULL, 'Enrique Ramon', 'enriqueramontg@gmail.com', 'Probado', 'contacto', 'cerrada', '2025-02-21 01:44:12', '2025-02-21 01:55:59'),
+(22, 22, 'Enrique Ramon', 'enriqueramontg@gmail.com', 'Probando', 'consulta', 'abierta', '2025-02-26 02:02:34', '2025-02-26 02:02:34'),
+(23, 22, 'Enrique Ramon', 'enriqueramontg@gmail.com', 'Segunda prueba', 'consulta', 'abierta', '2025-02-26 02:07:44', '2025-02-26 02:07:44'),
+(24, 22, 'Enrique Ramon Torres Gamarra', 'enriqueramontg@gmail.com', 'Probando', 'consulta', 'abierta', '2025-02-26 02:18:23', '2025-02-26 02:18:23');
 
 -- --------------------------------------------------------
 
@@ -114,6 +117,13 @@ CREATE TABLE `detalle_orden` (
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `detalle_orden`
+--
+
+INSERT INTO `detalle_orden` (`id`, `orden_id`, `producto_id`, `cantidad`, `precio_unitario`, `created_at`, `updated_at`) VALUES
+(5, 23, 18, 1, 5200.50, '2025-02-26 01:20:51', '2025-02-26 01:20:51');
 
 -- --------------------------------------------------------
 
@@ -161,7 +171,11 @@ INSERT INTO `direcciones` (`id`, `usuario_id`, `nombre_destinatario`, `calle`, `
 (17, 11, 'Shayna Grady', 'Francis Mill', '963', NULL, NULL, 'North Mariahfort', 'Connecticut', '32445-2158', '619.562.3849', '2025-02-21 01:29:29', '2025-02-21 01:29:29'),
 (18, 9, 'Ansley Kovacek', 'Botsford Locks', '1097', '5', NULL, 'South Baron', 'Montana', '07925', '+13415144817', '2025-02-21 01:29:29', '2025-02-21 01:29:29'),
 (19, 2, 'Rocky Willms', 'Sipes Haven', '343', NULL, 'm', 'Port Trycia', 'Vermont', '62966', '606-556-0553', '2025-02-21 01:29:29', '2025-02-21 01:29:29'),
-(20, 12, 'Mr. Kieran Kohler PhD', 'Faustino Extensions', '2015', '3', 'n', 'Deborahmouth', 'Hawaii', '35087-7106', '(435) 999-1326', '2025-02-21 01:29:29', '2025-02-21 01:29:29');
+(20, 12, 'Mr. Kieran Kohler PhD', 'Faustino Extensions', '2015', '3', 'n', 'Deborahmouth', 'Hawaii', '35087-7106', '(435) 999-1326', '2025-02-21 01:29:29', '2025-02-21 01:29:29'),
+(21, 22, 'Enrique Ramon Torres Gamarra', 'Las Teresitas', '5630', '', '', 'Corrientes', 'Corrientes', '3400', '03794406775', '2025-02-25 22:11:22', '2025-02-25 23:17:02'),
+(22, 22, 'Enrique Ramon Torres Gamarra', 'Las Teresitas', '5630', '', '', 'Corrientes', 'Corrientes', '3400', '03794406775', '2025-02-25 22:34:48', '2025-02-25 23:17:16'),
+(23, 22, 'Tamara', 'Chacabuco', '633', '', '', 'Rosario', 'Santa Fe', '3100', '2134587600', '2025-02-25 23:11:54', '2025-02-25 23:11:54'),
+(24, 22, 'Palacios Juliana', 'Los pinos', '1132', '4', '1', 'Rio Cuarto', 'Cordoba', '3800', '9821345667', '2025-02-25 23:15:04', '2025-02-25 23:15:04');
 
 -- --------------------------------------------------------
 
@@ -296,43 +310,10 @@ INSERT INTO `mensajes` (`id`, `conversacion_id`, `tipo_remitente`, `mensaje`, `l
 (30, 15, 'administrador', 'Aut aut nisi exercitationem possimus dolores est laboriosam. Laboriosam inventore qui labore porro ea. Ullam eveniet voluptatem sapiente.', 'no', '2025-02-21 01:29:29', '2025-02-21 01:29:29'),
 (31, 16, 'administrador', 'Est non rem sint non voluptatem. Dignissimos sed esse qui ratione sint. Iure nesciunt ratione corporis repudiandae sapiente nihil. Ut iusto laboriosam nobis praesentium aspernatur quibusdam occaecati et.', 'no', '2025-02-21 01:29:29', '2025-02-21 01:29:29'),
 (32, 21, 'visitante', '1234 probando', 'si', '2025-02-21 01:44:12', '2025-02-21 01:44:25'),
-(33, 21, 'administrador', 'de 10, ahora parece funcionar', 'si', '2025-02-21 01:55:59', '2025-02-21 01:55:59');
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `migrations`
---
-
-CREATE TABLE `migrations` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `version` varchar(255) NOT NULL,
-  `class` varchar(255) NOT NULL,
-  `group` varchar(255) NOT NULL,
-  `namespace` varchar(255) NOT NULL,
-  `time` int(11) NOT NULL,
-  `batch` int(11) UNSIGNED NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Volcado de datos para la tabla `migrations`
---
-
-INSERT INTO `migrations` (`id`, `version`, `class`, `group`, `namespace`, `time`, `batch`) VALUES
-(141, '2024-02-13-175626', 'App\\Database\\Migrations\\Categorias', 'default', 'App', 1740101366, 1),
-(142, '2024-02-13-183953', 'App\\Database\\Migrations\\Marcas', 'default', 'App', 1740101366, 1),
-(143, '2024-02-13-194120', 'App\\Database\\Migrations\\Conversaciones', 'default', 'App', 1740101366, 1),
-(144, '2024-02-13-201051', 'App\\Database\\Migrations\\Usuarios', 'default', 'App', 1740101366, 1),
-(145, '2024-02-13-201150', 'App\\Database\\Migrations\\CreateDirecciones', 'default', 'App', 1740101366, 1),
-(146, '2024-02-13-202802', 'App\\Database\\Migrations\\Mensajes', 'default', 'App', 1740101366, 1),
-(147, '2024-02-13-203638', 'App\\Database\\Migrations\\Productos', 'default', 'App', 1740101366, 1),
-(148, '2024-02-13-210505', 'App\\Database\\Migrations\\Ordenes', 'default', 'App', 1740101366, 1),
-(149, '2024-02-13-211753', 'App\\Database\\Migrations\\DetalleOrden', 'default', 'App', 1740101366, 1),
-(150, '2024-02-13-212751', 'App\\Database\\Migrations\\Facturas', 'default', 'App', 1740101366, 1),
-(151, '2024-05-23-013603', 'App\\Database\\Migrations\\ImagenesProductos', 'default', 'App', 1740101366, 1),
-(152, '2024-07-30-175910', 'App\\Database\\Migrations\\Carritos', 'default', 'App', 1740101366, 1),
-(153, '2024-07-30-192903', 'App\\Database\\Migrations\\DetalleCarrito', 'default', 'App', 1740101366, 1),
-(154, '2024-08-01-010729', 'App\\Database\\Migrations\\DetalleFactura', 'default', 'App', 1740101366, 1);
+(33, 21, 'administrador', 'de 10, ahora parece funcionar', 'si', '2025-02-21 01:55:59', '2025-02-21 01:55:59'),
+(34, 22, 'cliente', 'una pruba desde el formulario de contacto', 'no', '2025-02-26 02:02:34', '2025-02-26 02:02:34'),
+(35, 23, 'cliente', 'probando redireccionamiento', 'no', '2025-02-26 02:07:44', '2025-02-26 02:07:44'),
+(36, 24, 'cliente', 'probando desde la seccion de mensaje, nueva conversacion', 'no', '2025-02-26 02:18:23', '2025-02-26 02:18:23');
 
 -- --------------------------------------------------------
 
@@ -350,6 +331,19 @@ CREATE TABLE `ordenes` (
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `ordenes`
+--
+
+INSERT INTO `ordenes` (`id`, `usuario_id`, `fecha`, `estado`, `total`, `direccion_envio_id`, `created_at`, `updated_at`) VALUES
+(9, 22, '0000-00-00 00:00:00', 'pendiente', 2355166.20, 22, '2025-02-25 23:40:28', '2025-02-25 23:40:28'),
+(10, 22, '0000-00-00 00:00:00', 'cancelada', 0.00, 22, '2025-02-26 00:01:21', '2025-02-26 01:38:09'),
+(11, 22, '0000-00-00 00:00:00', 'cancelada', 0.00, 22, '2025-02-26 00:04:08', '2025-02-26 01:38:12'),
+(12, 22, '0000-00-00 00:00:00', 'pendiente', 21700.50, 22, '2025-02-26 01:06:39', '2025-02-26 01:06:39'),
+(13, 22, '0000-00-00 00:00:00', 'pendiente', 15024.00, 23, '2025-02-26 01:08:32', '2025-02-26 01:08:32'),
+(14, 22, '0000-00-00 00:00:00', 'pendiente', 5200.50, 24, '2025-02-26 01:11:21', '2025-02-26 01:11:21'),
+(23, 22, '0000-00-00 00:00:00', 'pendiente', 5200.50, 24, '2025-02-26 01:20:51', '2025-02-26 01:20:51');
 
 -- --------------------------------------------------------
 
@@ -397,7 +391,7 @@ INSERT INTO `productos` (`id`, `nombre`, `descripcion`, `precio`, `stock`, `cate
 (15, 'Caja Punteras Descartables 30mm. Línea (x15 Unidades) 11 RT', 'Estas punteras descartables están diseñadas específicamente para su uso con agujas de tatuaje. Cada grip tiene un diámetro de 30mm, ideal para trabajos precisos y definidos, asegurando un resultado limpio y profesional.', 10487.00, 25, 3, 10, NULL, NULL, '30 mm', 'Plástico', NULL, 'activo', '2025-02-21 01:29:28', '2025-02-21 01:29:28'),
 (16, 'Producto de Prueba', 'probando el alta de un nuevo producto', 200.00, 10, 12, 15, 'prueba', '1000 kilogramos', '', '', '', 'inactivo', '2025-02-22 18:49:35', '2025-02-24 01:29:05'),
 (17, 'Producto de Prueba 2', '', 1000.00, 100, 11, 14, '', '', '', '', '', 'inactivo', '2025-02-22 19:16:09', '2025-02-24 01:21:58'),
-(18, 'PRODUCTO DE PRUEBA 3', 'probando el campo \'estado\'', 5200.50, 50, 12, 15, 'MODELO 3', '1 TONELADA', '100 X 100 METROS', 'URANIO', 'PERLA', 'activo', '2025-02-24 01:38:36', '2025-02-24 01:58:35');
+(18, 'PRODUCTO DE PRUEBA 3', 'probando el campo \'estado\'... probando cambios del controlador', 5200.50, 49, 12, 15, 'MODELO 3', '1 TONELADA', '100 X 100 METROS', 'URANIO', 'PERLA', 'activo', '2025-02-24 01:38:36', '2025-02-26 01:20:51');
 
 -- --------------------------------------------------------
 
@@ -442,7 +436,9 @@ INSERT INTO `usuarios` (`id`, `nombre`, `apellido`, `email`, `password`, `rol`, 
 (18, 'Britney', 'Abbott', 'jose.trantow@example.com', '$2y$10$yaLsCJDsLI61Ri35JqOIKuAHJM03hQ3WQ4DFazUQrAWQL8.bzYH9i', 'cliente', '2025-02-21 01:29:29', '2025-02-21 01:29:29', 'activo'),
 (19, 'Cicero', 'Reilly', 'gaston25@example.net', '$2y$10$abeIqWtFsXC3xnbuw1VexeHHQGtgjtH5u7VHWV3SeB7RsZ5V3iUlO', 'cliente', '2025-02-21 01:29:29', '2025-02-21 01:29:29', 'activo'),
 (20, 'Abigail', 'Friesen', 'irving.lakin@example.com', '$2y$10$5fyjwF7rvVFPU6yIaXbL2uQHShO9bQEcQllLiO1PTrMVjrj25zq.S', 'cliente', '2025-02-21 01:29:29', '2025-02-21 01:29:29', 'activo'),
-(21, 'Valentin', 'Krajcik', 'joelle17@example.net', '$2y$10$BMfLh4wtj15DvL9UQm4Zje1Xi4/NEF6JvriJ8IkUUaWbuYh0odTG2', 'cliente', '2025-02-21 01:29:29', '2025-02-21 01:29:29', 'activo');
+(21, 'Valentin', 'Krajcik', 'joelle17@example.net', '$2y$10$BMfLh4wtj15DvL9UQm4Zje1Xi4/NEF6JvriJ8IkUUaWbuYh0odTG2', 'cliente', '2025-02-21 01:29:29', '2025-02-21 01:29:29', 'activo'),
+(22, 'Enrique Ramon', 'Torres Gamarra', 'enriqueramontg@gmail.com', '$2y$10$mGMrRr8I5HIz7JuHDANuN.benWuM2TFKGwN57kOZgBHaY8odV8Q1K', 'cliente', '2025-02-24 23:01:22', '2025-02-24 23:01:22', 'activo'),
+(23, 'Enrique Ramon', 'Torres Gamarra', 'enriqueramon@gmail.com', '$2y$10$YnBa/vaboZa3fsBDCibdx.ysp/2cmSxz7BaWgRvKG89n6LwZoffOu', 'cliente', '2025-02-25 00:09:41', '2025-02-25 00:09:41', 'activo');
 
 --
 -- Índices para tablas volcadas
@@ -499,12 +495,6 @@ ALTER TABLE `mensajes`
   ADD KEY `mensajes_conversacion_id_foreign` (`conversacion_id`);
 
 --
--- Indices de la tabla `migrations`
---
-ALTER TABLE `migrations`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Indices de la tabla `ordenes`
 --
 ALTER TABLE `ordenes`
@@ -542,19 +532,19 @@ ALTER TABLE `categorias`
 -- AUTO_INCREMENT de la tabla `conversaciones`
 --
 ALTER TABLE `conversaciones`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT de la tabla `detalle_orden`
 --
 ALTER TABLE `detalle_orden`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `direcciones`
 --
 ALTER TABLE `direcciones`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT de la tabla `imagenes_productos`
@@ -572,19 +562,13 @@ ALTER TABLE `marcas`
 -- AUTO_INCREMENT de la tabla `mensajes`
 --
 ALTER TABLE `mensajes`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
-
---
--- AUTO_INCREMENT de la tabla `migrations`
---
-ALTER TABLE `migrations`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=155;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT de la tabla `ordenes`
 --
 ALTER TABLE `ordenes`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT de la tabla `productos`
@@ -596,7 +580,7 @@ ALTER TABLE `productos`
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- Restricciones para tablas volcadas

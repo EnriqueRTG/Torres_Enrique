@@ -5,7 +5,7 @@ namespace App\Controllers\Admin;
 use App\Controllers\BaseController;
 use App\Models\CategoriaModel;
 
-/**
+/** LISTO
  * Controlador para la gestión de Categorías.
  *
  * Este controlador administra la visualización, creación, actualización, eliminación

@@ -7,8 +7,8 @@
 <!-- Contenido principal de la página Home -->
 <main class="container-fluid px-0 mb-3 main-content">
 
-    <!-- Mensajes de sesión -->
-    <div class="alert-info text-center">
+    <!-- Mensajes de sesión: errores o confirmaciones -->
+    <div class="alert-info text-center" role="alert">
         <?= session()->has('errors') ? view('partials/_session-error') : view('partials/_session') ?>
     </div>
 

@@ -4,7 +4,7 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-/**
+/** LISTO
  * Modelo para gestionar las Categorías de productos.
  *
  * Este modelo permite crear, actualizar, dar de baja (eliminar) y filtrar categorías.

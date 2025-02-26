@@ -7,8 +7,8 @@
 <!-- Contenedor principal: se utiliza <main> para delimitar el contenido principal -->
 <main class="container my-3 main-content" tabindex="0">
 
-    <!-- Mensajes de sesión (alertas de error o éxito) -->
-    <div class="alert-info text-center">
+    <!-- Mensajes de sesión: errores o confirmaciones -->
+    <div class="alert-info text-center" role="alert">
         <?= session()->has('errors') ? view('partials/_session-error') : view('partials/_session') ?>
     </div>
 

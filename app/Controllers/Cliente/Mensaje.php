@@ -40,7 +40,7 @@ class Mensaje extends BaseController
 
         // Se asume que el modelo de conversación tiene un método para filtrar por usuario y búsqueda.
         // Aquí puedes ajustar la lógica, por ejemplo:
-        $conversaciones = $this->conversacionModel->obtenerConversacionesCliente($cliente->id);
+        $conversaciones = $this->conversacionModel->obtenerConversacionesClienteConMensajes($cliente->id);
 
         // Recorrer cada conversación y agregarle el último mensaje
         foreach ($conversaciones as $conv) {
@@ -95,7 +95,7 @@ class Mensaje extends BaseController
             ]
         ];
 
-        return view('web/cliente/mensajes/nueva_conversacion', $data);
+        return view('web/cliente/mensajes/new', $data);
     }
 
     /**
@@ -134,7 +134,7 @@ class Mensaje extends BaseController
             ]
         ];
 
-        return view('web/cliente/mensajes/ver', $data);
+        return view('web/cliente/mensajes/show', $data);
     }
 
     /**
@@ -249,7 +249,7 @@ class Mensaje extends BaseController
             'email'             => $cliente->email,
             'asunto'            => trim($this->request->getPost('asunto')),
             'tipo_conversacion' => 'consulta',
-            'estado'            => 'abierto',
+            'estado'            => 'abierta',
         ];
 
         // Preparar datos para el mensaje.

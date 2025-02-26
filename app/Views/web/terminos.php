@@ -6,11 +6,9 @@
 
 <!-- Contenedor principal de términos y condiciones -->
 <main class="container my-3 main-content">
-    <!-- Mensajes de sesión: alertas de éxito o error -->
-    <div class="alert-info text-center container">
-        <?= session()->has('errors')
-            ? view('partials/_session-error')
-            : view('partials/_session') ?>
+    <!-- Mensajes de sesión: errores o confirmaciones -->
+    <div class="alert-info text-center" role="alert">
+        <?= session()->has('errors') ? view('partials/_session-error') : view('partials/_session') ?>
     </div>
 
     <!-- Tarjeta principal de "Términos y Usos" -->

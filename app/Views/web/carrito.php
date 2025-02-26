@@ -7,14 +7,20 @@
 
 <!-- Contenedor principal: Catálogo del Carrito -->
 <main class="container my-3 main-content">
-    <!-- Mensajes de sesión: alertas de error o confirmación -->
-    <div class="alert-info text-center">
+    <!-- Mensajes de sesión: errores o confirmaciones -->
+    <div class="alert-info text-center" role="alert">
         <?= session()->has('errors') ? view('partials/_session-error') : view('partials/_session') ?>
     </div>
 
-    <!-- Título principal -->
-    <header class="text-center bg-body py-3 mb-4">
-        <h1 class="fs-1">Productos de tu Carrito</h1>
+    <!-- Breadcrumb: navegación jerárquica -->
+    <nav aria-label="breadcrumb" class="my-3">
+        <?= view('partials/_breadcrumb', ['breadcrumbs' => $breadcrumbs]) ?>
+    </nav>
+
+    <!-- Encabezado de la sección -->
+    <header class="mb-4">
+        <h1 class="mb-2 text-white">Carrito</h1>
+        <p class="lead text-white">Listado de productos agregados a tu <strong>Carrito de Compras</strong></p>
     </header>
 
     <!-- Tabla de productos del carrito -->
@@ -23,6 +29,7 @@
             <!-- Cabecera de la tabla -->
             <thead>
                 <tr class="text-center align-middle">
+                    <th scope="col">Imagen</th>
                     <th scope="col">Producto</th>
                     <th scope="col">Cantidad</th>
                     <th scope="col">Precio Unitario</th>
@@ -34,19 +41,22 @@
             <tbody>
                 <?php if (!empty($cartItems)): ?>
                     <?php foreach ($cartItems as $item): ?>
-                        <tr data-rowid="<?= esc($item['rowid']) ?>">
+                        <tr class="text-center align-middle" data-rowid="<?= esc($item['rowid']) ?>">
+                            <!-- Imagen del producto -->
+                            <td>
+                                <img src="<?= base_url($item['image'] ?? 'uploads/productos/no-image.png') ?>"
+                                    alt="<?= esc($item['name']) ?>"
+                                    class="img-thumbnail me-2"
+                                    style="width: 50px; height: auto;">
+                            </td>
                             <!-- Nombre del producto -->
                             <td><?= esc($item['name']) ?></td>
                             <!-- Cantidad con controles de incremento y decremento -->
-                            <td>
-                                <div class="input-group input-group-sm">
-                                    <button class="btn btn-outline-secondary" type="button" onclick="actualizarCantidad('<?= esc($item['rowid']) ?>', -1)">
-                                        -
-                                    </button>
-                                    <input type="text" class="form-control text-center" value="<?= esc($item['qty']) ?>" min="1" onchange="actualizarCantidad('<?= esc($item['rowid']) ?>', this.value)">
-                                    <button class="btn btn-outline-secondary" type="button" onclick="actualizarCantidad('<?= esc($item['rowid']) ?>', 1)">
-                                        +
-                                    </button>
+                            <td style="min-width: 120px;">
+                                <div class="input-group input-group-sm flex-nowrap">
+                                    <button class="btn btn-outline-secondary" type="button" onclick="actualizarCantidad('<?= esc($item['rowid']) ?>', -1)">-</button>
+                                    <input type="number" class="form-control text-center cantidad-input" value="<?= esc($item['qty']) ?>" min="1" onchange="actualizarCantidad('<?= esc($item['rowid']) ?>', this.value)">
+                                    <button class="btn btn-outline-secondary" type="button" onclick="actualizarCantidad('<?= esc($item['rowid']) ?>', 1)">+</button>
                                 </div>
                                 <!-- Mensaje de stock (si existe) -->
                                 <span class="stock-message text-danger"></span>
@@ -65,14 +75,14 @@
                     <?php endforeach; ?>
                 <?php else: ?>
                     <tr>
-                        <td colspan="5" class="text-center fs-3">El carrito está vacío.</td>
+                        <td colspan="6" class="text-center fs-3">El carrito está vacío.</td>
                     </tr>
                 <?php endif; ?>
             </tbody>
             <!-- Pie de la tabla con el total -->
             <tfoot>
-                <tr>
-                    <td colspan="3" class="text-end"><strong>Total:</strong></td>
+                <tr class="text-center align-middle">
+                    <td colspan="4" class="text-end"><strong>Total:</strong></td>
                     <td><strong id="carrito-total">$<?= number_format($total, 2) ?></strong></td>
                     <td></td>
                 </tr>
@@ -84,27 +94,46 @@
     <?php if (!empty($cartItems)): ?>
         <div class="d-flex justify-content-between mt-3">
             <a href="<?= base_url('carrito/borrar') ?>" class="btn btn-secondary">Limpiar Carrito</a>
-            <a href="<?= base_url('carrito/comprar') ?>" class="btn btn-success">Realizar Compra</a>
+            <a href="<?= base_url('checkout/seleccionarDireccion') ?>" class="btn btn-success">Realizar Compra</a>
         </div>
     <?php endif; ?>
 </main>
 
 <?= view("layouts/footer-cliente", ['titulo' => $titulo]) ?>
 
-<!-- Scripts -->
+<!-- Estilos personalizados para mejorar la visibilidad en móviles -->
+<style>
+    @media (max-width: 576px) {
+
+        /* Aumenta el tamaño del input de cantidad y sus botones en mobile */
+        .cantidad-input {
+            font-size: 1.1rem;
+            padding: 0.5rem;
+            width: 70px;
+        }
+
+        .input-group .btn {
+            font-size: 1rem;
+            padding: 0.4rem 0.6rem;
+        }
+    }
+</style>
+
+<!-- Scripts: Funciones para actualizar cantidades y mostrar mensajes -->
 <script>
     /**
-     * Función para actualizar la cantidad de un producto en el carrito.
-     * Recibe el identificador de la fila y el cambio en la cantidad.
-     * Realiza una solicitud AJAX para actualizar el backend y, de ser exitosa, actualiza la vista.
+     * Actualiza la cantidad de un producto en el carrito.
+     * 
+     * Realiza una solicitud AJAX para actualizar la cantidad en el servidor y,
+     * de ser exitosa, actualiza la vista con el nuevo subtotal, total y mensaje de stock.
      * 
      * @param {string} rowid - Identificador único de la fila en el carrito.
-     * @param {number|string} cambioCantidad - Cambio en la cantidad (puede ser un número o el valor del input).
+     * @param {number|string} cambioCantidad - Cambio en la cantidad (valor numérico o valor del input).
      */
     function actualizarCantidad(rowid, cambioCantidad) {
         // 1. Obtener la fila y el input de cantidad
         const fila = document.querySelector(`tr[data-rowid="${rowid}"]`);
-        const inputCantidad = fila.querySelector('input[type="text"]');
+        const inputCantidad = fila.querySelector('input[type="number"]');
 
         // 2. Calcular la nueva cantidad
         let nuevaCantidad = parseInt(inputCantidad.value) + parseInt(cambioCantidad);
@@ -134,13 +163,14 @@
             .then(data => {
                 if (data.success) {
                     console.log("Carrito actualizado con éxito");
-                    // 6. Actualizar la vista del carrito
-                    const subtotalElement = fila.querySelector('td:nth-child(4)');
+                    // Actualizar la vista del carrito
+                    // Se asume que el subtotal es la quinta columna
+                    const subtotalElement = fila.querySelector('td:nth-child(5)');
                     subtotalElement.textContent = '$' + data.subtotal;
                     const totalElement = document.querySelector('#carrito-total');
                     totalElement.textContent = '$' + data.total;
                     inputCantidad.value = nuevaCantidad;
-                    // Mostrar mensaje de stock si existe
+                    // Actualizar mensaje de stock si existe
                     const stockMessageElement = fila.querySelector('.stock-message');
                     stockMessageElement.textContent = data.stockMessage || '';
                 } else {
@@ -155,7 +185,7 @@
     }
 
     /**
-     * Función para mostrar un mensaje temporal en el carrito.
+     * Muestra un mensaje temporal en el carrito.
      * 
      * @param {string} mensaje - Mensaje a mostrar.
      * @param {string} tipo - Tipo de alerta (por ejemplo, 'success' o 'danger').

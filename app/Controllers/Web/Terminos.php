@@ -1,29 +1,31 @@
 <?php
 
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/PHPClass.php to edit this template
- */
-
 namespace App\Controllers\Web;
 
 use App\Controllers\BaseController;
 
-/**
- * Description of Terminos
+/** LISTO
+ * Controlador para la página de Términos.
  *
- * @author Torres Gamarra Enrique Ramon
+ * Este controlador se encarga de mostrar la vista que contiene los términos y condiciones.
+ * 
+ * @package App\Controllers\Web
  */
 class Terminos extends BaseController
 {
-
+    /**
+     * Muestra la vista de Términos.
+     *
+     * @return string Vista renderizada de Términos.
+     */
     public function index()
     {
+        // Obtener la instancia del carrito de compras
         $cart = \Config\Services::cart();
 
         $data = [
-            'titulo' => 'Terminos',
-            'cart'       => $cart,
+            'titulo' => 'Términos',
+            'cart'   => $cart,
         ];
 
         return view('web/terminos', $data);

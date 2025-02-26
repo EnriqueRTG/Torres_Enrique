@@ -6,107 +6,135 @@ use App\Controllers\BaseController;
 use App\Models\ConversacionModel;
 use App\Models\MensajeModel;
 
+/** LISTO
+ * Controlador para la sección de Contacto.
+ *
+ * Este controlador permite que un visitante (usuario no registrado) envíe
+ * un mensaje de contacto. Se procesan dos conjuntos de datos: la conversación
+ * (nombre, email, asunto, etc.) y el mensaje inicial. Se validan ambos y, si son correctos,
+ * se insertan en la base de datos; además, se envía un correo de notificación.
+ *
+ * @package App\Controllers\Web
+ */
 class Contacto extends BaseController
 {
+    /**
+     * Instancia del modelo de Conversaciones.
+     *
+     * @var ConversacionModel
+     */
     protected $conversacionModel;
+
+    /**
+     * Instancia del modelo de Mensajes.
+     *
+     * @var MensajeModel
+     */
     protected $mensajeModel;
 
+    /**
+     * Constructor.
+     *
+     * Inicializa los modelos necesarios para gestionar las conversaciones y mensajes.
+     */
     public function __construct()
     {
-        // Se instancian los modelos para la nueva arquitectura de mensajes
         $this->conversacionModel = new ConversacionModel();
         $this->mensajeModel = new MensajeModel();
     }
 
     /**
-     * Muestra la vista de contacto para visitantes.
+     * Muestra la vista de Contacto para visitantes.
      *
-     * @return string Vista renderizada
+     * @return string Vista renderizada de Contacto.
      */
     public function index()
     {
         $data = [
             'titulo' => 'Contacto',
-            // Otros datos que necesites, por ejemplo, el carrito
-            'cart' => \Config\Services::cart(),
+            'cart'   => \Config\Services::cart(),
         ];
 
         return view('web/contacto', $data);
     }
 
     /**
-     * Crea una nueva conversación y el mensaje inicial a partir del formulario de contacto
-     * de un visitante (usuario no registrado). Valida de forma separada los datos de la conversación
-     * y del mensaje, combinando los errores para mostrarlos en el formulario.
+     * Crea una nueva conversación y el mensaje inicial a partir del formulario de contacto.
      *
-     * @return \CodeIgniter\HTTP\RedirectResponse
+     * Si el usuario está autenticado, se asume que es un cliente y se asigna:
+     * - tipo_conversacion = "consulta"
+     * - tipo_remitente = "cliente"
+     * Además, se redirige al detalle de la conversación recién creada.
+     * 
+     * Si no hay usuario autenticado, se asume que es un visitante y se asigna:
+     * - tipo_conversacion = "contacto"
+     * - tipo_remitente = "visitante"
+     * Y se redirige de vuelta a la página de contacto.
+     *
+     * @return \CodeIgniter\HTTP\RedirectResponse Redirección según el flujo.
      */
     public function create()
     {
-        // Preparar los datos para la conversación.
-        // Se mapean los datos del formulario a los campos que espera el modelo de conversación.
+        // Obtener el usuario de la sesión, si está logueado.
+        $usuario = session()->get('usuario');
+
+        // Preparar datos para la conversación
         $dataConversacion = [
-            'usuario_id'        => null, // Como es un visitante, no hay usuario registrado.
-            'nombre'            => $this->request->getPost('nombre'),  // Valor del campo "nombre" del formulario.
-            'email'             => $this->request->getPost('email'),   // Valor del campo "email" del formulario.
-            'asunto'            => $this->request->getPost('asunto'),  // Valor del campo "asunto" del formulario.
-            'tipo_conversacion' => 'contacto', // Se fija el tipo de conversación.
-            'estado'            => 'abierta',  // Estado inicial de la conversación.
+            'usuario_id' => $usuario ? $usuario->id : null,
+            'nombre'     => $this->request->getPost('nombre'),
+            'email'      => $this->request->getPost('email'),
+            'asunto'     => $this->request->getPost('asunto'),
+            'estado'     => 'abierta',
         ];
 
-        // Preparar los datos para el mensaje.
-        $dataMensaje = [
-            // El campo 'conversacion_id' se asignará después de crear la conversación.
-            'tipo_remitente' => 'visitante', // Indica que el mensaje es enviado por un visitante.
-            'mensaje'        => $this->request->getPost('mensaje'), // Valor del campo "mensaje" del formulario.
-        ];
+        // Asignar el tipo de conversación y mensaje según si el usuario está logueado.
+        if ($usuario) {
+            $dataConversacion['tipo_conversacion'] = 'consulta';
+            $dataMensaje['tipo_remitente'] = 'cliente';
+        } else {
+            $dataConversacion['tipo_conversacion'] = 'contacto';
+            $dataMensaje['tipo_remitente'] = 'visitante';
+        }
 
-        // Inicializar un arreglo para almacenar los errores de validación.
+        // Preparar datos para el mensaje inicial
+        $dataMensaje['mensaje'] = $this->request->getPost('mensaje');
+
+        // Inicializar el arreglo de errores
         $errors = [];
 
-        // Validar la conversación usando las reglas definidas en el ConversacionModel.
+        // Validar los datos de la conversación
         if (!$this->conversacionModel->validate($dataConversacion)) {
-            // Capturamos los errores generados por el modelo de conversación.
             $errors = $this->conversacionModel->errors();
         }
 
-        // Validar de forma independiente el mensaje usando las reglas definidas en el MensajeModel.
+        // Validar los datos del mensaje
         if (!$this->mensajeModel->validate($dataMensaje)) {
-            // Se combinan los errores del mensaje con los de la conversación.
             $errors = array_merge($errors, $this->mensajeModel->errors());
         }
 
-        // Si existen errores de validación (en cualquiera de los dos modelos), redirigimos al formulario
-        // con los datos ingresados y los mensajes de error.
+        // Si existen errores de validación, redirigir de vuelta con los datos ingresados y los errores.
         if (!empty($errors)) {
             return redirect()->back()->withInput()->with('errors', $errors);
         }
 
-        // Si la validación fue exitosa, se inserta la conversación en la base de datos.
+        // Insertar la conversación y obtener su ID.
         $conversacionId = $this->conversacionModel->crearConversacion($dataConversacion);
         if (!$conversacionId) {
-            // En caso de error en la inserción, retornamos los errores del modelo de conversación.
             return redirect()->back()->withInput()->with('errors', $this->conversacionModel->errors());
         }
 
-        // Asignamos el ID de la conversación recién creada al mensaje.
+        // Asignar el ID de la conversación al mensaje y crear el mensaje inicial.
         $dataMensaje['conversacion_id'] = $conversacionId;
-
-        // Insertamos el mensaje inicial en la base de datos.
         $mensajeId = $this->mensajeModel->crearMensaje($dataMensaje, $dataConversacion['tipo_conversacion']);
         if (!$mensajeId) {
-            // En caso de error en la inserción del mensaje, retornamos los errores del modelo de mensaje.
             return redirect()->back()->withInput()->with('errors', $this->mensajeModel->errors());
         }
 
-
-        // Enviar correo a la cuenta de la empresa y confirmar al usuario
+        // Enviar correo de notificación (este paso se realiza de la misma manera para ambos casos)
         $emailService = \Config\Services::email();
         $emailService->setFrom('no-reply@tudominio.com', 'Tattoo Supply Store');
-
-        // Correo a la empresa
         $emailService->setTo('tattoosupplystoreok@gmail.com');
-        $emailService->setCC($dataConversacion['email']); // O puedes usar BCC si no deseas que se vea
+        $emailService->setCC($dataConversacion['email']);
         $emailService->setSubject('Nuevo Mensaje Recibido - ' . $dataConversacion['asunto']);
 
         $mensajeEmail  = "Se ha recibido un nuevo mensaje en el sistema.<br><br>";
@@ -121,14 +149,23 @@ class Contacto extends BaseController
             log_message('error', 'Error al enviar correo de notificación: ' . $emailService->printDebugger(['headers']));
         }
 
-        // Si todo sale bien, redirigimos a la vista de contacto con un mensaje de éxito.
-        return redirect()->to('contacto')->with('mensaje', 'Mensaje de contacto enviado con éxito.');
+        // Redirección según si el usuario está logueado o es visitante:
+        if ($usuario) {
+            // Si el usuario está autenticado, redirige al detalle de la conversación recién creada.
+            return redirect()->to(site_url('cliente/mensajes/ver/' . $conversacionId))
+                ->with('mensaje', 'Mensaje enviado con éxito.');
+        } else {
+            // Si es visitante, redirige de vuelta a la vista de contacto.
+            return redirect()->to(site_url('contacto'))
+                ->with('mensaje', 'Mensaje enviado con éxito. Pronto nos pondremos en contacto con usted.');
+        }
     }
 
+
     /**
-     * Redirige a la sección de ubicación (para mostrar el mapa).
+     * Redirige a la sección de ubicación (por ejemplo, para mostrar el mapa).
      *
-     * @return \CodeIgniter\HTTP\RedirectResponse
+     * @return \CodeIgniter\HTTP\RedirectResponse Redirección a la sección de ubicación.
      */
     public function obtener_ubicacion()
     {

@@ -5,7 +5,7 @@ namespace App\Controllers\Admin;
 use App\Controllers\BaseController;
 use App\Models\ImagenProductoModel;
 
-/**
+/** LISTO
  * Controlador para gestionar imágenes de productos.
  *
  * Este controlador se encarga de eliminar imágenes asociadas a productos.

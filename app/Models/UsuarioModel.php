@@ -1,18 +1,18 @@
 <?php
 
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/PHPClass.php to edit this template
- */
-
 namespace App\Models;
 
 use CodeIgniter\Model;
 
-/**
- * Description of UsuarioModel
+/** LISTO
+ * Modelo para la gestión de usuarios.
  *
- * @author Torres Gamarra Enrique Ramon
+ * Este modelo administra operaciones CRUD para los usuarios, además de operaciones 
+ * específicas para clientes y administradores. También incluye métodos para validación, 
+ * encriptación de contraseñas y filtrado/paginación de clientes.
+ *
+ * @package App\Models
+ * @author  
  */
 class UsuarioModel extends Model
 {
@@ -21,10 +21,16 @@ class UsuarioModel extends Model
     protected $useSoftDeletes   = false;
     protected $allowedFields    = ['nombre', 'apellido', 'email', 'password', 'rol', 'estado'];
     protected $returnType       = 'object';
-    protected $useTimestamps    = true; // Habilitar marcas de tiempo
+    protected $useTimestamps    = true;       // Habilitar marcas de tiempo (created_at, updated_at)
     protected $dateFormat       = 'datetime'; // Formato de fecha y hora
 
-    // Reglas de validación para los campos del usuario
+    /**
+     * Reglas de validación para los campos del usuario.
+     *
+     * Estas reglas se aplican cuando se valida la entrada de datos.
+     *
+     * @var array
+     */
     protected $validationRules = [
         'nombre'   => 'required|min_length[2]|max_length[255]',
         'apellido' => 'required|min_length[2]|max_length[255]',
@@ -34,7 +40,11 @@ class UsuarioModel extends Model
         'estado'   => 'required|in_list[activo,inactivo]',
     ];
 
-    // Mensajes personalizados para cada regla de validación
+    /**
+     * Mensajes personalizados para cada regla de validación.
+     *
+     * @var array
+     */
     protected $validationMessages = [
         'nombre' => [
             'required'   => 'El nombre es obligatorio.',
@@ -66,33 +76,59 @@ class UsuarioModel extends Model
         ],
     ];
 
-    // Métodos personalizados
+    // --------------------------------------------------------------
+    // Métodos personalizados para operaciones específicas
+    // --------------------------------------------------------------
 
-    // Buscar usuario por email
+    /**
+     * Busca un usuario por su email.
+     *
+     * @param string $email Email del usuario.
+     * @return object|null Objeto usuario o null si no se encuentra.
+     */
     public function encontrarPorEmail($email)
     {
         return $this->where('email', $email)->first();
     }
 
-    // Verificar si la contraseña es correcta
+    /**
+     * Verifica si la contraseña ingresada coincide con el hash almacenado.
+     *
+     * @param string $passwordIngresada Contraseña ingresada.
+     * @param string $passwordHash Hash de la contraseña almacenado.
+     * @return bool True si la contraseña es correcta, false en caso contrario.
+     */
     public function verificarPassword($passwordIngresada, $passwordHash)
     {
         return password_verify($passwordIngresada, $passwordHash);
     }
 
-    // Encriptar la contraseña del usuario
+    /**
+     * Encripta la contraseña utilizando el algoritmo predeterminado.
+     *
+     * @param string $password Contraseña en texto plano.
+     * @return string Hash de la contraseña.
+     */
     public function passwordHash($password)
     {
         return password_hash($password, PASSWORD_DEFAULT);
     }
 
-    // Obtener todos los usuarios activos
+    /**
+     * Obtiene todos los usuarios activos.
+     *
+     * @return array Lista de usuarios activos.
+     */
     public function traerUsuariosActivos()
     {
         return $this->where('estado', 'activo')->findAll();
     }
 
-    // Obtener los Clientes Activos
+    /**
+     * Obtiene todos los clientes activos.
+     *
+     * @return array Lista de clientes activos.
+     */
     public function traerClientesActivos()
     {
         return $this->where('estado', 'activo')
@@ -100,33 +136,87 @@ class UsuarioModel extends Model
             ->findAll();
     }
 
-    // Obtener todos los usuarios administradores
+    /**
+     * Obtiene todos los usuarios administradores.
+     *
+     * @return array Lista de administradores.
+     */
     public function traerAdministradores()
     {
         return $this->where('rol', 'administrador')->findAll();
     }
 
-    /* =========================================================================
-       MÉTODOS PARA FILTRAR Y PAGINAR CLIENTES (ROL 'cliente')
-       ========================================================================= */
+    /**
+     * Crea un nuevo cliente.
+     *
+     * Este método recibe un array asociativo con los datos del cliente y realiza las siguientes operaciones:
+     * - Fuerza el rol "cliente" y asigna un estado por defecto ("activo") si no se proporciona.
+     * - Verifica que se haya enviado una contraseña y la encripta.
+     * - Verifica que el email no esté registrado previamente.
+     * - Valida los datos utilizando las reglas definidas en el modelo.
+     * - Inserta el registro en la base de datos y retorna el ID del nuevo cliente.
+     *
+     * @param array $datosCliente Datos del cliente.
+     * @return int|false ID del cliente insertado o false en caso de error.
+     */
+    public function crearCliente(array $datosCliente)
+    {
+        // Forzar el rol a "cliente"
+        $datosCliente['rol'] = 'cliente';
+
+        // Asignar estado por defecto si no se proporciona
+        if (!isset($datosCliente['estado']) || empty($datosCliente['estado'])) {
+            $datosCliente['estado'] = 'activo';
+        }
+
+        // Verificar que se haya proporcionado una contraseña
+        if (empty($datosCliente['password'])) {
+            return false;
+        }
+
+        // Encriptar la contraseña
+        $datosCliente['password'] = $this->passwordHash($datosCliente['password']);
+
+        // Verificar que el email no esté registrado previamente
+        if ($this->encontrarPorEmail($datosCliente['email'])) {
+            return false;
+        }
+
+        // Validar los datos utilizando las reglas definidas en el modelo
+        if (!$this->validate($datosCliente)) {
+            return false;
+        }
+
+        // Insertar el nuevo cliente en la base de datos
+        $this->insert($datosCliente);
+
+        // Retornar el ID del nuevo cliente
+        return $this->getInsertID();
+    }
+
+    // --------------------------------------------------------------
+    // Métodos para filtrar y paginar clientes (Rol 'cliente')
+    // --------------------------------------------------------------
 
     /**
      * Filtra los clientes en base a un término de búsqueda, estado, página y cantidad por página.
      *
-     * @param string $texto Texto de búsqueda (se buscará en nombre, apellido y email).
+     * Se buscará en los campos: nombre, apellido y email.
+     *
+     * @param string $texto Texto de búsqueda.
      * @param string $estado Estado del cliente ('activo', 'inactivo' o 'todos').
      * @param int $pagina Número de la página actual.
      * @param int $porPagina Número de registros por página.
-     * @return array Lista de clientes filtrados (arreglo de arrays).
+     * @return array Lista de clientes filtrados (arreglo asociativo).
      */
     public function filtrarClientes($texto = '', $estado = 'todos', $pagina = 1, $porPagina = 10)
     {
         // Inicia la consulta sobre la tabla de usuarios
         $builder = $this->db->table($this->table);
-        // Filtrar solo los usuarios con rol 'cliente'
+        // Filtrar solo usuarios con rol 'cliente'
         $builder->where('rol', 'cliente');
 
-        // Aplicar filtro de búsqueda si se proporcionó texto
+        // Aplicar filtro de búsqueda si se proporciona texto
         if (!empty($texto)) {
             $builder->groupStart()
                 ->like('nombre', $texto)
@@ -135,8 +225,7 @@ class UsuarioModel extends Model
                 ->groupEnd();
         }
 
-
-        // Filtrar por estado, si no se quiere mostrar "todos"
+        // Filtrar por estado, a menos que se quiera mostrar todos
         if ($estado !== 'todos') {
             $builder->where('estado', $estado);
         }
@@ -144,11 +233,10 @@ class UsuarioModel extends Model
         // Ordenar por la fecha de última actualización en orden descendente
         $builder->orderBy('updated_at', 'DESC');
 
-        // Calcular el offset y limitar la cantidad de resultados
+        // Calcular el offset y limitar los resultados
         $offset = ($pagina - 1) * $porPagina;
         $builder->limit($porPagina, $offset);
 
-        // Ejecutar la consulta y devolver los resultados como un array asociativo
         return $builder->get()->getResultArray();
     }
 
@@ -182,9 +270,9 @@ class UsuarioModel extends Model
     }
 
     /**
-     * Obtiene los clientes filtrados utilizando el método de paginación de CodeIgniter.
+     * Obtiene los clientes filtrados utilizando la paginación automática de CodeIgniter.
      *
-     * Este método es útil si deseas aprovechar la paginación automática que ofrece CodeIgniter.
+     * Este método aprovecha la función paginate() del modelo para obtener una lista paginada de clientes.
      *
      * @param string $estado Estado de los clientes ('activo', 'inactivo' o 'todos').
      * @param string $busqueda Texto de búsqueda.
@@ -193,10 +281,9 @@ class UsuarioModel extends Model
      */
     public function obtenerClientesFiltrados($estado = 'todos', $busqueda = '', $perPage = 10)
     {
-        // Filtrar solo clientes
+        // Filtrar solo usuarios con rol 'cliente'
         $this->where('rol', 'cliente');
 
-        // Si se proporciona texto de búsqueda, aplicarlo
         if (!empty($busqueda)) {
             $this->groupStart()
                 ->like('nombre', $busqueda)
@@ -205,12 +292,10 @@ class UsuarioModel extends Model
                 ->groupEnd();
         }
 
-        // Aplicar filtro de estado si no se desea mostrar "todos"
         if ($estado !== 'todos') {
             $this->where('estado', $estado);
         }
 
-        // Ordenar por fecha de actualización descendente y aplicar la paginación
         return $this->orderBy('updated_at', 'DESC')
             ->paginate($perPage);
     }
@@ -218,30 +303,28 @@ class UsuarioModel extends Model
     /**
      * Actualiza los datos del usuario con rol cliente.
      *
-     * Este método actualiza únicamente los campos "nombre" y "apellido" del usuario,
-     * ignorando cualquier otro dato que se reciba. Se espera que se haya filtrado
-     * previamente la información del usuario para evitar cambios en campos sensibles
-     * como id, correo, contraseña o rol.
+     * Este método actualiza únicamente los campos "nombre" y "apellido" del usuario, ignorando cualquier otro dato.
+     *
+     * Se espera que la información sensible (correo, contraseña, rol, etc.) no sea modificada aquí.
      *
      * @param int   $id   ID del usuario a actualizar.
-     * @param array $data Array asociativo con los datos a actualizar (se esperan las claves "nombre" y "apellido").
-     * @return bool       Retorna true si la actualización se realiza con éxito, o false en caso de fallo.
+     * @param array $data Array asociativo con las claves "nombre" y "apellido".
+     * @return bool True si la actualización es exitosa, false en caso contrario.
      */
     public function actualizarCliente(int $id, array $data): bool
     {
-        // Extraemos únicamente los campos permitidos: "nombre" y "apellido"
+        // Extraer solo los campos permitidos
         $updateData = [
             'nombre'   => isset($data['nombre']) ? trim($data['nombre']) : '',
             'apellido' => isset($data['apellido']) ? trim($data['apellido']) : '',
         ];
 
-        // Validamos utilizando las reglas y mensajes configurados.
+        // Validar los datos extraídos según las reglas definidas
         if (!$this->validate($updateData)) {
-            // Los errores se pueden obtener con $this->errors()
             return false;
         }
 
-        // Actualiza los datos permitidos
+        // Actualizar el registro en la base de datos
         return $this->update($id, $updateData);
     }
 }

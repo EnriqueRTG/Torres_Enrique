@@ -4,7 +4,7 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-/**
+/** LISTO
  * Modelo para gestionar las marcas de productos.
  *
  * Este modelo administra la creación, actualización, eliminación (dar de baja)

@@ -21,10 +21,6 @@ class Ordenes extends Migration
                 'unsigned' => true,
                 'null' => false,
             ],
-            'fecha' => [
-                'type' => 'DATETIME',
-                'null' => false,
-            ],
             'estado' => [
                 'type'       => 'ENUM',
                 'constraint' => ['pendiente', 'procesanda', 'enviada', 'completada', 'cancelada'],

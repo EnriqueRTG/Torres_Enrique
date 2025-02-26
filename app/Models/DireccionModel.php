@@ -4,8 +4,19 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
+/** LISTO
+ * Modelo para la gestión de direcciones de envío.
+ *
+ * Este modelo administra las operaciones CRUD sobre la tabla "direcciones", que almacena
+ * las direcciones de envío asociadas a los usuarios (clientes). Además, incluye métodos
+ * personalizados para crear, obtener, agregar o actualizar direcciones, y cuenta con reglas
+ * de validación y mensajes personalizados para asegurar la integridad de los datos.
+ *
+ * @package App\Models
+ */
 class DireccionModel extends Model
 {
+    // Configuración básica del modelo
     protected $table            = 'direcciones';
     protected $primaryKey       = 'id';
     protected $useSoftDeletes   = false;
@@ -25,7 +36,13 @@ class DireccionModel extends Model
     protected $useTimestamps    = true;
     protected $dateFormat       = 'datetime';
 
-    // Reglas de validación para los datos de dirección
+    /**
+     * Reglas de validación para los datos de dirección.
+     *
+     * Estas reglas se aplican para validar la entrada antes de insertar o actualizar registros.
+     *
+     * @var array
+     */
     protected $validationRules  = [
         'usuario_id'          => 'required|integer',
         'nombre_destinatario' => 'required|min_length[3]|max_length[255]',
@@ -39,7 +56,11 @@ class DireccionModel extends Model
         'telefono'            => 'required|max_length[50]',
     ];
 
-    // Mensajes personalizados para la validación
+    /**
+     * Mensajes personalizados para cada regla de validación.
+     *
+     * @var array
+     */
     protected $validationMessages = [
         'usuario_id' => [
             'required' => 'El ID de usuario es obligatorio.',
@@ -82,6 +103,10 @@ class DireccionModel extends Model
         ],
     ];
 
+    // --------------------------------------------------------------------------
+    // Métodos personalizados
+    // --------------------------------------------------------------------------
+
     /**
      * Crea una nueva dirección de envío.
      *
@@ -93,12 +118,13 @@ class DireccionModel extends Model
      */
     public function crearDireccion(array $data)
     {
-        // Validar los datos con las reglas definidas en el modelo.
+        // Validar los datos con las reglas definidas
         if (!$this->validate($data)) {
-            // Si la validación falla, se pueden obtener los errores mediante $this->errors()
+            // En caso de fallo, retorna false. Los errores se pueden obtener con $this->errors()
             return false;
         }
-        // Inserta la dirección y retorna el ID insertado.
+
+        // Insertar la dirección y retornar el ID insertado
         $this->insert($data);
         return $this->getInsertID();
     }
@@ -107,7 +133,7 @@ class DireccionModel extends Model
      * Obtiene todas las direcciones asociadas a un cliente específico.
      *
      * @param int $clienteId El ID del cliente.
-     * @return array Arreglo de objetos con las direcciones encontradas.
+     * @return array Arreglo de objetos con las direcciones encontradas, ordenadas de la más reciente a la más antigua.
      */
     public function obtenerDireccionesDelCliente(int $clienteId): array
     {
@@ -118,7 +144,8 @@ class DireccionModel extends Model
 
     /**
      * Agrega o actualiza la dirección de envío de un cliente.
-     * Si el cliente ya tiene 3 direcciones registradas, se actualiza la más antigua.
+     *
+     * Si el cliente ya tiene 3 direcciones registradas, se actualiza la dirección más antigua.
      * Si tiene menos de 3, se inserta una nueva dirección.
      *
      * @param array $data Datos de la dirección a insertar o actualizar.
@@ -126,30 +153,29 @@ class DireccionModel extends Model
      */
     public function agregarDireccionCliente(array $data)
     {
-        // Validar los datos con las reglas definidas en el modelo.
+        // Validar los datos con las reglas definidas
         if (!$this->validate($data)) {
             return false;
         }
 
-        // Obtener el ID del cliente
+        // Obtener el ID del cliente a partir de los datos recibidos
         $clienteId = $data['usuario_id'];
 
         // Contar las direcciones actuales del cliente
         $cantidadActual = $this->where('usuario_id', $clienteId)->countAllResults();
 
         if ($cantidadActual >= 3) {
-            // Si ya existen 3 o más direcciones, obtener la más antigua (orden ascendente por created_at)
+            // Si ya existen 3 o más direcciones, se obtiene la más antigua (orden ascendente por updated_at)
             $direccionAntigua = $this->where('usuario_id', $clienteId)
                 ->orderBy('updated_at', 'ASC')
                 ->first();
-
             if ($direccionAntigua) {
                 // Actualizar la dirección más antigua con los nuevos datos
                 $this->update($direccionAntigua->id, $data);
                 return $direccionAntigua->id;
             }
         } else {
-            // Si hay menos de 3, se inserta una nueva dirección
+            // Si hay menos de 3 direcciones, se inserta una nueva
             $this->insert($data);
             return $this->getInsertID();
         }
@@ -158,22 +184,21 @@ class DireccionModel extends Model
     /**
      * Actualiza una dirección existente.
      *
-     * Este método valida los datos proporcionados conforme a las reglas definidas en el modelo
-     * y, si son válidos, actualiza el registro de la dirección identificado por el ID dado.
+     * Valida los datos proporcionados conforme a las reglas definidas en el modelo y, si son válidos,
+     * actualiza el registro de la dirección identificado por el ID dado.
      *
      * @param int   $id   El ID de la dirección a actualizar.
-     * @param array $data Los datos nuevos para la dirección.
-     * @return bool       Retorna true si la actualización es exitosa, o false si falla la validación o la actualización.
+     * @param array $data Los nuevos datos para la dirección.
+     * @return bool True si la actualización es exitosa, o false si falla la validación o la actualización.
      */
     public function actualizarDireccion(int $id, array $data): bool
     {
-        // Validar los datos recibidos usando las reglas definidas en el modelo.
+        // Validar los datos recibidos
         if (!$this->validate($data)) {
-            // Si la validación falla, se pueden obtener los errores mediante $this->errors()
             return false;
         }
 
-        // Intentar actualizar el registro de la dirección con el ID especificado
+        // Actualizar la dirección y retornar el resultado (true/false)
         return $this->update($id, $data);
     }
 }

@@ -95,7 +95,7 @@ class MensajeModel extends Model
      * @param int $conversacionId El ID de la conversación.
      * @return bool Resultado de la operación de actualización.
      */
-    public function marcarMensajeVisitanteComoLeido(int $conversacionId): bool
+    public function marcarMensajesAdministradorComoLeidos(int $conversacionId): bool
     {
         return $this->where('conversacion_id', $conversacionId)
             ->where('tipo_remitente', 'visitante')
@@ -103,6 +103,24 @@ class MensajeModel extends Model
             ->set(['leido' => 'si'])
             ->update();
     }
+
+    /**
+     * Marca como leídos todos los mensajes enviados por el administrador en una conversación.
+     *
+     * Actualiza el campo 'leido' a 1 para todos los mensajes de la conversación que tengan
+     * 'tipo_remitente' igual a "administrador".
+     *
+     * @param int $conversacionId ID de la conversación.
+     * @return bool True si la actualización es exitosa, false en caso contrario.
+     */
+    public function marcarMensajesAdminComoLeido(int $conversacionId): bool
+    {
+        return $this->where('conversacion_id', $conversacionId)
+            ->where('tipo_remitente', 'administrador')
+            ->set(['leido' => 1])
+            ->update();
+    }
+
 
     /**
      * Obtiene el último mensaje asociado a una conversación.

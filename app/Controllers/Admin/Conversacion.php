@@ -6,11 +6,13 @@ use App\Controllers\BaseController;
 use App\Models\ConversacionModel;
 use App\Models\MensajeModel;
 
-/**
+/** LISTO
  * Controlador para la gestión de Conversaciones.
  *
  * Este controlador administra la visualización, filtrado, respuesta y cierre de
  * conversaciones de tipo "consulta" y "contacto" desde la interfaz de administración.
+ * 
+ * @package App\Controllers\Admin
  */
 class Conversacion extends BaseController
 {

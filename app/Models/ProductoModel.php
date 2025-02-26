@@ -4,7 +4,7 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-/**
+/**LISTO
  * Modelo para la gestión de productos.
  *
  * Este modelo administra las operaciones CRUD para los productos, incluyendo
@@ -378,5 +378,49 @@ class ProductoModel extends Model
 
         $totalRegistros = $builder->countAllResults();
         return (int) ceil($totalRegistros / $porPagina);
+    }
+
+    /**
+     * Actualiza el stock de un producto restando la cantidad vendida.
+     *
+     * Obtiene el stock actual del producto, le resta la cantidad indicada (convertida a entero)
+     * y actualiza el registro en la base de datos. Si el stock resultante es menor que cero, se ajusta a cero.
+     * Si el nuevo stock es igual al stock actual (por ejemplo, si la cantidad es 0 o el stock ya es 0),
+     * retorna true sin realizar la actualización.
+     *
+     * @param int $productoId ID del producto a actualizar.
+     * @param int|string $cantidad Cantidad a restar del stock.
+     * @return bool True si la actualización es exitosa o si no hay cambio, false en caso contrario.
+     */
+    public function actualizarStock($productoId, $cantidad)
+    {
+        // Convertir la cantidad a entero
+        $cantidad = (int)$cantidad;
+
+        // Obtener el producto actual
+        $producto = $this->find($productoId);
+        if (!$producto) {
+            // Producto no encontrado
+            return false;
+        }
+
+        // Convertir el stock actual a entero
+        $currentStock = (int)$producto->stock;
+
+        // Calcular el nuevo stock
+        $nuevoStock = $currentStock - $cantidad;
+
+        // Evitar que el stock quede negativo
+        if ($nuevoStock < 0) {
+            $nuevoStock = 0;
+        }
+
+        // Si el stock no cambia, retornar true
+        if ($nuevoStock === $currentStock) {
+            return true;
+        }
+
+        // Actualizar el stock en la base de datos
+        return $this->update($productoId, ['stock' => $nuevoStock]);
     }
 }
