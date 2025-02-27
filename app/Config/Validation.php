@@ -317,22 +317,23 @@ class Validation extends BaseConfig
 
     // utilizado y probado 
     public array $login = [
-        'email' =>  [
-            'label' => 'Correo electrónico',
-            'rules' => 'required|valid_email',
+        'email' => [
+            'label'  => 'Correo electrónico',
+            'rules'  => 'required|valid_email',
             'errors' => [
                 'required'    => 'Por favor, ingresa un correo electrónico.',
                 'valid_email' => 'El correo electrónico ingresado debe ser válido',
             ],
         ],
         'password' => [
-            'label' => 'Contraseña',
-            'rules' => 'required',
+            'label'  => 'Contraseña',
+            'rules'  => 'required',
             'errors' => [
                 'required' => 'Por favor, ingresa la contraseña.',
             ],
         ],
     ];
+
 
     public array $contactos = [
         'nombre' => [

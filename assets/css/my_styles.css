@@ -1,4 +1,3 @@
-
 /* =========================
    FONT-FACES: Montserrat & Roboto
    ========================= */
@@ -28,44 +27,74 @@
 /* =========================
    VARIABLES DE COLOR (PALETA)
    ========================= */
-   :root {
+:root {
+    /* Fondo principal, navbar y textos destacados */
     --color-primario: #212121;
-    /* Fondo oscuro / textos destacados */
-    --color-secundario: #ffffff;
-    /* Fondos claros / contraste */
+    /* Un gris muy oscuro, casi negro */
+
+    /* Fondos secundarios y textos de alto contraste */
+    --color-secundario: #FFFFFF;
+    /* Blanco puro para claridad y contraste */
+
+    /* Llamadas a la acción: botones, hover, acentos */
     --color-acento: #B71C1C;
-    /* Botones, acentos y hover */
+    /* Rojo intenso, vibrante y distintivo */
+
+    /* Textos secundarios y detalles sutiles */
     --color-complementario: #757575;
-    /* Textos secundarios, detalles sutiles */
+    /* Gris medio para información menos relevante */
+
+    /* Fondos de secciones de contenido o áreas de lectura */
     --fondo-suave: #FDF8F2;
-    /* Fondo neutro para secciones de contenido */
+    /* Un tono crema muy suave para no forzar el contraste */
+
+    /* Opcional: acentos secundarios para links o botones alternativos */
+    --color-secundario-acento: #00897B;
+    /* Un teal oscuro, moderno y en contraste con el rojo */
 }
-
-
 
 /* =========================
    BASE TYPOGRAPHY
    ========================= */
 
 /* Encabezados y títulos usan Montserrat */
+/* Fuente base para el cuerpo del texto */
+body {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    color: var(--color-primario);
+    /* O el color que hayas definido para textos */
+    line-height: 1.6;
+}
+
+/* Encabezados y títulos */
 h1,
 h2,
 h3,
-.titulo-seccion,
-.card-title {
+h4,
+h5,
+h6,
+.titulo,
+.card-title,
+.navbar-brand {
     font-family: 'Montserrat', sans-serif;
     font-weight: 700;
-    color: var(--color-primario);
+    margin-top: 0;
 }
 
-/* Cuerpo y párrafos usan Roboto */
-body,
-p,
-.card-text {
-    font-family: 'Roboto', sans-serif;
-    font-weight: 400;
-    color: var(--color-primario);
+/* Ejemplo de estilos específicos para un encabezado */
+h1 {
+    font-size: 2.5rem;
+    line-height: 1.2;
 }
+
+h2 {
+    font-size: 2rem;
+    line-height: 1.3;
+}
+
+/* Puedes ajustar los tamaños según el diseño */
 
 
 
@@ -611,7 +640,7 @@ a:hover {
 /* Botón para "Agregar al Carrito" */
 .btn-producto-agregar {
     /* Fondo: usamos el color complementario para un tono grisáceo */
-    background-color: var(--color-complementario);
+    background-color: #bb7b1b;
     /* Borde con el mismo tono */
     border: 1px solid var(--color-complementario);
     /* Texto en blanco para contraste */
@@ -623,7 +652,7 @@ a:hover {
 
 /* Hover para "Agregar al Carrito": se oscurece un poco y se escala ligeramente */
 .btn-producto-agregar:hover {
-    background-color: #666666;
+    background-color: #b70fbd;
     /* Un tono más oscuro que var(--color-complementario) */
     border-color: #666666;
     transform: scale(1.01);
@@ -703,4 +732,37 @@ estilo para comercializacion
     /* Aumentar el tamaño */
     max-width: 100%;
     height: auto;
+}
+
+/* Personalización de la paginación para que combine con tu paleta */
+.pagination .page-item .page-link {
+    color: var(--color-secundario);
+    /* Texto en color secundario (blanco) */
+    background-color: var(--color-primario);
+    /* Fondo oscuro */
+    border: 1px solid var(--color-secundario);
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.pagination .page-item.active .page-link {
+    background-color: var(--color-acento);
+    /* Fondo de página activa (color acento) */
+    border-color: var(--color-acento);
+    color: var(--color-secundario);
+}
+
+.pagination .page-item .page-link:hover {
+    background-color: var(--color-complementario);
+    /* Cambia al color complementario al hacer hover */
+    border-color: var(--color-complementario);
+    color: var(--color-secundario);
+}
+
+.truncate {
+    white-space: nowrap;
+    /* Forzar una sola línea */
+    overflow: hidden;
+    /* Ocultar el texto que se sale del contenedor */
+    text-overflow: ellipsis;
+    /* Mostrar puntos suspensivos al final */
 }

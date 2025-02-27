@@ -60,35 +60,61 @@
                                     </span>
                                 <?php endif; ?>
                             </a>
+
                             <!-- Dropdown que muestra el resumen del carrito -->
-                            <ul class="dropdown-menu dropdown-menu-end p-3" aria-labelledby="cartDropdown" style="min-width: 300px;">
+                            <ul class="dropdown-menu dropdown-menu-end p-2" aria-labelledby="cartDropdown" style="min-width: 280px;">
                                 <?php if ($cart->totalItems() > 0): ?>
                                     <?php foreach ($cart->contents() as $item): ?>
-                                        <li class="dropdown-item">
+                                        <li class="dropdown-item d-flex align-items-center justify-content-between">
                                             <div class="d-flex align-items-center">
                                                 <!-- Imagen del producto -->
                                                 <img src="<?= base_url($item['image'] ?? 'uploads/productos/no-image.png') ?>"
                                                     alt="<?= esc($item['name']) ?>"
                                                     class="img-thumbnail me-2"
-                                                    style="width: 50px; height: auto;">
-                                                <div class="flex-grow-1">
-                                                    <strong><?= esc($item['name']) ?></strong>
-                                                    <div class="small text-muted">x <?= $item['qty'] ?> - $<?= number_format($item['qty'] * $item['price'], 2) ?></div>
+                                                    style="width: 40px; height: auto;">
+                                                <div>
+                                                    <div class="truncate" style="max-width: 150px;">
+                                                        <strong><?= esc($item['name']) ?></strong>
+                                                    </div>
+                                                    <div class="small text-muted">
+                                                        x <?= $item['qty'] ?> - $<?= number_format($item['qty'] * $item['price'], 2) ?>
+                                                    </div>
                                                 </div>
+                                            </div>
+                                            <!-- Botón para eliminar este producto -->
+                                            <div>
+                                                <a href="<?= base_url('carrito/quitar/' . esc($item['rowid'])) ?>"
+                                                    class="btn btn-outline-danger btn-sm"
+                                                    title="Eliminar este producto">
+                                                    <i class="bi bi-x"></i>
+                                                </a>
                                             </div>
                                         </li>
                                     <?php endforeach; ?>
                                     <li>
                                         <hr class="dropdown-divider">
                                     </li>
-                                    <li class="dropdown-item text-center">
-                                        <a href="<?= base_url('carrito'); ?>" class="btn btn-primary btn-sm me-2">Ver Carrito</a>
-                                        <a href="<?= base_url('checkout/seleccionarDireccion') ?>" class="btn btn-success btn-sm">Finalizar Compra</a>
+                                    <!-- Mostrar total -->
+                                    <li class="dropdown-item text-end">
+                                        <strong>Total: $<?= number_format($cart->total(), 2) ?></strong>
+                                    </li>
+                                    <li>
+                                        <hr class="dropdown-divider">
+                                    </li>
+                                    <!-- Botones de acción: Vaciar Carrito, Ver Carrito y Finalizar Compra -->
+                                    <li class="dropdown-item  text-center ">
+                                        <div class="d-flex flex-column justify-content-around gap-1 mx-5">
+                                            <a href="<?= base_url('carrito/borrar') ?>" class="btn btn-producto-mensaje btn-sm">Vaciar Carrito</a>
+                                            <a href="<?= base_url('carrito'); ?>" class="btn btn-producto-agregar btn-sm">Ver Carrito</a>
+                                            <a href="<?= base_url('checkout/seleccionarDireccion') ?>" class="btn btn-producto-compra btn-sm" style="background:rgb(82, 104, 3)">Finalizar Compra</a>
+                                        </div>
                                     </li>
                                 <?php else: ?>
                                     <li class="dropdown-item text-center">Carrito vacío</li>
                                 <?php endif; ?>
                             </ul>
+
+
                         </li>
 
 

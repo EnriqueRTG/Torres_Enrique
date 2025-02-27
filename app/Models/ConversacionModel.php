@@ -260,7 +260,7 @@ class ConversacionModel extends Model
      * @param int $porPagina    Número de registros por página (por defecto 10).
      * @return array            Lista de conversaciones de tipo "consulta" que cumplen los filtros.
      */
-    public function filtrarConversacionesConsulta(string $texto, string $estado, int $pagina): array
+    public function filtrarConversacionesConsulta(string $texto, string $estado, int $pagina, $porPagina = 10): array
     {
         $builder = $this->builder();
 
@@ -286,7 +286,6 @@ class ConversacionModel extends Model
 
         // Orden y paginación
         $builder->orderBy('updated_at', 'DESC');
-        $porPagina = 10;
         $offset = ($pagina - 1) * $porPagina;
         $builder->limit($porPagina, $offset);
 

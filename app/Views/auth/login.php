@@ -7,13 +7,22 @@
 <!-- Contenedor principal del login -->
 <main class="container my-5 d-flex justify-content-center align-items-center main-content">
     <section class="card p-4 shadow-sm w-100" style="max-width: 500px;">
-        <!-- Mensajes de sesión: alertas de éxito -->
-        <div class="alert-info text-center container">
-            <?= session()->has('mensaje')
-                ? view('partials/_session')
-                : '' ?>
-        </div>
-        
+        <!-- Mostrar alerta de error -->
+        <?php if (session()->has('error')) : ?>
+            <div class="alert alert-danger alert-dismissible fade show alert-fixed text-center" role="alert">
+                <?= session('error') ?>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        <?php endif; ?>
+
+        <!-- Mostrar mensajes de éxito (si los hay) -->
+        <?php if (session('mensaje')) : ?>
+            <div class="alert alert-success alert-dismissible fade show alert-fixed text-center" role="alert">
+                <?= session('mensaje') ?>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        <?php endif; ?>
+
         <!-- Formulario de Login -->
         <form action="<?= base_url('login') ?>" method="POST" class="needs-validation" novalidate>
             <!-- Token de seguridad -->

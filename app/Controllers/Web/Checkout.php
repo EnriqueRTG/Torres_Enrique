@@ -242,7 +242,7 @@ class Checkout extends BaseController
             $this->cart->destroy();
 
             return redirect()->to(site_url('cliente/pedidos/show/' . $ordenId))
-                ->with('success', '¡Tu orden de compra se ha realizado con éxito!');
+                ->with('mensaje', '¡Tu orden de compra se ha realizado con éxito!');
         } catch (\Exception $e) {
             // Revertir la transacción en caso de error
             $db->transRollback();

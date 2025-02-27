@@ -179,4 +179,23 @@ class CategoriaModel extends Model
         $totalRegistros = $builder->countAllResults();
         return ceil($totalRegistros / $porPagina);
     }
+
+    /**
+     * Obtiene las categorías que tienen productos activos en stock.
+     *
+     * Este método consulta la base de datos para obtener todas las categorías relacionadas con productos
+     * que están en estado "activo" y que tienen stock mayor a 0. Se efectúa un join con la tabla "productos"
+     * y se agrupa por el ID de la categoría para evitar registros duplicados.
+     *
+     * @return array Lista de categorías con productos activos.
+     */
+    public function obtenerCategoriasConProductosActivos()
+    {
+        return $this->select('categorias.*')          // Selecciona todos los campos de la tabla "categorias"
+            ->join('productos', 'productos.categoria_id = categorias.id')  // Realiza el join con la tabla "productos" usando la relación de categorías
+            ->where('productos.estado', 'activo')  // Filtra para obtener solo productos activos
+            ->where('productos.stock >', 0)        // Filtra para obtener solo productos que tengan stock mayor a 0
+            ->groupBy('categorias.id')             // Agrupa por ID de categoría para evitar duplicados en el resultado
+            ->findAll();                           // Retorna todos los registros obtenidos
+    }
 }

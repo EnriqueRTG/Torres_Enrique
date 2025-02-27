@@ -48,6 +48,7 @@ $routes->group('', function ($routes) {
     // Catálogo y detalles de producto
     $routes->get('catalogo', 'Web\Catalogo::index', ['as' => 'web.catalogo']);
     $routes->get('producto/(:num)', 'Web\Catalogo::show/$1', ['as' => 'producto']);
+    $routes->get('catalogo/sugerencias', 'Web\Catalogo::sugerencias');
 
     // Grupo: Carrito y Compras (solo para clientes autenticados)
     $routes->group('carrito', ['filter' => 'authCliente'], function ($routes) {
@@ -99,8 +100,13 @@ $routes->group('admin', ['filter' => 'authAdmin'], function ($routes) {
     // Dashboard
     $routes->get('dashboard', 'Admin\Dashboard::index', ['as' => 'admin.dashboard']);
 
-    // Ordenes
-    $routes->get('ordenes', ['controller' => 'Admin\Orden']);
+    // Grupo: Ordenes
+    $routes->group('ordenes', function ($routes) {
+        $routes->get('', 'Admin\Orden::index');
+        $routes->get('show/(:num)', 'Admin\Orden::show/$1');
+        $routes->get('cancelar/(:num)', 'Admin\Ordenes::cancelar/$1', ['as' => 'admin.ordenes.cancelar']);
+        $routes->get('completar/(:num)', 'Admin\Ordenes::completar/$1', ['as' => 'admin.ordenes.completar']);
+    });
 
     // Grupo: Clientes
     $routes->group('clientes', function ($routes) {

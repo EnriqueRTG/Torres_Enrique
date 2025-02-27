@@ -191,12 +191,13 @@ class OrdenModel extends Model
      * @return object|null Objeto con la información detallada de la orden o null si no se encuentra.
      */
     public function obtenerOrdenDetallada($ordenId)
-{
-    $orden = $this->select([
+    {
+        $orden = $this->select([
             'ordenes.*',
             'usuarios.nombre as nombre_usuario',
             'usuarios.apellido as apellido_usuario',
             'usuarios.email as email_usuario',
+            'direcciones.nombre_destinatario',
             'direcciones.calle',
             'direcciones.numero',
             'direcciones.piso',
@@ -206,25 +207,49 @@ class OrdenModel extends Model
             'direcciones.codigo_postal',
             'direcciones.telefono'
         ])
-        ->join('usuarios', 'usuarios.id = ordenes.usuario_id')
-        ->join('direcciones', 'direcciones.id = ordenes.direccion_envio_id')
-        ->where('ordenes.id', $ordenId)
-        ->first();
+            ->join('usuarios', 'usuarios.id = ordenes.usuario_id')
+            ->join('direcciones', 'direcciones.id = ordenes.direccion_envio_id')
+            ->where('ordenes.id', $ordenId)
+            ->first();
 
-    if ($orden) {
-        $detalleOrdenModel = new \App\Models\DetalleOrdenModel();
-        $orden->detalles = $detalleOrdenModel->select([
+        if ($orden) {
+            $detalleOrdenModel = new \App\Models\DetalleOrdenModel();
+            $orden->detalles = $detalleOrdenModel->select([
                 'detalle_orden.*',
                 'productos.nombre as nombre_producto'
             ])
-            ->join('productos', 'productos.id = detalle_orden.producto_id')
-            ->where('detalle_orden.orden_id', $ordenId) // Especificar el alias aquí
-            ->findAll();
-    } else {
-        return null;
+                ->join('productos', 'productos.id = detalle_orden.producto_id')
+                ->where('detalle_orden.orden_id', $ordenId) // Especificar el alias aquí
+                ->findAll();
+        } else {
+            return null;
+        }
+
+        return $orden;
     }
 
-    return $orden;
-}
+    public function obtenerOrdenesDetalladas()
+    {
+        $orden = $this->select([
+            'ordenes.*',
+            'usuarios.nombre as nombre_usuario',
+            'usuarios.apellido as apellido_usuario',
+            'usuarios.email as email_usuario',
+            'direcciones.nombre_destinatario',
+            'direcciones.calle',
+            'direcciones.numero',
+            'direcciones.piso',
+            'direcciones.departamento',
+            'direcciones.ciudad',
+            'direcciones.provincia',
+            'direcciones.codigo_postal',
+            'direcciones.telefono'
+        ])
+            ->join('usuarios', 'usuarios.id = ordenes.usuario_id')
+            ->join('direcciones', 'direcciones.id = ordenes.direccion_envio_id')
+            ->orderBy('ordenes.created_at', 'DESC')
+            ->findAll();
 
+        return $orden;
+    }
 }

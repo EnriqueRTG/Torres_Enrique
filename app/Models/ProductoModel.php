@@ -37,7 +37,7 @@ class ProductoModel extends Model
 
     // Reglas de validación para cada campo
     protected $validationRules = [
-        'nombre'       => 'required|min_length[3]|max_length[255]|is_unique[productos.nombre,id,{id}]',
+        'nombre'       => 'required|min_length[3]|max_length[255]|is_unique[productos.nombre,id,{id}]|regex_match[/^(?!.*[()]).+$/]',
         'descripcion'  => 'permit_empty',
         'precio'       => 'required|decimal|greater_than[0]',
         'stock'        => 'required|integer|is_natural_no_zero',
@@ -54,10 +54,11 @@ class ProductoModel extends Model
     // Mensajes personalizados para la validación
     protected $validationMessages = [
         'nombre' => [
-            'required'   => 'El nombre del producto es obligatorio.',
-            'min_length' => 'El nombre del producto debe tener al menos 3 caracteres.',
-            'max_length' => 'El nombre del producto no puede superar los 255 caracteres.',
-            'is_unique'  => 'Ya existe un producto con ese nombre.'
+            'required'    => 'El nombre del producto es obligatorio.',
+            'min_length'  => 'El nombre del producto debe tener al menos 3 caracteres.',
+            'max_length'  => 'El nombre del producto no puede superar los 255 caracteres.',
+            'is_unique'   => 'Ya existe un producto con ese nombre.',
+            'regex_match' => 'El nombre del producto no puede contener paréntesis.'
         ],
         'precio' => [
             'required'     => 'El precio es obligatorio.',
@@ -230,7 +231,7 @@ class ProductoModel extends Model
 
     /**
      * Obtiene los productos activos junto con la primera imagen asociada,
-     * el nombre de la marca y el nombre de la categoría.
+     * el nombre de la marca y el nombre de la categoría, con soporte para paginación.
      *
      * Se filtra por productos con estado 'activo' y se ordenan por 'updated_at'
      * en orden descendente (los más recientes primero). Además, se utiliza una
@@ -238,18 +239,20 @@ class ProductoModel extends Model
      * o devolver una ruta por defecto ('uploads/productos/no-image.png') si no existe.
      *
      * @param \CodeIgniter\Database\BaseBuilder|null $builder (Opcional) Instancia del Query Builder con filtros previos.
+     * @param int|null $limit Cantidad de registros a retornar (para paginación).
+     * @param int $offset Desplazamiento (para paginación).
      * @return array Lista de productos activos (como objetos) con los campos adicionales:
      *               - imagen_principal: ruta de la primera imagen (o la imagen por defecto si no existe).
      *               - marca_nombre: nombre de la marca.
      *               - categoria_nombre: nombre de la categoría.
      */
-    public function getProductosActivos($builder = null)
+    public function getProductosActivos($builder = null, int $limit = null, int $offset = 0)
     {
         if ($builder === null) {
             $builder = $this->builder();
         }
 
-        // Utilizar COALESCE para devolver una imagen por defecto si no se encuentra ninguna imagen asociada.
+        // Seleccionar campos y la subconsulta para la imagen principal
         $builder->select(
             "productos.*, 
          COALESCE(
@@ -264,19 +267,23 @@ class ProductoModel extends Model
             false
         );
 
-        // Realizar los LEFT JOIN para traer los nombres de la marca y la categoría.
+        // LEFT JOIN para obtener nombres de marca y categoría
         $builder->join('marcas', 'marcas.id = productos.marca_id', 'left');
         $builder->join('categorias', 'categorias.id = productos.categoria_id', 'left');
 
-        // Filtrar para obtener únicamente los productos con estado 'activo'
+        // Filtrar solo productos activos
         $builder->where('productos.estado', 'activo');
 
-        // Ordenar los resultados por 'updated_at' de forma descendente.
+        // Ordenar resultados por fecha de actualización (más recientes primero)
         $builder->orderBy('productos.updated_at', 'DESC');
+
+        // Aplicar límite y offset para la paginación
+        if ($limit !== null) {
+            $builder->limit($limit, $offset);
+        }
 
         return $builder->get()->getResult();
     }
-
 
     /**
      * Crea un nuevo producto.
@@ -422,5 +429,24 @@ class ProductoModel extends Model
 
         // Actualizar el stock en la base de datos
         return $this->update($productoId, ['stock' => $nuevoStock]);
+    }
+
+    /**
+     * Busca productos activos cuyo nombre coincida (parcialmente) con el término dado.
+     *
+     * @param string $query Término de búsqueda.
+     * @param int    $limite (Opcional) Cantidad máxima de sugerencias a retornar. Por defecto 10.
+     *
+     * @return array Lista de productos que coinciden.
+     */
+    public function buscarProductosPorNombre($query)
+    {
+        // Obtiene el builder
+        $builder = $this->builder();
+        // Aplica el filtro de búsqueda
+        $builder->like('nombre', $query)
+            ->where('estado', 'activo')
+            ->where('stock >', 0);
+        return $builder;
     }
 }

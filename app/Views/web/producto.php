@@ -81,7 +81,7 @@
 
                     <!-- Ejemplo para usuario no autenticado -->
                     <?php if (!session()->get('usuario')): ?>
-                        <div class="row row-cols-1 text-center p-3">
+                        <div class="row row-cols-1 text-center p-3 text-center">
                             <div class="col">
                                 <a href="<?= base_url('contacto?producto=' . urlencode($producto->nombre)) ?>"
                                     class="btn btn-producto-mensaje w-50" title="Contactar">
@@ -96,12 +96,12 @@
                     <?php else: ?>
                         <?php if (session()->get('usuario')->rol == ROL_ADMIN): ?>
                             <!-- Botones inhabilitados para el administrador -->
-                            <div class="row row-cols-1 g-3 mx-3">
+                            <div class="row row-cols-1 g-3 mx-3 text-center">
                                 <div class="col">
                                     <a href="#" class="btn btn-producto-mensaje w-50 disabled" title="Consultar">Consultar</a>
                                 </div>
                                 <div class="col">
-                                    <a href="#" class="btn btn-producto-agregar w-50 disabled" title="Añadir al carrito">Añadir al carrito</a>
+                                    <a href="#" class="btn btn-warning w-50 disabled" title="Añadir al carrito">Añadir al carrito</a>
                                 </div>
                                 <div class="col">
                                     <a href="#" class="btn btn-producto-comprar w-50 disabled" title="Comprar ahora">Comprar ahora</a>
@@ -109,7 +109,7 @@
                             </div>
                         <?php elseif (session()->get('usuario')->rol == ROL_CLIENTE): ?>
                             <!-- Botones para el cliente -->
-                            <div class="row row-cols-1 g-3 mx-3">
+                            <div class="row row-cols-1 g-3 mx-3 text-center">
                                 <div class="col">
                                     <a href="<?= url_to('producto', $producto->id) ?>" class="btn btn-producto-mensaje w-50" title="Consultar">Consultar</a>
                                 </div>

@@ -3,7 +3,7 @@
 <!-- Se incluye el Navbar principal para el cliente -->
 <?= view("partials/_navbar") ?>
 
-<div class="container my-4">
+<div class="container my-3 main-content">
     <!-- Breadcrumb -->
     <?= view('partials/_breadcrumb', ['breadcrumbs' => $breadcrumbs]) ?>
 
@@ -12,7 +12,7 @@
     <?php if (!empty($ordenes)) : ?>
         <div class="table-responsive">
             <table class="table table-striped table-hover">
-                <thead class="text-center">
+                <thead class="text-center align-middle">
                     <tr>
                         <th>Orden</th>
                         <th>Total</th>
@@ -21,7 +21,7 @@
                         <th>Acciones</th>
                     </tr>
                 </thead>
-                <tbody class="text-center">
+                <tbody class="text-center align-middle">
                     <?php foreach ($ordenes as $orden) : ?>
                         <tr>
                             <td># <?= esc($orden->id) ?></td>
@@ -29,13 +29,13 @@
                             <td><?= ucfirst(esc($orden->estado)) ?></td>
                             <td><?= date("d/m/Y H:i", strtotime($orden->created_at)) ?></td>
                             <td>
-                                <a href="<?= site_url('cliente/pedidos/show/' . $orden->id) ?>" class="btn btn-info btn-sm">
+                                <a href="<?= site_url('cliente/pedidos/show/' . $orden->id) ?>" class="btn btn-info btn-sm m-1">
                                     <i class="bi bi-eye"></i>
                                 </a>
-                                <a href="<?= site_url('cliente/pedidos/descargarPdf/' . $orden->id) ?>" class="btn btn-secondary btn-sm">
+                                <a href="<?= site_url('cliente/pedidos/descargarPdf/' . $orden->id) ?>" class="btn btn-secondary btn-sm m-1">
                                     <i class="bi bi-file-earmark-arrow-down"></i>
                                 </a>
-                                <a href="<?= site_url('cliente/pedidos/cancelar/' . $orden->id) ?>" class="btn btn-danger btn-sm">
+                                <a href="<?= site_url('cliente/pedidos/cancelar/' . $orden->id) ?>" class="btn btn-danger btn-sm m-1">
                                     <i class="bi bi-x-square"></i>
                                 </a>
                             </td>

@@ -25,7 +25,7 @@
             <h3 class="text-white-50">Productos</h3>
             <div class="table-responsive">
                 <table class="table table-striped">
-                    <thead>
+                    <thead class="align-middle">
                         <tr class="text-center">
                             <th>Producto</th>
                             <th>Cantidad</th>
@@ -33,7 +33,7 @@
                             <th>Subtotal</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody class="align-middle">
                         <?php if (!empty($cartItems)): ?>
                             <?php foreach ($cartItems as $item): ?>
                                 <tr class="text-center">
@@ -49,7 +49,7 @@
                             </tr>
                         <?php endif; ?>
                     </tbody>
-                    <tfoot>
+                    <tfoot class="align-middle">
                         <tr class="text-center">
                             <th colspan="3" class="text-end">Total:</th>
                             <th>$<?= number_format($total, 2) ?></th>

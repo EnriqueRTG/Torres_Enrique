@@ -180,4 +180,23 @@ class MarcaModel extends Model
         $totalRegistros = $builder->countAllResults();
         return ceil($totalRegistros / $porPagina);
     }
+
+    /**
+     * Obtiene las marcas que tienen productos activos en stock.
+     *
+     * Este método realiza una consulta a la base de datos para obtener todas las marcas asociadas a 
+     * productos que están en estado "activo" y cuentan con stock mayor a 0. Se utiliza un join con la 
+     * tabla "productos" y se agrupa por el ID de la marca para evitar registros duplicados.
+     *
+     * @return array Lista de marcas con productos activos.
+     */
+    public function obtenerMarcasConProductosActivos()
+    {
+        return $this->select('marcas.*')             // Selecciona todos los campos de la tabla "marcas"
+            ->join('productos', 'productos.marca_id = marcas.id')  // Realiza el join con la tabla "productos" usando la relación de marcas
+            ->where('productos.estado', 'activo')  // Filtra para obtener solo productos activos
+            ->where('productos.stock >', 0)        // Filtra para obtener solo productos que tengan stock mayor a 0
+            ->groupBy('marcas.id')                 // Agrupa por ID de marca para evitar duplicados en el resultado
+            ->findAll();                           // Retorna todos los registros obtenidos
+    }
 }

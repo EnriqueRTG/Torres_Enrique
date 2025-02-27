@@ -64,7 +64,7 @@
             <!-- Pie de la tarjeta: botón para editar perfil -->
             <div class="card-footer text-end">
                 <a href="<?= site_url('cliente/perfil/editar') ?>" class="btn btn-warning">
-                    <i class="bi bi-pencil-square"></i> Editar Perfil
+                    <i class="bi bi-pencil-square"></i> Editar Datos
                 </a>
             </div>
         </section>

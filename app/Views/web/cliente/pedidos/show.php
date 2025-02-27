@@ -3,7 +3,12 @@
 <!-- Se incluye el Navbar principal para el cliente -->
 <?= view("partials/_navbar") ?>
 
-<div class="container my-4">
+<div class="container my-3 main-content">
+    <!-- Mensajes de sesión: alertas de error o éxito -->
+    <div class="alert-info text-center">
+        <?= session()->has('errors') ? view('partials/_session-error') : view('partials/_session') ?>
+    </div>
+
     <!-- Breadcrumb -->
     <?= view('partials/_breadcrumb', ['breadcrumbs' => $breadcrumbs]) ?>
 
@@ -47,7 +52,7 @@
             <?php if (!empty($orden->detalles)) : ?>
                 <div class="table-responsive">
                     <table class="table table-striped">
-                        <thead class="text-center">
+                        <thead class="text-center align-middle">
                             <tr>
                                 <th>Producto</th>
                                 <th>Cantidad</th>
@@ -55,9 +60,9 @@
                                 <th>Subtotal</th>
                             </tr>
                         </thead>
-                        <tbody class="text-center">
+                        <tbody class="text-center align-middle">
                             <?php foreach ($orden->detalles as $detalle) : ?>
-                                <tr>
+                                <tr class="align-middle">
                                     <td><?= esc($detalle->nombre_producto) ?></td>
                                     <td><?= esc($detalle->cantidad) ?></td>
                                     <td>$<?= number_format($detalle->precio_unitario, 2) ?></td>
@@ -65,7 +70,7 @@
                                 </tr>
                             <?php endforeach; ?>
                         </tbody>
-                        <tfoot class="text-center">
+                        <tfoot class="text-center align-middle">
                             <tr>
                                 <th colspan="3" class="text-end">Total:</th>
                                 <th>$<?= number_format($orden->total, 2) ?></th>
@@ -74,7 +79,7 @@
                     </table>
                 </div>
             <?php else : ?>
-                <p class="text-center">No se encontraron detalles para esta orden.</p>
+                <p class="text-center text-white">No se encontraron detalles para esta orden.</p>
             <?php endif; ?>
         </div>
     </div>

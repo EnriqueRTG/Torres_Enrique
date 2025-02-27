@@ -90,7 +90,7 @@ class Login extends BaseController
 
         // Si no se encuentra el usuario, redirigir con mensaje de error
         if (!$usuario) {
-            return redirect()->back()->with('mensaje', 'Usuario y/o Contraseña inválida');
+            return redirect()->back()->with('error', 'Usuario y/o Contraseña inválida');
         }
 
         // Verificar la contraseña

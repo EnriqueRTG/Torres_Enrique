@@ -25,6 +25,13 @@ class Carrito extends BaseController
     protected $cart;
 
     /**
+     * Instancia del modelo de Productos.
+     *
+     * @var ProductoModel
+     */
+    protected $productoModel;
+
+    /**
      * Constructor.
      *
      * Carga los helpers necesarios y obtiene la instancia del carrito.
@@ -33,6 +40,7 @@ class Carrito extends BaseController
     {
         helper(['form', 'url', 'cart', 'number']);
         $this->cart = \Config\Services::cart();
+        $this->productoModel = new ProductoModel();
     }
 
     /**
@@ -76,8 +84,8 @@ class Carrito extends BaseController
             throw new \InvalidArgumentException('ID de producto no proporcionado');
         }
 
-        $productoModel = new ProductoModel();
-        $producto = $productoModel->obtenerProductoPorId($idProducto);
+        $producto = $this->productoModel->obtenerProductoPorId($idProducto);
+
         if (!$producto) {
             throw new \OutOfBoundsException('Producto no encontrado');
         }
@@ -91,11 +99,11 @@ class Carrito extends BaseController
             $this->cart->update($cartItem['rowid'], [
                 'qty' => $cartItem['qty'] + 1
             ]);
-            return redirect()->back()->with('success', 'La cantidad del producto en el carrito ha sido actualizada.');
+            return redirect()->back()->with('mensaje', 'La cantidad del producto en el carrito ha sido actualizada.');
         } else {
             // Insertar el producto en el carrito, incluyendo la imagen principal
             $data = [
-                'id'    => $producto->id,
+                'id'    => $idProducto,
                 'qty'   => 1,
                 'price' => $producto->precio,
                 'name'  => $producto->nombre,
