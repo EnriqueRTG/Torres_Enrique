@@ -180,7 +180,7 @@ $errors = session()->getFlashdata('errors');
     document.addEventListener('DOMContentLoaded', function() {
         inicializarTooltips();
         delegarEventosModales();
-        cargarMarcasDinamicas();
+        cargarMarcasDinamicamente();
     });
 
     /**
@@ -391,7 +391,7 @@ $errors = session()->getFlashdata('errors');
      * Carga las marcas de forma dinámica utilizando filtros almacenados en localStorage.
      * Se utiliza la clave 'estado_marca' para evitar colisiones con otras vistas.
      */
-    function cargarMarcasDinamicas() {
+    function cargarMarcasDinamicamente() {
         const estadoGuardado = localStorage.getItem('estado_marca') || 'todos';
         document.getElementById('filtroEstadoMarca').value = estadoGuardado;
         aplicarFiltro(1, '', estadoGuardado);

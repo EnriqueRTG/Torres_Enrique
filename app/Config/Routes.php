@@ -104,8 +104,11 @@ $routes->group('admin', ['filter' => 'authAdmin'], function ($routes) {
     $routes->group('ordenes', function ($routes) {
         $routes->get('', 'Admin\Orden::index');
         $routes->get('show/(:num)', 'Admin\Orden::show/$1');
-        $routes->get('cancelar/(:num)', 'Admin\Ordenes::cancelar/$1', ['as' => 'admin.ordenes.cancelar']);
-        $routes->get('completar/(:num)', 'Admin\Ordenes::completar/$1', ['as' => 'admin.ordenes.completar']);
+        $routes->get('cancelar/(:num)', 'Admin\Orden::cancelar/$1', ['as' => 'admin.ordenes.cancelar']);
+        $routes->get('completar/(:num)', 'Admin\Orden::completar/$1', ['as' => 'admin.ordenes.completar']);
+        $routes->get('buscar', 'Admin\Orden::buscarOrden');
+        $routes->get('comprobante/(:num)', 'Admin\Orden::comprobante/$1');
+
     });
 
     // Grupo: Clientes

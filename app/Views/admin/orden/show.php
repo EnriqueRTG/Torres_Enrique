@@ -92,11 +92,14 @@
             <a href="<?= site_url('admin/ordenes/cancelar/' . $orden->id) ?>" class="btn btn-danger mx-1" title="Cancelar Orden">
                 <i class="bi bi-x-circle"></i> Cancelar Orden
             </a>
-            <a href="<?= site_url('admin/ordenes/edit/' . $orden->id) ?>" class="btn btn-warning mx-1" title="Modificar Orden">
-                <i class="bi bi-pencil-square"></i> Modificar Orden
-            </a>
             <a href="<?= site_url('admin/ordenes/completar/' . $orden->id) ?>" class="btn btn-success mx-1" title="Completar Orden">
                 <i class="bi bi-check-circle"></i> Completar Orden
+            </a>
+        </section>
+    <?php elseif ($orden->estado === 'completada'): ?>
+        <section class="text-center mb-4">
+            <a href="<?= site_url('admin/ordenes/comprobante/' . $orden->id) ?>" class="btn btn-secondary mx-1" title="Cancelar Orden">
+                <i class="bi bi-x-circle"></i> Descargar Orden
             </a>
         </section>
     <?php else: ?>

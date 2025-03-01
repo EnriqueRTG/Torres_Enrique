@@ -1,6 +1,9 @@
 <?php
 $usuario = session()->get('usuario');
+// Suponiendo que en el objeto usuario existe una propiedad "rol" que indica si es "admin"
+$admin = isset($usuario) && isset($usuario->rol) && $usuario->rol === 'administrador';
 ?>
+
 <?= view("layouts/header-cliente", ['titulo' => $titulo]) ?>
 <?= view("partials/_navbar") ?>
 
@@ -25,7 +28,8 @@ $usuario = session()->get('usuario');
                     <hr>
                     <form method="POST" action="<?= base_url('contacto') ?>">
                         <?= csrf_field() ?>
-                        <fieldset>
+                        <!-- Si es administrador, el fieldset estará deshabilitado -->
+                        <fieldset <?= $admin ? 'disabled' : '' ?>>
                             <legend class="visually-hidden">Formulario de Contacto</legend>
                             <!-- Campo: Nombre -->
                             <div class="mb-3">
@@ -131,7 +135,7 @@ $usuario = session()->get('usuario');
                         </p>
                         <hr>
                         <div class="text-center">
-                            <div class="d-flex ">
+                            <div class="d-flex">
                                 <i class="bi bi-clock-fill me-1"></i>
                                 <p class="mb-0">Horarios</p>
                             </div>

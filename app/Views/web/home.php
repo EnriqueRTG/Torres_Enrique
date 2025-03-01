@@ -146,7 +146,7 @@
             <!-- Tarjeta de producto: Merchan    -->
             <article class="col">
                 <div class="card h-100 card-productos-home">
-                    <img src="<?= base_url('assets/images/cards-principal/kits.png'); ?>"
+                    <img src="<?= base_url('assets/images/cards-principal/merchan.png'); ?>"
                         alt="Kits/Combos" class="card-img-top rounded-3">
                     <div class="card-body text-center">
                         <h5 class="card-title fw-bold">Merchan</h5>
@@ -157,7 +157,7 @@
             <!-- Tarjeta de producto: Kits/Combos -->
             <article class="col">
                 <div class="card h-100 card-productos-home">
-                    <img src="<?= base_url('assets/images/cards-principal/kits.png'); ?>"
+                    <img src="<?= base_url('assets/images/cards-principal/accesorios.png'); ?>"
                         alt="Kits/Combos" class="card-img-top rounded-3">
                     <div class="card-body text-center">
                         <h5 class="card-title fw-bold">Accesorios</h5>

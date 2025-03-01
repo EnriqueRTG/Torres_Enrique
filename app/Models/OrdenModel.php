@@ -252,4 +252,117 @@ class OrdenModel extends Model
 
         return $orden;
     }
+
+    /**
+     * Obtiene las órdenes filtradas y paginadas según el estado y un término de búsqueda.
+     *
+     * Este método realiza un join con las tablas "usuarios" y "direcciones" para obtener
+     * información adicional del cliente y de la dirección de envío. La búsqueda se puede
+     * realizar tanto por el ID de la orden (si el término es numérico) como por el nombre
+     * o apellido del cliente.
+     *
+     * - Si el parámetro $estado es distinto de "todas", se filtran las órdenes según ese estado.
+     * - Si se proporciona un término de búsqueda en $busqueda, se agrupan las condiciones para:
+     *      - Buscar por un ID exacto de la orden (si $busqueda es numérico).
+     *      - Buscar por coincidencias parciales en los campos "nombre" o "apellido" del cliente.
+     * - Los resultados se ordenan por fecha de creación en orden descendente y se paginan.
+     *
+     * @param string $estado    Estado a filtrar (por ejemplo: "pendiente", "completada", "cancelada" o "todas").
+     * @param string $busqueda  Término de búsqueda (puede ser parte del ID de la orden o del nombre/apellido del cliente).
+     * @param int    $pagina    Número de página actual.
+     * @param int    $porPagina Número de registros por página.
+     * @return array            Array de órdenes filtradas y paginadas.
+     */
+    public function obtenerOrdenesFiltradas(string $estado = 'pendiente', string $busqueda = '', int $pagina = 1, int $porPagina = 10)
+    {
+        // Inicializar el query builder para la tabla "ordenes"
+        $builder = $this->builder();
+
+        // Seleccionar campos específicos de las tablas involucradas
+        $builder->select('
+            ordenes.id,
+            ordenes.estado AS orden_estado,
+            ordenes.total,
+            ordenes.created_at,
+            usuarios.nombre AS nombre_cliente,
+            usuarios.apellido AS apellido_cliente,
+            direcciones.calle,
+            direcciones.numero,
+            direcciones.ciudad,
+            direcciones.provincia
+        ');
+
+        // Unir la tabla "usuarios" para obtener datos del cliente
+        $builder->join('usuarios', 'usuarios.id = ordenes.usuario_id', 'left');
+
+        // Unir la tabla "direcciones" para obtener la información de envío
+        $builder->join('direcciones', 'direcciones.id = ordenes.direccion_envio_id', 'left');
+
+        // Si se proporcionó un término de búsqueda, aplicar condiciones adicionales
+        if (!empty($busqueda)) {
+            // Agrupar las condiciones para que se combinen correctamente con AND/OR
+            $builder->groupStart();
+            if (is_numeric($busqueda)) {
+                // Si el término es numérico, buscar por ID exacto
+                $builder->orWhere('ordenes.id', $busqueda);
+            }
+            // Buscar por coincidencias parciales en nombre o apellido del cliente
+            $builder->orLike('usuarios.nombre', $busqueda)
+                ->orLike('usuarios.apellido', $busqueda);
+            $builder->groupEnd();
+        }
+
+        // Filtrar por estado si éste es distinto de "todas"
+        if ($estado !== 'todas') {
+            $builder->where('ordenes.estado', $estado);
+        }
+
+        // Ordenar los resultados por fecha de creación de forma descendente
+        $builder->orderBy('ordenes.created_at', 'DESC');
+
+        // Retornar los resultados paginados usando el método paginate de CodeIgniter 4
+        return $this->paginate($porPagina, 'default', $pagina);
+    }
+
+    /**
+     * Calcula el total de páginas para las órdenes filtradas.
+     *
+     * Realiza la misma lógica de filtrado que en obtenerOrdenesFiltradas() y cuenta el total de registros.
+     * Luego, divide el total entre el número de registros por página para obtener el total de páginas.
+     *
+     * @param string $busqueda Término de búsqueda.
+     * @param string $estado Estado a filtrar ("pendiente", "completada", "cancelada" o "todas").
+     * @param int $porPagina Número de registros por página.
+     * @return int Total de páginas calculado.
+     */
+    public function obtenerTotalPaginas(string $busqueda = '', string $estado = 'pendiente', int $porPagina = 10): int
+    {
+        // Iniciar el query builder sobre la tabla "ordenes" con alias para mayor claridad
+        $builder = $this->db->table($this->table . ' AS ordenes');
+
+        // Join con la tabla de usuarios para filtrar por nombre o apellido
+        $builder->join('usuarios', 'usuarios.id = ordenes.usuario_id', 'left');
+
+        // Join con la tabla de usuarios para filtrar por nombre o apellido
+        $builder->join('direcciones', 'direcciones.id = ordenes.direccion_envio_id', 'left');
+
+        // Aplicar filtro de búsqueda
+        if (!empty($busqueda)) {
+            $builder->groupStart()
+                ->like('CAST(ordenes.id AS CHAR)', $busqueda)
+                ->orLike('usuarios.nombre', $busqueda)
+                ->orLike('usuarios.apellido', $busqueda)
+                ->groupEnd();
+        }
+
+        // Filtrar por estado si no es "todas"
+        if ($estado !== 'todas') {
+            $builder->where('ordenes.estado', $estado);
+        }
+
+        // Contar el total de registros filtrados
+        $totalRegistros = $builder->countAllResults();
+
+        return (int) ceil($totalRegistros / $porPagina);
+    }
 }
