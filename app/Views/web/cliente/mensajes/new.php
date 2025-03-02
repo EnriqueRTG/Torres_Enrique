@@ -1,10 +1,4 @@
-<!-- 
-    Vista: Nueva Conversación
-    Descripción: Permite al cliente iniciar una nueva conversación mediante un formulario.
-    Se solicita ingresar un asunto y un mensaje. Al enviar el formulario, los datos se procesarán 
-    en el controlador y, en caso de éxito, se redirigirá al índice de conversaciones con un mensaje de éxito.
--->
-
+<!-- Vista: Nueva Conversación -->
 <?= view("layouts/header-cliente", ['titulo' => $titulo]) ?>
 
 <!-- Se incluye el partial del Navbar -->
@@ -60,11 +54,11 @@
                 <!-- Botones de acción: Cancelar y Enviar, ahora alineados al margen izquierdo -->
                 <div class="d-flex justify-content-start mt-4">
                     <!-- Botón Cancelar: redirige al listado de conversaciones -->
-                    <a href="<?= site_url('cliente/mensajes') ?>" class="btn btn-secondary me-2">
+                    <a href="<?= site_url('cliente/mensajes') ?>" class="btn btn-vaciar-carrito me-2">
                         <i class="bi bi-x-circle"></i> Cancelar
                     </a>
                     <!-- Botón Enviar: envía el formulario -->
-                    <button type="submit" class="btn btn-primary">
+                    <button type="submit" class="btn btn-consultar">
                         <i class="bi bi-send"></i> Enviar Mensaje
                     </button>
                 </div>

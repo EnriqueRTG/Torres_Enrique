@@ -63,7 +63,7 @@
 
             <!-- Botón de Ingreso -->
             <div class="text-center">
-                <button type="submit" class="btn btn-custom w-100">Iniciar Sesión</button>
+                <button type="submit" class="btn btn-registrar-login w-100">Iniciar Sesión</button>
             </div>
         </form>
     </section>

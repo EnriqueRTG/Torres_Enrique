@@ -349,13 +349,104 @@ class Mensaje extends BaseController
         }
 
         // Intenta actualizar el estado de la conversación a "cerrado"
-        if ($this->conversacionModel->actualizarEstadoConversacion($id, 'cerrado')) {
+        if ($this->conversacionModel->actualizarEstadoConversacion($id, 'cerrada')) {
             // Redirige al índice de conversaciones del cliente con un mensaje de éxito
             return redirect()->to(site_url('cliente/mensajes'))
                 ->with('mensaje', 'La conversación se ha marcado como cerrada.');
         } else {
             // En caso de error, redirige de vuelta mostrando un mensaje de error
             return redirect()->back()->with('errors', ['error' => 'No se pudo actualizar el estado de la conversación.']);
+        }
+    }
+
+    /**
+     * Busca conversaciones por asunto o mensaje, y filtra por estado.
+     *
+     * Este método se invoca vía AJAX y retorna una vista parcial actualizada
+     * con las conversaciones que coincidan con el término de búsqueda y el filtro de estado.
+     *
+     * @return string Vista parcial HTML con el listado de conversaciones.
+     * @throws \CodeIgniter\Exceptions\PageNotFoundException Si la solicitud no es AJAX.
+     */
+    public function buscarMensaje()
+    {
+        // Verifica que la solicitud sea AJAX
+        if (!$this->request->isAJAX()) {
+            throw new \CodeIgniter\Exceptions\PageNotFoundException();
+        }
+
+        // Recoge los parámetros GET: 'busqueda' y 'estado'
+        $busqueda = $this->request->getGet('busqueda');
+        $estado   = $this->request->getGet('estado');
+        $pagina   = $this->request->getGet('pagina') ?? 1;
+        $porPagina = 10;
+        $clienteId = session()->get('usuario')->id;
+
+        try {
+            // Obtener las conversaciones filtradas y paginadas (incluye posiblemente conversaciones cerradas)
+            $conversacionesCliente = $this->conversacionModel->filtrarConversacionesCliente($busqueda, $estado, $pagina, $porPagina, $clienteId);
+
+            // Asigna el último mensaje (más reciente) a cada conversación
+            foreach ($conversacionesCliente as $consulta) {
+                $ultimoMensaje = $this->mensajeModel->where('conversacion_id', $consulta->id)
+                    ->orderBy('created_at', 'DESC')  // Orden descendente para obtener el mensaje más reciente
+                    ->first();
+                $consulta->ultimoMensaje = $ultimoMensaje;
+            }
+
+            // Refinar filtrado para "respondida": conservar solo conversaciones abiertas cuyo último mensaje sea del administrador.
+            if ($estado === 'respondida') {
+                $filtradas = [];
+                foreach ($conversacionesCliente as $consulta) {
+                    if (
+                        $consulta->estado === 'abierta' &&
+                        isset($consulta->ultimoMensaje) &&
+                        $consulta->ultimoMensaje->tipo_remitente === 'administrador'
+                    ) {
+                        $filtradas[] = $consulta;
+                    }
+                }
+                $conversacionesCliente = $filtradas;
+            }
+
+            // Refinar filtrado para "pendiente": conservar solo conversaciones abiertas sin respuesta del administrador.
+            if ($estado === 'pendiente') {
+                $filtradas = [];
+                foreach ($conversacionesCliente as $consulta) {
+                    if (
+                        $consulta->estado === 'abierta' &&
+                        (!isset($consulta->ultimoMensaje) ||
+                            $consulta->ultimoMensaje->tipo_remitente !== 'administrador')
+                    ) {
+                        $filtradas[] = $consulta;
+                    }
+                }
+                $conversacionesCliente = $filtradas;
+            }
+
+            // Filtrar para no devolver conversaciones cerradas
+            $filtradas = [];
+            foreach ($conversacionesCliente as $consulta) {
+                if ($consulta->estado !== 'cerrada') {
+                    $filtradas[] = $consulta;
+                }
+            }
+            $conversacionesCliente = $filtradas;
+
+            // Obtener el total de páginas (en este ejemplo se recalcula a partir del array filtrado)
+            $total = count($conversacionesCliente);
+            $totalPaginas = (int) ceil($total / $porPagina);
+
+            return $this->response->setJSON([
+                'conversaciones' => $conversacionesCliente,
+                'paginaActual'   => $pagina,
+                'totalPaginas'   => $totalPaginas
+            ]);
+        } catch (\Exception $e) {
+            log_message('error', $e->getMessage());
+            return $this->response->setStatusCode(500)->setJSON([
+                'error' => 'Error al cargar los mensajes. Por favor, inténtalo de nuevo más tarde.'
+            ]);
         }
     }
 }

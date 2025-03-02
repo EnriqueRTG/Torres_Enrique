@@ -66,17 +66,10 @@
                         <textarea name="mensaje" id="mensaje" rows="4" class="form-control" placeholder="Escribe tu mensaje aquí..." required></textarea>
                     </div>
                     <div class="d-flex justify-content-start">
-                        <button type="submit" class="btn btn-primary">
+                        <button type="submit" class="btn btn-consultar">
                             <i class="bi bi-send"></i> Enviar
                         </button>
                     </div>
-                </form>
-                <!-- También se puede ofrecer la opción de cerrar la conversación -->
-                <form action="<?= site_url('cliente/mensajes/cerrar/' . $conversacion->id) ?>" method="post" class="d-inline">
-                    <?= csrf_field() ?>
-                    <button type="submit" class="btn btn-warning">
-                        <i class="bi bi-check-circle"></i> Marcar como Cerrada
-                    </button>
                 </form>
             <?php else: ?>
                 <!-- Si la conversación está cerrada, se muestra un mensaje informativo -->

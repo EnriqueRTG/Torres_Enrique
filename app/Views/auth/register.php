@@ -72,7 +72,7 @@
                     </div>
                 <?php endif; ?>
             </div>
-            
+
             <!-- Términos y condiciones -->
             <div class="form-check my-3">
                 <input type="checkbox" name="terms" class="form-check-input" id="terms" value="1" required>
@@ -91,7 +91,7 @@
 
             <!-- Botón de Registro -->
             <div class="text-center">
-                <button type="submit" class="btn btn-custom w-100">Registrar</button>
+                <button type="submit" class="btn btn-registrar-login w-100">Registrar</button>
             </div>
         </form>
     </section>

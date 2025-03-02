@@ -16,15 +16,6 @@
     <!-- Swiper CSS local -->
     <link rel="stylesheet" href="<?= base_url('assets/swiper/swiper-bundle.min.css'); ?>">
 
-    <style>
-        /* Dropdown se despliega al pasar el cursor (solo en pantallas grandes) */
-        @media (min-width: 992px) {
-            .navbar-nav .nav-item.dropdown:hover>.dropdown-menu {
-                display: block;
-                margin-top: 0;
-            }
-        }
-    </style>
 </head>
 
 <body class="container-fluid p-0 m-0">

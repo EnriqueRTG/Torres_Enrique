@@ -84,13 +84,9 @@
                         <div class="row row-cols-1 text-center p-3 text-center">
                             <div class="col">
                                 <a href="<?= base_url('contacto?producto=' . urlencode($producto->nombre)) ?>"
-                                    class="btn btn-producto-mensaje w-50" title="Contactar">
+                                    class="btn btn-consultarw-50" title="Contactar">
                                     Contactar
                                 </a>
-
-                                <!-- <a href="<?= url_to('producto', $producto->id) ?>" class="btn btn-producto-mensaje w-50" title="Contactar">
-                                    Contactar
-                                </a> -->
                             </div>
                         </div>
                     <?php else: ?>
@@ -98,26 +94,23 @@
                             <!-- Botones inhabilitados para el administrador -->
                             <div class="row row-cols-1 g-3 mx-3 text-center">
                                 <div class="col">
-                                    <a href="#" class="btn btn-producto-mensaje w-50 disabled" title="Consultar">Consultar</a>
+                                    <a href="#" class="btn btn-consultar w-50 disabled" title="Consultar">Consultar</a>
                                 </div>
                                 <div class="col">
-                                    <a href="#" class="btn btn-warning w-50 disabled" title="Añadir al carrito">Añadir al carrito</a>
-                                </div>
-                                <div class="col">
-                                    <a href="#" class="btn btn-producto-comprar w-50 disabled" title="Comprar ahora">Comprar ahora</a>
+                                    <a href="#" class="btn btn-agregar-carrito w-50 disabled" title="Añadir al carrito">Añadir al carrito</a>
                                 </div>
                             </div>
                         <?php elseif (session()->get('usuario')->rol == ROL_CLIENTE): ?>
                             <!-- Botones para el cliente -->
                             <div class="row row-cols-1 g-3 mx-3 text-center">
                                 <div class="col">
-                                    <a href="<?= url_to('producto', $producto->id) ?>" class="btn btn-producto-mensaje w-50" title="Consultar">Consultar</a>
+                                    <a href="<?= base_url('contacto?producto=' . urlencode($producto->nombre)) ?>"
+                                        class="btn btn-consultar w-50" title="Contactar">
+                                        Consultar
+                                    </a>
                                 </div>
                                 <div class="col">
-                                    <a href="<?= base_url('carrito/agregar/' . $producto->id) ?>" class="btn btn-producto-agregar w-50" title="Añadir al carrito">Añadir al carrito</a>
-                                </div>
-                                <div class="col">
-                                    <a href="<?= url_to('producto', $producto->id) ?>" class="btn  btn-producto-compra w-50" title="Comprar ahora">Comprar ahora</a>
+                                    <a href="<?= base_url('carrito/agregar/' . $producto->id) ?>" class="btn btn-agregar-carrito w-50" title="Añadir al carrito">Añadir al carrito</a>
                                 </div>
                             </div>
                         <?php endif; ?>

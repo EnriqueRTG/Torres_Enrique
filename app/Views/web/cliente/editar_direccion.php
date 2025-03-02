@@ -1,13 +1,4 @@
-<!-- 
-    Vista: Editar Dirección de Envío
-    Ubicación: app/Views/cliente/direccion_editar.php
-
-    Esta vista permite al cliente editar una dirección de envío existente. Se muestran
-    todos los campos relevantes, prellenados con los datos actuales de la dirección.
-    Se utiliza Bootstrap para lograr una buena responsividad y se incluyen comentarios
-    para facilitar la comprensión y el mantenimiento del código.
--->
-
+<!-- Vista: Editar Dirección de Envío -->
 <?= view("layouts/header-cliente", ['titulo' => $titulo]) ?>
 
 <!-- Se incluye el partial del Navbar -->
@@ -16,9 +7,9 @@
 <main class="container my-3 main-content">
     <!-- Mensajes de sesión: errores o confirmaciones -->
     <div class="alert-info text-center">
-        <?= session()->has('errors') 
-            ? view('partials/_session-error') 
-            : view('partials/_session') 
+        <?= session()->has('errors')
+            ? view('partials/_session-error')
+            : view('partials/_session')
         ?>
     </div>
 

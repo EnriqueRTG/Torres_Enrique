@@ -59,7 +59,7 @@
                     Trabajamos ofreciendo productos de calidad, nacionales e importados.
                 </p>
                 <div class="mt-4">
-                    <a href="<?= base_url('catalogo'); ?>" class="btn btn-custom" id="btn-catalogo-per">
+                    <a href="<?= base_url('catalogo'); ?>" class="btn btn-accion btn-catalogo">
                         Ver Catálogo
                     </a>
                 </div>

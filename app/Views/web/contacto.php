@@ -99,10 +99,10 @@ $admin = isset($usuario) && isset($usuario->rol) && $usuario->rol === 'administr
                                 <?php endif; ?>
                             </div>
                             <div class="text-center d-flex justify-content-around">
-                                <button type="reset" class="btn btn-producto-agregar" id="btn-limpiar">
+                                <button type="reset" class="btn btn-limpiar" id="btn-limpiar">
                                     <i class="bi bi-eraser"></i> Limpiar
                                 </button>
-                                <button type="submit" class="btn btn-producto-mensaje">
+                                <button type="submit" class="btn btn-consultar">
                                     <i class="bi bi-send"></i> Enviar
                                 </button>
                             </div>

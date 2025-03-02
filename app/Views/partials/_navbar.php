@@ -37,6 +37,9 @@
                             <a class="nav-link" href="<?= site_url('comercializacion'); ?>">Comercialización</a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link" href="<?= site_url('contacto'); ?>">Contacto</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="<?= site_url('terminos'); ?>">Términos y usos</a>
                         </li>
                     </ul>
@@ -47,7 +50,7 @@
                         <li class="nav-item dropdown mx-3">
                             <!-- Botón del carrito con dropdown-toggle -->
                             <a class="btn btn-nav-personalizado position-relative p-0"
-                                href="#"
+                                href="<?= base_url('carrito'); ?>"
                                 id="cartDropdown"
                                 role="button"
                                 data-bs-toggle="dropdown"
@@ -62,30 +65,29 @@
                             </a>
 
                             <!-- Dropdown que muestra el resumen del carrito -->
-                            <ul class="dropdown-menu dropdown-menu-end p-2" aria-labelledby="cartDropdown" style="min-width: 280px;">
+                            <ul class="dropdown-menu dropdown-menu-end p-3" aria-labelledby="cartDropdown" style="min-width: 300px;">
                                 <?php if ($cart->totalItems() > 0): ?>
+                                    <!-- Encabezado del resumen -->
+                                    <li class="dropdown-header text-center">Productos en tu carrito</li>
                                     <?php foreach ($cart->contents() as $item): ?>
-                                        <li class="dropdown-item d-flex align-items-center justify-content-between">
+                                        <li class="dropdown-item">
                                             <div class="d-flex align-items-center">
                                                 <!-- Imagen del producto -->
                                                 <img src="<?= base_url($item['image'] ?? 'uploads/productos/no-image.png') ?>"
                                                     alt="<?= esc($item['name']) ?>"
                                                     class="img-thumbnail me-2"
                                                     style="width: 40px; height: auto;">
-                                                <div>
-                                                    <div class="truncate" style="max-width: 150px;">
+                                                <!-- Información del producto -->
+                                                <div class="flex-grow-1">
+                                                    <div class="truncate" style="max-width: 160px;">
                                                         <strong><?= esc($item['name']) ?></strong>
                                                     </div>
-                                                    <div class="small text-muted">
-                                                        x <?= $item['qty'] ?> - $<?= number_format($item['qty'] * $item['price'], 2) ?>
-                                                    </div>
+                                                    <small class="text-muted">x <?= $item['qty'] ?> - $<?= number_format($item['qty'] * $item['price'], 2) ?></small>
                                                 </div>
-                                            </div>
-                                            <!-- Botón para eliminar este producto -->
-                                            <div>
+                                                <!-- Botón para quitar este producto -->
                                                 <a href="<?= base_url('carrito/quitar/' . esc($item['rowid'])) ?>"
                                                     class="btn btn-outline-danger btn-sm"
-                                                    title="Eliminar este producto">
+                                                    title="Eliminar">
                                                     <i class="bi bi-x"></i>
                                                 </a>
                                             </div>
@@ -94,27 +96,26 @@
                                     <li>
                                         <hr class="dropdown-divider">
                                     </li>
-                                    <!-- Mostrar total -->
-                                    <li class="dropdown-item text-end">
-                                        <strong>Total: $<?= number_format($cart->total(), 2) ?></strong>
+                                    <!-- Total del carrito -->
+                                    <li class="dropdown-item d-flex justify-content-between align-items-center">
+                                        <span>Total:</span>
+                                        <strong>$<?= number_format($cart->total(), 2) ?></strong>
                                     </li>
                                     <li>
                                         <hr class="dropdown-divider">
                                     </li>
-                                    <!-- Botones de acción: Vaciar Carrito, Ver Carrito y Finalizar Compra -->
-                                    <li class="dropdown-item  text-center ">
-                                        <div class="d-flex flex-column justify-content-around gap-1 mx-5">
-                                            <a href="<?= base_url('carrito/borrar') ?>" class="btn btn-producto-mensaje btn-sm">Vaciar Carrito</a>
-                                            <a href="<?= base_url('carrito'); ?>" class="btn btn-producto-agregar btn-sm">Ver Carrito</a>
-                                            <a href="<?= base_url('checkout/seleccionarDireccion') ?>" class="btn btn-producto-compra btn-sm" style="background:rgb(82, 104, 3)">Finalizar Compra</a>
+                                    <!-- Botones de acción -->
+                                    <li class="dropdown-item">
+                                        <div class="d-flex flex-column gap-2">
+                                            <a href="<?= base_url('carrito/borrar') ?>" class="btn btn-vaciar-carrito btn-sm">Vaciar Carrito</a>
+                                            <a href="<?= base_url('carrito'); ?>" class="btn btn-ver-carrito btn-sm">Ver Carrito</a>
+                                            <a href="<?= base_url('checkout/seleccionarDireccion') ?>" class="btn btn-finalizar-compra btn-sm">Finalizar Compra</a>
                                         </div>
                                     </li>
                                 <?php else: ?>
                                     <li class="dropdown-item text-center">Carrito vacío</li>
                                 <?php endif; ?>
                             </ul>
-
-
                         </li>
 
 
@@ -124,7 +125,7 @@
                             <a class="nav-link p-0" href="#" id="clienteDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="bi bi-person-circle fs-4 text-white"></i>
                             </a>
-                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="clienteDropdown">
+                            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-cliente" aria-labelledby="clienteDropdown">
                                 <li>
                                     <a class="dropdown-item" href="<?= site_url('cliente/perfil'); ?>">
                                         <i class="bi bi-person"></i> Perfil
@@ -169,6 +170,9 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="<?= site_url('comercializacion'); ?>">Comercialización</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="<?= site_url('contacto'); ?>">Contacto</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="<?= site_url('terminos'); ?>">Términos y usos</a>

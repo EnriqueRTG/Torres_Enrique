@@ -37,7 +37,7 @@
         <?php else : ?>
             <!-- Botón para mostrar filtros en móviles (visible en dispositivos pequeños) -->
             <div class="mb-3 d-md-none text-center">
-                <button class="btn btn-secondary btn-accion" type="button" data-bs-toggle="offcanvas" data-bs-target="#filtrosOffcanvas" aria-controls="filtrosOffcanvas">
+                <button class="btn btn-filtros" type="button" data-bs-toggle="offcanvas" data-bs-target="#filtrosOffcanvas" aria-controls="filtrosOffcanvas">
                     Mostrar Filtros
                 </button>
             </div>
@@ -73,7 +73,7 @@
                                         <img class="card-img-top" src="<?= base_url($producto->imagen_principal) ?>" alt="<?= esc($producto->nombre) ?>">
                                         <!-- Overlay que aparece al hacer hover -->
                                         <div class="overlay d-flex justify-content-center align-items-center">
-                                            <button class="btn btn-accion btn-ver-detalle">Ver Detalles</button>
+                                            <button class="btn btn-ver-detalles">Ver Detalles</button>
                                         </div>
                                     </a>
                                     <!-- Detalles del producto: nombre y precio -->
@@ -93,7 +93,7 @@
                                                     <span class="text-danger fw-bold">¡Última unidad!</span>
                                                 <?php endif; ?>
                                                 <?php if (session()->get('usuario')->rol !== 'administrador') : ?>
-                                                    <a href="<?= base_url('carrito/agregar/' . $producto->id) ?>" class="btn btn-producto-agregar">
+                                                    <a href="<?= base_url('carrito/agregar/' . $producto->id) ?>" class="btn btn-agregar-carrito">
                                                         Agregar al Carrito
                                                     </a>
                                                 <?php endif; ?>

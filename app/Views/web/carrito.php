@@ -93,10 +93,8 @@
     <!-- Controles adicionales (acciones para el carrito) -->
     <?php if (!empty($cartItems)): ?>
         <div class="d-flex justify-content-between mt-3">
-            <a href="<?= base_url('carrito/borrar') ?>" class="btn btn-producto-mensaje">Limpiar Carrito</a>
-            <div class="card" style="background:rgb(8, 15, 83)">
-                <a href="<?= base_url('checkout/seleccionarDireccion') ?>" class="btn btn-producto-compra" style="background:rgb(82, 104, 3)">Realizar Compra</a>
-            </div>
+            <a href="<?= base_url('carrito/borrar') ?>" class="btn btn-vaciar-carrito">Limpiar Carrito</a>
+            <a href="<?= base_url('checkout/seleccionarDireccion') ?>" class="btn btn-finalizar-compra">Realizar Compra</a>
         </div>
     <?php endif; ?>
 </main>

@@ -79,7 +79,7 @@
     <div class="text-center mt-4">
         <form action="<?= site_url('checkout/finalizarCompra') ?>" method="post">
             <input type="hidden" name="direccion_id" value="<?= esc($direccion->id) ?>">
-            <button type="submit" class="btn btn-accion btn-lg" style="background: #B71C1C">Realizar Pedido</button>
+            <button type="submit" class="btn btn-accion btn-catalogo" style="background: #B71C1C">Realizar Pedido</button>
         </form>
     </div>
 </main>

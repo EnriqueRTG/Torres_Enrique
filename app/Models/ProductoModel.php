@@ -395,6 +395,9 @@ class ProductoModel extends Model
      * Si el nuevo stock es igual al stock actual (por ejemplo, si la cantidad es 0 o el stock ya es 0),
      * retorna true sin realizar la actualización.
      *
+     * Durante la actualización se modifica temporalmente la regla de validación para el stock,
+     * permitiendo que el valor llegue a 0 (utilizando "is_natural").
+     *
      * @param int $productoId ID del producto a actualizar.
      * @param int|string $cantidad Cantidad a restar del stock.
      * @return bool True si la actualización es exitosa o si no hay cambio, false en caso contrario.
@@ -414,10 +417,8 @@ class ProductoModel extends Model
         // Convertir el stock actual a entero
         $currentStock = (int)$producto->stock;
 
-        // Calcular el nuevo stock
+        // Calcular el nuevo stock y evitar valores negativos
         $nuevoStock = $currentStock - $cantidad;
-
-        // Evitar que el stock quede negativo
         if ($nuevoStock < 0) {
             $nuevoStock = 0;
         }
@@ -427,8 +428,17 @@ class ProductoModel extends Model
             return true;
         }
 
+        // Guardar las reglas originales y modificar la regla para 'stock'
+        $originalRules = $this->validationRules;
+        $this->validationRules['stock'] = 'required|integer|is_natural';
+
         // Actualizar el stock en la base de datos
-        return $this->update($productoId, ['stock' => $nuevoStock]);
+        $resultado = $this->update($productoId, ['stock' => $nuevoStock]);
+
+        // Restaurar las reglas originales
+        $this->validationRules = $originalRules;
+
+        return $resultado;
     }
 
     /**

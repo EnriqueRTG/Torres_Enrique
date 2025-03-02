@@ -11,6 +11,7 @@
         local('Montserrat-Bold'),
         url('../fonts/Montserrat/montserrat-v29-latin-700.woff2') format('woff2'),
         url('../fonts/Montserrat/montserrat-v29-latin-700.woff') format('woff');
+    font-display: swap;
 }
 
 /* Roboto Regular para el cuerpo del texto */
@@ -22,50 +23,41 @@
         local('Roboto-Regular'),
         url('../fonts/Roboto/roboto-v47-latin-regular.woff2') format('woff2'),
         url('../fonts/Roboto/roboto-v47-latin-regular.woff') format('woff');
+    font-display: swap;
 }
 
 /* =========================
    VARIABLES DE COLOR (PALETA)
    ========================= */
 :root {
-    /* Fondo principal, navbar y textos destacados */
     --color-primario: #212121;
     /* Un gris muy oscuro, casi negro */
-
-    /* Fondos secundarios y textos de alto contraste */
     --color-secundario: #FFFFFF;
     /* Blanco puro para claridad y contraste */
-
-    /* Llamadas a la acción: botones, hover, acentos */
     --color-acento: #B71C1C;
     /* Rojo intenso, vibrante y distintivo */
-
-    /* Textos secundarios y detalles sutiles */
     --color-complementario: #757575;
-    /* Gris medio para información menos relevante */
-
-    /* Fondos de secciones de contenido o áreas de lectura */
+    /* Gris medio para detalles sutiles */
     --fondo-suave: #FDF8F2;
-    /* Un tono crema muy suave para no forzar el contraste */
-
-    /* Opcional: acentos secundarios para links o botones alternativos */
+    /* Un tono crema muy suave */
     --color-secundario-acento: #00897B;
-    /* Un teal oscuro, moderno y en contraste con el rojo */
+    /* Teal oscuro, moderno */
 }
 
 /* =========================
    BASE TYPOGRAPHY
    ========================= */
 
-/* Encabezados y títulos usan Montserrat */
-/* Fuente base para el cuerpo del texto */
+/* Estilos base para el cuerpo */
 body {
     font-family: 'Roboto', sans-serif;
     font-weight: 400;
     font-size: 16px;
-    color: var(--color-primario);
-    /* O el color que hayas definido para textos */
     line-height: 1.6;
+    color: var(--color-primario);
+    background-color: var(--fondo-suave);
+    margin: 0;
+    padding: 0;
 }
 
 /* Encabezados y títulos */
@@ -80,10 +72,10 @@ h6,
 .navbar-brand {
     font-family: 'Montserrat', sans-serif;
     font-weight: 700;
-    margin-top: 0;
+    margin: 0 0 0.5em;
 }
 
-/* Ejemplo de estilos específicos para un encabezado */
+/* Tamaños específicos para encabezados */
 h1 {
     font-size: 2.5rem;
     line-height: 1.2;
@@ -94,9 +86,33 @@ h2 {
     line-height: 1.3;
 }
 
-/* Puedes ajustar los tamaños según el diseño */
+h3 {
+    font-size: 1.75rem;
+}
 
+h4 {
+    font-size: 1.5rem;
+}
 
+h5 {
+    font-size: 1.25rem;
+}
+
+h6 {
+    font-size: 1rem;
+}
+
+/* Enlaces globales */
+a {
+    color: var(--color-acento);
+    text-decoration: none;
+    transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+a:hover {
+    color: var(--color-complementario);
+    text-shadow: 1px 1px 2px var(--color-primario);
+}
 
 
 /* =========================
@@ -143,32 +159,190 @@ a:hover {
    ========================= */
 
 /* Botón principal (llamadas a la acción) */
-.btn-custom {
-    background-color: var(--color-acento);
-    color: var(--color-secundario);
+/* Clase base para botones de acción */
+.btn-accion {
+    color: #ffffff;
+    /* Texto en blanco para buen contraste */
+    padding: 0.4rem 0.8rem;
+    /* Espaciado reducido, adecuado para dropdowns */
     border: none;
-    border-radius: 6px;
+    border-radius: 4px;
+    font-size: 0.85rem;
     text-transform: uppercase;
-    letter-spacing: 1px;
-    padding: 10px 20px;
-    transition: all 0.3s ease;
-    font-size: 1.1rem;
+    letter-spacing: 0.5px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    cursor: pointer;
+    display: inline-block;
 }
 
-.btn-custom:hover {
+/* Botón Ir a Catálogo: fondo claro y texto oscuro */
+.btn-catalogo {
+    background-color: var(--color-secundario);
+    /* blanco */
+    color: var(--color-primario);
+    /* texto oscuro */
+    border: 1px solid var(--color-primario);
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    font-size: 1rem;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.btn-catalogo:hover {
+    background-color: #f0f0f0;
+    /* un blanco grisáceo */
+    transform: scale(1.02);
+    color: var(--color-secundario);
+}
+
+/* Botón: Ver Detalles */
+.btn-ver-detalles {
+    background-color: #1976D2;
+}
+
+.btn-ver-detalles:hover {
+    background-color: #1565C0;
+    transform: scale(1.03);
+    color: var(--color-secundario);
+}
+
+/* Botón: Consultar */
+.btn-consultar {
+    background-color: #F57C00;
+}
+
+.btn-consultar:hover {
+    background-color: #E65100;
+    transform: scale(1.03);
+    color: var(--color-secundario);
+}
+
+/* Botón: Agregar al Carrito */
+.btn-agregar-carrito,
+.agregar-direccion {
+    background-color: #00897B;
+}
+
+.btn-agregar-carrito:hover,
+.agregar-direccion:hover {
+    background-color: #00796B;
+    transform: scale(1.03);
+    color: var(--color-secundario);
+}
+
+/* Botón: Finalizar Compra */
+.btn-finalizar-compra,
+.btn-guardar-cambios {
+    background-color: #43A047;
+}
+
+.btn-finalizar-compra:hover,
+.btn-guardar-cambios:hover {
+    background-color: #388E3C;
+    transform: scale(1.03);
+    color: var(--color-secundario);
+}
+
+/* Botón: Ver Carrito */
+.btn-ver-carrito {
+    background-color: #1E88E5;
+}
+
+.btn-ver-carrito:hover {
+    background-color: #1565C0;
+    transform: scale(1.03);
+    color: var(--color-secundario);
+}
+
+/* Botón: Vaciar Carrito */
+.btn-vaciar-carrito {
+    background-color: #D32F2F;
+}
+
+.btn-vaciar-carrito:hover {
+    background-color: #C62828;
+    transform: scale(1.03);
+    color: var(--color-secundario);
+}
+
+/* Botón: Limpiar */
+.btn-limpiar {
+    background-color: #757575;
+}
+
+.btn-limpiar:hover {
+    background-color: #616161;
+    transform: scale(1.03);
+    color: var(--color-secundario);
+}
+
+/* Botón: Filtrar */
+.btn-filtrar {
+    background-color: #009688;
+}
+
+.btn-filtrar:hover {
+    background-color: #00796B;
+    transform: scale(1.03);
+    color: var(--color-secundario);
+}
+
+/* Botón: Filtros */
+.btn-filtros {
+    background-color: #FFA000;
+}
+
+.btn-filtros:hover {
+    background-color: #FF8F00;
+    transform: scale(1.03);
+    color: var(--color-secundario);
+}
+
+/* Botón: redactar*/
+.btn-redactar {
+    background-color: #3949AB;
+}
+
+.btn-redactar:hover {
+    background-color: #303F9F;
+    transform: scale(1.03);
+    color: var(--color-secundario);
+}
+
+/* Botón outline: buscar */
+.btn-buscar-outline {
+    background-color: transparent;
+    border: 2px solid #3949AB;
+    color: #3949AB;
+    padding: 0.35rem 1rem;
+    border-radius: 4px;
+    transition: background-color 0.3s ease, transform 0.3s ease, color 0.3s ease;
+}
+
+.btn-buscar-outline:hover {
+    background-color: #3949AB;
+    /* Se rellena con el color */
+    color: #FFFFFF;
+    /* Texto en blanco */
+    transform: scale(1.03);
+}
+
+/* Botón: Registrar */
+.btn-registrar-login {
+    background-color: var(--color-acento);
+    color: #ffffff;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.btn-registrar-login:hover {
     background-color: #A31B1B;
-    transform: scale(1.05);
-}
-
-.btn-custom:active {
-    background-color: #8F1717;
-    transform: scale(0.98);
-}
-
-/* Reducir tamaño de los botones "Ingresar"/"Registrarse" en el navbar */
-.btn-nav-personalizado.btn-custom {
-    font-size: 0.8rem;
-    padding: 8px 16px;
+    transform: scale(1.02);
 }
 
 /* =========================
@@ -214,23 +388,6 @@ a:hover {
     /* Cambia el color al acento */
 
 }
-
-/* =========================
-   ALERTAS (Mensajes de Sesión)
-   ========================= */
-
-/* Posición fija para alertas (overlay) debajo del navbar */
-.alert-fixed {
-    position: fixed;
-    top: 60px;
-    /* Ajustar si el navbar cambia de altura */
-    left: 0;
-    right: 0;
-    z-index: 1050;
-    width: 90%;
-    margin: 0 auto;
-}
-
 
 /* =========================
    COMPONENTES DE HOME Y CATÁLOGO
@@ -313,7 +470,7 @@ a:hover {
     }
 }
 
-
+/*REVISAR*/
 /* Estilos para las tarjetas de productos en Home */
 .card-productos-home {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -735,7 +892,8 @@ estilo para comercializacion
 }
 
 /* Personalización de la paginación para que combine con tu paleta */
-.pagination .page-item .page-link {
+.pagination .page-item .page-link,
+.paginacion {
     color: var(--color-secundario);
     /* Texto en color secundario (blanco) */
     background-color: var(--color-primario);
@@ -758,6 +916,35 @@ estilo para comercializacion
     color: var(--color-secundario);
 }
 
+/* Estilos para los botones de paginación generados por el script */
+#paginacion .btn {
+    color: var(--color-secundario);
+    /* Texto en blanco */
+    background-color: var(--color-primario);
+    /* Fondo oscuro */
+    border: 1px solid var(--color-secundario);
+    /* Borde en blanco */
+    transition: background-color 0.3s ease,
+        color 0.3s ease,
+        transform 0.3s ease;
+}
+
+#paginacion .btn.active,
+#paginacion .btn:active {
+    background-color: var(--color-acento);
+    /* Fondo de la página activa */
+    border-color: var(--color-acento);
+    color: var(--color-secundario);
+}
+
+#paginacion .btn:hover {
+    background-color: var(--color-complementario);
+    /* Fondo al hacer hover */
+    border-color: var(--color-complementario);
+    color: var(--color-secundario);
+}
+
+
 .truncate {
     white-space: nowrap;
     /* Forzar una sola línea */
@@ -765,4 +952,20 @@ estilo para comercializacion
     /* Ocultar el texto que se sale del contenedor */
     text-overflow: ellipsis;
     /* Mostrar puntos suspensivos al final */
+}
+
+
+/**/
+
+/* Dropdown se despliega al pasar el cursor (solo en pantallas grandes) */
+@media (min-width: 992px) {
+    .navbar-nav .nav-item.dropdown:hover>.dropdown-menu {
+        display: block;
+        margin-top: 0;
+    }
+
+    .dropdown-menu-cliente :hover {
+        background-color: var(--color-acento);
+        color: var(--color-secundario);
+    }
 }

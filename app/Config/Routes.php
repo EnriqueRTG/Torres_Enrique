@@ -35,12 +35,6 @@ $routes->group('', function ($routes) {
         $routes->get('ubicacion', 'Web\Contacto::obtener_ubicacion');
     });
 
-    // Grupo: Consultas (solo para clientes autenticados)
-    $routes->group('consulta', ['filter' => 'authCliente'], function ($routes) {
-        $routes->get('', 'Web\Consulta::index');
-        $routes->post('', 'Web\Consulta::create');
-    });
-
     // Rutas estáticas adicionales
     $routes->get('terminos', 'Web\Terminos::index');
     $routes->add('garantia', 'Web\Garantia::index');
@@ -68,22 +62,6 @@ $routes->group('', function ($routes) {
         $routes->get('confirmarPedido', 'Web\Checkout::confirmarPedido', ['as' => 'checkout.confirmarPedido']);
         $routes->post('finalizarCompra', 'Web\Checkout::finalizarCompra', ['as' => 'checkout.finalizarCompra']);
     });
-
-    $routes->group('compras', ['filter' => 'authCliente'], function ($routes) {
-        $routes->get('', 'Web\Compras::index');
-        $routes->get('detalle/(:num)', 'Web\Compras::detalle_compra/$1');
-        $routes->get('descargar/(:num)', 'Web\Compras::descargar/$1');
-        $routes->get('descargar_factura/(:num)', 'Web\Compras::descargar_factura/$1');
-    });
-
-    // Grupo: Mensajes (para clientes)
-    $routes->group('mensajes', ['filter' => 'authCliente'], function ($routes) {
-        $routes->post('conversacion/(:num)/responder', 'Cliente\MensajesCliente::responderConversacion/$1', ['as' => 'cliente.mensajes.responder']);
-    });
-
-    // Rutas de venta (con algunos endpoints específicos)
-    $routes->get('finalizar', 'Web\Carrito::finalizarCompra', ['as' => 'carrito.borrar']);
-    $routes->get('/carrito-comprar', 'Ventascontroller::registrar_venta', ['filter' => 'auth']);
 });
 
 /*
@@ -108,7 +86,6 @@ $routes->group('admin', ['filter' => 'authAdmin'], function ($routes) {
         $routes->get('completar/(:num)', 'Admin\Orden::completar/$1', ['as' => 'admin.ordenes.completar']);
         $routes->get('buscar', 'Admin\Orden::buscarOrden');
         $routes->get('comprobante/(:num)', 'Admin\Orden::comprobante/$1');
-
     });
 
     // Grupo: Clientes
@@ -232,6 +209,7 @@ $routes->group('cliente', ['filter' => 'authCliente'], function ($routes) {
         $routes->get('ver/(:num)', 'Cliente\Mensaje::ver/$1', ['as' => 'cliente.mensajes.ver']);
         $routes->post('responder/(:num)', 'Cliente\Mensaje::responder/$1', ['as' => 'cliente.mensajes.responder']);
         $routes->post('cerrar/(:num)', 'Cliente\Mensaje::cerrar/$1', ['as' => 'cliente.mensajes.cerrar']);
+        $routes->get('buscar', 'Cliente\Mensaje::buscarMensaje', ['as' => 'cliente.buscarMensaje']);
     });
 
     // Perfil del cliente
@@ -240,5 +218,6 @@ $routes->group('cliente', ['filter' => 'authCliente'], function ($routes) {
         $routes->get('show/(:num)', 'Cliente\Pedidos::show/$1', ['as' => 'cliente.pedidos.show']);
         $routes->get('descargarPdf/(:num)', 'Cliente\Pedidos::descargarPdf/$1', ['as' => 'cliente.pedidos.descargarPdf']);
         $routes->get('cancelar/(:num)', 'Cliente\Pedidos::cancelar/$1', ['as' => 'cliente.pedidos.cancelar']);
+        $routes->get('buscar', 'Cliente\Pedidos::buscarPedido', ['as' => 'cliente.buscaPedido']);
     });
 });

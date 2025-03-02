@@ -75,8 +75,8 @@
         <!-- Botones de acción para filtrar o limpiar filtros -->
         <div class="row mt-3">
             <div class="col-12 d-flex justify-content-evenly">
-                <button type="submit" class="btn btn-dark">Filtrar</button>
-                <button type="submit" class="btn btn-secondary" name="limpiar_filtros" value="1">Limpiar</button>
+                <button type="submit" class="btn btn-filtrar">Filtrar</button>
+                <button type="submit" class="btn btn-limpiar" name="limpiar_filtros" value="1">Limpiar</button>
             </div>
         </div>
     </form>

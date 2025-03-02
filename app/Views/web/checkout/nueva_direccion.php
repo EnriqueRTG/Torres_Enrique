@@ -81,7 +81,7 @@
                 <!-- Botones de acción -->
                 <div class="d-flex justify-content-end mt-4">
                     <!-- Botón para cancelar y regresar al perfil -->
-                    <a href="<?= site_url('cliente/perfil') ?>" class="btn btn-secondary me-2">
+                    <a href="<?= site_url('checkout/seleccionarDireccion') ?>" class="btn btn-secondary me-2">
                         <i class="bi bi-arrow-left"></i> Volver
                     </a>
                     <!-- Botón para guardar la nueva dirección -->

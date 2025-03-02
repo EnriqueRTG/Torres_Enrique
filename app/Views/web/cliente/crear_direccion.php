@@ -1,11 +1,4 @@
-<!-- 
-    Vista: Agregar Nueva Dirección de Envío
-    Ubicación: app/Views/cliente/direccion_crear.php
-
-    Esta vista permite al cliente ingresar los datos necesarios para agregar una dirección de envío.
-    Se utilizan componentes de Bootstrap para lograr responsividad y una estructura semántica correcta.
--->
-
+<!-- Vista: Agregar Nueva Dirección de Envío -->
 <?= view("layouts/header-cliente", ['titulo' => $titulo]) ?>
 
 <!-- Se incluye el Navbar principal para el cliente -->
@@ -85,7 +78,7 @@
                         <i class="bi bi-arrow-left"></i> Volver
                     </a>
                     <!-- Botón para guardar la nueva dirección -->
-                    <button type="submit" class="btn btn-success">
+                    <button type="submit" class="btn btn-guardar-cambios">
                         <i class="bi bi-save"></i> Guardar Dirección
                     </button>
                 </div>

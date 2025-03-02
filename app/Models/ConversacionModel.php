@@ -353,7 +353,7 @@ class ConversacionModel extends Model
      * @param int    $clienteId     ID del cliente.
      * @return array                Lista de conversaciones (con sus mensajes) que cumplen los filtros.
      */
-    public function filtrarConversacionesClienteConMensajes(string $textoBusqueda, string $estado, int $pagina, int $clienteId): array
+    public function filtrarConversacionesCliente(string $textoBusqueda, string $estado, int $pagina, int $porPagina = 10, int $clienteId): array
     {
         $builder = $this->builder();
 
@@ -361,16 +361,19 @@ class ConversacionModel extends Model
         $builder->where('usuario_id', $clienteId)
             ->where('tipo_conversacion', 'consulta');
 
-        // Filtrado por estado: si no es "todas", filtrar por el valor exacto ("activa" o "inactiva")
+        // Filtrado por estado
         if ($estado !== 'todas') {
-            $builder->where('estado', $estado);
+            if ($estado === 'pendiente' || $estado === 'respondida') {
+                $builder->where('estado', 'abierta');
+            } elseif ($estado === 'eliminada') {
+                $builder->where('estado', 'cerrada');
+            }
         }
 
         // Filtro por texto en campos "asunto" o "nombre"
         if (!empty($textoBusqueda)) {
             $builder->groupStart();
             $builder->like('asunto', $textoBusqueda);
-            $builder->orLike('nombre', $textoBusqueda);
             $builder->groupEnd();
         }
 
@@ -406,7 +409,7 @@ class ConversacionModel extends Model
      * @param int    $clienteId     ID del cliente.
      * @return int                  Número total de páginas.
      */
-    public function obtenerTotalPaginasConversacionesClienteConMensajes(string $textoBusqueda, string $estado, int $porPagina, int $clienteId): int
+    public function obtenerTotalPaginasConversacionesCliente(string $textoBusqueda, string $estado, int $porPagina, int $clienteId): int
     {
         $builder = $this->builder();
 
@@ -421,7 +424,6 @@ class ConversacionModel extends Model
         if (!empty($textoBusqueda)) {
             $builder->groupStart();
             $builder->like('asunto', $textoBusqueda);
-            $builder->orLike('nombre', $textoBusqueda);
             $builder->groupEnd();
         }
 

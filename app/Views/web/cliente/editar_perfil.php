@@ -43,7 +43,7 @@
                 </div>
 
                 <!-- Otros campos de información, si es necesario -->
-                <button type="submit" class="btn btn-success">
+                <button type="submit" class="btn btn-guardar-cambios">
                     <i class="bi bi-save"></i> Guardar Cambios
                 </button>
             </form>
@@ -89,7 +89,7 @@
                                 </div>
                                 <!-- Columna de botones de acción (12 en mobile, 3 en desktop) -->
                                 <div class="col-12 col-md-2 mt-3 mt-md-0">
-                                    <a href="<?= site_url('cliente/direcciones/editar/' . $direccion->id) ?>" class="btn btn-sm btn-primary me-2" title="Editar">
+                                    <a href="<?= site_url('cliente/direcciones/editar/' . $direccion->id) ?>" class="btn btn-sm btn-warning me-2" title="Editar">
                                         <i class="bi bi-pencil"></i>
                                     </a>
                                     <a href="<?= site_url('cliente/direcciones/eliminar/' . $direccion->id) ?>" class="btn btn-sm btn-danger" title="Eliminar" onclick="return confirm('¿Estás seguro de eliminar esta dirección?');">
@@ -106,7 +106,7 @@
                 <p>No tienes direcciones registradas.</p>
             <?php endif; ?>
             <!-- Botón para agregar una nueva dirección -->
-            <a href="<?= site_url('cliente/direcciones/crear') ?>" class="btn btn-primary">
+            <a href="<?= site_url('cliente/direcciones/crear') ?>" class="btn agregar-direccion">
                 <i class="bi bi-plus-circle"></i> Agregar Nueva Dirección
             </a>
         </div>

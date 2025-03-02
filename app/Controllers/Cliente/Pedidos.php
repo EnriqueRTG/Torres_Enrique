@@ -204,4 +204,29 @@ class Pedidos extends BaseController
             return redirect()->back()->with('error', 'No se pudo cancelar la orden. Por favor, inténtalo de nuevo.');
         }
     }
+
+    public function buscarPedido()
+    {
+        $estado   = $this->request->getGet('estado') ?? 'todas';
+        $busqueda = $this->request->getGet('busqueda') ?? '';
+        $pagina   = $this->request->getGet('pagina') ?? 1;
+        $porPage  = 10;
+        $clienteId = session()->get('usuario')->id;
+
+        try {
+            $ordenes      = $this->ordenModel->obtenerOrdenesFiltradasCliente($estado, $busqueda, $pagina, $porPage, $clienteId);
+            $totalPaginas = $this->ordenModel->obtenerTotalPaginasCliente($busqueda, $estado, $porPage, $clienteId);
+
+            return $this->response->setJSON([
+                'pedidos'      => $ordenes,
+                'paginaActual' => $pagina,
+                'totalPaginas' => $totalPaginas
+            ]);
+        } catch (\Exception $e) {
+            log_message('error', $e->getMessage());
+            return $this->response->setStatusCode(500)->setJSON([
+                'error' => 'Error al cargar las órdenes. Por favor, inténtalo de nuevo más tarde.'
+            ]);
+        }
+    }
 }
