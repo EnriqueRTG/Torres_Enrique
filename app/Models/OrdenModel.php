@@ -417,10 +417,9 @@ class OrdenModel extends Model
 
         // Si se proporcionó un término de búsqueda, aplicar condiciones adicionales
         if (!empty($busqueda)) {
-            if (is_numeric($busqueda)) {
-                // Buscar por ID exacto si el término es numérico
-                $builder->orWhere('ordenes.id', $busqueda);
-            }
+            $builder->groupStart()
+                ->like('CAST(ordenes.id AS CHAR)', $busqueda)
+                ->groupEnd();
         }
 
         // Filtrar por estado si éste es distinto de "todas"
@@ -436,47 +435,46 @@ class OrdenModel extends Model
     }
 
     /**
- * Calcula el total de páginas para las órdenes filtradas de un cliente específico.
- *
- * Realiza la misma lógica de filtrado que en obtenerOrdenesFiltradas() y cuenta el total de registros,
- * luego divide el total entre el número de registros por página para obtener el total de páginas.
- *
- * @param string $busqueda Término de búsqueda.
- * @param string $estado   Estado a filtrar ("pendiente", "completada", "cancelada" o "todas").
- * @param int    $porPagina Número de registros por página.
- * @param int    $clienteId ID del cliente.
- * @return int              Número total de páginas.
- */
-public function obtenerTotalPaginasCliente(string $busqueda = '', string $estado = 'todas', int $porPagina = 10, int $clienteId): int
-{
-    // Iniciar el query builder sobre la tabla "ordenes" con alias para mayor claridad
-    $builder = $this->db->table($this->table . ' AS ordenes');
+     * Calcula el total de páginas para las órdenes filtradas de un cliente específico.
+     *
+     * Realiza la misma lógica de filtrado que en obtenerOrdenesFiltradas() y cuenta el total de registros,
+     * luego divide el total entre el número de registros por página para obtener el total de páginas.
+     *
+     * @param string $busqueda Término de búsqueda.
+     * @param string $estado   Estado a filtrar ("pendiente", "completada", "cancelada" o "todas").
+     * @param int    $porPagina Número de registros por página.
+     * @param int    $clienteId ID del cliente.
+     * @return int              Número total de páginas.
+     */
+    public function obtenerTotalPaginasCliente(string $busqueda = '', string $estado = 'todas', int $porPagina = 10, int $clienteId): int
+    {
+        // Iniciar el query builder sobre la tabla "ordenes" con alias para mayor claridad
+        $builder = $this->db->table($this->table . ' AS ordenes');
 
-    // Join con la tabla de usuarios para obtener datos del cliente
-    $builder->join('usuarios', 'usuarios.id = ordenes.usuario_id', 'left');
+        // Join con la tabla de usuarios para obtener datos del cliente
+        $builder->join('usuarios', 'usuarios.id = ordenes.usuario_id', 'left');
 
-    // Join con la tabla de direcciones para obtener la información de envío
-    $builder->join('direcciones', 'direcciones.id = ordenes.direccion_envio_id', 'left');
+        // Join con la tabla de direcciones para obtener la información de envío
+        $builder->join('direcciones', 'direcciones.id = ordenes.direccion_envio_id', 'left');
 
-    // Filtrar solo las órdenes del cliente especificado
-    $builder->where('ordenes.usuario_id', $clienteId);
+        // Filtrar solo las órdenes del cliente especificado
+        $builder->where('ordenes.usuario_id', $clienteId);
 
-    // Aplicar filtro de búsqueda si se ha ingresado un término
-    if (!empty($busqueda)) {
-        $builder->groupStart()
+        // Aplicar filtro de búsqueda si se ha ingresado un término
+        if (!empty($busqueda)) {
+            $builder->groupStart()
                 ->like('CAST(ordenes.id AS CHAR)', $busqueda)
                 ->groupEnd();
+        }
+
+        // Filtrar por estado si no es "todas"
+        if ($estado !== 'todas') {
+            $builder->where('ordenes.estado', $estado);
+        }
+
+        // Contar el total de registros filtrados
+        $totalRegistros = $builder->countAllResults();
+
+        return (int) ceil($totalRegistros / $porPagina);
     }
-
-    // Filtrar por estado si no es "todas"
-    if ($estado !== 'todas') {
-        $builder->where('ordenes.estado', $estado);
-    }
-
-    // Contar el total de registros filtrados
-    $totalRegistros = $builder->countAllResults();
-
-    return (int) ceil($totalRegistros / $porPagina);
-}
-
 }

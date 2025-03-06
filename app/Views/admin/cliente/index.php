@@ -171,7 +171,7 @@
                     <a href="<?= base_url('admin/cliente/conversaciones/') ?>${cliente.id}" class="btn btn-outline-info btn-sm m-1" title="Historial de Conversaciones" data-bs-toggle="tooltip">
                         <i class="bi bi-chat-left-text"></i>
                     </a>
-                    <a href="<?= base_url('admin/cliente/pedidos/') ?>${cliente.id}" class="btn btn-outline-warning btn-sm m-1" title="Historial de Ordenes" data-bs-toggle="tooltip">
+                    <a href="<?= base_url('admin/cliente/ordenes/') ?>${cliente.id}" class="btn btn-outline-warning btn-sm m-1" title="Historial de Ordenes" data-bs-toggle="tooltip">
                         <i class="bi bi-basket"></i>
                     </a>
                 </td>

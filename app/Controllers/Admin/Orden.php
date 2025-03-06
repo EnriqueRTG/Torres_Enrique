@@ -53,7 +53,7 @@ class Orden extends BaseController
 
         $breadcrumbs = [
             ['label' => 'Dashboard', 'url' => base_url('admin/dashboard')],
-            ['label' => 'Órdenes', 'url' => '']
+            ['label' => 'Gestión de Órdenes', 'url' => '']
         ];
 
         // Obtener los conteos pendientes (método heredado de BaseController)

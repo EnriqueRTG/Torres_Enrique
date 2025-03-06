@@ -206,10 +206,10 @@ class Cliente extends BaseController
     {
         // Recoger parámetros GET con valores por defecto.
         $pagina        = $this->request->getGet('pagina') ?? 1;
-        $textoBusqueda = $this->request->getGet('textoBusqueda') ?? '';
+        $busqueda = $this->request->getGet('busqueda') ?? '';
         // Usamos "todas", "activa" o "inactiva"
         $estado        = $this->request->getGet('estado') ?? 'todas';
-        $perPage       = 10;
+        $porPagina       = 10;
 
         // En lugar de obtener el ID del cliente de la sesión, lo obtenemos de un parámetro GET (o de la ruta)
         $clienteId = $this->request->getGet('clienteId');
@@ -222,11 +222,13 @@ class Cliente extends BaseController
         try {
             // Obtener las conversaciones filtradas y paginadas para el cliente.
             $conversaciones = $this->conversacionModel
-                ->filtrarConversacionesClienteConMensajes($textoBusqueda, $estado, $pagina, $clienteId);
+                ->filtrarConversacionesCliente($busqueda, $estado, $pagina, $porPagina, $clienteId);
 
             // Obtener el total de páginas.
             $totalPaginas = $this->conversacionModel
-                ->obtenerTotalPaginasConversacionesClienteConMensajes($textoBusqueda, $estado, $perPage, $clienteId);
+                ->obtenerTotalPaginasConversacionesCliente($busqueda, $estado, $porPagina, $clienteId);
+
+            log_message('debug', 'Conversaciones obtenidas: ' . print_r($conversaciones, true));
 
             return $this->response->setJSON([
                 'conversaciones' => $conversaciones,
@@ -241,6 +243,41 @@ class Cliente extends BaseController
         }
     }
 
+    public function verConversacion($conversacionId)
+    {
+
+        $conversacion = $this->conversacionModel->obtenerConversacionConMensajes($conversacionId);
+        if (!$conversacion) {
+            return redirect()->to(base_url('admin/clientes'))->with('error', 'Conversación no encontrada.');
+        }
+
+        $cliente = $this->clienteModel->find($conversacion->usuario_id);
+        if (!$cliente) {
+            return redirect()->to(base_url('admin/clientes'))->with('error', 'Cliente no encontrado.');
+        }
+
+        $breadcrumbs = [
+            ['label' => 'Dashboard', 'url' => base_url('admin/dashboard')],
+            ['label' => 'Clientes', 'url' => base_url('admin/clientes')],
+            ['label' => 'Conversaciones', 'url' => base_url('admin/clientes/conversaciones/' . $conversacion->usuario_id)],
+            ['label' => 'Conversación', 'url' => '']
+        ];
+
+        $conteos = $this->getConteoPendientes();
+
+        $data = [
+            'titulo'         => 'Conversación',
+            'conversacion'   => $conversacion,
+            'cliente'        => $cliente,
+            'breadcrumbs'    => $breadcrumbs,
+            'totalPendientes'     => $conteos['totalPendientes'],
+            'consultasPendientes' => $conteos['consultasPendientes'],
+            'contactosPendientes' => $conteos['contactosPendientes'],
+        ];
+
+        return view('admin/cliente/conversaciones/show', $data);
+    }
+
 
     /**
      * Muestra el historial de pedidos de un cliente.
@@ -248,16 +285,87 @@ class Cliente extends BaseController
      * @param int $id Identificador del cliente.
      * @return string Vista con el historial de pedidos.
      */
-    public function pedidos($id)
+    public function ordenes($clienteId)
     {
-        $cliente = $this->clienteModel->find($id);
-        $data = [
-            'titulo'  => 'Historial de Pedidos',
-            'cliente' => $cliente,
-            // Aquí se podría incluir la llamada al modelo de pedidos, e.g.:
-            // 'pedidos' => $this->pedidoModel->obtenerPedidosCliente($id),
+        // Aquí podrías usar un método en el modelo de conversaciones que filtre por cliente.
+        $ordenes = $this->ordenModel->obtenerOrdenesPorUsuario($clienteId);
+
+        $cliente = $this->clienteModel->obtenerClientePorId($clienteId);
+
+        // Breadcrumbs para la navegación en la interfaz de administración
+        $breadcrumbs = [
+            ['label' => 'Dashboard', 'url' => base_url('admin/dashboard')],
+            ['label' => 'Clientes', 'url' => base_url('admin/clientes')],
+            ['label' => 'Ordenes', 'url' => '']
         ];
 
-        return view('admin/cliente/pedidos', $data);
+        $conteos = $this->getConteoPendientes();
+
+        $data = [
+            'titulo'  => 'Historial de Ordenes',
+            'cliente' => $cliente,
+            'ordenes' => $ordenes,
+            'breadcrumbs'    => $breadcrumbs,
+            'totalPendientes'     => $conteos['totalPendientes'],
+            'consultasPendientes' => $conteos['consultasPendientes'],
+            'contactosPendientes' => $conteos['contactosPendientes'],
+        ];
+
+        return view('admin/cliente/ordenes/index', $data);
+    }
+
+    public function buscarOrden()
+    {
+        $pagina        = $this->request->getGet('pagina') ?? 1;
+        $busqueda = $this->request->getGet('busqueda') ?? '';
+        $estado        = $this->request->getGet('estado') ?? 'todas';
+        $porPagina       = 10;
+        $clienteId = $this->request->getGet('clienteId');
+
+        if (!$clienteId) {
+            return $this->response->setStatusCode(400)->setJSON([
+                'error' => 'ID de cliente no definido.'
+            ]);
+        }
+
+        try {
+            $ordenes      = $this->ordenModel->obtenerOrdenesFiltradasCliente($estado, $busqueda, $pagina, $porPagina, $clienteId);
+            $totalPaginas = $this->ordenModel->obtenerTotalPaginasCliente($busqueda, $estado, $porPagina, $clienteId);
+
+            return $this->response->setJSON([
+                'ordenes'      => $ordenes,
+                'paginaActual' => $pagina,
+                'totalPaginas' => $totalPaginas
+            ]);
+        } catch (\Exception $e) {
+            log_message('error', $e->getMessage());
+            return $this->response->setStatusCode(500)->setJSON([
+                'error' => 'Error al cargar las órdenes. Por favor, inténtalo de nuevo más tarde.'
+            ]);
+        }
+    }
+
+    public function verOrden($ordenId)
+    {
+        $orden = $this->ordenModel->obtenerOrdenDetallada($ordenId);
+
+        $breadcrumbs = [
+            ['label' => 'Dashboard', 'url' => base_url('admin/dashboard')],
+            ['label' => 'Órdenes', 'url' => base_url('admin/ordenes')],
+            ['label' => 'Detalle de Orden #' . $orden->id, 'url' => '']
+        ];
+
+        $conteos = $this->getConteoPendientes();
+
+        $data = [
+            'titulo'              => 'Detalle de Orden',
+            'orden'               => $orden,
+            'breadcrumbs'         => $breadcrumbs,
+            'totalPendientes'     => $conteos['totalPendientes']     ?? 0,
+            'consultasPendientes' => $conteos['consultasPendientes'] ?? 0,
+            'contactosPendientes' => $conteos['contactosPendientes'] ?? 0,
+        ];
+
+        return view('admin/cliente/ordenes/show', $data);
     }
 }

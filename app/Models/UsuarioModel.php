@@ -327,4 +327,17 @@ class UsuarioModel extends Model
         // Actualizar el registro en la base de datos
         return $this->update($id, $updateData);
     }
+
+    /**
+     * Obtiene un cliente por su ID.
+     *
+     * @param int $id ID del cliente.
+     * @return object|null Objeto cliente o null si no se encuentra o si el usuario no es de rol 'cliente'.
+     */
+    public function obtenerClientePorId(int $id)
+    {
+        return $this->where('id', $id)
+            ->where('rol', 'cliente')
+            ->first();
+    }
 }

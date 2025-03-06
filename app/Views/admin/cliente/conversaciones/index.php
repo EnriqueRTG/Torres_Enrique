@@ -22,22 +22,24 @@
         <p class="lead">Listado de <strong>conversaciones</strong> registradas del cliente.</p>
     </header>
 
+    <input type="hidden" id="clienteId" value="<?= $clienteId ?>">
+
     <!-- Formulario de filtros y buscador -->
     <form method="get" action="<?= current_url() ?>" class="row g-3 mb-4" role="search">
         <!-- Filtro por estado -->
         <div class="col-12 col-md-4">
             <label for="filtroEstadoConversaciones" class="form-label">Filtrar por estado:</label>
             <select class="form-select" id="filtroEstadoConversaciones" name="estado" aria-label="Filtrar por estado">
-                <option value="activa" <?= (isset($_GET['estado']) && $_GET['estado'] == 'activa') ? 'selected' : '' ?>>Activas</option>
-                <option value="inactiva" <?= (isset($_GET['estado']) && $_GET['estado'] == 'inactiva') ? 'selected' : '' ?>>Inactivas</option>
+                <option value="abierta" <?= (isset($_GET['estado']) && $_GET['estado'] == 'abierta') ? 'selected' : '' ?>>Activas</option>
+                <option value="eliminada" <?= (isset($_GET['estado']) && $_GET['estado'] == 'eliminada') ? 'selected' : '' ?>>Eliminadas</option>
                 <option value="todas" <?= (isset($_GET['estado']) && $_GET['estado'] == 'todas') ? 'selected' : '' ?>>Todas</option>
             </select>
 
         </div>
         <!-- Buscador por asunto o email -->
         <div class="col-12 col-md-6">
-            <label for="busqueda" class="form-label">Buscar por Asunto o Email:</label>
-            <input type="search" class="form-control" id="busqueda" name="textoBusqueda" placeholder="Ingrese Asunto o Email" value="<?= isset($_GET['textoBusqueda']) ? esc($_GET['textoBusqueda']) : '' ?>">
+            <label for="busqueda" class="form-label">Buscar por Asunto:</label>
+            <input type="search" class="form-control" id="busqueda" name="busqueda" placeholder="Ingrese Asunto" value="<?= isset($_GET['busqueda']) ? esc($_GET['busqueda']) : '' ?>">
         </div>
         <!-- Botón de búsqueda -->
         <div class="col-12 col-md-2 d-flex align-items-end">
@@ -102,17 +104,23 @@
      * Envía una solicitud AJAX para filtrar y buscar conversaciones, actualizando la tabla y la paginación.
      *
      * @param {number} pagina Número de página a cargar.
-     * @param {string} textoBusqueda Texto de búsqueda.
+     * @param {string} busqueda Texto de búsqueda.
      * @param {string} estado Filtro de estado ("abierta", "cerrada" o "todas").
      */
-    function aplicarFiltro(pagina = 1, textoBusqueda = '', estado = 'todas') {
-        const clienteId = document.getElementById('tablaConversaciones').dataset.clienteId;
-        const url = '<?= base_url("admin/cliente/buscarConversacion") ?>';
+    function aplicarFiltro(pagina = 1, busqueda = '', estado = 'todas') {
+        const clienteId = <?= json_encode($cliente->id) ?>;
+        console.log("Parámetros enviados:", {
+            pagina,
+            busqueda,
+            estado,
+            clienteId
+        });
+        const url = '<?= base_url("admin/cliente/buscarOrden") ?>';
         const params = new URLSearchParams({
-            pagina: pagina,
-            textoBusqueda: textoBusqueda,
-            estado: estado,
-            clienteId: clienteId
+            pagina,
+            busqueda,
+            estado,
+            clienteId
         });
 
 
@@ -127,7 +135,7 @@
             .then(response => response.json())
             .then(data => {
                 actualizarTablaConversaciones(data.conversaciones);
-                generarPaginacion(data.paginaActual, data.totalPaginas, textoBusqueda, estado);
+                generarPaginacion(data.paginaActual, data.totalPaginas, busqueda, estado);
             })
             .catch(error => {
                 console.error('Error en la solicitud AJAX:', error);
@@ -155,16 +163,16 @@
         conversaciones.forEach(conversacion => {
             const tr = document.createElement('tr');
             tr.innerHTML = `
-            <td class="col-8">${conversacion.asunto}</td>
+            <td class="col-5">${conversacion.asunto}</td>
             <td class="align-middle">${new Date(conversacion.created_at).toLocaleString()}</td>
             <td class="align-middle">${new Date(conversacion.updated_at).toLocaleString()}</td>
             <td class="align-middle">
-                <span class="badge ${conversacion.estado === 'activa' ? 'bg-success' : 'bg-danger'}">
-                    ${conversacion.estado.charAt(0).toUpperCase() + conversacion.estado.slice(1)}
+                <span class="badge ${conversacion.estado === 'abierta' ? 'bg-success' : (conversacion.estado === 'cerrada' ? 'bg-danger' : 'bg-secondary')}">
+                    ${conversacion.estado === 'abierta' ? 'Activa' : (conversacion.estado === 'cerrada' ? 'Eliminada' : conversacion.estado)}
                 </span>
             </td>
             <td class="text-center align-middle">
-                <a href="<?= base_url('admin/cliente/conversaciones/mostrar/') ?>${conversacion.id}" 
+                <a href="<?= base_url('admin/clientes/conversaciones/mostrar/') ?>${conversacion.id}" 
                    class="btn btn-sm btn-outline-info border-3 fw-bolder m-1" 
                    data-bs-toggle="tooltip" title="Ver Conversación">
                     <i class="bi bi-eye-fill"></i>
@@ -182,10 +190,10 @@
      *
      * @param {number} paginaActual Página actual.
      * @param {number} totalPaginas Total de páginas.
-     * @param {string} textoBusqueda Texto de búsqueda aplicado.
+     * @param {string} busqueda Texto de búsqueda aplicado.
      * @param {string} estado Filtro aplicado.
      */
-    function generarPaginacion(paginaActual, totalPaginas, textoBusqueda, estado) {
+    function generarPaginacion(paginaActual, totalPaginas, busqueda, estado) {
         const container = document.getElementById('paginacion');
         container.innerHTML = '';
 
@@ -201,15 +209,15 @@
         }
 
         if (paginaActual > 1) {
-            fragment.appendChild(crearBotonPaginacion('Anterior', paginaActual - 1, textoBusqueda, estado));
+            fragment.appendChild(crearBotonPaginacion('Anterior', paginaActual - 1, busqueda, estado));
         }
 
         for (let i = paginaInicial; i <= paginaFinal; i++) {
-            fragment.appendChild(crearBotonPaginacion(i, i, textoBusqueda, estado, i === paginaActual));
+            fragment.appendChild(crearBotonPaginacion(i, i, busqueda, estado, i === paginaActual));
         }
 
         if (paginaActual < totalPaginas) {
-            fragment.appendChild(crearBotonPaginacion('Siguiente', paginaActual + 1, textoBusqueda, estado));
+            fragment.appendChild(crearBotonPaginacion('Siguiente', paginaActual + 1, busqueda, estado));
         }
 
         container.appendChild(fragment);
@@ -220,12 +228,12 @@
      *
      * @param {string|number} texto Texto o número a mostrar.
      * @param {number} pagina Página a la que redirige.
-     * @param {string} textoBusqueda Texto de búsqueda actual.
+     * @param {string} busqueda Texto de búsqueda actual.
      * @param {string} estado Filtro de estado actual.
      * @param {boolean} activo Indica si es la página actual.
      * @returns {HTMLElement} Botón de paginación.
      */
-    function crearBotonPaginacion(texto, pagina, textoBusqueda, estado, activo = false) {
+    function crearBotonPaginacion(texto, pagina, busqueda, estado, activo = false) {
         const btn = document.createElement('a');
         btn.href = '#';
         btn.textContent = texto;
@@ -234,7 +242,7 @@
 
         btn.addEventListener('click', function(event) {
             event.preventDefault();
-            aplicarFiltro(pagina, textoBusqueda, estado);
+            aplicarFiltro(pagina, busqueda, estado);
         });
 
         return btn;
@@ -245,14 +253,14 @@
      * Se utiliza la clave 'estado_conversacion' para preservar el filtro de esta vista.
      */
     function cargarConversacionesDinamicamente() {
-        const estadoGuardado = localStorage.getItem('estado_conversacion') || 'activa';
+        const estadoGuardado = localStorage.getItem('estado_conversacion_cliente') || 'abierta';
         document.getElementById('filtroEstadoConversaciones').value = estadoGuardado;
         aplicarFiltro(1, '', estadoGuardado);
     }
 
     // Al cambiar el select de estado, guardar la selección y actualizar el filtro.
     document.getElementById('filtroEstadoConversaciones').addEventListener('change', function() {
-        localStorage.setItem('estado_conversacion', this.value);
+        localStorage.setItem('estado_conversacion_cliente', this.value);
         aplicarFiltro(1, document.querySelector('input[type="search"]').value, this.value);
     });
 

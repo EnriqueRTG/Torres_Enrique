@@ -370,7 +370,7 @@ class ConversacionModel extends Model
             }
         }
 
-        // Filtro por texto en campos "asunto" o "nombre"
+        // Filtro por texto en campos "asunto"
         if (!empty($textoBusqueda)) {
             $builder->groupStart();
             $builder->like('asunto', $textoBusqueda);
@@ -409,7 +409,7 @@ class ConversacionModel extends Model
      * @param int    $clienteId     ID del cliente.
      * @return int                  Número total de páginas.
      */
-    public function obtenerTotalPaginasConversacionesCliente(string $textoBusqueda, string $estado, int $porPagina, int $clienteId): int
+    public function obtenerTotalPaginasConversacionesCliente(string $textoBusqueda, string $estado, int $porPagina = 10, int $clienteId): int
     {
         $builder = $this->builder();
 
@@ -417,8 +417,13 @@ class ConversacionModel extends Model
         $builder->where('usuario_id', $clienteId)
             ->where('tipo_conversacion', 'consulta');
 
+        // Filtrado por estado
         if ($estado !== 'todas') {
-            $builder->where('estado', $estado);
+            if ($estado === 'pendiente' || $estado === 'respondida') {
+                $builder->where('estado', 'abierta');
+            } elseif ($estado === 'eliminada') {
+                $builder->where('estado', 'cerrada');
+            }
         }
 
         if (!empty($textoBusqueda)) {

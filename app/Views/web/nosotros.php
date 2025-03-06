@@ -98,19 +98,19 @@
             <div class="row g-4">
                 <div class="col-md-6">
                     <div class="card shadow-sm border-0">
-                        <img src="<?= base_url('assets/images/nosotros/staff-1.png') ?>" class="card-img-top rounded" alt="Juan Carlos Pastore">
+                        <img src="<?= base_url('assets/images/nosotros/staff-2.png') ?>" class="card-img-top rounded" alt="Romina Sol Almada">
                         <div class="card-body">
-                            <h5 class="card-title">Juan Carlos Pastore</h5>
-                            <p class="card-text">Propietario - Tatuador</p>
+                            <h5 class="card-title">Romina Sol Almada</h5>
+                            <p class="card-text">Propietaria - Tatuadora</p>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="card shadow-sm border-0">
-                        <img src="<?= base_url('assets/images/nosotros/staff-2.png') ?>" class="card-img-top rounded" alt="Romina Sol Almada">
+                        <img src="<?= base_url('assets/images/nosotros/staff-1.png') ?>" class="card-img-top rounded" alt="Juan Carlos Pastore">
                         <div class="card-body">
-                            <h5 class="card-title">Romina Sol Almada</h5>
-                            <p class="card-text">Propietaria - Tatuadora</p>
+                            <h5 class="card-title">Juan Carlos Pastore</h5>
+                            <p class="card-text">Propietario - Tatuador</p>
                         </div>
                     </div>
                 </div>

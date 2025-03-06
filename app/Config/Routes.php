@@ -94,12 +94,12 @@ $routes->group('admin', ['filter' => 'authAdmin'], function ($routes) {
         $routes->get('show/(:num)', 'Admin\Cliente::show/$1');
         $routes->get('buscar', 'Admin\Cliente::buscarCliente');
         $routes->get('conversaciones/(:num)', 'Admin\Cliente::conversaciones/$1');
-        $routes->get('conversaciones/(:num)/(:num)', 'Admin\Cliente::verConversacion/$1/$2');
+        $routes->get('conversaciones/mostrar/(:num)', 'Admin\Cliente::verConversacion/$1');
         $routes->get('buscar', 'Admin\Cliente::buscarConversacion');
         $routes->get('ordenes/(:num)', 'Admin\Cliente::ordenes/$1');
-        $routes->get('ordenes/(:num)/(:num)', 'Admin\Cliente::verOrden/$1/$2');
+        $routes->get('ordenes/mostrar/(:num)', 'Admin\Cliente::verOrden/$1');
+        $routes->get('buscar', 'Admin\Cliente::buscarOrden');
     });
-
 
     // Grupo: Productos
     $routes->group('productos', function ($routes) {

@@ -15,6 +15,8 @@
     <link href="<?= base_url('assets/css/my_styles.css'); ?>" rel="stylesheet" type="text/css" />
     <!-- Swiper CSS local -->
     <link rel="stylesheet" href="<?= base_url('assets/swiper/swiper-bundle.min.css'); ?>">
+    <!-- icono de la pestaña -->
+    <link rel="icon" href="<?= base_url('assets/images/icono/Logo.ico') ?>" type="image/x-icon">
 
 </head>
 

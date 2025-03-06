@@ -84,7 +84,7 @@
                         <div class="row row-cols-1 text-center p-3 text-center">
                             <div class="col">
                                 <a href="<?= base_url('contacto?producto=' . urlencode($producto->nombre)) ?>"
-                                    class="btn btn-consultarw-50" title="Contactar">
+                                    class="btn btn-consultar w-50" title="Contactar">
                                     Contactar
                                 </a>
                             </div>

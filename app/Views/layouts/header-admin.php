@@ -19,6 +19,9 @@
     <!-- Swiper CSS local -->
     <link rel="stylesheet" href="<?= base_url('assets/swiper/swiper-bundle.min.css'); ?>">
 
+    <!-- icono de la pestaña -->
+    <link rel="icon" href="<?= base_url('assets/images/icono/Logo.ico') ?>" type="image/x-icon">
+
     <style>
         /* Estilos para lograr un footer pegajoso usando Flexbox */
         html,
@@ -43,7 +46,6 @@
                 margin-top: 0;
             }
         }
-
     </style>
 </head>
 
