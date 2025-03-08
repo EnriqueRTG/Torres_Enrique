@@ -5,6 +5,7 @@ namespace App\Controllers\Admin;
 use App\Controllers\BaseController;
 use App\Models\UsuarioModel;
 use App\Models\ConversacionModel;
+use App\Models\DireccionModel;
 use App\Models\MensajeModel;
 use App\Models\OrdenModel;
 
@@ -46,6 +47,13 @@ class Cliente extends BaseController
     protected $ordenModel;
 
     /**
+     * Instancia del modelo de Direcciones.
+     *
+     * @var OrdenModel
+     */
+    protected $direccionModel;
+
+    /**
      * Constructor: se instancian los modelos necesarios.
      */
     public function __construct()
@@ -55,6 +63,7 @@ class Cliente extends BaseController
         $this->conversacionModel  = new ConversacionModel();
         $this->mensajeModel       = new MensajeModel();
         $this->ordenModel         = new OrdenModel();
+        $this->direccionModel   = new DireccionModel();
     }
 
     /**
@@ -106,11 +115,13 @@ class Cliente extends BaseController
             return redirect()->to('/admin/clientes')->with('error', 'Cliente no encontrado.');
         }
 
+        $direcciones = $this->direccionModel->obtenerDireccionesDelCliente($id);
+
         // Breadcrumbs para la navegación en la interfaz de administración
         $breadcrumbs = [
             ['label' => 'Dashboard', 'url' => base_url('admin/dashboard')],
             ['label' => 'Clientes', 'url' => base_url('admin/clientes')],
-            ['label' => 'Perfil: ' . $cliente->nombre, 'url' => '']
+            ['label' => 'Perfil: ' . $cliente->nombre . ' ' . $cliente->apellido, 'url' => '']
         ];
 
         $conteos = $this->getConteoPendientes();
@@ -118,6 +129,7 @@ class Cliente extends BaseController
         $data = [
             'titulo'      => 'Perfil del Cliente',
             'cliente'     => $cliente,
+            'direcciones'     => $direcciones,
             'breadcrumbs' => $breadcrumbs,
             'totalPendientes'     => $conteos['totalPendientes'],
             'consultasPendientes' => $conteos['consultasPendientes'],
@@ -228,9 +240,8 @@ class Cliente extends BaseController
             $totalPaginas = $this->conversacionModel
                 ->obtenerTotalPaginasConversacionesCliente($busqueda, $estado, $porPagina, $clienteId);
 
-            log_message('debug', 'Conversaciones obtenidas: ' . print_r($conversaciones, true));
-
             return $this->response->setJSON([
+                'clienteId'      => $clienteId,
                 'conversaciones' => $conversaciones,
                 'paginaActual'   => $pagina,
                 'totalPaginas'   => $totalPaginas

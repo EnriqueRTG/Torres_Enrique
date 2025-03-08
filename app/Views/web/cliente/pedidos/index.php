@@ -222,12 +222,11 @@
                         ? `<button type="button" class="btn btn-outline-danger btn-sm mx-1 mb-2 mb-md-0 btn-cancelar" data-pedido-id="${pedido.id}" title="Cancelar Orden" data-bs-toggle="tooltip">
                                <i class="bi bi-x-circle"></i>
                            </button>`
-                        : (pedido.orden_estado === 'completada'
-                           ? `<a href="<?= base_url('admin/ordenes/comprobante/') ?>${pedido.id}" class="btn btn-outline-secondary btn-sm mx-1 mb-2 mb-md-0" title="Descargar Comprobante" data-bs-toggle="tooltip">
-                                    <i class="bi bi-download"></i>
-                               </a>`
-                           : ``)
+                        : ''
                     }
+                           <a href="<?= base_url('cliente/pedidos/descargarPdf/') ?>${pedido.id}" class="btn btn-outline-secondary btn-sm mx-1 mb-2 mb-md-0" title="Descargar Comprobante" data-bs-toggle="tooltip">
+                                    <i class="bi bi-download"></i>
+                               </a>
                 </td>
             `;
             tbody.appendChild(tr);

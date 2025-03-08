@@ -150,7 +150,7 @@ class Checkout extends BaseController
         $breadcrumbs = [
             ['label' => 'Carrito', 'url' => site_url('carrito')],
             ['label' => 'Checkout', 'url' => site_url('checkout/seleccionarDireccion')],
-            ['label' => 'Nueva Direccion', 'url' => ''],
+            ['label' => 'Finalizar Pedido', 'url' => ''],
         ];
 
         $data = [

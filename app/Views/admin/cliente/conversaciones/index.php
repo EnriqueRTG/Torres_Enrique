@@ -109,13 +109,7 @@
      */
     function aplicarFiltro(pagina = 1, busqueda = '', estado = 'todas') {
         const clienteId = <?= json_encode($cliente->id) ?>;
-        console.log("Parámetros enviados:", {
-            pagina,
-            busqueda,
-            estado,
-            clienteId
-        });
-        const url = '<?= base_url("admin/cliente/buscarOrden") ?>';
+        const url = '<?= base_url("admin/cliente/buscarConversacion") ?>';
         const params = new URLSearchParams({
             pagina,
             busqueda,
