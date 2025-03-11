@@ -124,7 +124,7 @@ class ConversacionModel extends Model
         // Para cada conversación, agregar la propiedad 'mensajes'
         foreach ($conversaciones as $conversacion) {
             $conversacion->mensajes = $mensajeModel->where('conversacion_id', $conversacion->id)
-                ->orderBy('created_at', 'ASC')
+                ->orderBy('created_at', 'DESC')
                 ->findAll();
         }
 
@@ -392,7 +392,7 @@ class ConversacionModel extends Model
         $mensajeModel = new \App\Models\MensajeModel();
         foreach ($conversaciones as $conv) {
             $conv->mensajes = $mensajeModel->where('conversacion_id', $conv->id)
-                ->orderBy('created_at', 'ASC')
+                ->orderBy('created_at', 'DESC')
                 ->findAll();
         }
 

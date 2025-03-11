@@ -5,6 +5,11 @@
 
 <!-- Contenedor principal -->
 <div class="container my-3 main-content">
+    <!-- Mensajes de sesión: errores o confirmaciones -->
+    <div id="flashMessage" class="alert-info text-center" role="alert">
+        <?= session()->has('errors') ? view('partials/_session-error') : view('partials/_session') ?>
+    </div>
+
     <!-- Breadcrumb -->
     <?= view('partials/_breadcrumb', ['breadcrumbs' => $breadcrumbs]) ?>
 

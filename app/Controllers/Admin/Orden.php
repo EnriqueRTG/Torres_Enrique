@@ -3,7 +3,9 @@
 namespace App\Controllers\Admin;
 
 use App\Controllers\BaseController;
+use App\Models\DetalleOrdenModel;
 use App\Models\OrdenModel;
+use App\Models\ProductoModel;
 use Dompdf\Dompdf;
 
 /**
@@ -24,6 +26,20 @@ class Orden extends BaseController
     protected $ordenModel;
 
     /**
+     * Instancia del modelo de Detalles de Orden.
+     *
+     * @var DetalleOrdenModel
+     */
+    protected $detalleOrdenModel;
+
+    /**
+     * Instancia del modelo de Producto.
+     *
+     * @var ProductoModel
+     */
+    protected $productoModel;
+
+    /**
      * Constructor.
      *
      * Se instancia el modelo de Órdenes para que esté disponible en todos los métodos.
@@ -31,6 +47,8 @@ class Orden extends BaseController
     public function __construct()
     {
         $this->ordenModel = new OrdenModel();
+        $this->detalleOrdenModel = new DetalleOrdenModel();
+        $this->productoModel = new ProductoModel();
     }
 
     /**
@@ -166,12 +184,21 @@ class Orden extends BaseController
 
 
     /**
-     * Marca una orden como cancelada.
+     * Cancela una orden pendiente y restablece el stock de los productos involucrados.
      *
-     * Verifica que la orden exista y esté en estado "pendiente". Actualiza su estado a "cancelada".
+     * Este método realiza las siguientes acciones:
+     * - Verifica que la orden exista; de lo contrario, redirige con un error.
+     * - Verifica que la orden se encuentre en estado "pendiente" para permitir su cancelación.
+     * - Si la orden se cancela exitosamente (a través de cancelarOrden), se obtienen
+     *   los detalles de la orden (por ejemplo, mediante el modelo OrdenDetalleModel) y
+     *   se recorre cada detalle para actualizar el stock del producto correspondiente,
+     *   sumando la cantidad reservada en la orden al stock actual.
+     * - Finalmente, redirige a la lista de órdenes del administrador con un mensaje
+     *   de confirmación o, en caso de error, con un mensaje adecuado.
      *
      * @param int $id ID de la orden a cancelar.
-     * @return \CodeIgniter\HTTP\RedirectResponse Redirección tras la operación.
+     * @return \CodeIgniter\HTTP\RedirectResponse Redirección tras la operación, con flashdata de mensaje de éxito o error.
+     * @throws \OutOfBoundsException En caso de que la orden o algún producto no se encuentre.
      */
     public function cancelar($id)
     {
@@ -181,13 +208,24 @@ class Orden extends BaseController
         }
         if ($orden->estado !== 'pendiente') {
             return redirect()->back()->with('error', 'Solo se pueden cancelar órdenes pendientes.');
-        }
+        }   
         if ($this->ordenModel->cancelarOrden($id)) {
-            return redirect()->to('admin/ordenes')->with('mensaje', 'Orden cancelada exitosamente.');
+            // Obtener los detalles de la orden y actualizar el stock de cada producto.
+            $ordenDetalles = $this->detalleOrdenModel->obtenerDetallesPorOrden($id);
+            foreach ($ordenDetalles as $detalle) {
+                $producto = $this->productoModel->obtenerProductoPorId($detalle->producto_id);
+                if ($producto) {
+                    $nuevoStock = $producto->stock + $detalle->cantidad;
+                    $this->productoModel->actualizarStock($detalle->producto_id,  $nuevoStock, 'cancelado');
+                }
+            }
+            return redirect()->to('admin/ordenes')->with('mensaje', 'Orden cancelada exitosamente y stock actualizado.');
         } else {
             return redirect()->back()->with('error', 'No se pudo cancelar la orden. Inténtalo de nuevo.');
         }
     }
+
+
 
     /**
      * Busca y devuelve las órdenes filtradas según texto, estado y página.

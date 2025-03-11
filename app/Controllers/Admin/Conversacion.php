@@ -133,9 +133,10 @@ class Conversacion extends BaseController
      */
     public function mostrar_consulta($id)
     {
+
+        $conversacion = $this->conversacionModel->obtenerConversacionConMensajes($id);
         // Marcar mensajes del cliente como leídos
         $this->mensajeModel->marcarMensajesClienteComoLeidos($id);
-        $conversacion = $this->conversacionModel->obtenerConversacionConMensajes($id);
 
         $breadcrumbs = [
             ['label' => 'Dashboard', 'url' => base_url('admin/dashboard')],
@@ -168,7 +169,7 @@ class Conversacion extends BaseController
      */
     public function mostrar_contacto($id)
     {
-        $this->mensajeModel->marcarMensajeVisitanteComoLeido($id);
+        $this->mensajeModel->marcarMensajesVisitanteComoLeido($id);
         $conversacion = $this->conversacionModel->obtenerConversacionConMensajes($id);
 
         $breadcrumbs = [
@@ -275,7 +276,7 @@ class Conversacion extends BaseController
         }
 
         // Cambiar el estado de la conversación a "cerrada"
-        $this->conversacionModel->actualizarEstadoConversacion($id, 'cerrado');
+        $this->conversacionModel->actualizarEstadoConversacion($id, 'cerrada');
 
         $subject = 'Respuesta a su consulta de contacto';
         $mensajeEmail  = "Estimado/a " . esc($conversacion->nombre) . ",<br><br>";
@@ -341,57 +342,47 @@ class Conversacion extends BaseController
     public function buscar_consultas()
     {
         $textoBusqueda = $this->request->getGet('textoBusqueda') ?? '';
-        $estadoFiltro  = $this->request->getGet('estado') ?? 'todas';
+        $estadoFiltro  = $this->request->getGet('estado') ?? 'pendiente';
         $pagina        = $this->request->getGet('pagina') ?? 1;
         $porPagina     = 10;
 
         try {
-            // Obtener las conversaciones de tipo "consulta" filtradas y paginadas
+            // Obtener todas las conversaciones sin paginar (para poder contar después del filtrado)
             $conversacionesConsulta = $this->conversacionModel->filtrarConversacionesConsulta($textoBusqueda, $estadoFiltro, $pagina, $porPagina);
 
-            // Asignar el último mensaje a cada conversación (orden descendente para obtener el más reciente)
+            // Asignar el último mensaje a cada conversación
             foreach ($conversacionesConsulta as $consulta) {
                 $ultimoMensaje = $this->mensajeModel->where('conversacion_id', $consulta->id)
-                    ->orderBy('updated_at', 'asc')
+                    ->orderBy('updated_at', 'DESC')
                     ->first();
                 $consulta->ultimoMensaje = $ultimoMensaje;
             }
 
-            // Refinar filtrado para "respondida": conservar solo conversaciones abiertas cuyo último mensaje sea del administrador.
+            // Filtrar por estado antes de calcular la paginación
             if ($estadoFiltro === 'respondida') {
-                $filtradas = [];
-                foreach ($conversacionesConsulta as $consulta) {
-                    if (
-                        $consulta->estado === 'abierta' &&
+                $conversacionesConsulta = array_filter($conversacionesConsulta, function ($consulta) {
+                    return $consulta->estado === 'abierta' &&
                         isset($consulta->ultimoMensaje) &&
-                        $consulta->ultimoMensaje->tipo_remitente === 'administrador'
-                    ) {
-                        $filtradas[] = $consulta;
-                    }
-                }
-                $conversacionesConsulta = $filtradas;
-            }
-
-            // Refinar filtrado para "pendiente": conservar solo conversaciones abiertas sin respuesta de administrador.
-            if ($estadoFiltro === 'pendiente') {
-                $filtradas = [];
-                foreach ($conversacionesConsulta as $consulta) {
-                    if (
-                        $consulta->estado === 'abierta' &&
+                        $consulta->ultimoMensaje->tipo_remitente === 'administrador';
+                });
+            } elseif ($estadoFiltro === 'pendiente') {
+                $conversacionesConsulta = array_filter($conversacionesConsulta, function ($consulta) {
+                    return $consulta->estado === 'abierta' &&
                         (!isset($consulta->ultimoMensaje) ||
-                            $consulta->ultimoMensaje->tipo_remitente !== 'administrador')
-                    ) {
-                        $filtradas[] = $consulta;
-                    }
-                }
-                $conversacionesConsulta = $filtradas;
+                            $consulta->ultimoMensaje->tipo_remitente === 'cliente');
+                });
             }
 
-            // Obtener el total de páginas para la paginación
-            $totalPaginas = $this->conversacionModel->obtenerTotalPaginasConversacionesConsulta($textoBusqueda, $estadoFiltro, $porPagina);
+            // Contar el total de elementos después del filtrado
+            $totalElementos = count($conversacionesConsulta);
+            $totalPaginas = ceil($totalElementos / $porPagina);
+
+            // Aplicar paginación después del filtrado
+            $inicio = ($pagina - 1) * $porPagina;
+            $conversacionesConsulta = array_slice($conversacionesConsulta, $inicio, $porPagina);
 
             return $this->response->setJSON([
-                'consultas'    => $conversacionesConsulta,
+                'consultas'    => array_values($conversacionesConsulta),
                 'paginaActual' => $pagina,
                 'totalPaginas' => $totalPaginas
             ]);
@@ -402,6 +393,7 @@ class Conversacion extends BaseController
             ]);
         }
     }
+
 
     /**
      * Busca y devuelve las conversaciones de tipo "contacto" filtradas por estado y búsqueda.

@@ -109,7 +109,7 @@
      * @param {string} textoBusqueda - Texto de búsqueda (por defecto cadena vacía).
      * @param {string} estado - Filtro de estado ('todas', 'pendiente', 'respondida' o 'cerrada').
      */
-    function aplicarFiltro(pagina = 1, textoBusqueda = '', estado = 'todas') {
+    function aplicarFiltro(pagina = 1, textoBusqueda = '', estado = 'pendiente') {
         // Construir la URL con parámetros
         const url = '<?= base_url("admin/conversacion/buscar_consultas") ?>';
         const params = new URLSearchParams({
@@ -274,7 +274,7 @@
      * Se utiliza la clave "estado_consulta" para preservar la selección en esta vista.
      */
     function cargarConsultasDinamicamente() {
-        const estadoGuardado = localStorage.getItem('estado_consulta') || 'todas';
+        const estadoGuardado = localStorage.getItem('estado_consulta') || 'pendiente';
         document.getElementById('filtroEstadoConsulta').value = estadoGuardado;
         aplicarFiltro(1, document.getElementById('busqueda').value, estadoGuardado);
     }

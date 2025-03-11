@@ -8,7 +8,7 @@
 <main class="container my-3 main-content" tabindex="0">
 
     <!-- Mensajes de sesión: errores o confirmaciones -->
-    <div class="alert-info text-center" role="alert">
+    <div id="flashMessage" class="alert-info text-center" role="alert">
         <?= session()->has('errors') ? view('partials/_session-error') : view('partials/_session') ?>
     </div>
 
@@ -110,7 +110,7 @@
                                     </a>
                                 </div>
                                 <div class="col">
-                                    <a href="<?= base_url('carrito/agregar/' . $producto->id) ?>" class="btn btn-agregar-carrito w-50" title="Añadir al carrito">Añadir al carrito</a>
+                                    <a href="<?= base_url('web/carrito/agregar/' . $producto->id) ?>" class="btn btn-agregar-carrito w-50" title="Añadir al carrito">Añadir al carrito</a>
                                 </div>
                             </div>
                         <?php endif; ?>
@@ -233,7 +233,7 @@
 
 <!-- Scripts: Manejo del modal fullscreen y Swiper -->
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener("DOMContentLoaded", function() {
         // Configuración para vista fullscreen: al hacer clic en una imagen con clase "view-fullscreen"
         document.querySelectorAll('.view-fullscreen').forEach(function(el) {
             el.addEventListener('click', function() {
@@ -288,5 +288,75 @@
                 }
             }
         });
+
+        // Asigna un único event listener para los botones "Agregar al Carrito"
+        document.querySelectorAll(".btn-agregar-carrito").forEach(function(btn) {
+            btn.addEventListener("click", function(event) {
+                event.preventDefault(); // Evita la recarga de la página
+
+                fetch(this.href, {
+                        method: "POST"
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            actualizarCartCounter(data.totalItems);
+                            mostrarMensajeFlash(data.message);
+                            // Después de 1.5 segundos, recargar la página para reflejar el cambio en el carrito
+                            setTimeout(() => {
+                                window.location.reload();
+                            }, 1500);
+                        } else {
+                            mostrarMensajeFlash(data.message, "danger");
+                        }
+                    })
+                    .catch(error => {
+                        console.error("Error:", error);
+                        mostrarMensajeFlash("Error al agregar el producto", "danger");
+                    });
+            });
+        });
     });
-</script>
+
+    /**
+     * Actualiza el contador del carrito en el navbar.
+     * Si el contador ya existe, actualiza su texto; de lo contrario, lo crea y lo añade.
+     * @param {number} totalItems - La cantidad total de items en el carrito.
+     */
+    function actualizarCartCounter(totalItems) {
+        let counterEl = document.getElementById("cartCounter");
+        if (counterEl) {
+            counterEl.textContent = totalItems;
+        } else {
+            let cartDropdown = document.getElementById("cartDropdown");
+            let newCounter = document.createElement("span");
+            newCounter.id = "cartCounter";
+            newCounter.className = "position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger";
+            newCounter.textContent = totalItems;
+            cartDropdown.appendChild(newCounter);
+        }
+    }
+
+    /**
+     * Muestra un mensaje en el contenedor flash.
+     * @param {string} texto - El mensaje a mostrar.
+     * @param {string} [tipo="success"] - Tipo de alerta (success, danger, etc.).
+     */
+    function mostrarMensajeFlash(texto, tipo = "success") {
+        const flashEl = document.getElementById("flashMessage");
+        flashEl.className = `alert alert-${tipo} alert-dismissible fade show text-center`;
+        flashEl.innerHTML = `
+        ${texto}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
+    `;
+        flashEl.style.display = "block";
+
+        setTimeout(() => {
+            flashEl.classList.add("fade");
+            setTimeout(() => {
+                flashEl.style.display = "none";
+                flashEl.classList.remove("fade");
+            }, 500);
+        }, 3000);
+    }
+</script>   

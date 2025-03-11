@@ -95,7 +95,7 @@ class MensajeModel extends Model
      * @param int $conversacionId El ID de la conversación.
      * @return bool Resultado de la operación de actualización.
      */
-    public function marcarMensajesAdministradorComoLeidos(int $conversacionId): bool
+    public function marcarMensajesVisitanteComoLeido(int $conversacionId): bool
     {
         return $this->where('conversacion_id', $conversacionId)
             ->where('tipo_remitente', 'visitante')

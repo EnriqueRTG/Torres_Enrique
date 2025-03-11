@@ -114,6 +114,19 @@ $errors = session()->getFlashdata('errors');
                             </div>
                         <?php endif; ?>
                     </div>
+                    <div class="mb-3">
+                        <label for="crearMarcaDescripcion" class="form-label">Descripción (Opcional):</label>
+                        <textarea class="form-control <?= isset($errors['descripcion']) ? 'is-invalid' : '' ?>"
+                            id="crearMarcaDescripcion"
+                            name="descripcion"
+                            rows="3"
+                            placeholder="Ingrese una descripción de la marca"><?= old('descripcion') ?></textarea>
+                        <?php if (isset($errors['descripcion'])): ?>
+                            <div class="invalid-feedback">
+                                <?= $errors['descripcion'] ?>
+                            </div>
+                        <?php endif; ?>
+                    </div>
                 </div>
                 <footer class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>

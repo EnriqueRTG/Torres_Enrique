@@ -8,7 +8,7 @@
 <!-- Contenedor principal: Catálogo del Carrito -->
 <main class="container my-3 main-content">
     <!-- Mensajes de sesión: errores o confirmaciones -->
-    <div class="alert-info text-center" role="alert">
+    <div id="flashMessage" class="alert-info text-center" role="alert">
         <?= session()->has('errors') ? view('partials/_session-error') : view('partials/_session') ?>
     </div>
 
@@ -53,13 +53,16 @@
                             <td><?= esc($item['name']) ?></td>
                             <!-- Cantidad con controles de incremento y decremento -->
                             <td style="min-width: 120px;">
+                                <!-- Dentro del <td> de la cantidad -->
                                 <div class="input-group input-group-sm flex-nowrap">
-                                    <button class="btn btn-outline-secondary" type="button" onclick="actualizarCantidad('<?= esc($item['rowid']) ?>', -1)">-</button>
-                                    <input type="number" class="form-control text-center cantidad-input" value="<?= esc($item['qty']) ?>" min="1" onchange="actualizarCantidad('<?= esc($item['rowid']) ?>', this.value)">
-                                    <button class="btn btn-outline-secondary" type="button" onclick="actualizarCantidad('<?= esc($item['rowid']) ?>', 1)">+</button>
+                                    <button class="btn btn-outline-secondary" type="button" onclick="actualizarCantidadDelta('<?= esc($item['rowid']) ?>', -1)">-</button>
+                                    <!-- Se usa onchange para llamar a la función directa -->
+                                    <input type="number" class="form-control text-center cantidad-input"
+                                        value="<?= esc($item['qty']) ?>" min="1"
+                                        onchange="actualizarCantidadDirect('<?= esc($item['rowid']) ?>', this.value)">
+                                    <button class="btn btn-outline-secondary" type="button" onclick="actualizarCantidadDelta('<?= esc($item['rowid']) ?>', 1)">+</button>
                                 </div>
-                                <!-- Mensaje de stock (si existe) -->
-                                <span class="stock-message text-danger"></span>
+
                             </td>
                             <!-- Precio Unitario -->
                             <td>$<?= number_format($item['price'], 2) ?></td>
@@ -121,38 +124,30 @@
 
 <!-- Scripts: Funciones para actualizar cantidades y mostrar mensajes -->
 <script>
-    /**
-     * Actualiza la cantidad de un producto en el carrito.
-     * 
-     * Realiza una solicitud AJAX para actualizar la cantidad en el servidor y,
-     * de ser exitosa, actualiza la vista con el nuevo subtotal, total y mensaje de stock.
-     * 
-     * @param {string} rowid - Identificador único de la fila en el carrito.
-     * @param {number|string} cambioCantidad - Cambio en la cantidad (valor numérico o valor del input).
-     */
-    function actualizarCantidad(rowid, cambioCantidad) {
-        // 1. Obtener la fila y el input de cantidad
+    // Función llamada cuando se cambia manualmente el valor del input
+    function actualizarCantidadDirect(rowid, nuevoValor) {
+        const nuevaCantidad = parseInt(nuevoValor);
+        actualizarCantidadAJAX(rowid, nuevaCantidad);
+    }
+
+    // Función llamada cuando se hace clic en los botones, que suma o resta un delta
+    function actualizarCantidadDelta(rowid, delta) {
         const fila = document.querySelector(`tr[data-rowid="${rowid}"]`);
         const inputCantidad = fila.querySelector('input[type="number"]');
+        const cantidadActual = parseInt(inputCantidad.value);
+        const nuevaCantidad = cantidadActual + parseInt(delta);
+        actualizarCantidadAJAX(rowid, nuevaCantidad);
+    }
 
-        // 2. Calcular la nueva cantidad
-        let nuevaCantidad = parseInt(inputCantidad.value) + parseInt(cambioCantidad);
+    // Función central que envía la solicitud AJAX con la cantidad final
+    function actualizarCantidadAJAX(rowid, nuevaCantidad) {
+        const dataForm = new FormData();
+        dataForm.append('rowid', rowid);
+        dataForm.append('cantidad', nuevaCantidad);
 
-        // 3. Validar la nueva cantidad
-        if (isNaN(nuevaCantidad) || nuevaCantidad < 1) {
-            alert("Por favor, ingresa una cantidad válida.");
-            return;
-        }
-
-        // 4. Preparar los datos a enviar
-        const data = new FormData();
-        data.append('rowid', rowid);
-        data.append('cantidad', nuevaCantidad);
-
-        // 5. Enviar la solicitud AJAX
         fetch('<?= site_url('web/carrito/actualizar') ?>', {
                 method: 'POST',
-                body: data
+                body: dataForm
             })
             .then(response => {
                 if (!response.ok) {
@@ -162,17 +157,11 @@
             })
             .then(data => {
                 if (data.success) {
-                    console.log("Carrito actualizado con éxito");
-                    // Actualizar la vista del carrito
-                    // Se asume que el subtotal es la quinta columna
-                    const subtotalElement = fila.querySelector('td:nth-child(5)');
-                    subtotalElement.textContent = '$' + data.subtotal;
-                    const totalElement = document.querySelector('#carrito-total');
-                    totalElement.textContent = '$' + data.total;
-                    inputCantidad.value = nuevaCantidad;
-                    // Actualizar mensaje de stock si existe
-                    const stockMessageElement = fila.querySelector('.stock-message');
-                    stockMessageElement.textContent = data.stockMessage || '';
+                    mostrarMensajeFlash(data.message);
+                    // Recargar la página en 1.5 segundos para actualizar el carrito completo
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 1500);
                 } else {
                     console.error("Error al actualizar el carrito:", data.message || "Error desconocido");
                     alert("Hubo un error al actualizar el carrito. " + (data.message ? data.message : "Por favor, inténtalo de nuevo."));
@@ -184,21 +173,22 @@
             });
     }
 
-    /**
-     * Muestra un mensaje temporal en el carrito.
-     * 
-     * @param {string} mensaje - Mensaje a mostrar.
-     * @param {string} tipo - Tipo de alerta (por ejemplo, 'success' o 'danger').
-     */
-    function mostrarMensajeCarrito(mensaje, tipo) {
-        const mensajeCarrito = document.getElementById('mensaje-carrito');
-        mensajeCarrito.textContent = mensaje;
-        mensajeCarrito.classList.remove('alert-success', 'alert-danger');
-        mensajeCarrito.classList.add('alert-' + tipo);
-        mensajeCarrito.style.display = 'block';
+    // Función para actualizar el contenedor de mensajes (flash)
+    function mostrarMensajeFlash(texto, tipo = "success") {
+        const flashEl = document.getElementById("flashMessage");
+        flashEl.className = `alert alert-${tipo} alert-dismissible fade show text-center`;
+        flashEl.innerHTML = `
+            ${texto}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
+        `;
+        flashEl.style.display = "block";
 
         setTimeout(() => {
-            mensajeCarrito.style.display = 'none';
-        }, 5000);
+            flashEl.classList.add("fade");
+            setTimeout(() => {
+                flashEl.style.display = "none";
+                flashEl.classList.remove("fade");
+            }, 500);
+        }, 3000);
     }
 </script>

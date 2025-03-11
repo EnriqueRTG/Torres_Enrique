@@ -92,7 +92,7 @@ abstract class BaseController extends Controller
         // Asignar el último mensaje a cada conversación (orden ascendente para obtener el más reciente)
         foreach ($conversacionesConsulta as $consulta) {
             $ultimoMensaje = $this->mensajeModel->where('conversacion_id', $consulta->id)
-                ->orderBy('updated_at', 'ASC')
+                ->orderBy('updated_at', 'DESC')
                 ->first();
             $consulta->ultimoMensaje = $ultimoMensaje;
         }

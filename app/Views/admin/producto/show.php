@@ -81,19 +81,19 @@
 
                     <!-- Botones de acción (solo visibles para administradores) -->
                     <?php if (session()->get('usuario')->rol == 'administrador'): ?>
-                        <div class="row row-cols-1 g-3 mx-3">
+                        <div class="row row-cols-1 g-3 mx-3 text-center">
                             <div class="col">
-                                <a href="<?= base_url('carrito/agregar/' . $producto->id) ?>" class="btn btn-warning w-100 disabled" title="Añadir al carrito">
+                                <a href="<?= base_url('carrito/agregar/' . $producto->id) ?>" class="btn btn-warning w-50 disabled" title="Añadir al carrito">
                                     Añadir al carrito
                                 </a>
                             </div>
                             <div class="col">
-                                <a href="<?= url_to('producto', $producto->id) ?>" class="btn btn-primary w-100 disabled" title="Comprar ahora">
+                                <a href="<?= url_to('producto', $producto->id) ?>" class="btn btn-primary w-50 disabled" title="Comprar ahora">
                                     Comprar ahora
                                 </a>
                             </div>
                             <div class="col">
-                                <a href="<?= url_to('producto', $producto->id) ?>" class="btn btn-info w-100 disabled" title="Consultar">
+                                <a href="<?= url_to('producto', $producto->id) ?>" class="btn btn-info w-50 disabled" title="Consultar">
                                     Consultar
                                 </a>
                             </div>

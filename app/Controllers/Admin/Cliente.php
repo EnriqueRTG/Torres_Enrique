@@ -262,7 +262,7 @@ class Cliente extends BaseController
             return redirect()->to(base_url('admin/clientes'))->with('error', 'Conversación no encontrada.');
         }
 
-        $cliente = $this->clienteModel->find($conversacion->usuario_id);
+        $cliente = $this->clienteModel->obtenerClientePorId($conversacion->usuario_id);
         if (!$cliente) {
             return redirect()->to(base_url('admin/clientes'))->with('error', 'Cliente no encontrado.');
         }

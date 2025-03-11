@@ -969,3 +969,33 @@ estilo para comercializacion
         color: var(--color-secundario);
     }
 }
+
+/* Estilos para el mensaje flotante centrado */
+#mensajeFlotante {
+    position: fixed;
+    top: 20px;
+    /* Distancia desde la parte superior */
+    left: 50%;
+    /* Ubica el 50% de la ventana horizontalmente */
+    transform: translateX(-50%);
+    /* Centra el mensaje restando la mitad de su ancho */
+    max-width: 400px;
+    padding: 15px 20px;
+    z-index: 1050;
+    /* Asegura que esté por encima de otros elementos */
+    text-align: center;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translate(-50%, 0);
+    }
+}

@@ -81,27 +81,29 @@ class Carrito extends BaseController
     public function agregar($idProducto = null)
     {
         if ($idProducto === null) {
-            throw new \InvalidArgumentException('ID de producto no proporcionado');
+            return $this->response->setJSON([
+                'success' => false,
+                'message' => 'ID de producto no proporcionado'
+            ]);
         }
 
         $producto = $this->productoModel->obtenerProductoPorId($idProducto);
 
         if (!$producto) {
-            throw new \OutOfBoundsException('Producto no encontrado');
+            return $this->response->setJSON([
+                'success' => false,
+                'message' => 'Producto no encontrado'
+            ]);
         }
-        // Asigna la imagen principal: la primera del arreglo de imágenes o una por defecto
-        $producto->imagen_principal = isset($producto->imagenes[0]->ruta_imagen) ? $producto->imagenes[0]->ruta_imagen : 'uploads/productos/no-image.png';
 
-        // Verificar si el producto ya está en el carrito
+        $producto->imagen_principal = isset($producto->imagenes[0]->ruta_imagen)
+            ? $producto->imagenes[0]->ruta_imagen
+            : 'uploads/productos/no-image.png';
+
         $cartItem = $this->cart->getItem($producto->id);
         if ($cartItem) {
-            // Actualizar la cantidad del producto en el carrito
-            $this->cart->update($cartItem['rowid'], [
-                'qty' => $cartItem['qty'] + 1
-            ]);
-            return redirect()->back()->with('mensaje', 'La cantidad del producto en el carrito ha sido actualizada.');
+            $this->cart->update($cartItem['rowid'], ['qty' => $cartItem['qty'] + 1]);
         } else {
-            // Insertar el producto en el carrito, incluyendo la imagen principal
             $data = [
                 'id'    => $idProducto,
                 'qty'   => 1,
@@ -110,9 +112,18 @@ class Carrito extends BaseController
                 'image' => $producto->imagen_principal,
             ];
             $this->cart->insert($data);
-            return redirect()->back();
         }
+
+        // Devuelve también la cantidad total y el total del carrito
+        return $this->response->setJSON([
+            'success'    => true,
+            'message'    => 'Producto agregado al carrito',
+            'totalItems' => $this->cart->totalItems(),
+            'total'      => $this->cart->total()
+        ]);
     }
+
+
 
     /**
      * Actualiza la cantidad de un producto en el carrito.
@@ -127,13 +138,15 @@ class Carrito extends BaseController
         try {
             $rowid = $this->request->getPost('rowid');
             $nuevaCantidad = $this->request->getPost('cantidad');
+            $mensajeCorreccion = ""; // Para almacenar el mensaje de corrección, si lo hay
 
-            // Validar la nueva cantidad
+            // Si la cantidad no es numérica o es menor a 1, la forzamos a 1 y notificamos
             if (!is_numeric($nuevaCantidad) || $nuevaCantidad < 1) {
-                return $this->response->setJSON(['success' => false, 'message' => 'Cantidad inválida']);
+                $nuevaCantidad = 1;
+                $mensajeCorreccion = "La cantidad mínima es 1. Se ha ajustado a 1.";
             }
 
-            // Obtener el item del carrito antes de actualizarlo
+            // Obtener el item del carrito
             $item = $this->cart->getItem($rowid);
             if (!$item) {
                 throw new \OutOfBoundsException('El producto no se encontró en el carrito');
@@ -146,9 +159,10 @@ class Carrito extends BaseController
                 throw new \OutOfBoundsException('El producto no se encontró en la base de datos');
             }
 
-            // Verificar que la nueva cantidad no exceda el stock
+            // Si la cantidad supera el stock, la forzamos al stock y notificamos
             if ($nuevaCantidad > $producto->stock) {
-                return $this->response->setJSON(['success' => false, 'message' => 'No hay suficiente stock disponible']);
+                $nuevaCantidad = $producto->stock;
+                $mensajeCorreccion = "La cantidad excede el stock disponible. Se ha ajustado a " . $producto->stock . ".";
             }
 
             // Actualizar la cantidad en el carrito
@@ -162,14 +176,20 @@ class Carrito extends BaseController
             $subtotal = $item['qty'] * $item['price'];
             $total = $this->cart->total();
 
+            // Si no hubo corrección, establecer mensaje de éxito genérico
+            if (!$mensajeCorreccion) {
+                $mensajeCorreccion = "Cantidad actualizada.";
+            }
+
             $response_data = [
                 'success'  => true,
                 'subtotal' => number_format($subtotal, 2),
-                'total'    => number_format($total, 2)
+                'total'    => number_format($total, 2),
+                'message'  => $mensajeCorreccion
             ];
 
-            // Agregar mensaje de stock si la cantidad se acerca al límite
-            if ($nuevaCantidad >= $producto->stock - 3) {
+            // Si la cantidad se acerca al stock, agrega un mensaje adicional de stock
+            if ($nuevaCantidad >= $producto->stock - 3 && $producto->stock > 0) {
                 $response_data['stockMessage'] = "¡Últimas {$producto->stock} unidades!";
             }
 
@@ -183,6 +203,8 @@ class Carrito extends BaseController
         }
     }
 
+
+
     /**
      * Elimina un producto del carrito o vacía el carrito completo.
      *
@@ -195,11 +217,14 @@ class Carrito extends BaseController
     {
         if ($rowid == "all") {
             $this->cart->destroy();
+            $message = "Carrito vaciado";
         } else {
             $this->cart->remove($rowid);
+            $message = "Artículo eliminado del carrito";
         }
-        return redirect()->back()->withInput();
+        return redirect()->back()->with('mensaje', $message)->withInput();
     }
+
 
     /**
      * Destruye completamente el carrito.
@@ -209,6 +234,7 @@ class Carrito extends BaseController
     public function borrar()
     {
         $this->cart->destroy();
-        return redirect()->back()->withInput();
+        $message = "Carrito vaciado";
+        return redirect()->back()->with('mensaje', $message)->withInput();
     }
 }

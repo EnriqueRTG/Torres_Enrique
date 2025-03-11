@@ -402,7 +402,7 @@ class ProductoModel extends Model
      * @param int|string $cantidad Cantidad a restar del stock.
      * @return bool True si la actualización es exitosa o si no hay cambio, false en caso contrario.
      */
-    public function actualizarStock($productoId, $cantidad)
+    public function actualizarStock($productoId, $cantidad, $operacion = '')
     {
         // Convertir la cantidad a entero
         $cantidad = (int)$cantidad;
@@ -418,7 +418,12 @@ class ProductoModel extends Model
         $currentStock = (int)$producto->stock;
 
         // Calcular el nuevo stock y evitar valores negativos
-        $nuevoStock = $currentStock - $cantidad;
+        if ($operacion === '') {
+            $nuevoStock = $currentStock - $cantidad;
+        } else {
+            $nuevoStock = $currentStock + $cantidad;
+        }
+
         if ($nuevoStock < 0) {
             $nuevoStock = 0;
         }

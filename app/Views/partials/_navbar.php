@@ -58,11 +58,12 @@
                                 aria-label="Ver carrito">
                                 <i class="bi bi-cart3 fs-4"></i>
                                 <?php if ($cart->totalItems() > 0): ?>
-                                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                    <span id="cartCounter" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                                         <?= $cart->totalItems() ?>
                                     </span>
                                 <?php endif; ?>
                             </a>
+
 
                             <!-- Dropdown que muestra el resumen del carrito -->
                             <ul class="dropdown-menu dropdown-menu-end p-3" aria-labelledby="cartDropdown" style="min-width: 300px;">

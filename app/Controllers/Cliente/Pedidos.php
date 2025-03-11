@@ -5,6 +5,7 @@ namespace App\Controllers\Cliente;
 use App\Controllers\BaseController;
 use App\Models\DetalleOrdenModel;
 use App\Models\OrdenModel;
+use App\Models\ProductoModel;
 use Dompdf\Dompdf;
 use Dompdf\Options;
 
@@ -29,7 +30,14 @@ class Pedidos extends BaseController
      *
      * @var DetalleOrdenModel
      */
-    protected $detalleModel;
+    protected $detalleOrdenModel;
+
+    /**
+     * Instancia del modelo de Productos.
+     *
+     * @var ProductoModel
+     */
+    protected $productoModel;
 
     /**
      * Instancia del servicio del carrito.
@@ -46,7 +54,8 @@ class Pedidos extends BaseController
     public function __construct()
     {
         $this->ordenModel = new OrdenModel();
-        $this->detalleModel = new DetalleOrdenModel();
+        $this->detalleOrdenModel = new DetalleOrdenModel();
+        $this->productoModel = new ProductoModel();
         $this->cart = \Config\Services::cart();
     }
 
@@ -105,7 +114,7 @@ class Pedidos extends BaseController
         // Obtener el pedido detallado
         $orden = $this->ordenModel->obtenerOrdenDetallada($id);
 
-        $detalles = $this->detalleModel->obtenerDetallesPorOrden($id);
+        $detalles = $this->detalleOrdenModel->obtenerDetallesPorOrden($id);
 
         // Verificar si la orden existe y pertenece al usuario autenticado
         if (!$orden || $orden->usuario_id != $usuario->id) {
@@ -174,14 +183,21 @@ class Pedidos extends BaseController
     }
 
     /**
-     * Cancela una orden de compra.
+     * Cancela una orden de compra para el cliente autenticado y restablece el stock de los productos involucrados.
      *
-     * Este método permite al usuario cancelar una orden existente. En lugar de eliminar la orden,
-     * se actualiza su estado a "cancelada" usando el método cancelarOrden() del modelo OrdenModel.
-     * Solo se permite cancelar una orden si ésta pertenece al usuario autenticado.
+     * Este método permite al usuario cancelar una orden existente. Primero, se verifica que el usuario esté autenticado;
+     * si no lo está, se redirige al login con un mensaje de error. Luego, se obtiene la orden y se verifica que exista y
+     * pertenezca al usuario autenticado. Además, solo se permite cancelar órdenes que estén en estado "pendiente".
+     *
+     * Si la cancelación es exitosa (mediante el método cancelarOrden() del modelo OrdenModel), se recorren los detalles
+     * de la orden (usando, por ejemplo, el modelo OrdenDetalleModel) para restablecer el stock de cada producto involucrado,
+     * sumando a su stock actual la cantidad reservada en la orden.
+     *
+     * Finalmente, se redirige al listado de pedidos del cliente con un mensaje de éxito ("La orden ha sido cancelada exitosamente.")
+     * sin revelar al cliente que se restauró el stock.
      *
      * @param int $id ID de la orden a cancelar.
-     * @return \CodeIgniter\HTTP\RedirectResponse Redirección a la lista de pedidos con un mensaje de éxito o error.
+     * @return \CodeIgniter\HTTP\RedirectResponse Redirección a la lista de pedidos del cliente con un mensaje de éxito o error.
      */
     public function cancelar($id)
     {
@@ -197,9 +213,24 @@ class Pedidos extends BaseController
             return redirect()->to(site_url('cliente/pedidos'))->with('error', 'Orden no encontrada o no tienes permiso para cancelarla.');
         }
 
-        // Intentar cancelar la orden mediante el método del modelo
+        // Solo se pueden cancelar órdenes pendientes
+        if ($orden->estado !== 'pendiente') {
+            return redirect()->to(site_url('cliente/pedidos'))->with('error', 'Solo se pueden cancelar órdenes pendientes.');
+        }
+
+        // Intentar cancelar la orden
         if ($this->ordenModel->cancelarOrden($id)) {
-            return redirect()->to(site_url('cliente/pedidos'))->with('success', 'La orden ha sido cancelada exitosamente.');
+            // Restaurar el stock de cada producto involucrado
+            $detalles = $this->detalleOrdenModel->obtenerDetallesPorOrden($id);
+            foreach ($detalles as $detalle) {
+                // Se espera que $detalle tenga 'producto_id' y 'cantidad'
+                $producto = $this->productoModel->find($detalle->producto_id);
+                if ($producto) {
+                    $nuevoStock = $producto->stock + $detalle->cantidad;
+                    $this->productoModel->update($detalle->producto_id, ['stock' => $nuevoStock]);
+                }
+            }
+            return redirect()->to(site_url('cliente/pedidos'))->with('mensaje', 'La orden ha sido cancelada exitosamente.');
         } else {
             return redirect()->back()->with('error', 'No se pudo cancelar la orden. Por favor, inténtalo de nuevo.');
         }
