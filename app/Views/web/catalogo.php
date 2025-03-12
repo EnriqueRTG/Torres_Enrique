@@ -8,10 +8,9 @@
  <main class="container my-3 main-content">
 
      <!-- Mensajes de sesión: alertas de error o éxito -->
-     <div id="flashMessage" class="alert-info text-center" style="position: fixed; top: 20px; left: 50%; transform: translateX(-50%); z-index: 1050; display: none;">
-         <?= session()->has('errors') ? view('partials/_session-error') : view('partials/_session') ?>
-     </div>
-
+     <div id="flashMessage" class="alert-info text-center" role="alert">
+        <?= session()->has('errors') ? view('partials/_session-error') : view('partials/_session') ?>
+    </div>
 
      <!-- Buscador -->
      <section class="search-container mb-4">
@@ -121,32 +120,35 @@
  <?= view("layouts/footer-cliente") ?>
 
  <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            // Asigna el evento a cada botón "Agregar al Carrito"
-            document.querySelectorAll(".btn-agregar-carrito").forEach(btn => {
-                btn.addEventListener("click", function(event) {
-                    event.preventDefault(); // Evita la recarga de la página
+     document.addEventListener("DOMContentLoaded", function() {
+         <?php if (session()->getFlashdata('mensaje')): ?>
+             mostrarMensaje("<?= session()->getFlashdata('mensaje') ?>");
+         <?php endif; ?>
+         // Asigna el evento a cada botón "Agregar al Carrito"
+         document.querySelectorAll(".btn-agregar-carrito").forEach(btn => {
+             btn.addEventListener("click", function(event) {
+                 event.preventDefault(); // Evita la recarga de la página
 
-                    fetch(this.href, {
-                            method: "POST"
-                        })
-                        .then(response => response.json())
-                        .then(data => {
-                            if (data.success) {
-                                // Muestra el mensaje flotante
-                                mostrarMensaje(data.message);
-                                // Después de un breve retraso (por ejemplo, 1.5 segundos), recarga la página
-                                setTimeout(() => {
-                                    window.location.reload();
-                                }, 1500);
-                            } else {
-                                mostrarMensaje(data.message, "danger");
-                            }
-                        })
-                        .catch(error => console.error("Error:", error));
-                });
-            });
-        });
+                 fetch(this.href, {
+                         method: "POST"
+                     })
+                     .then(response => response.json())
+                     .then(data => {
+                         if (data.success) {
+                             // Muestra el mensaje flotante
+                             mostrarMensaje(data.message);
+                             // Después de un breve retraso (por ejemplo, 1 segundos), recarga la página
+                             setTimeout(() => {
+                                 window.location.reload();
+                             }, 1000);
+                         } else {
+                             mostrarMensaje(data.message, "danger");
+                         }
+                     })
+                     .catch(error => console.error("Error:", error));
+             });
+         });
+     });
 
      // Función para actualizar y mostrar el contenedor de mensajes (utilizando el contenedor ya definido en la vista)
      function mostrarMensaje(texto, tipo = "success") {

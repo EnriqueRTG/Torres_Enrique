@@ -187,8 +187,6 @@ class Catalogo extends BaseController
         return view('web/catalogo', $data);
     }
 
-
-
     /**
      * Muestra el detalle de un producto.
      *
