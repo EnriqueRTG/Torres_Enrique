@@ -1,10 +1,27 @@
+# Dependencias
 /vendor/
-database.php
+node_modules/
+
+# Entorno y secretos (se versiona .env.example, no .env)
 .env
-development/
-docker-compose.yml
-cache/
-logs/
-writable/
+
+# Contenido generado de writable/ (la estructura se conserva con los index.html y .htaccess)
+/writable/cache/*
+/writable/debugbar/*
+/writable/logs/*
+/writable/session/*
+/writable/uploads/*
+!/writable/**/index.html
+!/writable/**/.gitkeep
+!/writable/.htaccess
+!/writable/index.html
+
+# Editores
 .idea/
 .vscode/
+
+# Otros
+development/
+docker-compose.yml
+.DS_Store
+Thumbs.db

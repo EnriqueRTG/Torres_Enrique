@@ -1,0 +1,12 @@
+# Normaliza los saltos de línea para evitar diffs falsos entre Windows y Linux
+* text=auto eol=lf
+*.php text eol=lf
+*.js text eol=lf
+*.css text eol=lf
+*.sql text eol=lf
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.avif binary
+*.ttf binary
+*.pdf binary

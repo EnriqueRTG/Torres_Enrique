@@ -1,60 +1,161 @@
-# CodeIgniter 4 Framework
+# 🖋️ Tattoo Supply Store
 
-## What is CodeIgniter?
+E-commerce de insumos y suministros para la industria del tatuaje, desarrollado en **PHP con CodeIgniter 4** y **MySQL**, con arquitectura **MVC**.
 
-CodeIgniter is a PHP full-stack web framework that is light, fast, flexible and secure.
-More information can be found at the [official site](https://codeigniter.com).
+Proyecto individual para la materia **Taller de Programación I** de la Licenciatura en Sistemas de Información (FaCENA – UNNE). El documento de requerimientos (ERS) está incluido en el repositorio: [`ERS - Taller de Programacion 1.pdf`](ERS%20-%20Taller%20de%20Programacion%201.pdf).
 
-This repository holds the distributable version of the framework.
-It has been built from the
-[development repository](https://github.com/codeigniter4/CodeIgniter4).
+> Proyecto académico. Los datos de ejemplo (usuarios, órdenes, mensajes) son ficticios.
 
-More information about the plans for version 4 can be found in [CodeIgniter 4](https://forum.codeigniter.com/forumdisplay.php?fid=28) on the forums.
+## Funcionalidades
 
-You can read the [user guide](https://codeigniter.com/user_guide/)
-corresponding to the latest version of the framework.
+### Sitio público y clientes
+- Catálogo de productos con **filtros** (categoría, marca), **búsqueda con sugerencias** y **paginación**.
+- Ficha de producto con múltiples imágenes.
+- **Registro e inicio de sesión** con contraseñas hasheadas (`password_hash`).
+- **Carrito de compras** con control de stock: la cantidad se ajusta al stock disponible y avisa cuando quedan pocas unidades.
+- **Checkout** con selección o alta de dirección de envío y confirmación del pedido.
+- Perfil del cliente, gestión de direcciones e historial de pedidos (con filtros, búsqueda, cancelación y comprobante en **PDF**).
+- Formulario de contacto y **mensajería interna** con el administrador.
+- Páginas institucionales: nosotros, formas de pago, garantía, términos y ubicación.
 
-## Important Change with index.php
+### Panel de administración
+- Dashboard.
+- **CRUD** de productos (con carga de varias imágenes), categorías y marcas.
+- Gestión de **órdenes**: listado con filtros y búsqueda, detalle, cancelar, completar e imprimir comprobante.
+- Gestión de **clientes**: listado, detalle, órdenes y conversaciones de cada uno.
+- **Conversaciones**: contactos y consultas, con respuestas enviadas por correo electrónico y contador de pendientes.
 
-`index.php` is no longer in the root of the project! It has been moved inside the *public* folder,
-for better security and separation of components.
+### Aspectos técnicos destacados
+- Creación de la orden dentro de una **transacción de base de datos** (`transBegin` / `transCommit`): si falla la actualización de stock o algún detalle, se revierte todo.
+- **Filtros de acceso** por rol (`AuthAdminFilter`, `AuthClienteFilter`) y filtro de carrito.
+- Base de datos relacional con **11 tablas**, claves foráneas, **migraciones** y **seeders** (datos de prueba con Faker).
+- Entidades y modelos de CodeIgniter con Query Builder.
+- Generación de PDF con **dompdf**, migas de pan con `ci4-breadcrumbs` y envío de correo por SMTP.
 
-This means that you should configure your web server to "point" to your project's *public* folder, and
-not to the project root. A better practice would be to configure a virtual host to point there. A poor practice would be to point your web server to the project root and expect to enter *public/...*, as the rest of your logic and the
-framework are exposed.
+## Tecnologías
 
-**Please** read the user guide for a better explanation of how CI4 works!
+| Área | Tecnología |
+|------|-----------|
+| Backend | PHP 8.1+, CodeIgniter 4.5 |
+| Base de datos | MySQL / MariaDB |
+| Frontend | HTML, CSS, JavaScript, jQuery, Bootstrap |
+| Librerías | dompdf, ci4-breadcrumbs, módulo de carrito para CI4 |
+| Herramientas | Composer, Git, XAMPP (desarrollo) |
 
-## Repository Management
+## Estructura del proyecto
 
-We use GitHub issues, in our main repository, to track **BUGS** and to track approved **DEVELOPMENT** work packages.
-We use our [forum](http://forum.codeigniter.com) to provide SUPPORT and to discuss
-FEATURE REQUESTS.
+```
+app/
+├── Config/          # Rutas, filtros, base de datos, correo, datos de la empresa
+├── Controllers/
+│   ├── Admin/       # Panel de administración
+│   ├── Auth/        # Login y registro
+│   ├── Cliente/     # Perfil, direcciones, pedidos y mensajes del cliente
+│   └── Web/         # Sitio público, carrito y checkout
+├── Database/
+│   ├── Migrations/  # Estructura de tablas
+│   └── Seeds/       # Datos de prueba
+├── Entities/        # Entidades
+├── Filters/         # Filtros de autenticación y carrito
+├── Models/          # Modelos
+└── Views/           # Vistas (admin, web, auth, layouts, partials)
+assets/              # CSS, JS, imágenes e íconos
+uploads/productos/   # Imágenes de productos
+torres_enrique_bd.sql  # Volcado de la base de datos con datos de ejemplo
+```
 
-This repository is a "distribution" one, built by our release preparation script.
-Problems with it can be raised on our forum, or as issues in the main repository.
+## Instalación
 
-## Contributing
+### Requisitos
+- PHP 8.1 o superior con las extensiones `intl`, `mbstring`, `mysqli` y `gd`
+- MySQL o MariaDB
+- Composer
+- Apache (por ejemplo XAMPP) con `mod_rewrite` habilitado
 
-We welcome contributions from the community.
+### Pasos
 
-Please read the [*Contributing to CodeIgniter*](https://github.com/codeigniter4/CodeIgniter4/blob/develop/CONTRIBUTING.md) section in the development repository.
+1. **Clonar el repositorio** dentro de la carpeta pública de tu servidor (en XAMPP: `htdocs`):
 
-## Server Requirements
+   ```bash
+   git clone https://github.com/EnriqueRTG/tattoo-supply-store.git Torres_Enrique
+   cd Torres_Enrique
+   ```
 
-PHP version 8.1 or higher is required, with the following extensions installed:
+2. **Instalar dependencias:**
 
-- [intl](http://php.net/manual/en/intl.requirements.php)
-- [mbstring](http://php.net/manual/en/mbstring.installation.php)
+   ```bash
+   composer install
+   ```
 
-> [!WARNING]
-> The end of life date for PHP 7.4 was November 28, 2022.
-> The end of life date for PHP 8.0 was November 26, 2023.
-> If you are still using PHP 7.4 or 8.0, you should upgrade immediately.
-> The end of life date for PHP 8.1 will be November 25, 2024.
+3. **Crear el archivo de entorno** a partir del ejemplo:
 
-Additionally, make sure that the following extensions are enabled in your PHP:
+   ```bash
+   cp .env.example .env
+   ```
 
-- json (enabled by default - don't turn it off)
-- [mysqlnd](http://php.net/manual/en/mysqlnd.install.php) if you plan to use MySQL
-- [libcurl](http://php.net/manual/en/curl.requirements.php) if you plan to use the HTTP\CURLRequest library
+   Editá `.env` y ajustá `app.baseURL` a la URL donde corre el proyecto (por defecto `http://localhost/Torres_Enrique/`). Si querés probar el envío de correos, completá `SMTP_PASS` con una contraseña de aplicación de tu cuenta de Gmail.
+
+4. **Crear la base de datos.** Hay dos opciones:
+
+   **a) Importar el volcado (rápido, incluye datos de ejemplo):**
+
+   ```sql
+   CREATE DATABASE torres_enrique_bd CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+   ```
+   Luego importá `torres_enrique_bd.sql` desde phpMyAdmin o con:
+   ```bash
+   mysql -u root torres_enrique_bd < torres_enrique_bd.sql
+   ```
+
+   **b) Con migraciones y seeders:**
+
+   ```bash
+   php spark migrate
+   php spark db:seed DataBaseSeeder
+   ```
+
+5. **Revisar la conexión** en `app/Config/Database.php` (por defecto: host `localhost`, usuario `root`, sin contraseña, base `torres_enrique_bd`).
+
+6. **Dar permisos de escritura** a las carpetas `writable/` y `uploads/` si estás en Linux/macOS.
+
+7. **Abrir** `http://localhost/Torres_Enrique/` en el navegador.
+
+## Usuarios de prueba
+
+| Rol | Email | Contraseña |
+|-----|-------|-----------|
+| Administrador | `admin@example.com.org` | `admin123` |
+| Cliente | cualquier cliente del listado (ver tabla `usuarios`) | `password123` |
+
+Acceso al panel: `/admin/dashboard` (solo rol administrador).
+
+> Estas credenciales son únicamente para pruebas locales.
+
+## Capturas de pantalla
+
+<!-- Agregá tus capturas en docs/screenshots/ y enlazalas acá. Ejemplo: -->
+<!-- ![Catálogo](docs/screenshots/catalogo.png) -->
+<!-- ![Carrito](docs/screenshots/carrito.png) -->
+<!-- ![Panel de administración](docs/screenshots/dashboard.png) -->
+
+## Documentación
+
+- [ERS – Especificación de Requerimientos de Software](ERS%20-%20Taller%20de%20Programacion%201.pdf)
+- Diagrama y estructura de la base de datos: ver `app/Database/Migrations/` y `torres_enrique_bd.sql`.
+
+## Posibles mejoras
+
+- Pasarela de pagos real (hoy el pago se coordina fuera del sistema).
+- Pruebas automatizadas del flujo de compra.
+- Cambiar las acciones de cancelar/completar a métodos POST y activar la protección CSRF de forma global.
+- Baja lógica en lugar de borrado en cascada para órdenes y productos.
+
+## Autor
+
+**Enrique Ramón Torres Gamarra**
+Estudiante de Licenciatura en Sistemas de Información – UNNE
+GitHub: [@EnriqueRTG](https://github.com/EnriqueRTG)
+
+## Licencia
+
+El framework CodeIgniter 4 se distribuye bajo licencia MIT (ver [`LICENSE`](LICENSE)). El código propio de este proyecto es de uso académico.
