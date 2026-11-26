@@ -77,7 +77,7 @@ torres_enrique_bd.sql  # Volcado de la base de datos con datos de ejemplo
 1. **Clonar el repositorio** dentro de la carpeta pública de tu servidor (en XAMPP: `htdocs`):
 
    ```bash
-   git clone https://github.com/EnriqueRTG/tattoo-supply-store.git Torres_Enrique
+   git clone https://github.com/EnriqueRTG/Torres_Enrique.git
    cd Torres_Enrique
    ```
 
